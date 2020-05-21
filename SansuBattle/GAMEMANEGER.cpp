@@ -27,6 +27,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	//オブジェクトの破棄
 	delete this->fps;		//fps破棄
 	delete this->keydown;	//keydown破棄
+	delete this->back;		//back破棄
 
 	return;
 
@@ -39,6 +40,10 @@ GAMEMANEGER::~GAMEMANEGER()
 */
 bool GAMEMANEGER::Load()
 {
+
+	this->back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
+	if (this->back->GetIsLoad() == false) { return false; }		//読み込み失敗
+
 	return true;	//読み込み成功
 }
 
@@ -173,6 +178,8 @@ void GAMEMANEGER::Scene_Title()
 //タイトル画面の描画処理
 void GAMEMANEGER::Draw_Scene_Title()
 {
+
+	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, TITLE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
 

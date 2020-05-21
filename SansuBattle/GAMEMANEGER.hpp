@@ -7,8 +7,13 @@
 #include "DxLib.h"
 #include "FPS.hpp"
 #include "KEYDOWN.hpp"
+#include "IMAGE.hpp"
 
 //############### マクロ定義 ################
+#define GAME_LEFT	  0		//画面の横の始点
+#define GAME_TOP	  0		//画面の縦の始点
+#define GAME_WIDTH	880		//画面の横の大きさ
+#define GAME_HEIGHT	640		//画面の縦の大きさ
 #define GAME_FPS_SPEED					   60
 
 //テキスト関係
@@ -39,6 +44,7 @@ private:
 
 	FPS *fps;					//fps
 	KEYDOWN *keydown;			//キーボード関係
+	IMAGE* back;				//背景画像
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
@@ -66,7 +72,5 @@ public:
 
 	void Scene_End();			//エンド画面の処理
 	void Draw_Scene_End();		//エンド画面の描画処理
-
-
 
 };
