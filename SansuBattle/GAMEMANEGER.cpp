@@ -177,11 +177,11 @@ void GAMEMANEGER::Draw_Scene_Load()
 
 	if (IsLoad)	//読み込みが完了したら
 	{
-		DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, GetColor(255, 255, 255));	//プッシュ、のテキストを描画
+		DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE);	//プッシュ、のテキストを描画
 	}
 	else		//完了していなければ
 	{
-		DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, GetColor(255, 255, 255));	//読み込み中のテキストを描画
+		DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE);	//読み込み中のテキストを描画
 	}
 
 	return;
@@ -205,7 +205,7 @@ void GAMEMANEGER::Draw_Scene_Title()
 
 	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, TITLE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, TITLE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -226,7 +226,7 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -247,7 +247,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 void GAMEMANEGER::Draw_Scene_ChoiseStage()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -268,7 +268,7 @@ void GAMEMANEGER::Scene_Play()
 void GAMEMANEGER::Draw_Scene_Play()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -289,7 +289,7 @@ void GAMEMANEGER::Scene_DrawScore()
 void GAMEMANEGER::Draw_SceneDrawScore()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -311,7 +311,7 @@ void GAMEMANEGER::Scene_End()
 void GAMEMANEGER::Draw_Scene_End()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
