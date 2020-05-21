@@ -100,6 +100,22 @@ void GAMEMANEGER::ProcesScene()
 
 		break;				//タイトル画面のときここまで
 
+	case (int)SCENE_CHOISELEVEL:	//難易度選択画面のとき
+
+		this->Draw_Scene_ChoiseLevel();	//描画
+
+		this->Scene_ChoiseLevel();		//処理
+
+		break;				//難易度選択画面のときここまで
+
+	case (int)SCENE_CHOISESTAGE:	//ステージ選択画面のとき
+
+		this->Draw_Scene_ChoiseStage();	//描画
+
+		this->Scene_ChoiseStage();		//処理
+
+		break;				//ステージ選択画面のときここまで
+
 	case (int)SCENE_PLAY:	//プレイ画面のとき
 
 		this->Draw_Scene_Play();	//描画
@@ -107,6 +123,14 @@ void GAMEMANEGER::ProcesScene()
 		this->Scene_Play();		//処理
 
 		break;				//プレイ画面のときここまで
+
+	case (int)SCENE_DRAWSCORE:	//スコア表示画面のとき
+
+		this->Draw_SceneDrawScore();	//描画
+
+		this->Scene_DrawScore();		//処理
+
+		break;				//スコア表示画面のときここまで
 
 	case (int)SCENE_END:	//エンド画面のとき
 
@@ -169,7 +193,7 @@ void GAMEMANEGER::Scene_Title()
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
-		this->NowScene = (int)SCENE_PLAY;	//プレイ画面へ
+		this->NowScene = (int)SCENE_CHOISELEVEL;	//難易度選択画面へ
 	}
 
 	return;
@@ -186,13 +210,55 @@ void GAMEMANEGER::Draw_Scene_Title()
 	return;
 }
 
+//難易度選択画面の処理
+void GAMEMANEGER::Scene_ChoiseLevel()
+{
+
+	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	{
+		this->NowScene = (int)SCENE_CHOISESTAGE;	//ステージ選択画面へ
+	}
+
+	return;
+}
+
+//難易度選択画面の描画処理
+void GAMEMANEGER::Draw_Scene_ChoiseLevel()
+{
+
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+
+	return;
+}
+
+//ステージ選択画面の処理
+void GAMEMANEGER::Scene_ChoiseStage()
+{
+
+	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	{
+		this->NowScene = (int)SCENE_PLAY;	//プレイ画面へ
+	}
+
+	return;
+}
+
+//ステージ選択画面の描画処理
+void GAMEMANEGER::Draw_Scene_ChoiseStage()
+{
+
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+
+	return;
+}
+
 //プレイ画面の処理
 void GAMEMANEGER::Scene_Play()
 {
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
-		this->NowScene = (int)SCENE_END;	//エンド画面へ
+		this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
 
 	return;
@@ -206,6 +272,28 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	return;
 }
+
+//スコア表示画面の処理
+void GAMEMANEGER::Scene_DrawScore()
+{
+
+	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	{
+		this->NowScene = (int)SCENE_END;	//エンド画面へ
+	}
+
+	return;
+}
+
+//スコア表示画面の描画処理
+void GAMEMANEGER::Draw_SceneDrawScore()
+{
+
+	DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, GetColor(255, 255, 255));	//テスト用のテキストを描画
+
+	return;
+}
+
 
 //エンド画面の処理
 void GAMEMANEGER::Scene_End()
