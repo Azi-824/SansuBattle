@@ -25,9 +25,10 @@ GAMEMANEGER::GAMEMANEGER()
 GAMEMANEGER::~GAMEMANEGER()
 {
 	//オブジェクトの破棄
-	delete this->fps;		//fps破棄
-	delete this->keydown;	//keydown破棄
-	delete this->back;		//back破棄
+	delete this->fps;			//fps破棄
+	delete this->keydown;		//keydown破棄
+	delete this->back;			//back破棄
+	delete this->level_select;	//level_select破棄
 
 	return;
 
@@ -40,9 +41,19 @@ GAMEMANEGER::~GAMEMANEGER()
 */
 bool GAMEMANEGER::Load()
 {
-
+	//画像関係
 	this->back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
 	if (this->back->GetIsLoad() == false) { return false; }		//読み込み失敗
+
+	//選択肢関係
+	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1);		//難易度の選択肢を管理するオブジェクトを生成
+	if (this->level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
+	//選択肢の追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6) == false) { return false; }		//ダミー画像追加
 
 	return true;	//読み込み成功
 }

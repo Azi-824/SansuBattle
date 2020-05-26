@@ -45,3 +45,14 @@ bool SELECT::Add(const char* dir, const char* name)
 	this->SelectCode.push_back(this->SelectCode.size());				//選択肢コードを設定
 	return this->IsCreateSelect;
 }
+
+//描画
+/*
+引数：int：描画開始X位置
+引数：int：描画開始Y位置
+引数：int：描画可能横幅
+*/
+void SELECT::Draw(int x, int y, int width)
+{
+
+}

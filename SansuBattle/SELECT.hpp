@@ -9,6 +9,14 @@
 #include <vector>
 
 //##################### マクロ定義 ######################
+#define SELECT_IMG_DIR			R"(.\MY_IMG\Select)"		//選択肢の画像ディレクトリ
+
+#define IMG_NAME_SELECT_DAMMY1	R"(\dammy01.png)"			//選択肢のダミー画像1
+#define IMG_NAME_SELECT_DAMMY2	R"(\dammy02.png)"			//選択肢のダミー画像2
+#define IMG_NAME_SELECT_DAMMY3	R"(\dammy03.png)"			//選択肢のダミー画像3
+#define IMG_NAME_SELECT_DAMMY4	R"(\dammy04.png)"			//選択肢のダミー画像4
+#define IMG_NAME_SELECT_DAMMY5	R"(\dammy05.png)"			//選択肢のダミー画像5
+#define IMG_NAME_SELECT_DAMMY6	R"(\dammy06.png)"			//選択肢のダミー画像6
 
 //##################### クラス定義 ######################
 class SELECT
@@ -33,5 +41,7 @@ public:
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
 
 	bool Add(const char*, const char*);			//選択肢を追加
+
+	void Draw(int,int,int);						//選択肢を描画
 
 };
