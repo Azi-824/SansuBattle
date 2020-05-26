@@ -44,6 +44,7 @@ bool GAMEMANEGER::Load()
 	//画像関係
 	this->back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
 	if (this->back->GetIsLoad() == false) { return false; }		//読み込み失敗
+	if (this->back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
 	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1);		//難易度の選択肢を管理するオブジェクトを生成
@@ -97,57 +98,57 @@ void GAMEMANEGER::ProcesScene()
 
 	case (int)SCENE_LOAD:	//ロード画面のとき
 
-		this->Draw_Scene_Load();	//ロード画面の描画処理
-
 		this->Scene_Load();			//ロード画面の処理
+
+		this->Draw_Scene_Load();	//ロード画面の描画処理
 
 		break;				//ロード画面のときここまで
 
 	case (int)SCENE_TITLE:	//タイトル画面のとき
 
-		this->Draw_Scene_Title();	//描画
-
 		this->Scene_Title();		//処理
+
+		this->Draw_Scene_Title();	//描画
 
 		break;				//タイトル画面のときここまで
 
 	case (int)SCENE_CHOISELEVEL:	//難易度選択画面のとき
 
-		this->Draw_Scene_ChoiseLevel();	//描画
-
 		this->Scene_ChoiseLevel();		//処理
+
+		this->Draw_Scene_ChoiseLevel();	//描画
 
 		break;				//難易度選択画面のときここまで
 
 	case (int)SCENE_CHOISESTAGE:	//ステージ選択画面のとき
 
-		this->Draw_Scene_ChoiseStage();	//描画
-
 		this->Scene_ChoiseStage();		//処理
+
+		this->Draw_Scene_ChoiseStage();	//描画
 
 		break;				//ステージ選択画面のときここまで
 
 	case (int)SCENE_PLAY:	//プレイ画面のとき
 
-		this->Draw_Scene_Play();	//描画
+		this->Scene_Play();			//処理
 
-		this->Scene_Play();		//処理
+		this->Draw_Scene_Play();	//描画
 
 		break;				//プレイ画面のときここまで
 
 	case (int)SCENE_DRAWSCORE:	//スコア表示画面のとき
 
-		this->Draw_SceneDrawScore();	//描画
-
 		this->Scene_DrawScore();		//処理
+
+		this->Draw_SceneDrawScore();	//描画
 
 		break;				//スコア表示画面のときここまで
 
 	case (int)SCENE_END:	//エンド画面のとき
 
-		this->Draw_Scene_End();	//描画
-
 		this->Scene_End();		//処理
+
+		this->Draw_Scene_End();	//描画
 
 		break;				//エンド画面のときここまで
 
@@ -201,6 +202,8 @@ void GAMEMANEGER::Draw_Scene_Load()
 //タイトル画面の処理
 void GAMEMANEGER::Scene_Title()
 {
+
+	this->back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
@@ -310,6 +313,8 @@ void GAMEMANEGER::Draw_SceneDrawScore()
 void GAMEMANEGER::Scene_End()
 {
 
+	this->back->ChengeImage((int)DAMMY_BACK);	//背景画像を変更
+
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
 		this->NowScene = (int)SCENE_TITLE;	//タイトル画面へ
@@ -321,6 +326,8 @@ void GAMEMANEGER::Scene_End()
 //エンド画面の描画処理
 void GAMEMANEGER::Draw_Scene_End()
 {
+
+	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
