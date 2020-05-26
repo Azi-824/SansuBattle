@@ -18,6 +18,11 @@
 #define IMG_NAME_SELECT_DAMMY5	R"(\dammy05.png)"			//選択肢のダミー画像5
 #define IMG_NAME_SELECT_DAMMY6	R"(\dammy06.png)"			//選択肢のダミー画像6
 
+#define SELECT_LEVEL_DRAW_X		20	//難易度の選択肢の描画開始X位置
+#define SELECT_LEVEL_DRAW_Y		20	//難易度の選択肢の描画開始Y位置
+
+#define SELECT_INTERVAL		20		//選択肢の間隔
+
 //##################### クラス定義 ######################
 class SELECT
 {
@@ -39,6 +44,8 @@ public:
 	~SELECT();									//デストラクタ
 
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
+
+	void SetInit();								//初期設定
 
 	bool Add(const char*, const char*);			//選択肢を追加
 

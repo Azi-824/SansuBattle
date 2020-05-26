@@ -62,7 +62,8 @@ public:
 
 	std::string GetFileName(void);	//名前を取得
 
-	void SetSize(void);				//サイズをセット
+	void SetInit(void);				//サイズをセット
+	int GetSize();					//画像数を取得
 
 	int GetWidth();		//幅を取得
 	int GetHeight();	//高さを取得
@@ -75,6 +76,9 @@ public:
 
 	bool AddImage(const char *, const char *);	//画像を追加
 	void ChengeImage(int);						//描画する画像を変更
+	void NextImage();							//描画する画像を一つ次の画像へ
+	void PrevImage();							//描画する画像を一つ前の画像へ
+	void ChengeImageFront();					//描画する画像を先頭の画像へ
 
 	void SetIsFade(bool);		//フェードアウトするか設定
 	bool GetFadeEnd();			//フェードエフェクトが終了しているか取得

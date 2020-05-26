@@ -95,7 +95,7 @@ std::string IMAGE::GetFileName(void)
 }
 
 //サイズを設定する
-void IMAGE::SetSize(void)
+void IMAGE::SetInit(void)
 {
 	this->Width.resize(this->Handle.size());	//サイズ変更
 	this->Height.resize(this->Handle.size());	//サイズ変更
@@ -105,6 +105,12 @@ void IMAGE::SetSize(void)
 		GetGraphSize(this->Handle[i], &this->Width[i], &this->Height[i]);	//画像サイズ取得
 	}
 	return;
+}
+
+//画像数を取得する
+int IMAGE::GetSize(void)
+{
+	return this->Handle.size();
 }
 
 //幅を取得
@@ -254,6 +260,33 @@ bool IMAGE::AddImage(const char *dir, const char *name)
 void IMAGE::ChengeImage(int kind)
 {
 	this->Draw_Num = kind;
+	return;
+}
+
+//描画する画像を一つ次の画像へ
+void IMAGE::NextImage()
+{
+	if (this->Draw_Num < this->Handle.size() - 1)	//描画する画像が最後の画像じゃなければ
+	{
+		++this->Draw_Num;	//次の画像へ
+	}
+	return;
+}
+
+//描画する画像を一つ前の画像へ
+void IMAGE::PrevImage()
+{
+	if (this->Draw_Num > 0)	//描画する画像が最初の画像じゃなければ
+	{
+		--this->Draw_Num;	//前の画像へ
+	}
+	return;
+}
+
+//描画する画像を先頭の画像へ
+void IMAGE::ChengeImageFront()
+{
+	this->Draw_Num = 0;	//先頭の画像へ
 	return;
 }
 

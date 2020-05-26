@@ -177,6 +177,9 @@ void GAMEMANEGER::Scene_Load()
 
 		SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
 
+		this->back->SetInit();			//画像初期設定
+		this->level_select->SetInit();	//選択肢初期設定
+
 		this->IsLoad = true;		//読み込み完了
 	}
 
@@ -239,6 +242,8 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 //難易度選択画面の描画処理
 void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 {
+
+	this->level_select->Draw(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
