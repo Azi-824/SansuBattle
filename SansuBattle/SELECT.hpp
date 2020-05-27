@@ -23,6 +23,17 @@
 
 #define SELECT_INTERVAL		20		//選択肢の間隔
 
+//##################### 列挙型 #######################
+enum CODE_SELECT_LEVEL
+{
+	CODE_LEVEL_SUM,					//難易度、和（足し算）
+	CODE_LEVEL_DIFFERENCE,			//難易度、差（引き算）
+	CODE_LEVEL_PRODUCT,				//難易度、積（掛け算）
+	CODE_LEVEL_DEALER,				//難易度、商（割り算）
+	CODE_LEVEL_SUM_DEFFERENCE,		//難易度、和差（足し算、引き算）
+	CODE_LEVEL_PRODUCT_DEALER,		//難易度、積商（掛け算、割り算）
+};
+
 //##################### クラス定義 ######################
 class SELECT
 {
@@ -40,14 +51,14 @@ private:
 
 public:
 
-	SELECT(const char *,const char *);			//コンストラクタ
+	SELECT(const char *,const char *,int);		//コンストラクタ
 	~SELECT();									//デストラクタ
 
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
 
 	void SetInit();								//初期設定
 
-	bool Add(const char*, const char*);			//選択肢を追加
+	bool Add(const char*, const char*,int);		//選択肢を追加
 
 	void Draw(int,int,int);						//選択肢を描画
 

@@ -47,14 +47,14 @@ bool GAMEMANEGER::Load()
 	if (this->back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
-	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1);		//難易度の選択肢を管理するオブジェクトを生成
+	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1, CODE_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (this->level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2, CODE_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3, CODE_LEVEL_PRODUCT) == false) { return false; }			//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4, CODE_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5, CODE_LEVEL_SUM_DEFFERENCE) == false) { return false; }	//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6, CODE_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	return true;	//読み込み成功
 }

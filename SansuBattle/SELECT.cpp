@@ -7,7 +7,7 @@
 //################# クラス定義 ########################
 
 //コンストラクタ
-SELECT::SELECT(const char* dir, const char* name)
+SELECT::SELECT(const char* dir, const char* name,int code)
 {
 
 	//メンバー変数初期化
@@ -16,7 +16,7 @@ SELECT::SELECT(const char* dir, const char* name)
 
 	this->SelectImage = new IMAGE(dir, name);					//選択肢の画像を生成
 	this->IsCreateSelect = this->SelectImage->GetIsLoad();		//画像を読み込めたか設定
-	this->SelectCode.push_back(this->SelectCode.size());		//選択肢のコード番号を設定
+	this->SelectCode.push_back(code);							//選択肢のコード番号を設定
 
 	return;
 }
@@ -46,10 +46,10 @@ void SELECT::SetInit()
 }
 
 //選択肢を追加
-bool SELECT::Add(const char* dir, const char* name)
+bool SELECT::Add(const char* dir, const char* name,int code)
 {
 	this->IsCreateSelect = this->SelectImage->AddImage(dir, name);		//画像を追加
-	this->SelectCode.push_back(this->SelectCode.size());				//選択肢コードを設定
+	this->SelectCode.push_back(code);									//選択肢コードを設定
 	return this->IsCreateSelect;
 }
 
