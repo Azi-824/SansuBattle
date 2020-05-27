@@ -71,13 +71,15 @@ void SELECT::Draw(int x, int y, int width)
 {
 
 	int NowDrawX = x, NowDrawY = y;		//現在の描画位置
+	int over_cnt = 0;					//描画幅を超えた回数をカウント
 
 	for (int i = this->SelectCode.front(); i <= this->SelectCode.back(); ++i)		//選択肢の画像の数分ループ
 	{
 		if (NowDrawX + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
 		{
+			++over_cnt;		//カウントアップ
 			NowDrawX = x;	//Xの描画位置を最初の位置へ
-			NowDrawY = y + this->SelectImage->GetHeight() + SELECT_INTERVAL;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			NowDrawY = y + (this->SelectImage->GetHeight() + SELECT_INTERVAL) * over_cnt;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
 		}
 
 		if (i == *this->NowSelectCode)		//現在選択しているものだったら

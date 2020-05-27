@@ -19,8 +19,14 @@
 #define IMG_NAME_SELECT_DAMMY5	R"(\dammy05.png)"			//選択肢のダミー画像5
 #define IMG_NAME_SELECT_DAMMY6	R"(\dammy06.png)"			//選択肢のダミー画像6
 
+#define IMG_NAME_STAGE_DAMMY01	R"(\stage_dammy01.png)"		//ステージ選択肢のダミー画像1
+#define IMG_NAME_STAGE_DAMMY02	R"(\stage_dammy02.png)"		//ステージ選択肢のダミー画像2
+#define IMG_NAME_STAGE_DAMMY03	R"(\stage_dammy03.png)"		//ステージ選択肢のダミー画像3
+
 #define SELECT_LEVEL_DRAW_X		20	//難易度の選択肢の描画開始X位置
 #define SELECT_LEVEL_DRAW_Y		20	//難易度の選択肢の描画開始Y位置
+#define SELECT_STAGE_DRAW_X		50	//ステージの選択肢の描画開始X位置
+#define SELECT_STAGE_DRAW_Y		20	//ステージの選択肢の描画開始Y位置
 
 #define SELECT_INTERVAL		20		//選択肢の間隔
 
@@ -35,6 +41,13 @@ enum CODE_SELECT_LEVEL
 	CODE_LEVEL_DEALER,				//難易度、商（割り算）
 	CODE_LEVEL_SUM_DEFFERENCE,		//難易度、和差（足し算、引き算）
 	CODE_LEVEL_PRODUCT_DEALER,		//難易度、積商（掛け算、割り算）
+};
+
+enum CODE_SELECT_STAGE
+{
+	CODE_STAGE_EASY,		//簡単
+	CODE_STAGE_NORMAL,		//普通
+	CODE_STAGE_HARD			//難しい
 };
 
 //##################### クラス定義 ######################

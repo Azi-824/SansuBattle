@@ -60,6 +60,7 @@ private:
 	KEYDOWN *keydown;			//キーボード関係
 	IMAGE* back;				//背景画像
 	SELECT* level_select;		//難易度選択肢
+	SELECT* stage_select;		//ステージ選択肢
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

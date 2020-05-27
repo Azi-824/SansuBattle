@@ -29,6 +29,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->keydown;		//keydown破棄
 	delete this->back;			//back破棄
 	delete this->level_select;	//level_select破棄
+	delete this->stage_select;	//stage_select破棄
 
 	return;
 
@@ -47,6 +48,7 @@ bool GAMEMANEGER::Load()
 	if (this->back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
+	//難易度の選択肢
 	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1, CODE_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (this->level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
@@ -55,6 +57,14 @@ bool GAMEMANEGER::Load()
 	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4, CODE_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
 	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5, CODE_LEVEL_SUM_DEFFERENCE) == false) { return false; }	//ダミー画像追加
 	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6, CODE_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+
+	//ステージの選択肢
+	this->stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, CODE_STAGE_EASY);		//ステージの選択肢を管理するオブジェクトを生成
+	if (this->stage_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
+	//選択肢の追加
+	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY02, CODE_STAGE_NORMAL) == false) { return false; }	//ダミー画像追加
+	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY03, CODE_STAGE_HARD) == false) { return false; }	//ダミー画像追加
+
 
 	return true;	//読み込み成功
 }
@@ -178,7 +188,8 @@ void GAMEMANEGER::Scene_Load()
 		SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
 
 		this->back->SetInit();			//画像初期設定
-		this->level_select->SetInit();	//選択肢初期設定
+		this->level_select->SetInit();	//難易度の選択肢初期設定
+		this->stage_select->SetInit();	//ステージの選択肢初期設定
 
 		this->IsLoad = true;		//読み込み完了
 	}
@@ -256,9 +267,11 @@ void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 void GAMEMANEGER::Scene_ChoiseStage()
 {
 
-	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	this->stage_select->Operation(keydown);		//選択肢キー操作
+
+	if (this->stage_select->GetIsChoise())		//選択したら
 	{
-		this->NowScene = (int)SCENE_PLAY;	//プレイ画面へ
+		this->NowScene = (int)SCENE_PLAY;		//プレイ画面へ
 	}
 
 	return;
@@ -267,6 +280,8 @@ void GAMEMANEGER::Scene_ChoiseStage()
 //ステージ選択画面の描画処理
 void GAMEMANEGER::Draw_Scene_ChoiseStage()
 {
+
+	this->stage_select->Draw(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);		//ステージ選択肢描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
