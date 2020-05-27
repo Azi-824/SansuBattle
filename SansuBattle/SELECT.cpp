@@ -17,6 +17,7 @@ SELECT::SELECT(const char* dir, const char* name,int code)
 	this->SelectImage = new IMAGE(dir, name);					//選択肢の画像を生成
 	this->IsCreateSelect = this->SelectImage->GetIsLoad();		//画像を読み込めたか設定
 	this->SelectCode.push_back(code);							//選択肢のコード番号を設定
+	this->NowSelectCode = this->SelectCode.begin();				//現在選択しているコード番号を最初の選択肢に設定
 
 	return;
 }
@@ -50,6 +51,7 @@ bool SELECT::Add(const char* dir, const char* name,int code)
 {
 	this->IsCreateSelect = this->SelectImage->AddImage(dir, name);		//画像を追加
 	this->SelectCode.push_back(code);									//選択肢コードを設定
+	this->NowSelectCode = this->SelectCode.begin();						//現在選択しているコード番号を最初の選択肢に設定
 	return this->IsCreateSelect;
 }
 
@@ -64,7 +66,7 @@ void SELECT::Draw(int x, int y, int width)
 
 	int NowDrawX = x, NowDrawY = y;		//現在の描画位置
 
-	for (int i = 0; i < this->SelectImage->GetSize(); ++i)		//選択肢の画像の数分ループ
+	for (int i = this->SelectCode.front(); i <= this->SelectCode.back(); ++i)		//選択肢の画像の数分ループ
 	{
 		if (NowDrawX + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
 		{
@@ -72,7 +74,15 @@ void SELECT::Draw(int x, int y, int width)
 			NowDrawY = y + this->SelectImage->GetHeight() + SELECT_INTERVAL;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
 		}
 
-		this->SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+		if (i == *this->NowSelectCode)		//現在選択しているものだったら
+		{
+			DrawBox(NowDrawX - 10, NowDrawY - 10, NowDrawX + 10, NowDrawY + 10, GetColor(255, 255, 255), TRUE);
+			this->SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+		}
+		else		//それ以外は
+		{
+			this->SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+		}
 
 		NowDrawX += this->SelectImage->GetWidth() + SELECT_INTERVAL;	//描画位置をずらす
 		this->SelectImage->NextImage();					//次の画像へ
