@@ -24,6 +24,8 @@
 
 #define SELECT_INTERVAL		20		//選択肢の間隔
 
+#define CHOISE_NONE	-1				//選択していない状態
+
 //##################### 列挙型 #######################
 enum CODE_SELECT_LEVEL
 {
@@ -57,6 +59,7 @@ public:
 	~SELECT();									//デストラクタ
 
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
+	bool GetIsChoise();							//選択したか取得
 
 	void SetInit();								//初期設定
 

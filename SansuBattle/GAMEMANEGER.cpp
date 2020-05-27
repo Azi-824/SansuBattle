@@ -231,11 +231,11 @@ void GAMEMANEGER::Draw_Scene_Title()
 void GAMEMANEGER::Scene_ChoiseLevel()
 {
 
-	this->level_select->Operation(keydown);					//選択肢キー操作
+	this->level_select->Operation(keydown);			//選択肢キー操作
 
-	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	if (this->level_select->GetIsChoise())			//選択したら
 	{
-		this->NowScene = (int)SCENE_CHOISESTAGE;			//ステージ選択画面へ
+		this->NowScene = (int)SCENE_CHOISESTAGE;	//ステージ選択画面へ
 	}
 
 	return;

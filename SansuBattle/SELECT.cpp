@@ -11,8 +11,8 @@ SELECT::SELECT(const char* dir, const char* name,int code)
 {
 
 	//メンバー変数初期化
-	this->Choise_SelectCode = -1;		//選んだ選択肢のコードを初期化
-	this->IsChoise = false;				//選択したか初期化
+	this->Choise_SelectCode = CHOISE_NONE;		//選んだ選択肢のコードを初期化
+	this->IsChoise = false;						//選択したか初期化
 
 	this->SelectImage = new IMAGE(dir, name);					//選択肢の画像を生成
 	this->IsCreateSelect = this->SelectImage->GetIsLoad();		//画像を読み込めたか設定
@@ -37,6 +37,12 @@ SELECT::~SELECT()
 bool SELECT::GetIsCreateSelect()
 {
 	return this->IsCreateSelect;
+}
+
+//選択したか取得
+bool SELECT::GetIsChoise()
+{
+	return this->IsChoise;
 }
 
 //初期設定
@@ -103,6 +109,11 @@ void SELECT::Operation(KEYDOWN* keydown)
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RIGHT))	//右矢印キーを押されたら
 	{
 		this->Next();	//次の選択肢へ
+	}
+	else if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))	//エンターキーを押されたら
+	{
+		this->Choise_SelectCode = *this->NowSelectCode;	//現在選択している選択肢を設定
+		this->IsChoise = true;							//選択した
 	}
 
 	return;
