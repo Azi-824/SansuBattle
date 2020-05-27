@@ -6,6 +6,7 @@
 //#################### ヘッダファイル読み込み #####################
 #include "DxLib.h"
 #include "IMAGE.hpp"
+#include "KEYDOWN.hpp"
 #include <vector>
 
 //##################### マクロ定義 ######################
@@ -62,5 +63,9 @@ public:
 	bool Add(const char*, const char*,int);		//選択肢を追加
 
 	void Draw(int,int,int);						//選択肢を描画
+
+	void Operation(KEYDOWN*);					//キー操作
+	void Next();								//次の選択肢へ
+	void Prev();								//前の選択肢へ
 
 };

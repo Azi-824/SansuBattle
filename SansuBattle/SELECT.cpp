@@ -76,7 +76,8 @@ void SELECT::Draw(int x, int y, int width)
 
 		if (i == *this->NowSelectCode)		//現在選択しているものだったら
 		{
-			DrawBox(NowDrawX - 10, NowDrawY - 10, NowDrawX + 10, NowDrawY + 10, GetColor(255, 255, 255), TRUE);
+			//後で修正
+			DrawBox(NowDrawX - 10, NowDrawY - 10, NowDrawX + 10, NowDrawY + 10, GetColor(255, 255, 255), TRUE);		//左上に四角形を描画
 			this->SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 		else		//それ以外は
@@ -90,4 +91,40 @@ void SELECT::Draw(int x, int y, int width)
 	}
 
 	this->SelectImage->ChengeImageFront();	//描画する画像を先頭の画像に戻す
+}
+
+//キー操作
+void SELECT::Operation(KEYDOWN* keydown)
+{
+	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
+	{
+		this->Prev();	//前の選択肢へ
+	}
+	else if (keydown->IsKeyDownOne(KEY_INPUT_RIGHT))	//右矢印キーを押されたら
+	{
+		this->Next();	//次の選択肢へ
+	}
+
+	return;
+
+}
+
+//次の選択肢へ
+void SELECT::Next()
+{
+	if (this->NowSelectCode < this->SelectCode.end() - 1)	//最後の選択肢じゃなければ
+	{
+		++this->NowSelectCode;	//次の選択肢へ
+	}
+
+	return;
+}
+
+//前の選択肢へ
+void SELECT::Prev()
+{
+	if (this->NowSelectCode > this->SelectCode.begin())		//最初の選択肢じゃなければ
+	{
+		--this->NowSelectCode;	//前の選択肢へ
+	}
 }
