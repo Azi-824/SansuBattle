@@ -66,6 +66,11 @@ private:
 	bool IsCreateSelect;						//選択肢を作れたか
 	bool IsChoise;								//選択したか
 
+	int DrawX;									//描画開始X位置
+	int DrawY;									//描画開始Y位置
+	int DrawWidth_Range;						//描画幅の範囲
+	int RowNum;									//描画範囲の中で描画できる列の数
+
 public:
 
 	SELECT(const char *,const char *,int);		//コンストラクタ
@@ -74,7 +79,7 @@ public:
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
 	bool GetIsChoise();							//選択したか取得
 
-	void SetInit();								//初期設定
+	void SetInit(int,int,int);					//初期設定
 
 	bool Add(const char*, const char*,int);		//選択肢を追加
 

@@ -181,18 +181,22 @@ void GAMEMANEGER::Scene_Load()
 			this->NowScene = (int)SCENE_TITLE;	//タイトル画面へ
 		}
 	}
-
-	if (GetASyncLoadNum() == 0)	//非同期で読み込んでいる処理が終わったら
+	else		//読み込みが完了していなかったら
 	{
+		if (GetASyncLoadNum() == 0)	//非同期で読み込んでいる処理が終わったら
+		{
 
-		SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
+			SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
 
-		this->back->SetInit();			//画像初期設定
-		this->level_select->SetInit();	//難易度の選択肢初期設定
-		this->stage_select->SetInit();	//ステージの選択肢初期設定
+			this->back->SetInit();			//画像初期設定
+			this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
+			this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 
-		this->IsLoad = true;		//読み込み完了
+			this->IsLoad = true;		//読み込み完了
+		}
+
 	}
+
 
 	return;		
 }

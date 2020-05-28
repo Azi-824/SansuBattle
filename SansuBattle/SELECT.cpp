@@ -13,6 +13,10 @@ SELECT::SELECT(const char* dir, const char* name,int code)
 	//メンバー変数初期化
 	this->Choise_SelectCode = CHOISE_NONE;		//選んだ選択肢のコードを初期化
 	this->IsChoise = false;						//選択したか初期化
+	this->DrawX = 0;							//描画開始X位置初期化
+	this->DrawY = 0;							//描画開始Y位置初期化
+	this->DrawWidth_Range = 0;					//描画幅の範囲初期化
+	this->RowNum = 0;							//描画範囲の中で描画できる列の数初期化
 
 	this->SelectImage = new IMAGE(dir, name);					//選択肢の画像を生成
 	this->IsCreateSelect = this->SelectImage->GetIsLoad();		//画像を読み込めたか設定
@@ -46,9 +50,29 @@ bool SELECT::GetIsChoise()
 }
 
 //初期設定
-void SELECT::SetInit()
+void SELECT::SetInit(int x, int y, int width)
 {
 	this->SelectImage->SetInit();	//画像初期設定
+
+	this->DrawX = x;				//描画開始X位置設定
+	this->DrawY = y;				//描画開始Y位置設定
+	this->DrawWidth_Range = width;	//描画幅の範囲を設定
+
+	int NowX = x;
+
+	//描画範囲の中で描画できる列の数を計算
+	while (true)	//無限ループ
+	{
+
+		if (NowX + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
+		{
+			break;	//ループを抜ける
+		}
+
+		NowX += this->SelectImage->GetWidth() + SELECT_INTERVAL;	//Xの位置をずらす
+		++this->RowNum;		//カウントアップ
+	}
+
 	return;
 }
 
@@ -71,16 +95,22 @@ void SELECT::Draw(int x, int y, int width)
 {
 
 	int NowDrawX = x, NowDrawY = y;		//現在の描画位置
+	//int NowDrawX = this->DrawX, NowDrawY = this->DrawY;		//現在の描画位置
 	int over_cnt = 0;					//描画幅を超えた回数をカウント
+	int row_cnt = 0;					//列数のカウント
 
 	for (int i = this->SelectCode.front(); i <= this->SelectCode.back(); ++i)		//選択肢の画像の数分ループ
 	{
-		if (NowDrawX + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
+
+		if (row_cnt >= this->RowNum)		//列数が、描画できる範囲を超えたら
 		{
 			++over_cnt;		//カウントアップ
 			NowDrawX = x;	//Xの描画位置を最初の位置へ
 			NowDrawY = y + (this->SelectImage->GetHeight() + SELECT_INTERVAL) * over_cnt;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			row_cnt = 0;	//カウントリセット
 		}
+
+		++row_cnt;	//カウントアップ
 
 		if (i == *this->NowSelectCode)		//現在選択しているものだったら
 		{
