@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CHARACTOR.hpp" />
     <ClInclude Include="FPS.hpp" />
     <ClInclude Include="GAMEMANEGER.hpp" />
     <ClInclude Include="IMAGE.hpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="SELECT.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CHARACTOR.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GAMEMANEGER.cpp" />
     <ClCompile Include="IMAGE.cpp" />
