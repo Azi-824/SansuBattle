@@ -260,7 +260,7 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 {
 
-	this->level_select->Draw(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢描画
+	this->level_select->Draw();	//難易度の選択肢描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
@@ -285,7 +285,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 void GAMEMANEGER::Draw_Scene_ChoiseStage()
 {
 
-	this->stage_select->Draw(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);		//ステージ選択肢描画
+	this->stage_select->Draw();		//ステージ選択肢描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

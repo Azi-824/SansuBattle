@@ -50,6 +50,11 @@ bool SELECT::GetIsChoise()
 }
 
 //初期設定
+/*
+引数：int：描画開始X位置
+引数：int：描画開始Y位置
+引数：int：描画可能横幅
+*/
 void SELECT::SetInit(int x, int y, int width)
 {
 	this->SelectImage->SetInit();	//画像初期設定
@@ -58,19 +63,17 @@ void SELECT::SetInit(int x, int y, int width)
 	this->DrawY = y;				//描画開始Y位置設定
 	this->DrawWidth_Range = width;	//描画幅の範囲を設定
 
-	int NowX = x;
-
 	//描画範囲の中で描画できる列の数を計算
 	while (true)	//無限ループ
 	{
 
-		if (NowX + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
+		if (x + this->SelectImage->GetWidth() + SELECT_INTERVAL > width)	//描画可能横幅を超えたら
 		{
 			break;	//ループを抜ける
 		}
 
-		NowX += this->SelectImage->GetWidth() + SELECT_INTERVAL;	//Xの位置をずらす
-		++this->RowNum;		//カウントアップ
+		x += this->SelectImage->GetWidth() + SELECT_INTERVAL;	//Xの位置をずらす
+		++this->RowNum;											//カウントアップ
 	}
 
 	return;
@@ -86,17 +89,10 @@ bool SELECT::Add(const char* dir, const char* name,int code)
 }
 
 //描画
-/*
-引数：int：描画開始X位置
-引数：int：描画開始Y位置
-引数：int：描画可能横幅
-*/
-void SELECT::Draw(int x, int y, int width)
+void SELECT::Draw()
 {
 
-	int NowDrawX = x, NowDrawY = y;		//現在の描画位置
-	//int NowDrawX = this->DrawX, NowDrawY = this->DrawY;		//現在の描画位置
-	int over_cnt = 0;					//描画幅を超えた回数をカウント
+	int NowDrawX = this->DrawX, NowDrawY = this->DrawY;		//現在の描画位置
 	int row_cnt = 0;					//列数のカウント
 
 	for (int i = this->SelectCode.front(); i <= this->SelectCode.back(); ++i)		//選択肢の画像の数分ループ
@@ -104,10 +100,9 @@ void SELECT::Draw(int x, int y, int width)
 
 		if (row_cnt >= this->RowNum)		//列数が、描画できる範囲を超えたら
 		{
-			++over_cnt;		//カウントアップ
-			NowDrawX = x;	//Xの描画位置を最初の位置へ
-			NowDrawY = y + (this->SelectImage->GetHeight() + SELECT_INTERVAL) * over_cnt;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
-			row_cnt = 0;	//カウントリセット
+			NowDrawX = this->DrawX;											//Xの描画位置を最初の位置へ
+			NowDrawY += this->SelectImage->GetHeight() + SELECT_INTERVAL;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			row_cnt = 0;													//カウントリセット
 		}
 
 		++row_cnt;	//カウントアップ
@@ -124,7 +119,7 @@ void SELECT::Draw(int x, int y, int width)
 		}
 
 		NowDrawX += this->SelectImage->GetWidth() + SELECT_INTERVAL;	//描画位置をずらす
-		this->SelectImage->NextImage();					//次の画像へ
+		this->SelectImage->NextImage();									//次の画像へ
 
 	}
 

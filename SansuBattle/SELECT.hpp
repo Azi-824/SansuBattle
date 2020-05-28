@@ -83,7 +83,7 @@ public:
 
 	bool Add(const char*, const char*,int);		//選択肢を追加
 
-	void Draw(int,int,int);						//選択肢を描画
+	void Draw();								//選択肢を描画
 
 	void Operation(KEYDOWN*);					//キー操作
 	void Next();								//次の選択肢へ
