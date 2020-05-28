@@ -137,6 +137,14 @@ void SELECT::Operation(KEYDOWN* keydown)
 	{
 		this->Next();	//次の選択肢へ
 	}
+	else if (keydown->IsKeyDownOne(KEY_INPUT_UP))		//上矢印キーを押されたら
+	{
+		this->Prev(this->RowNum);		//列の数分、前の選択肢へ
+	}
+	else if (keydown->IsKeyDownOne(KEY_INPUT_DOWN))		//下矢印キーを押されたら
+	{
+		this->Next(this->RowNum);		//列の数分、次の選択肢へ
+	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))	//エンターキーを押されたら
 	{
 		this->Choise_SelectCode = *this->NowSelectCode;	//現在選択している選択肢を設定
@@ -150,9 +158,21 @@ void SELECT::Operation(KEYDOWN* keydown)
 //次の選択肢へ
 void SELECT::Next()
 {
-	if (this->NowSelectCode < this->SelectCode.end() - 1)	//最後の選択肢じゃなければ
+
+	if (*this->NowSelectCode < this->SelectCode.back())	//最後の選択肢じゃなければ
 	{
 		++this->NowSelectCode;	//次の選択肢へ
+	}
+
+	return;
+}
+
+//指定された分、次の選択肢へ
+void SELECT::Next(int value)
+{
+	if (*this->NowSelectCode + value <= this->SelectCode.back())	//最後の選択肢じゃなければ
+	{
+		this->NowSelectCode += value;	//指定された分、次の選択肢へ
 	}
 
 	return;
@@ -161,8 +181,22 @@ void SELECT::Next()
 //前の選択肢へ
 void SELECT::Prev()
 {
-	if (this->NowSelectCode > this->SelectCode.begin())		//最初の選択肢じゃなければ
+	if (*this->NowSelectCode > this->SelectCode.front())		//最初の選択肢じゃなければ
 	{
 		--this->NowSelectCode;	//前の選択肢へ
 	}
+
+	return;
+}
+
+//指定された分、前の選択肢へ
+void SELECT::Prev(int value)
+{
+	if (*this->NowSelectCode - value >= this->SelectCode.front())		//最初の選択肢じゃなければ
+	{
+		this->NowSelectCode -= value;	//指定された分、前の選択肢へ
+	}
+
+	return;
+
 }

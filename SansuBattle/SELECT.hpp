@@ -87,6 +87,8 @@ public:
 
 	void Operation(KEYDOWN*);					//キー操作
 	void Next();								//次の選択肢へ
+	void Next(int);								//指定された数分、次の選択肢へ
 	void Prev();								//前の選択肢へ
+	void Prev(int);								//指定された数分、前の選択肢へ
 
 };
