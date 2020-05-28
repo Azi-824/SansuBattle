@@ -77,7 +77,9 @@ public:
 	bool AddImage(const char *, const char *);	//画像を追加
 	void ChengeImage(int);						//描画する画像を変更
 	void NextImage();							//描画する画像を一つ次の画像へ
+	void NextImage(int);						//描画する画像を指定された数、次の画像へ
 	void PrevImage();							//描画する画像を一つ前の画像へ
+	void PrevImage(int);						//描画する画像を指定された数、前の画像へ
 	void ChengeImageFront();					//描画する画像を先頭の画像へ
 
 	void SetIsFade(bool);		//フェードアウトするか設定

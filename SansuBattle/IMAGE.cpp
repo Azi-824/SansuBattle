@@ -273,12 +273,32 @@ void IMAGE::NextImage()
 	return;
 }
 
+//•`‰æ‚·‚é‰æ‘œ‚ðŽw’è‚³‚ê‚½”AŽŸ‚Ì‰æ‘œ‚Ö
+void IMAGE::NextImage(int value)
+{
+	if (this->Draw_Num + value < this->Handle.size())	//•`‰æ‚·‚é‰æ‘œ‚ªÅŒã‚Ì‰æ‘œ‚¶‚á‚È‚¯‚ê‚Î
+	{
+		this->Draw_Num += value;	//Žw’è‚³‚ê‚½”AŽŸ‚Ì‰æ‘œ‚Ö
+	}
+	return;
+}
+
 //•`‰æ‚·‚é‰æ‘œ‚ðˆê‚Â‘O‚Ì‰æ‘œ‚Ö
 void IMAGE::PrevImage()
 {
 	if (this->Draw_Num > 0)	//•`‰æ‚·‚é‰æ‘œ‚ªÅ‰‚Ì‰æ‘œ‚¶‚á‚È‚¯‚ê‚Î
 	{
 		--this->Draw_Num;	//‘O‚Ì‰æ‘œ‚Ö
+	}
+	return;
+}
+
+//•`‰æ‚·‚é‰æ‘œ‚ðˆê‚Â‘O‚Ì‰æ‘œ‚Ö
+void IMAGE::PrevImage(int value)
+{
+	if (this->Draw_Num - value > 0)	//•`‰æ‚·‚é‰æ‘œ‚ªÅ‰‚Ì‰æ‘œ‚¶‚á‚È‚¯‚ê‚Î
+	{
+		this->Draw_Num - value;		//‘O‚Ì‰æ‘œ‚Ö
 	}
 	return;
 }
