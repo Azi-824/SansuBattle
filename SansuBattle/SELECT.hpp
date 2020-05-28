@@ -80,6 +80,7 @@ public:
 	bool GetIsChoise();							//‘I‘ğ‚µ‚½‚©æ“¾
 
 	void SetInit(int,int,int);					//‰Šúİ’è
+	void Init();								//‰Šú‰»
 
 	bool Add(const char*, const char*,int);		//‘I‘ğˆ‚ğ’Ç‰Á
 

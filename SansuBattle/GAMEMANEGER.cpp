@@ -170,6 +170,16 @@ void GAMEMANEGER::ProcesScene()
 
 }
 
+//初期設定
+void GAMEMANEGER::SetInit()
+{
+	this->back->SetInit();			//画像初期設定
+	this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
+	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
+
+	return;
+}
+
 //***************************** シーン毎の処理 ********************************
 //ロード画面の処理
 void GAMEMANEGER::Scene_Load()
@@ -188,9 +198,7 @@ void GAMEMANEGER::Scene_Load()
 
 			SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
 
-			this->back->SetInit();			//画像初期設定
-			this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
-			this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
+			this->SetInit();			//初期設定
 
 			this->IsLoad = true;		//読み込み完了
 		}
@@ -222,6 +230,9 @@ void GAMEMANEGER::Scene_Title()
 {
 
 	this->back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
+
+	this->level_select->Init();	//難易度の選択肢初期化
+	this->stage_select->Init();	//ステージの選択肢初期化
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
@@ -334,7 +345,6 @@ void GAMEMANEGER::Draw_SceneDrawScore()
 	return;
 }
 
-
 //エンド画面の処理
 void GAMEMANEGER::Scene_End()
 {
@@ -359,4 +369,3 @@ void GAMEMANEGER::Draw_Scene_End()
 
 	return;
 }
-

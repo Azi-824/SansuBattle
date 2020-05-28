@@ -79,6 +79,16 @@ void SELECT::SetInit(int x, int y, int width)
 	return;
 }
 
+//初期化
+void SELECT::Init()
+{
+	this->Choise_SelectCode = CHOISE_NONE;			//選んだ選択肢のコードを初期化
+	this->IsChoise = false;							//選択したか初期化
+	this->NowSelectCode = this->SelectCode.begin();	//現在選んでいる選択肢初期化
+
+	return;
+}
+
 //選択肢を追加
 bool SELECT::Add(const char* dir, const char* name,int code)
 {

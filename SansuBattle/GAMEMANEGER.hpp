@@ -74,6 +74,7 @@ public:
 	bool GameMainLoop();		//ゲームのメインループ
 
 	void ProcesScene();			//各シーンの処理
+	void SetInit();				//初期設定
 
 
 	//****************** シーン関係 *************************
