@@ -20,7 +20,16 @@ CHARACTOR::CHARACTOR()
 //デストラクタ
 CHARACTOR::~CHARACTOR()
 {
+
+	delete this->image;		//image破棄
 	return;
+}
+
+//新しい画像を読み込む
+bool CHARACTOR::NewImage(const char* dir, const char* name)
+{
+	this->image = new IMAGE(dir, name);		//画像オブジェクト生成
+	return this->image->GetIsLoad();		//読み込めたか取得
 }
 
 //生きているか設定
@@ -64,12 +73,21 @@ void CHARACTOR::Operation(KEYDOWN *keydown)
 }
 
 //初期化設定
-bool CHARACTOR::SetInit()
+bool CHARACTOR::SetInit(int x,int y)
 {
-
+	this->image->SetInit();			//画像初期設定
+	this->DrawX = x;				//描画X位置
+	this->DrawY = y;				//描画Y位置
 	this->IsArive = true;			//生きている
 	this->IsKeyOperation = true;	//キーボード操作できる
 
 	return true;
 
+}
+
+//画像を描画
+void CHARACTOR::DrawImage()
+{
+	this->image->Draw(this->DrawX, this->DrawY);
+	return;
 }

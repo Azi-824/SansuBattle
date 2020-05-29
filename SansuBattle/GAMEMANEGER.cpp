@@ -30,6 +30,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->back;			//back破棄
 	delete this->level_select;	//level_select破棄
 	delete this->stage_select;	//stage_select破棄
+	delete this->player;		//player破棄
 
 	return;
 
@@ -67,6 +68,10 @@ bool GAMEMANEGER::Load()
 	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY02, CODE_STAGE_NORMAL) == false) { return false; }	//ダミー画像追加
 	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY03, CODE_STAGE_HARD) == false) { return false; }	//ダミー画像追加
 
+
+	//プレイヤー関係
+	this->player = new PLAYER(IMG_DIR_PLAYER, IMG_NAME_HP);		//プレイヤーを管理するオブジェクトを生成
+	if (this->player->GetIsLoad() == false) { return false; }	//読み込み失敗
 
 	return true;	//読み込み成功
 }
@@ -178,6 +183,8 @@ void GAMEMANEGER::SetInit()
 	this->back->SetInit();			//画像初期設定
 	this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
+
+	this->player->SetImagePos(20, 20);	//描画位置修正
 
 	return;
 }
@@ -324,6 +331,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 {
 
 	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+
+	this->player->DrawImage();				//プレイヤーHP描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

@@ -9,6 +9,7 @@
 #include "KEYDOWN.hpp"
 #include "IMAGE.hpp"
 #include "SELECT.hpp"
+#include "PLAYER.hpp"
 
 //############### マクロ定義 ################
 #define GAME_LEFT	  0		//画面の横の始点
@@ -61,6 +62,7 @@ private:
 	IMAGE* back;				//背景画像
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
+	PLAYER* player;				//プレイヤー
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

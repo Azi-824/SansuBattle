@@ -7,14 +7,16 @@
 #include "DxLib.h"
 #include "main.hpp"
 #include "KEYDOWN.hpp"
-
+#include "IMAGE.hpp"
 
 //###################### マクロ定義 #######################
 
 //###################### クラス定義 #######################
 class CHARACTOR
 {
-private:
+protected:
+
+	IMAGE* image;				//画像
 
 	int DrawX;					//描画X位置
 	int DrawY;					//描画Y位置
@@ -27,6 +29,8 @@ public:
 	CHARACTOR();				//コンストラクタ
 	~CHARACTOR();				//デストラクタ
 
+	bool NewImage(const char*, const char*);	//新しい画像を読み込む
+
 	void SetIsArive(bool);		//生きているかを設定
 	void SetKeyOperation(bool); //キーボードで操作できるか設定
 
@@ -37,7 +41,9 @@ public:
 
 	void Operation(KEYDOWN *);	//操作
 
-	bool SetInit();				//初期設定
+	bool SetInit(int,int);		//初期設定
+
+	void DrawImage();			//画像を描画
 
 };
 

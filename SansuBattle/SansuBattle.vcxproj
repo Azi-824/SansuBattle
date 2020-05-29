@@ -157,6 +157,7 @@
     <ClInclude Include="IMAGE.hpp" />
     <ClInclude Include="KEYDOWN.hpp" />
     <ClInclude Include="main.hpp" />
+    <ClInclude Include="PLAYER.hpp" />
     <ClInclude Include="SELECT.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClCompile Include="IMAGE.cpp" />
     <ClCompile Include="KEYDOWN.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="SELECT.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
