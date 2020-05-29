@@ -19,6 +19,7 @@
 #define IMG_DIR_BACK		R"(.\MY_IMG\Back)"				//背景画像のファイルの場所
 
 #define IMG_NAME_TITLE		R"(\title.jpg)"					//タイトル画面の背景画像の名前
+#define IMG_NAME_PLAY		R"(\play.jpg)"					//プレイ画面の背景画像の名前
 #define IMG_NAME_DAMMY		R"(\dammy.jpg)"					//ダミー画像の名前
 
 #define FADE_MAX_CNT	60	//フェード処理のカウント最大値
@@ -32,6 +33,7 @@
 enum BACK_IMAGE
 {
 	TITLE_BACK,		//タイトル画面の背景画像
+	PLAY_BACK,		//プレイ画面の背景画像
 	DAMMY_BACK		//ダミー画像
 };
 

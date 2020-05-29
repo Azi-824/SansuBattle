@@ -43,8 +43,10 @@ GAMEMANEGER::~GAMEMANEGER()
 bool GAMEMANEGER::Load()
 {
 	//画像関係
+	//背景画像
 	this->back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
 	if (this->back->GetIsLoad() == false) { return false; }		//読み込み失敗
+	if (this->back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }	//プレイ画面の背景画像を追加
 	if (this->back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
@@ -307,6 +309,8 @@ void GAMEMANEGER::Draw_Scene_ChoiseStage()
 void GAMEMANEGER::Scene_Play()
 {
 
+	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
+
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
 		this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
@@ -318,6 +322,8 @@ void GAMEMANEGER::Scene_Play()
 //プレイ画面の描画処理
 void GAMEMANEGER::Draw_Scene_Play()
 {
+
+	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
