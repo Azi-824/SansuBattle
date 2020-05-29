@@ -14,7 +14,7 @@
 //###################### ƒNƒ‰ƒX’è‹` #######################
 class CHARACTOR
 {
-protected:
+private:
 
 	IMAGE* image;				//‰æ‘œ
 

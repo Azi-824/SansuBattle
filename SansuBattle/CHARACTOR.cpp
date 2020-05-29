@@ -75,6 +75,7 @@ void CHARACTOR::Operation(KEYDOWN *keydown)
 //‰Šú‰»Ý’è
 bool CHARACTOR::SetInit(int x,int y)
 {
+
 	this->image->SetInit();			//‰æ‘œ‰ŠúÝ’è
 	this->DrawX = x;				//•`‰æXˆÊ’u
 	this->DrawY = y;				//•`‰æYˆÊ’u
