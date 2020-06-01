@@ -10,6 +10,7 @@
 #include "IMAGE.hpp"
 
 //###################### マクロ定義 #######################
+#define HP_INIT_VALUE	5	//HPの初期値
 
 //###################### クラス定義 #######################
 class CHARACTOR
@@ -20,6 +21,8 @@ protected:
 
 	int DrawX;					//描画X位置
 	int DrawY;					//描画Y位置
+
+	int HP;						//HP
 
 	bool IsArive;				//生きているか
 	bool IsKeyOperation;		//キーボードで操作できるか
@@ -43,7 +46,7 @@ public:
 
 	bool SetInit(int,int);		//初期設定
 
-	//void DrawImage();			//画像を描画
+	void SendDamege();			//ダメージを与える
 
 };
 

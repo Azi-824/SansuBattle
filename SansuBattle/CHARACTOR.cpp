@@ -13,6 +13,7 @@ CHARACTOR::CHARACTOR()
 	this->DrawY = 0;			//Y位置初期化
 	this->IsArive = true;		//生きているか初期化
 	this->IsKeyOperation = true;//キー操作可能か初期化
+	this->HP = HP_INIT_VALUE;	//HP初期化
 
 	return;
 }
@@ -86,9 +87,15 @@ bool CHARACTOR::SetInit(int x,int y)
 
 }
 
-////画像を描画
-//void CHARACTOR::DrawImage()
-//{
-//	this->image->Draw(this->DrawX, this->DrawY);
-//	return;
-//}
+//ダメージを与える
+void CHARACTOR::SendDamege()
+{
+	if (this->HP > 0)		//HPが0じゃなければ
+	{
+		--this->HP;			//ダメージを与える
+	}
+
+	return;
+
+}
+
