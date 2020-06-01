@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CHARACTOR.hpp" />
+    <ClInclude Include="ENEMY.hpp" />
     <ClInclude Include="FPS.hpp" />
     <ClInclude Include="GAMEMANEGER.hpp" />
     <ClInclude Include="IMAGE.hpp" />

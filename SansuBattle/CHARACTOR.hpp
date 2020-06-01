@@ -26,13 +26,14 @@ protected:
 
 	bool IsArive;				//生きているか
 	bool IsKeyOperation;		//キーボードで操作できるか
+	bool IsLoad;				//読み込めたか
 
 public:
 
 	CHARACTOR();				//コンストラクタ
 	~CHARACTOR();				//デストラクタ
 
-	bool NewImage(const char*, const char*);	//新しい画像を読み込む
+	void NewImage(const char*, const char*);	//新しい画像を読み込む
 
 	void SetIsArive(bool);		//生きているかを設定
 	void SetKeyOperation(bool); //キーボードで操作できるか設定

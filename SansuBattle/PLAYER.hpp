@@ -19,8 +19,6 @@ class PLAYER : public CHARACTOR		//キャラクタークラスを継承
 {
 private:
 
-	bool IsImageLoad;				//画像を読み込めたか
-
 public:
 
 	PLAYER(const char*, const char*);	//コンストラクタ

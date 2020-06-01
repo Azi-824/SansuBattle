@@ -11,7 +11,7 @@ PLAYER::PLAYER(const char* dir, const char* name)
 {
 
 	//HP‰æ‘œ¶¬ 
-	this->IsImageLoad = this->NewImage(dir, name);		//HP‰æ‘œ‚ð¶¬
+	this->NewImage(dir, name);		//HP‰æ‘œ‚ð¶¬
 	return;
 
 }
@@ -25,7 +25,7 @@ PLAYER::~PLAYER()
 //“Ç‚Ýž‚ß‚½‚©Žæ“¾
 bool PLAYER::GetIsLoad()
 {
-	return this->IsImageLoad;
+	return this->IsLoad;
 }
 
 //HP‚ð•`‰æ‚·‚é

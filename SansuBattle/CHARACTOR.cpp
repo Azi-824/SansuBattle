@@ -14,6 +14,7 @@ CHARACTOR::CHARACTOR()
 	this->IsArive = true;		//生きているか初期化
 	this->IsKeyOperation = true;//キー操作可能か初期化
 	this->HP = HP_INIT_VALUE;	//HP初期化
+	this->IsLoad = false;		//読み込めたか初期化
 
 	return;
 }
@@ -27,10 +28,10 @@ CHARACTOR::~CHARACTOR()
 }
 
 //新しい画像を読み込む
-bool CHARACTOR::NewImage(const char* dir, const char* name)
+void CHARACTOR::NewImage(const char* dir, const char* name)
 {
 	this->image = new IMAGE(dir, name);		//画像オブジェクト生成
-	return this->image->GetIsLoad();		//読み込めたか取得
+	this->IsLoad = this->image->GetIsLoad();//読み込めたか設定
 }
 
 //生きているか設定
