@@ -14,7 +14,7 @@
 //###################### ƒNƒ‰ƒX’è‹` #######################
 class CHARACTOR
 {
-private:
+protected:
 
 	IMAGE* image;				//‰æ‘œ
 
@@ -43,7 +43,7 @@ public:
 
 	bool SetInit(int,int);		//‰Šúİ’è
 
-	void DrawImage();			//‰æ‘œ‚ğ•`‰æ
+	//void DrawImage();			//‰æ‘œ‚ğ•`‰æ
 
 };
 

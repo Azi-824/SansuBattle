@@ -31,4 +31,6 @@ public:
 
 	void SendDamege();					//ƒ_ƒ[ƒW‚ğ—^‚¦‚é
 
+	void DrawHP();						//HP‚ğ•`‰æ‚·‚é
+
 };

@@ -86,9 +86,9 @@ bool CHARACTOR::SetInit(int x,int y)
 
 }
 
-//‰æ‘œ‚ð•`‰æ
-void CHARACTOR::DrawImage()
-{
-	this->image->Draw(this->DrawX, this->DrawY);
-	return;
-}
+////‰æ‘œ‚ð•`‰æ
+//void CHARACTOR::DrawImage()
+//{
+//	this->image->Draw(this->DrawX, this->DrawY);
+//	return;
+//}

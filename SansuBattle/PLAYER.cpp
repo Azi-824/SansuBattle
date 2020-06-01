@@ -41,3 +41,15 @@ void PLAYER::SendDamege()
 	return;
 
 }
+
+//HP‚ð•`‰æ‚·‚é
+void PLAYER::DrawHP()
+{
+	for (int i = 0; i < this->HP; ++i)		//HP‚Ì•ªƒ‹[ƒv
+	{
+		this->image->Draw(this->DrawX + i * this->image->GetWidth(), this->DrawY);	//HP‰æ‘œ•`‰æ
+	}
+
+	return;
+
+}
