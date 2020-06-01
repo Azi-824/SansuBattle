@@ -183,7 +183,7 @@ void GAMEMANEGER::SetInit()
 	this->back->SetInit();			//画像初期設定
 	this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
-	this->player->SetInit(20, 20);	//プレイヤー初期設定
+	this->player->SetInit(HP_DRAW_X, HP_DRAW_Y);	//プレイヤー初期設定
 
 	return;
 }

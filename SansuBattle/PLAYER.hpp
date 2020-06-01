@@ -12,6 +12,8 @@
 #define IMG_NAME_HP		R"(\hp.png)"				//HP画像の名前
 
 #define HP_INIT_VALUE	5	//HPの初期値
+#define HP_DRAW_X		20	//HPの描画開始X位置
+#define HP_DRAW_Y		50	//HPの描画開始Y位置
 
 //##################### クラス定義 #########################
 class PLAYER : public CHARACTOR		//キャラクタークラスを継承
