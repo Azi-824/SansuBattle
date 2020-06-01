@@ -10,6 +10,7 @@
 #include "IMAGE.hpp"
 #include "SELECT.hpp"
 #include "PLAYER.hpp"
+#include "ENEMY.hpp"
 
 //############### マクロ定義 ################
 #define GAME_LEFT	  0		//画面の横の始点
@@ -63,6 +64,7 @@ private:
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
 	PLAYER* player;				//プレイヤー
+	ENEMY* enemy;				//敵キャラ
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

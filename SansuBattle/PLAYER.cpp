@@ -7,6 +7,8 @@
 //################### クラス定義 ##################
 
 //コンストラクタ
+//引　数：const char *：画像のディレクトリ
+//引　数：const char *：画像の名前
 PLAYER::PLAYER(const char* dir, const char* name)
 {
 
@@ -20,12 +22,6 @@ PLAYER::PLAYER(const char* dir, const char* name)
 PLAYER::~PLAYER()
 {
 	return;
-}
-
-//読み込めたか取得
-bool PLAYER::GetIsLoad()
-{
-	return this->IsLoad;
 }
 
 //HPを描画する

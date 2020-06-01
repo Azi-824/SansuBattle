@@ -68,6 +68,12 @@ bool CHARACTOR::GetKeyOperation()
 	return this->IsKeyOperation;
 }
 
+//“Ç‚İ‚ß‚½‚©æ“¾
+bool CHARACTOR::GetIsLoad()
+{
+	return this->IsLoad;
+}
+
 //‘€ì
 void CHARACTOR::Operation(KEYDOWN *keydown)
 {

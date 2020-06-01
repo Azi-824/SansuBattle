@@ -31,6 +31,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->level_select;	//level_select破棄
 	delete this->stage_select;	//stage_select破棄
 	delete this->player;		//player破棄
+	delete this->enemy;			//enemy破棄
 
 	return;
 
@@ -72,6 +73,10 @@ bool GAMEMANEGER::Load()
 	//プレイヤー関係
 	this->player = new PLAYER(IMG_DIR_PLAYER, IMG_NAME_HP);		//プレイヤーを管理するオブジェクトを生成
 	if (this->player->GetIsLoad() == false) { return false; }	//読み込み失敗
+
+	//敵関係
+	this->enemy = new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY);		//敵を管理するオブジェクトを生成
+	if (this->enemy->GetIsLoad() == false) { return false; }	//読み込み失敗
 
 	return true;	//読み込み成功
 }
@@ -183,7 +188,8 @@ void GAMEMANEGER::SetInit()
 	this->back->SetInit();			//画像初期設定
 	this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
-	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);	//プレイヤー初期設定
+	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
+	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
 
 	return;
 }
@@ -332,6 +338,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	this->player->DrawHP();				//プレイヤーHP描画
+
+	this->enemy->DrawImage();			//敵キャラ描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

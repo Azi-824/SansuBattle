@@ -24,8 +24,6 @@ public:
 	PLAYER(const char*, const char*);	//コンストラクタ
 	~PLAYER();							//デストラクタ
 
-	bool GetIsLoad();					//読み込めたか取得
-
 	void DrawHP();						//HPを描画する
 
 };

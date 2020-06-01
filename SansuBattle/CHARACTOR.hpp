@@ -42,6 +42,7 @@ public:
 
 	bool GetIsArive();			//生きているか取得
 	bool GetKeyOperation();		//キーボードで操作できるか取得
+	bool GetIsLoad();			//読み込めたか取得
 
 	void Operation(KEYDOWN *);	//操作
 
