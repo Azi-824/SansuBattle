@@ -23,8 +23,8 @@ void Q_ADD::CreateQuestion()
 {
 	int num1 = 0, num2 = 0;		//–â‘è‚ğ“ü‚ê‚é•Ï”
 
-	num1 = GetRand(10);			//–â‘è‚ğ¶¬
-	num2 = GetRand(10);			//–â‘è‚ğ¶¬
+	num1 = GetRand(Q_EASY_VALUE_MAX);			//–â‘è‚ğ¶¬
+	num2 = GetRand(Q_EASY_VALUE_MAX);			//–â‘è‚ğ¶¬
 
 	this->Anser = num1 + num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
 	this->Q_Text = (std::to_string(num1) + "{" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è

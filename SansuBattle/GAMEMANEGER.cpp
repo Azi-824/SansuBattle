@@ -16,7 +16,6 @@ GAMEMANEGER::GAMEMANEGER()
 	//メンバー変数初期化
 	this->NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	this->IsLoad = false;					//読み込み、未完了
-
 	return;
 
 }
@@ -45,6 +44,7 @@ GAMEMANEGER::~GAMEMANEGER()
 */
 bool GAMEMANEGER::Load()
 {
+
 	//画像関係
 	//背景画像
 	this->back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
@@ -330,7 +330,13 @@ void GAMEMANEGER::Scene_Play()
 
 	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
-	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+
+	//if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
+	//{
+	//	this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
+	//}
+
+	if (this->q_add->JudgAnser(this->player->GetAnser()))	//プレイヤーの回答が正解だったら
 	{
 		this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
@@ -351,6 +357,11 @@ void GAMEMANEGER::Draw_Scene_Play()
 	this->q_add->DrawQuestion();		//問題描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
+
+	/*
+	修正ポイント
+	*/
+	this->player->SetAnser(KeyInputNumber(200, 200, 100, 0, TRUE));
 
 	return;
 }
