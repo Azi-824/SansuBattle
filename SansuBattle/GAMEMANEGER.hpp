@@ -11,6 +11,7 @@
 #include "SELECT.hpp"
 #include "PLAYER.hpp"
 #include "ENEMY.hpp"
+#include "Q_ADD.hpp"
 
 //############### マクロ定義 ################
 #define GAME_LEFT	  0		//画面の横の始点
@@ -65,6 +66,7 @@ private:
 	SELECT* stage_select;		//ステージ選択肢
 	PLAYER* player;				//プレイヤー
 	ENEMY* enemy;				//敵キャラ
+	Q_ADD* q_add;				//問題（足し算）
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

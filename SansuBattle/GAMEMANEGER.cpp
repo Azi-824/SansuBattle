@@ -32,6 +32,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->stage_select;	//stage_select破棄
 	delete this->player;		//player破棄
 	delete this->enemy;			//enemy破棄
+	delete this->q_add;			//q_add破棄
 
 	return;
 
@@ -77,6 +78,10 @@ bool GAMEMANEGER::Load()
 	//敵関係
 	this->enemy = new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY);		//敵を管理するオブジェクトを生成
 	if (this->enemy->GetIsLoad() == false) { return false; }	//読み込み失敗
+
+	//問題関係
+	//足し算
+	this->q_add = new Q_ADD();			//足し算の問題を管理するオブジェクトを生成
 
 	return true;	//読み込み成功
 }
@@ -190,6 +195,8 @@ void GAMEMANEGER::SetInit()
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
+
+	this->q_add->CreateQuestion();	//足し算の問題を生成
 
 	return;
 }
@@ -340,6 +347,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 	this->player->DrawHP();				//プレイヤーHP描画
 
 	this->enemy->DrawImage();			//敵キャラ描画
+
+	this->q_add->DrawQuestion();		//問題描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

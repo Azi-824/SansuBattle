@@ -8,8 +8,8 @@
 #include <string>
 
 //################# マクロ定義 #################
-#define Q_DRAW_X 30		//問題の描画X位置
-#define Q_DRAW_Y 30		//問題の描画Y位置
+#define Q_DRAW_X 100		//問題の描画X位置
+#define Q_DRAW_Y 100		//問題の描画Y位置
 //################# クラス定義 #################
 class Q_BASE
 {
