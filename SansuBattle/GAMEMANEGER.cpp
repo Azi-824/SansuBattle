@@ -341,6 +341,8 @@ void GAMEMANEGER::Scene_Play()
 		this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
 
+	this->CheckInputKey();
+
 	return;
 }
 
@@ -361,7 +363,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 	/*
 	修正ポイント
 	*/
-	this->player->SetAnser(KeyInputNumber(200, 200, 100, 0, TRUE));
+	//this->player->SetAnser(KeyInputNumber(200, 200, 100, 0, TRUE));
 
 	return;
 }
@@ -410,4 +412,17 @@ void GAMEMANEGER::Draw_Scene_End()
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
+}
+
+
+//キー入力中か確認
+bool GAMEMANEGER::CheckInputKey()
+{
+	int InputKeyCode = this->keydown->GetInputKeyCode();	//入力中のキーコードを取得
+	if (InputKeyCode <= KEY_INPUT_NUMPAD0 && InputKeyCode >= KEY_INPUT_NUMPAD9)		//テンキーの1から9を押された時
+	{
+		int b = 0;
+		return true;
+	}
+	return false;
 }
