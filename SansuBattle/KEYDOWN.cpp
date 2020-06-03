@@ -19,6 +19,8 @@ VOID KEYDOWN::KeyDownUpdate(VOID)
 
 	GetHitKeyStateAll(TempKey); // 全てのキーの入力状態を得る
 
+	InputKeyCode = -2;	//入力中のキーコードリセット
+
 	for (int i = 0; i < 256; i++)
 	{
 		if (TempKey[i] != 0)	//押されているキーのキーコードを押しているとき

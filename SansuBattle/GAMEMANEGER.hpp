@@ -106,5 +106,6 @@ public:
 	void Draw_Scene_End();			//エンド画面の描画処理
 
 	bool CheckInputKey();			//キー入力中か確認
+	int GetInputNum();				//入力された数字を取得
 
 };
