@@ -71,6 +71,8 @@ private:
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
 
+	int a;
+
 public:
 
 	GAMEMANEGER();				//コンストラクタ

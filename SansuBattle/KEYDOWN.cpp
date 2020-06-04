@@ -10,7 +10,6 @@
 
 //インスタンスを生成
 char KEYDOWN::AllKeyState[256];
-int KEYDOWN::InputKeyCode;
 
 //キーの入力状態を更新する
 VOID KEYDOWN::KeyDownUpdate(VOID)
@@ -19,14 +18,11 @@ VOID KEYDOWN::KeyDownUpdate(VOID)
 
 	GetHitKeyStateAll(TempKey); // 全てのキーの入力状態を得る
 
-	InputKeyCode = -2;	//入力中のキーコードリセット
-
 	for (int i = 0; i < 256; i++)
 	{
 		if (TempKey[i] != 0)	//押されているキーのキーコードを押しているとき
 		{
 			AllKeyState[i]++;	//押されている
-			InputKeyCode = i;	//入力中のキーコードを保存
 		}
 		else
 		{
@@ -72,9 +68,21 @@ bool KEYDOWN::IsKeyInput()
 }
 
 //入力中のキーコードを取得
+//戻り値：int：入力中のキーコード、
+//入力中のキーコードがない場合、－1を返す
 int KEYDOWN::GetInputKeyCode()
 {
-	return InputKeyCode;
+
+	for (int i = 0; i < 256; i++)
+	{
+		if (this->AllKeyState[i] == 1)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+
 }
 
 //コンストラクタ

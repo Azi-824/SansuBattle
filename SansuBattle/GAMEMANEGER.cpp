@@ -366,6 +366,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
+	DrawFormatString(300, 300, COLOR_WHITE, "%d", this->a);
+
 	/*
 	修正ポイント
 	*/
@@ -425,24 +427,25 @@ void GAMEMANEGER::Draw_Scene_End()
 //戻り値：bool：true 入力終了：false 入力中
 bool GAMEMANEGER::CheckInputKey()
 {
-	static int InputNum = 0;	//入力された数字
-	static int Digit = 1;		//桁の重み
+	static int InputNumResult = 0;	//最終的な入力結果
+	static int Weight = 10;			//重み
+	int InputNum = this->GetInputNum();		//入力された数字
 
-	if (!(this->GetInputNum() == 100 || this->GetInputNum() == -1))	//数値を入力した時
+	if (!(InputNum == 100 || InputNum == -1))	//数値を入力した時
 	{
-		InputNum = (InputNum * Digit) + this->GetInputNum();		//入力値に桁の重みを付けて計算
-		Digit *= 10;	//桁の重みを加算
+		InputNumResult = (InputNumResult * Weight) + InputNum;		//入力値に桁の重みを付けて計算
 	}
 	else	//数値以外を入力した時
 	{
-		if (this->GetInputNum() == 100)	//決定された場合
+		if (InputNum == 100)	//決定された場合
 		{
-			this->player->SetAnser(InputNum);	//回答を設定
-			InputNum = 0;	//初期化
-			Digit = 1;		//初期化
+			this->player->SetAnser(InputNumResult);	//回答を設定
+			InputNumResult = 0;	//初期化
 			return true;	//入力終了
 		}
 	}
+
+	this->a = InputNumResult;
 
 	return false;
 }
