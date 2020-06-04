@@ -427,21 +427,25 @@ void GAMEMANEGER::Draw_Scene_End()
 //戻り値：bool：true 入力終了：false 入力中
 bool GAMEMANEGER::CheckInputKey()
 {
-	static int InputNumResult = 0;	//最終的な入力結果
-	static int Weight = 10;			//重み
+	static int InputNumResult = 0;			//最終的な入力結果
+	static int Weight = 10;					//桁の重み
 	int InputNum = this->GetInputNum();		//入力された数字
 
-	if (!(InputNum == 100 || InputNum == -1))	//数値を入力した時
+	if (!(InputNum == INPUT_ENTER || InputNum == INPUT_NOT_NUM))	//数値を入力した時
 	{
-		InputNumResult = (InputNumResult * Weight) + InputNum;		//入力値に桁の重みを付けて計算
+		if ((unsigned int)((InputNumResult * Weight) + InputNum) < INT_MAX)		//int型の最大値を超えなければ
+		{
+			InputNumResult = (InputNumResult * Weight) + InputNum;	//入力値に桁の重みを付けて計算
+		}
+
 	}
 	else	//数値以外を入力した時
 	{
-		if (InputNum == 100)	//決定された場合
+		if (InputNum == INPUT_ENTER)	//決定された場合
 		{
 			this->player->SetAnser(InputNumResult);	//回答を設定
 			InputNumResult = 0;	//初期化
-			return true;	//入力終了
+			return true;		//入力終了
 		}
 	}
 
@@ -453,23 +457,6 @@ bool GAMEMANEGER::CheckInputKey()
 //入力された数字を取得
 int GAMEMANEGER::GetInputNum()
 {
-
-	enum INPUT_NUM
-	{
-		INPUT_NUM_0,		//入力値0
-		INPUT_NUM_1,		//入力値1
-		INPUT_NUM_2,		//入力値2
-		INPUT_NUM_3,		//入力値3
-		INPUT_NUM_4,		//入力値4
-		INPUT_NUM_5,		//入力値5
-		INPUT_NUM_6,		//入力値6
-		INPUT_NUM_7,		//入力値7
-		INPUT_NUM_8,		//入力値8
-		INPUT_NUM_9,		//入力値9
-		INPUT_ENTER = 100,	//決定キー
-		INPUT_NOT_NUM = -1	//数値以外
-	};		//入力値の値
-
 	switch (this->keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
 	{
 
