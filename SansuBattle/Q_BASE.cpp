@@ -26,7 +26,14 @@ Q_BASE::~Q_BASE()
 //–â‘è‚ğ•`‰æ‚·‚é
 void Q_BASE::DrawQuestion()
 {
+
+	//SetFontSize(64);
+
 	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, GetColor(255, 255, 255), "%s", this->Q_Text.c_str());	//–â‘è•¶‚ğ•`‰æ
+
+	DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", this->InputNum);					//“ü—Í’†‚Ì”š‚ğ•`‰æ
+
+	//SetFontSize(32);
 
 	return;
 }

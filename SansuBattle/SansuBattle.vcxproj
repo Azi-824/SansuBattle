@@ -153,8 +153,10 @@
   <ItemGroup>
     <ClInclude Include="CHARACTOR.hpp" />
     <ClInclude Include="ENEMY.hpp" />
+    <ClInclude Include="FONT.hpp" />
     <ClInclude Include="FPS.hpp" />
     <ClInclude Include="GAMEMANEGER.hpp" />
+    <ClInclude Include="Global.hpp" />
     <ClInclude Include="IMAGE.hpp" />
     <ClInclude Include="KEYDOWN.hpp" />
     <ClInclude Include="main.hpp" />
@@ -166,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="CHARACTOR.cpp" />
     <ClCompile Include="ENEMY.cpp" />
+    <ClCompile Include="FONT.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GAMEMANEGER.cpp" />
     <ClCompile Include="IMAGE.cpp" />

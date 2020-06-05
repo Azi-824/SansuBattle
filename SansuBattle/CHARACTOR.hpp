@@ -4,8 +4,7 @@
 #pragma once
 
 //###################### ヘッダファイル読み込み ###################
-#include "DxLib.h"
-#include "main.hpp"
+#include "Global.hpp"
 #include "KEYDOWN.hpp"
 #include "IMAGE.hpp"
 

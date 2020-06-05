@@ -6,7 +6,7 @@
 #pragma once
 
 //########## ヘッダーファイル読み込み ##########
-#include "DxLib.h"
+#include "Global.hpp"
 
 //########## クラスの定義 ##########
 

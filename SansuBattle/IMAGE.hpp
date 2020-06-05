@@ -11,7 +11,7 @@
 #pragma once
 
 //########## ヘッダーファイル読み込み ##########
-#include "DxLib.h"
+#include "Global.hpp"
 #include <string>
 #include <vector>
 

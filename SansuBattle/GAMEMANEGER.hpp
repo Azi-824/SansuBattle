@@ -4,7 +4,7 @@
 #pragma once
 
 //############### ヘッダファイル読み込み ##################
-#include "DxLib.h"
+#include "Global.hpp"
 #include "FPS.hpp"
 #include "KEYDOWN.hpp"
 #include "IMAGE.hpp"
@@ -12,14 +12,9 @@
 #include "PLAYER.hpp"
 #include "ENEMY.hpp"
 #include "Q_ADD.hpp"
+#include "FONT.hpp"
 
 //############### マクロ定義 ################
-#define GAME_LEFT	  0		//画面の横の始点
-#define GAME_TOP	  0		//画面の縦の始点
-#define GAME_WIDTH	880		//画面の横の大きさ
-#define GAME_HEIGHT	640		//画面の縦の大きさ
-#define GAME_FPS_SPEED					   60
-
 //テキスト関係
 #define LOAD_TEXT			"NowLoading…"		//ロード画面のテキスト
 #define PUSH_TEXT			"PushEnter"			//エンターキーを押す、のテキスト
@@ -31,15 +26,8 @@
 #define END_TEXT			"NowEnd"			//エンド画面のテキスト
 
 //座標関係
-#define TEST_TEXT_X	30					//テスト用のテキスト描画X位置
-#define TEST_TEXT_Y	30					//テスト用のテキスト描画Y位置
-
-//色関係
-#define COLOR_RED	GetColor(255,0,0)		//赤色
-#define COLOR_GREEN	GetColor(0,255,0)		//緑色
-#define COLOR_BLUE	GetColor(0,0,255)		//青色
-#define COLOR_WHITE GetColor(255,255,255)	//白色
-#define COLOR_BLACK GetColor(0,0,0)			//黒色
+#define TEST_TEXT_X	0					//テスト用のテキスト描画X位置
+#define TEST_TEXT_Y	0					//テスト用のテキスト描画Y位置
 
 //############### 列挙型 ################
 enum GAME_SCENE
@@ -67,6 +55,7 @@ private:
 	PLAYER* player;				//プレイヤー
 	ENEMY* enemy;				//敵キャラ
 	Q_ADD* q_add;				//問題（足し算）
+	FONT* font;					//フォント
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

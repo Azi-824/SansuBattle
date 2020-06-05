@@ -32,6 +32,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->player;		//player破棄
 	delete this->enemy;			//enemy破棄
 	delete this->q_add;			//q_add破棄
+	delete this->font;			//font破棄
 
 	return;
 
@@ -44,6 +45,10 @@ GAMEMANEGER::~GAMEMANEGER()
 */
 bool GAMEMANEGER::Load()
 {
+
+	//フォント関係
+	this->font = new FONT(FONT_DIR, FONT_FILE_NAME, FONT_NAME);		//フォントを管理するオブジェクトを生成
+	if (this->font->GetIsLoad() == false) { return false; }			//読み込み失敗
 
 	//画像関係
 	//背景画像
@@ -107,7 +112,7 @@ bool GAMEMANEGER::GameMainLoop()
 
 	//▲▲▲▲▲ゲームのシーンここまで▲▲▲▲▲
 
-	this->fps->Draw(0, 0);		//FPS描画
+	//this->fps->Draw(0, 0);		//FPS描画
 
 	ScreenFlip();				//モニタのリフレッシュレートの速さで裏画面を再描画
 
@@ -359,8 +364,6 @@ void GAMEMANEGER::Draw_Scene_Play()
 	this->q_add->DrawQuestion();		//問題描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
-
-	DrawFormatString(300, 300, COLOR_WHITE, "%d", this->q_add->InputNum);	//入力中の数字を描画
 
 	return;
 }

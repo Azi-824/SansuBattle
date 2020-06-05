@@ -4,7 +4,7 @@
 #pragma once
 
 //################# ヘッダファイル読み込み ###############
-#include "DxLib.h"
+#include "Global.hpp"
 #include <string>
 #include "KEYDOWN.hpp"
 
