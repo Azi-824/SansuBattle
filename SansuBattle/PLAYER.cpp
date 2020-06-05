@@ -12,9 +12,6 @@
 PLAYER::PLAYER(const char* dir, const char* name)
 {
 
-	//メンバー変数初期化
-	this->PlayerAns = 0;	//プレイヤーの回答初期化
-
 	//HP画像生成 
 	this->NewImage(dir, name);		//HP画像を生成
 	return;
@@ -37,17 +34,4 @@ void PLAYER::DrawHP()
 
 	return;
 
-}
-
-//回答を設定
-void PLAYER::SetAnser(int anser)
-{
-	this->PlayerAns = anser;
-	return;
-}
-
-//回答を取得
-int PLAYER::GetAnser()
-{
-	return this->PlayerAns;
 }

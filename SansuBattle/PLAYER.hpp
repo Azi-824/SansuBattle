@@ -19,16 +19,11 @@ class PLAYER : public CHARACTOR		//キャラクタークラスを継承
 {
 private:
 
-	int PlayerAns;		//プレイヤーの回答
-
 public:
 
 	PLAYER(const char*, const char*);	//コンストラクタ
 	~PLAYER();							//デストラクタ
 
 	void DrawHP();						//HPを描画する
-
-	void SetAnser(int);					//回答を設定
-	int GetAnser();						//回答を取得
 
 };
