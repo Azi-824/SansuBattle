@@ -27,13 +27,9 @@ Q_BASE::~Q_BASE()
 void Q_BASE::DrawQuestion()
 {
 
-	//SetFontSize(64);
+	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, COLOR_WHITE, "%s", this->Q_Text.c_str());			//–â‘è•¶‚ğ•`‰æ
 
-	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, GetColor(255, 255, 255), "%s", this->Q_Text.c_str());	//–â‘è•¶‚ğ•`‰æ
-
-	DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", this->InputNum);					//“ü—Í’†‚Ì”š‚ğ•`‰æ
-
-	//SetFontSize(32);
+	DrawFormatString(GAME_WIDTH / 2, GAME_HEIGHT / 2, COLOR_WHITE, "%d", this->InputNum);	//“ü—Í’†‚Ì”š‚ğ•`‰æ
 
 	return;
 }
