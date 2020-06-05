@@ -53,22 +53,6 @@ enum GAME_SCENE
 	SCENE_END			//エンドシーン
 };
 
-enum INPUT_NUM
-{
-	INPUT_NUM_0,		//入力値0
-	INPUT_NUM_1,		//入力値1
-	INPUT_NUM_2,		//入力値2
-	INPUT_NUM_3,		//入力値3
-	INPUT_NUM_4,		//入力値4
-	INPUT_NUM_5,		//入力値5
-	INPUT_NUM_6,		//入力値6
-	INPUT_NUM_7,		//入力値7
-	INPUT_NUM_8,		//入力値8
-	INPUT_NUM_9,		//入力値9
-	INPUT_ENTER = 100,	//決定キー
-	INPUT_NOT_NUM = -1	//数値以外
-};		//入力値の値
-
 //############### クラス定義 ################
 class GAMEMANEGER
 {
@@ -86,8 +70,6 @@ private:
 
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
-
-	int a;
 
 public:
 
@@ -122,8 +104,5 @@ public:
 		
 	void Scene_End();				//エンド画面の処理
 	void Draw_Scene_End();			//エンド画面の描画処理
-
-	bool CheckInputKey();			//キー入力中か確認
-	int GetInputNum();				//入力された数字を取得
 
 };

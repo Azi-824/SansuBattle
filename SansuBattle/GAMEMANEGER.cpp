@@ -330,19 +330,13 @@ void GAMEMANEGER::Scene_Play()
 
 	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
-
-	//if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
-	//{
-	//	this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
-	//}
-
-	if (!this->CheckInputKey())		//キー入力中だったら
+	if (!this->q_add->CheckInputKey(this->keydown))		//キー入力中だったら
 	{
 		//ゲームの処理（時間経過等）
 	}
 	else							//キー入力が終了したら
 	{
-		if (this->q_add->JudgAnser(this->player->GetAnser()))	//プレイヤーの回答が正解だったら
+		if (this->q_add->JudgAnser())	//プレイヤーの回答が正解だったら
 		{
 			this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 		}
@@ -366,12 +360,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
-	DrawFormatString(300, 300, COLOR_WHITE, "%d", this->a);
-
-	/*
-	修正ポイント
-	*/
-	//this->player->SetAnser(KeyInputNumber(200, 200, 100, 0, TRUE));
+	DrawFormatString(300, 300, COLOR_WHITE, "%d", this->q_add->InputNum);	//入力中の数字を描画
 
 	return;
 }
@@ -420,126 +409,4 @@ void GAMEMANEGER::Draw_Scene_End()
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
-}
-
-
-//キー入力中か確認
-//戻り値：bool：true 入力終了：false 入力中
-bool GAMEMANEGER::CheckInputKey()
-{
-	static int InputNumResult = 0;			//最終的な入力結果
-	static int Weight = 10;					//桁の重み
-	int InputNum = this->GetInputNum();		//入力された数字
-
-	if (!(InputNum == INPUT_ENTER || InputNum == INPUT_NOT_NUM))	//数値を入力した時
-	{
-		if ((unsigned int)((InputNumResult * Weight) + InputNum) < INT_MAX)		//int型の最大値を超えなければ
-		{
-			InputNumResult = (InputNumResult * Weight) + InputNum;	//入力値に桁の重みを付けて計算
-		}
-
-	}
-	else	//数値以外を入力した時
-	{
-		if (InputNum == INPUT_ENTER)	//決定された場合
-		{
-			this->player->SetAnser(InputNumResult);	//回答を設定
-			InputNumResult = 0;	//初期化
-			return true;		//入力終了
-		}
-	}
-
-	this->a = InputNumResult;
-
-	return false;
-}
-
-//入力された数字を取得
-int GAMEMANEGER::GetInputNum()
-{
-	switch (this->keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
-	{
-
-	case KEY_INPUT_0:		//0を入力された場合
-	case KEY_INPUT_NUMPAD0:	//テンキーで0を入力された場合
-
-		return INPUT_NUM_0;	//入力値0
-		
-		break;
-
-	case KEY_INPUT_1:		//1を入力された場合
-	case KEY_INPUT_NUMPAD1:	//テンキーで1を入力された場合
-
-		return INPUT_NUM_1;	//入力値1
-
-		break;
-
-	case KEY_INPUT_2:		//2を入力された場合
-	case KEY_INPUT_NUMPAD2:	//テンキーで2を入力された場合
-
-		return INPUT_NUM_2;	//入力値2
-
-		break;
-
-	case KEY_INPUT_3:		//3を入力された場合
-	case KEY_INPUT_NUMPAD3:	//テンキーで3を入力された場合
-
-		return INPUT_NUM_3;	//入力値3
-
-		break;			
-
-	case KEY_INPUT_4:		//4を入力された場合
-	case KEY_INPUT_NUMPAD4:	//テンキーで4を入力された場合
-
-		return INPUT_NUM_4;	//入力値4
-
-		break;
-
-	case KEY_INPUT_5:		//5を入力された場合
-	case KEY_INPUT_NUMPAD5:	//テンキーで5を入力された場合
-
-		return INPUT_NUM_5;	//入力値5
-
-		break;
-
-	case KEY_INPUT_6:		//6を入力された場合
-	case KEY_INPUT_NUMPAD6:	//テンキーで6を入力された場合
-
-		return INPUT_NUM_6;	//入力値6
-
-		break;
-
-	case KEY_INPUT_7:		//7を入力された場合
-	case KEY_INPUT_NUMPAD7:	//テンキーで7を入力された場合
-
-		return INPUT_NUM_7;	//入力値7
-
-		break;
-
-	case KEY_INPUT_8:		//8を入力された場合
-	case KEY_INPUT_NUMPAD8:	//テンキーで8を入力された場合
-
-		return INPUT_NUM_8;	//入力値8
-
-		break;
-
-	case KEY_INPUT_9:		//9を入力された場合
-	case KEY_INPUT_NUMPAD9:	//テンキーで9を入力された場合
-
-		return INPUT_NUM_9;	//入力値9
-
-		break;
-
-	case KEY_INPUT_RETURN:		//エンターキー（決定された）場合
-	case KEY_INPUT_NUMPADENTER:	//テンキーでエンターキー（決定された）場合
-
-		return INPUT_ENTER;		//決定
-
-		break;
-
-	default:					//それ以外の場合（数字以外の入力の場合）
-
-		return INPUT_NOT_NUM;	//数字以外の入力
-		break;
-	}
 }
