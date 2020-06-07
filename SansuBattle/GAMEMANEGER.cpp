@@ -340,7 +340,7 @@ void GAMEMANEGER::Scene_Play()
 
 	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
-	this->gamelimittime->UpdateElpasedTime();	//経過時間の更新
+	this->gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
 	if (!this->q_add->CheckInputKey(this->keydown))		//キー入力中だったら
 	{
@@ -372,7 +372,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
-	this->gamelimittime->DrawElapsedTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y);			//制限時間の描画
+	this->gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 
 	return;
 }

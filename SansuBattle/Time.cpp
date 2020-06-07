@@ -12,6 +12,7 @@ Time::Time()
 	//メンバー変数初期化
 	this->StartTime = 0;		//計測開始時間初期化
 	this->ElapsedTime = 0;		//経過時間初期化
+	this->NowLimitTime = 0;		//残りの制限時間初期化
 
 	return;
 }
@@ -38,10 +39,26 @@ void Time::UpdateElpasedTime()
 	return;
 }
 
+//制限時間更新
+void Time::UpdateLimitTime(int limit_time)
+{
+	this->UpdateElpasedTime();	//経過時間を更新
+	this->NowLimitTime = limit_time - this->ElapsedTime;	//残りの制限時間を更新
+	return;
+}
+
 //経過時間描画
 void Time::DrawElapsedTime(int x, int y)
 {
 	this->UpdateElpasedTime();	//経過時間を更新
 	DrawFormatString(x, y, COLOR_WHITE, "%d", this->ElapsedTime);	//経過時間を描画
+	return;
+}
+
+//制限時間描画
+void Time::DrawLimitTime(int x, int y,int limit_time)
+{
+	this->UpdateLimitTime(limit_time);	//残りの制限時間更新
+	DrawFormatString(x, y, COLOR_WHITE, "%d", this->NowLimitTime);	//制限時間を描画
 	return;
 }
