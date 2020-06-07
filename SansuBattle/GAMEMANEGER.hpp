@@ -13,6 +13,7 @@
 #include "ENEMY.hpp"
 #include "Q_ADD.hpp"
 #include "FONT.hpp"
+#include "Time.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -56,7 +57,8 @@ private:
 	ENEMY* enemy;				//敵キャラ
 	Q_ADD* q_add;				//問題（足し算）
 	FONT* font;					//フォント
-
+	Time* gamelimittime;		//ゲーム制限時間
+	
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
 

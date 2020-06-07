@@ -164,6 +164,7 @@
     <ClInclude Include="Q_ADD.hpp" />
     <ClInclude Include="Q_BASE.hpp" />
     <ClInclude Include="SELECT.hpp" />
+    <ClInclude Include="Time.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHARACTOR.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Q_ADD.cpp" />
     <ClCompile Include="Q_BASE.cpp" />
     <ClCompile Include="SELECT.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

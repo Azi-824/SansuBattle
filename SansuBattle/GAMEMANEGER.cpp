@@ -33,6 +33,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->enemy;			//enemy破棄
 	delete this->q_add;			//q_add破棄
 	delete this->font;			//font破棄
+	delete this->gamelimittime;	//gamelimittime破棄
 
 	return;
 
@@ -49,6 +50,9 @@ bool GAMEMANEGER::Load()
 	//フォント関係
 	this->font = new FONT(FONT_DIR, FONT_FILE_NAME, FONT_NAME);		//フォントを管理するオブジェクトを生成
 	if (this->font->GetIsLoad() == false) { return false; }			//読み込み失敗
+
+	//時間関係
+	this->gamelimittime = new Time();		//ゲームの制限時間を管理するオブジェクトを生成
 
 	//画像関係
 	//背景画像
@@ -312,6 +316,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 
 	if (this->stage_select->GetIsChoise())		//選択したら
 	{
+		this->gamelimittime->SetTime();			//制限時間の計測開始
 		this->NowScene = (int)SCENE_PLAY;		//プレイ画面へ
 	}
 
@@ -334,6 +339,8 @@ void GAMEMANEGER::Scene_Play()
 {
 
 	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
+
+	this->gamelimittime->UpdateElpasedTime();	//経過時間の更新
 
 	if (!this->q_add->CheckInputKey(this->keydown))		//キー入力中だったら
 	{
@@ -364,6 +371,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 	this->q_add->DrawQuestion();		//問題描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
+
+	this->gamelimittime->DrawElapsedTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y);			//制限時間の描画
 
 	return;
 }
