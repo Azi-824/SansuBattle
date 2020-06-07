@@ -40,6 +40,7 @@ void Time::UpdateElpasedTime()
 }
 
 //制限時間更新
+//引数：int：制限時間
 void Time::UpdateLimitTime(int limit_time)
 {
 	this->UpdateElpasedTime();	//経過時間を更新
@@ -48,6 +49,8 @@ void Time::UpdateLimitTime(int limit_time)
 }
 
 //経過時間描画
+//引数：int：描画X位置
+//引数：int：描画Y位置
 void Time::DrawElapsedTime(int x, int y)
 {
 	this->UpdateElpasedTime();	//経過時間を更新
@@ -56,6 +59,9 @@ void Time::DrawElapsedTime(int x, int y)
 }
 
 //制限時間描画
+//引数：int：描画X位置
+//引数：int：描画Y位置
+//引数：int：制限時間
 void Time::DrawLimitTime(int x, int y,int limit_time)
 {
 	this->UpdateLimitTime(limit_time);	//残りの制限時間更新
