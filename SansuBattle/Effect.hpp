@@ -11,7 +11,7 @@
 //###################### マクロ定義：ファイルパス、名前 ######################
 #define EFFECT_DIR				R"(.\MY_EFFECT)"				//エフェクトの画像ファイルの場所
 
-#define EFFECT_NAME_SLASH		R"(\Atack.png)"					//攻撃エフェクトの画像の名前
+#define EFFECT_NAME_ATACK		R"(\Atack.png)"					//攻撃エフェクトの画像の名前
 
 //###################### マクロ定義：エラーメッセージ ########################
 #define EFFECT_ERROR_TTILE	"EFFECT_ERROR"						//エラータイトル
@@ -32,7 +32,7 @@
 #define EFFECT_ATACK_ALL_CNT	EFFECT_ATACK_YOKO_CNT * EFFECT_ATACK_TATE_CNT	//総分割数
 
 //************************ 描画速度 ***************************
-#define EFFECT_ATACK_SPEED		0.02
+#define EFFECT_ATACK_SPEED		0.08
 
 //###################### 列挙型 ##########################
 enum EFFECT_KIND
@@ -66,7 +66,7 @@ private:
 
 public:
 
-	Effect(const char*, const char*, int, int, int, int, int, double, bool, int);	//コンストラクタ	
+	Effect(const char*, const char*, int, int, int, int, int, double, bool);	//コンストラクタ	
 
 	~Effect();					//デストラクタ
 
@@ -85,7 +85,7 @@ public:
 
 	void Draw(int, int, int);	//描画
 
-	bool Add(const char*, const char*, int, int, int, int, int, double, bool, int);	//エフェクト追加
+	bool Add(const char*, const char*, int, int, int, int, int, double, bool);	//エフェクト追加
 
 	void SetSize();						//サイズ設定
 

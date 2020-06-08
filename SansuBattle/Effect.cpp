@@ -17,9 +17,8 @@
 引　数：int：画像の分割された縦の大きさ
 引　数：double：次の画像に変更する速さ
 引　数：bool：アニメーションをループするかどうか
-引　数：int：FPSの速度
 */
-Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop, int fps_spd)
+Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop)
 {
 	//メンバー変数初期化
 	this->IsLoad = false;			//読み込めたか？
@@ -55,7 +54,7 @@ Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX
 		return;
 	}
 
-	this->ChangeMaxCnt.push_back(fps_spd * changeSpeed);
+	this->ChangeMaxCnt.push_back(GAME_FPS_SPEED * changeSpeed);
 	this->ChangeCnt = 0;	//アニメーションするフレームのカウント
 
 	this->NextChangeSpeed.push_back(changeSpeed);	//画像を変える速さ
@@ -216,9 +215,8 @@ void Effect::Draw(int x, int y, int type)
 引　数：int：画像の分割された縦の大きさ
 引　数：double：次の画像に変更する速さ
 引　数：bool：アニメーションをループするかどうか
-引　数：int：FPSの速度
 */
-bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop, int fps_spd)
+bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop)
 {
 	this->IsAnimeLoop.push_back(IsLoop);		//アニメーションはループする？
 	this->IsAnimeStop.push_back(false);			//アニメーションを動かす
@@ -253,7 +251,7 @@ bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNu
 
 	this->Handle_itr.push_back(this->Handle.back().begin());		//先頭要素をイテレータに設定
 
-	this->ChangeMaxCnt.push_back(fps_spd * changeSpeed);
+	this->ChangeMaxCnt.push_back(GAME_FPS_SPEED * changeSpeed);
 	this->NextChangeSpeed.push_back(changeSpeed);		//次の画像に変更する速さ
 
 	//vectorのメモリ解放を行う

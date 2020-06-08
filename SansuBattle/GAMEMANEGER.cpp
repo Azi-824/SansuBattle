@@ -34,6 +34,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->q_add;			//q_add破棄
 	delete this->font;			//font破棄
 	delete this->gamelimittime;	//gamelimittime破棄
+	delete this->effect_atk;	//effect_atk破棄
 
 	return;
 
@@ -87,6 +88,10 @@ bool GAMEMANEGER::Load()
 	//敵関係
 	this->enemy = new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY);		//敵を管理するオブジェクトを生成
 	if (this->enemy->GetIsLoad() == false) { return false; }	//読み込み失敗
+
+	//エフェクト関係
+	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, true);	//攻撃エフェクトを管理するオブジェクトを生成
+	if (this->effect_atk->GetIsLoad() == false) { return false; }//読み込み失敗
 
 	//問題関係
 	//足し算
@@ -204,6 +209,7 @@ void GAMEMANEGER::SetInit()
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
+	this->effect_atk->SetSize();	//エフェクト初期設定
 
 	this->q_add->CreateQuestion();	//足し算の問題を生成
 
@@ -373,6 +379,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	this->gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
+
+	this->effect_atk->Draw(GAME_WIDTH / 2, GAME_HEIGHT / 2, (int)EFFECT_ATACK);	//攻撃エフェクト描画
 
 	return;
 }

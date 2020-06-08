@@ -14,6 +14,7 @@
 #include "Q_ADD.hpp"
 #include "FONT.hpp"
 #include "Time.hpp"
+#include "Effect.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -58,6 +59,7 @@ private:
 	Q_ADD* q_add;				//問題（足し算）
 	FONT* font;					//フォント
 	Time* gamelimittime;		//ゲーム制限時間
+	Effect* effect_atk;			//攻撃エフェクト
 	
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
