@@ -11,7 +11,7 @@
 //###################### マクロ定義：ファイルパス、名前 ######################
 #define EFFECT_DIR				R"(.\MY_EFFECT)"				//エフェクトの画像ファイルの場所
 
-#define EFFECT_NAME_SLASH		R"(\slash.png)"					//スラッシュエフェクトの画像の名前
+#define EFFECT_NAME_SLASH		R"(\Atack.png)"					//攻撃エフェクトの画像の名前
 
 //###################### マクロ定義：エラーメッセージ ########################
 #define EFFECT_ERROR_TTILE	"EFFECT_ERROR"						//エラータイトル
@@ -20,24 +20,24 @@
 //###################### マクロ定義 #################################
 
 //********************** サイズ ************************
-#define EFFECT_SLASH_WIDTH		880	//分割幅
-#define EFFECT_SLASH_HEIGHT		640	//分割高さ
+#define EFFECT_ATACK_WIDTH		240	//分割幅
+#define EFFECT_ATACK_HEIGHT		240	//分割高さ
 
 
 //********************** 分割数 **************************
-#define EFFECT_SLASH_YOKO_CNT		3	//横分割数
-#define EFFECT_SLASH_TATE_CNT		3	//縦分割数
+#define EFFECT_ATACK_YOKO_CNT		7	//横分割数
+#define EFFECT_ATACK_TATE_CNT		1	//縦分割数
 
 //************************ 総分割数 **************************
-#define EFFECT_SLASH_ALL_CNT	EFFECT_SLASH_YOKO_CNT * EFFECT_SLASH_TATE_CNT	//総分割数
+#define EFFECT_ATACK_ALL_CNT	EFFECT_ATACK_YOKO_CNT * EFFECT_ATACK_TATE_CNT	//総分割数
 
 //************************ 描画速度 ***************************
-#define EFFECT_SLASH_SPEED		0.02
+#define EFFECT_ATACK_SPEED		0.02
 
 //###################### 列挙型 ##########################
 enum EFFECT_KIND
 {
-	EFFECT_SLASH		//スラッシュエフェクト
+	EFFECT_ATACK		//攻撃エフェクト
 };
 //################### クラス定義 #########################
 class Effect
