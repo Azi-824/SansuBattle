@@ -20,3 +20,8 @@
 #define COLOR_WHITE GetColor(255,255,255)	//白色
 #define COLOR_BLACK GetColor(0,0,0)			//黒色
 
+//****************** その他 ***********************
+#define INIT_VALUE		0	//初期値
+#define FADE_MAX_CNT	60	//フェード処理のカウント最大値
+#define TOUKA_MAX_VALUE	255	//透過の最大値
+
