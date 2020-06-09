@@ -10,6 +10,7 @@
 int Q_BASE::Anser = -1;				//答え初期化
 int Q_BASE::InputNum = 0;			//入力された数字初期化
 std::string Q_BASE::Q_Text = "";	//問題文初期化
+bool Q_BASE::IsCreate = false;		//問題を作成したか初期化
 
 //コンストラクタ
 Q_BASE::Q_BASE()
@@ -42,7 +43,10 @@ void Q_BASE::DrawQuestion()
 bool Q_BASE::JudgAnser()
 {
 	if (Anser == InputNum)				//プレイヤーの回答が、答えと一緒だったら
+	{
+		Q_BASE::IsCreate = false;		//問題を作成したか、リセット
 		return true;					//正解
+	}
 	else								//一緒じゃなかったら
 		return false;					//不正解
 }
@@ -165,4 +169,10 @@ int Q_BASE::GetInputNum(KEYDOWN* keydown)
 		return INPUT_NOT_NUM;	//数字以外の入力
 		break;
 	}
+}
+
+//問題を作成したか取得
+bool Q_BASE::GetIsCreate()
+{
+	return IsCreate;
 }

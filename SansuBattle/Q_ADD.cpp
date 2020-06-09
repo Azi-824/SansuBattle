@@ -29,6 +29,8 @@ void Q_ADD::CreateQuestion()
 	this->Anser = num1 + num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
 	this->Q_Text = (std::to_string(num1) + "{" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
 
+	IsCreate = true;	//–â‘è‚ğì¬‚µ‚½
+
 	return;
 
 }

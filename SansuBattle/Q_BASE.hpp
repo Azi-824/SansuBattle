@@ -40,6 +40,7 @@ protected:
 	static std::string Q_Text;			//–â‘è•¶
 	static int Anser;					//“š‚¦
 	static int InputNum;				//“ü—Í‚³‚ê‚½”š
+	static bool IsCreate;				//–â‘è‚ğì¬‚µ‚½‚©
 
 private:
 
@@ -58,6 +59,8 @@ public:
 	static bool JudgAnser();			//³‰ğ‚©”»’è‚·‚é
 
 	static bool CheckInputKey(KEYDOWN*);//ƒL[“ü—Í’†‚©æ“¾
+
+	static bool GetIsCreate();			//–â‘è‚ğì¬‚µ‚½‚©æ“¾
 
 
 };

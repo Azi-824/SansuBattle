@@ -220,8 +220,6 @@ void GAMEMANEGER::SetInit()
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
 	this->effect_atk->SetInit();														//エフェクト初期設定
 
-	quesiton.at(0)->CreateQuestion();	//足し算の問題を生成
-
 	return;
 }
 
@@ -356,6 +354,11 @@ void GAMEMANEGER::Scene_Play()
 	this->back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
 	this->gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
+
+	if (!Q_BASE::GetIsCreate())	//問題を作成していなければ
+	{
+		quesiton.at(0)->CreateQuestion();	//問題を作成
+	}
 
 	if (Q_BASE::CheckInputKey(this->keydown))	//キー入力が完了したら
 	{
