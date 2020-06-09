@@ -24,6 +24,4 @@ public:
 	ENEMY(const char* ,const char*);	//コンストラクタ
 	~ENEMY();							//デストラクタ
 
-	void DrawImage();					//画像描画
-
 };

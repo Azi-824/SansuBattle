@@ -22,10 +22,3 @@ ENEMY::~ENEMY()
 {
 	return;
 }
-
-//‰æ‘œ•`‰æ
-void ENEMY::DrawImage()
-{
-	this->image->Draw(this->DrawX, this->DrawY);	//‰æ‘œ‚ð•`‰æ
-	return;
-}
