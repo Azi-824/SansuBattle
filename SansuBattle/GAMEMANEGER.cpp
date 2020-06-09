@@ -99,7 +99,7 @@ bool GAMEMANEGER::Load()
 	if (this->enemy->GetIsLoad() == false) { return false; }	//読み込み失敗
 
 	//エフェクト関係
-	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, true);	//攻撃エフェクトを管理するオブジェクトを生成
+	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false);	//攻撃エフェクトを管理するオブジェクトを生成
 	if (this->effect_atk->GetIsLoad() == false) { return false; }//読み込み失敗
 
 	//問題関係
@@ -331,6 +331,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 	if (this->stage_select->GetIsChoise())		//選択したら
 	{
 		this->gamelimittime->SetTime();			//制限時間の計測開始
+		effect_atk->ResetIsAnime((int)EFFECT_ATACK);	//アニメーション状態をリセット
 		this->NowScene = (int)SCENE_PLAY;		//プレイ画面へ
 	}
 
@@ -365,9 +366,18 @@ void GAMEMANEGER::Scene_Play()
 	{
 		if (Q_BASE::JudgAnser())				//プレイヤーの回答が正解だったら
 		{
-			this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
+			effect_atk->SetIsDraw(true,(int)EFFECT_ATACK);			//アニメーションの描画を開始する
 		}
 
+	}
+
+	/*
+	後から、敵のHPがなくなったら遷移するように修正。
+	*/
+	if (effect_atk->GetIsDrawEnd())							//アニメーション描画が終わったら
+	{
+		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);	//アニメーションを描画しない
+		NowScene = (int)SCENE_DRAWSCORE;					//スコア表示画面へ
 	}
 
 	return;

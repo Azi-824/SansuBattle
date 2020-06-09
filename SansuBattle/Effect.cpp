@@ -61,6 +61,7 @@ Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX
 
 	this->IsAnimeLoop.push_back(IsLoop);	//アニメーションがループするか
 	this->IsAnimeStop.push_back(false);		//アニメーションを動かす
+	IsDraw.push_back(false);				//描画してよいか（最初は描画しない）
 
 	this->Handle_itr.push_back(this->Handle.front().begin());	//先頭要素をイテレータに設定
 
@@ -165,39 +166,43 @@ void Effect::ResetIsAnime(int type)
 void Effect::Draw(int x, int y, int type)
 {
 
-	if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
+	if (IsDraw.at(type))		//描画してよければ
 	{
-		DrawGraph(x, y, *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-	}
-	else
-	{
-		this->IsDrawEnd = true;		//描画終了
-	}
-
-	if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
-	{
-		//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
-		if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
-			//アニメーションをループしないなら
-			if (this->IsAnimeLoop[type] == false)
-			{
-				this->IsAnimeStop[type] = true;	//アニメーションを止める
-			}
-
-			//次回の描画に備えて、先頭の画像に戻しておく
-			this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+			DrawGraph(x, y, *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
 		}
 		else
 		{
-			++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+			this->IsDrawEnd = true;		//描画終了
 		}
 
-		this->ChangeCnt = 0;	//カウント初期化
-	}
-	else
-	{
-		this->ChangeCnt++;	//カウントアップ
+		if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
+		{
+			//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
+			if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+			{
+				//アニメーションをループしないなら
+				if (this->IsAnimeLoop[type] == false)
+				{
+					this->IsAnimeStop[type] = true;	//アニメーションを止める
+				}
+
+				//次回の描画に備えて、先頭の画像に戻しておく
+				this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+			}
+			else
+			{
+				++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+			}
+
+			this->ChangeCnt = 0;	//カウント初期化
+		}
+		else
+		{
+			this->ChangeCnt++;	//カウントアップ
+		}
+
 	}
 
 	return;
@@ -211,40 +216,45 @@ void Effect::Draw(int x, int y, int type)
 void Effect::DrawCenter(int type)
 {
 
-	if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
+	if (IsDraw.at(type))	//描画してよければ
 	{
-		DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-	}
-	else
-	{
-		this->IsDrawEnd = true;		//描画終了
-	}
-
-	if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
-	{
-		//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
-		if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
-			//アニメーションをループしないなら
-			if (this->IsAnimeLoop[type] == false)
-			{
-				this->IsAnimeStop[type] = true;	//アニメーションを止める
-			}
-
-			//次回の描画に備えて、先頭の画像に戻しておく
-			this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+			DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
 		}
 		else
 		{
-			++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+			this->IsDrawEnd = true;		//描画終了
 		}
 
-		this->ChangeCnt = 0;	//カウント初期化
+		if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
+		{
+			//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
+			if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+			{
+				//アニメーションをループしないなら
+				if (this->IsAnimeLoop[type] == false)
+				{
+					this->IsAnimeStop[type] = true;	//アニメーションを止める
+				}
+
+				//次回の描画に備えて、先頭の画像に戻しておく
+				this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+			}
+			else
+			{
+				++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+			}
+
+			this->ChangeCnt = 0;	//カウント初期化
+		}
+		else
+		{
+			this->ChangeCnt++;	//カウントアップ
+		}
+
 	}
-	else
-	{
-		this->ChangeCnt++;	//カウントアップ
-	}
+
 
 	return;
 
@@ -266,6 +276,7 @@ bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNu
 {
 	this->IsAnimeLoop.push_back(IsLoop);		//アニメーションはループする？
 	this->IsAnimeStop.push_back(false);			//アニメーションを動かす
+	IsDraw.push_back(false);					//描画してよいか
 	this->Width.push_back(0);					//横幅を初期化
 	this->Height.push_back(0);					//高さを初期化
 
@@ -439,3 +450,17 @@ bool Effect::FadeIn(int x, int y, int width, int height)
 
 }
 
+//描画してよいか設定
+//引数：bool：描画してよいか
+//引数：int：描画するエフェクトの種類
+void Effect::SetIsDraw(bool isdraw, int type)
+{
+	IsDraw.at(type) = isdraw;
+}
+
+//描画してよいか取得
+//引数：int：描画するエフェクトの種類
+bool Effect::GetIsDraw(int type)
+{
+	return IsDraw.at(type);
+}

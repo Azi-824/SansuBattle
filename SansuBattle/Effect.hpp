@@ -56,6 +56,7 @@ private:
 
 	std::vector<bool> IsAnimeLoop;			//アニメーションはループする？
 	std::vector<bool> IsAnimeStop;			//アニメーションはストップしたか？
+	std::vector<bool> IsDraw;				//描画してよいか
 
 	bool IsDrawEnd;				//描画終了したか
 
@@ -95,5 +96,8 @@ public:
 
 	bool FadeOut(int, int, int, int);		//フェードアウトエフェクト
 	bool FadeIn(int, int, int, int);	//フェードインエフェクト
+
+	void SetIsDraw(bool, int);			//描画してよいか設定
+	bool GetIsDraw(int);				//描画してよいか取得
 
 };
