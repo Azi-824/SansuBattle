@@ -52,5 +52,7 @@ public:
 	virtual void Draw();		//•`‰æ
 	void DrawCenter();			//’†‰›‚É•`‰æ
 
+	int GetHp();				//HPŽæ“¾
+
 };
 

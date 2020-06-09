@@ -117,3 +117,9 @@ void CHARACTOR::DrawCenter()
 {
 	image->DrawCenter();		//’†‰›‚É•`‰æ
 }
+
+//HPŽæ“¾
+int CHARACTOR::GetHp()
+{
+	return HP;
+}

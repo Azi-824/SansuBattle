@@ -327,7 +327,6 @@ void GAMEMANEGER::Scene_ChoiseStage()
 	if (this->stage_select->GetIsChoise())		//選択したら
 	{
 		this->gamelimittime->SetTime();					//制限時間の計測開始
-		effect_atk->ResetIsAnime((int)EFFECT_ATACK);	//アニメーション状態をリセット
 		this->NowScene = (int)SCENE_PLAY;				//プレイ画面へ
 	}
 
@@ -365,15 +364,17 @@ void GAMEMANEGER::Scene_Play()
 
 	}
 
-	/*
-	後から、敵のHPがなくなったら遷移するように修正。
-	*/
 	if (effect_atk->GetIsDrawEnd())							//アニメーション描画が終わったら
 	{
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);	//アニメーションを描画しない
-		NowScene = (int)SCENE_DRAWSCORE;					//スコア表示画面へ
+		effect_atk->ResetIsAnime((int)EFFECT_ATACK);		//アニメーション状態をリセット
+		enemy->SendDamege();								//敵にダメージを与える
 	}
 
+	if (enemy->GetHp() <= 0)		//敵のHPが0になったら
+	{
+		NowScene = (int)SCENE_DRAWSCORE;		//スコア表示画面へ
+	}
 	return;
 }
 
