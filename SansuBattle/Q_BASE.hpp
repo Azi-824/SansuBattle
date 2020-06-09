@@ -44,10 +44,11 @@ protected:
 
 private:
 
-
 	static int GetInputNum(KEYDOWN*);	//入力された数字を取得
 
 public:
+
+	static int SelectLevel;				//選択した問題のレベル
 
 	Q_BASE();							//コンストラクタ
 	~Q_BASE();							//デストラクタ

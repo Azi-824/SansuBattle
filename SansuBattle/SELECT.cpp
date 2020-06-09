@@ -49,6 +49,12 @@ bool SELECT::GetIsChoise()
 	return this->IsChoise;
 }
 
+//選んだ選択肢のコード番号を取得
+bool SELECT::GetChoiseSelectCode()
+{
+	return Choise_SelectCode;
+}
+
 //初期設定
 /*
 引数：int：描画開始X位置

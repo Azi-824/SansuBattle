@@ -11,6 +11,7 @@ int Q_BASE::Anser = -1;				//答え初期化
 int Q_BASE::InputNum = 0;			//入力された数字初期化
 std::string Q_BASE::Q_Text = "";	//問題文初期化
 bool Q_BASE::IsCreate = false;		//問題を作成したか初期化
+int Q_BASE::SelectLevel = -1;		//選択した問題のレベル
 
 //コンストラクタ
 Q_BASE::Q_BASE()

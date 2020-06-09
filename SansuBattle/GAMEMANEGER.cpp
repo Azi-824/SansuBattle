@@ -304,7 +304,8 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 
 	if (this->level_select->GetIsChoise())			//選択したら
 	{
-		this->NowScene = (int)SCENE_CHOISESTAGE;	//ステージ選択画面へ
+		Q_BASE::SelectLevel = level_select->GetChoiseSelectCode();	//選択したレベルを設定
+		this->NowScene = (int)SCENE_CHOISESTAGE;					//ステージ選択画面へ
 	}
 
 	return;
@@ -357,7 +358,7 @@ void GAMEMANEGER::Scene_Play()
 
 	if (!Q_BASE::GetIsCreate())	//問題を作成していなければ
 	{
-		quesiton.at(0)->CreateQuestion();	//問題を作成
+		quesiton.at(Q_BASE::SelectLevel)->CreateQuestion();	//問題を作成
 	}
 
 	if (Q_BASE::CheckInputKey(this->keydown))	//キー入力が完了したら
