@@ -38,13 +38,13 @@ class Q_BASE
 protected:
 
 	std::string Q_Text;			//問題文
-	int Anser;					//答え
-	int InputNum;				//入力された数字
+	static int Anser;					//答え
+	static int InputNum;				//入力された数字
 
 private:
 
 
-	int GetInputNum(KEYDOWN*);			//入力された数字を取得
+	static int GetInputNum(KEYDOWN*);	//入力された数字を取得
 
 public:
 
@@ -53,9 +53,9 @@ public:
 
 	void DrawQuestion();				//問題を描画する
 
-	bool JudgAnser();					//正解か判定する
+	static bool JudgAnser();			//正解か判定する
 
-	bool CheckInputKey(KEYDOWN*);		//キー入力中か取得
+	static bool CheckInputKey(KEYDOWN*);//キー入力中か取得
 
 
 };

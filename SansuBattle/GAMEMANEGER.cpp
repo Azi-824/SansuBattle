@@ -348,13 +348,9 @@ void GAMEMANEGER::Scene_Play()
 
 	this->gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
-	if (!this->q_add->CheckInputKey(this->keydown))		//キー入力中だったら
+	if (Q_BASE::CheckInputKey(this->keydown))	//キー入力が完了したら
 	{
-		//ゲームの処理（時間経過等）
-	}
-	else							//キー入力が終了したら
-	{
-		if (this->q_add->JudgAnser())	//プレイヤーの回答が正解だったら
+		if (Q_BASE::JudgAnser())				//プレイヤーの回答が正解だったら
 		{
 			this->NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 		}

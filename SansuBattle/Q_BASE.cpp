@@ -6,13 +6,15 @@
 
 //############### クラス定義 ####################
 
+//インスタンスを生成
+int Q_BASE::Anser = -1;		//答え初期化
+int Q_BASE::InputNum = 0;	//入力された数字初期化
+
 //コンストラクタ
 Q_BASE::Q_BASE()
 {
 	//メンバー変数初期化
-	this->Anser = -1;		//答え初期化
 	this->Q_Text = "";		//問題文初期化
-	this->InputNum = 0;		//入力された数字初期化
 
 	return;
 }
@@ -41,7 +43,7 @@ void Q_BASE::DrawQuestion()
 */
 bool Q_BASE::JudgAnser()
 {
-	if (this->Anser == this->InputNum)	//プレイヤーの回答が、答えと一緒だったら
+	if (Anser == InputNum)				//プレイヤーの回答が、答えと一緒だったら
 		return true;					//正解
 	else								//一緒じゃなかったら
 		return false;					//不正解
@@ -53,7 +55,7 @@ bool Q_BASE::CheckInputKey(KEYDOWN* keydown)
 {
 	static int InputNumBuf = 0;						//入力された数字
 	static int Weight = 10;							//桁の重み
-	int NewInputNum = this->GetInputNum(keydown);	//新たに入力された数字
+	int NewInputNum = GetInputNum(keydown);	//新たに入力された数字
 
 	if (!(NewInputNum == INPUT_ENTER || NewInputNum == INPUT_NOT_NUM))	//数値を入力した時
 	{
@@ -72,7 +74,7 @@ bool Q_BASE::CheckInputKey(KEYDOWN* keydown)
 		}
 	}
 
-	this->InputNum = InputNumBuf;	//入力された数字を設定
+	InputNum = InputNumBuf;	//入力された数字を設定
 
 	return false;
 }
