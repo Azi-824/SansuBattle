@@ -84,10 +84,11 @@ public:
 	void ResetIsAnime(int);		//アニメーションがストップしたかをリセット
 
 	void Draw(int, int, int);	//描画
+	void DrawCenter(int);		//画面中央に描画
 
 	bool Add(const char*, const char*, int, int, int, int, int, double, bool);	//エフェクト追加
 
-	void SetSize();						//サイズ設定
+	void SetInit();						//初期設定
 
 	void SetIsFadeout(bool);			//フェードアウトをするか設定
 	void SetIsFadein(bool);				//フェードインをするか設定

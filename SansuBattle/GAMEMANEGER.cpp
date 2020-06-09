@@ -209,7 +209,7 @@ void GAMEMANEGER::SetInit()
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
-	this->effect_atk->SetSize();	//エフェクト初期設定
+	this->effect_atk->SetInit();														//エフェクト初期設定
 
 	this->q_add->CreateQuestion();	//足し算の問題を生成
 
@@ -380,7 +380,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	this->gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 
-	this->effect_atk->Draw(GAME_WIDTH / 2, GAME_HEIGHT / 2, (int)EFFECT_ATACK);	//攻撃エフェクト描画
+	this->effect_atk->DrawCenter((int)EFFECT_ATACK);	//攻撃エフェクト描画
 
 	return;
 }

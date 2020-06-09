@@ -204,6 +204,52 @@ void Effect::Draw(int x, int y, int type)
 
 }
 
+//画面中央に描画
+/*
+引数：int：描画するエフェクトの種類
+*/
+void Effect::DrawCenter(int type)
+{
+
+	if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
+	{
+		DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
+	}
+	else
+	{
+		this->IsDrawEnd = true;		//描画終了
+	}
+
+	if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
+	{
+		//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
+		if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+		{
+			//アニメーションをループしないなら
+			if (this->IsAnimeLoop[type] == false)
+			{
+				this->IsAnimeStop[type] = true;	//アニメーションを止める
+			}
+
+			//次回の描画に備えて、先頭の画像に戻しておく
+			this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+		}
+		else
+		{
+			++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+		}
+
+		this->ChangeCnt = 0;	//カウント初期化
+	}
+	else
+	{
+		this->ChangeCnt++;	//カウントアップ
+	}
+
+	return;
+
+}
+
 //追加
 /*
 引　数：const char *：画像のディレクトリ
@@ -262,8 +308,8 @@ bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNu
 
 }
 
-//サイズ設定
-void Effect::SetSize(void)
+//初期設定
+void Effect::SetInit(void)
 {
 	//エフェクトの数だけループさせる
 	for (int i = 0; i < this->Handle.size(); ++i)

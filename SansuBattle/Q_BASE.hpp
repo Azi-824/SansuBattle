@@ -39,6 +39,7 @@ protected:
 
 	std::string Q_Text;			//問題文
 	int Anser;					//答え
+	int InputNum;				//入力された数字
 
 private:
 
@@ -46,9 +47,6 @@ private:
 	int GetInputNum(KEYDOWN*);			//入力された数字を取得
 
 public:
-	int InputNum;				//入力された数字
-
-
 
 	Q_BASE();							//コンストラクタ
 	~Q_BASE();							//デストラクタ
