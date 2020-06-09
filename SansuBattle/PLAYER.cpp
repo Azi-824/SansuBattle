@@ -25,7 +25,7 @@ PLAYER::~PLAYER()
 }
 
 //HP‚ð•`‰æ‚·‚é
-void PLAYER::DrawHP()
+void PLAYER::Draw()
 {
 	for (int i = 0; i < this->HP; ++i)		//HP‚Ì•ªƒ‹[ƒv
 	{

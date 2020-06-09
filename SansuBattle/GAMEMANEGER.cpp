@@ -291,8 +291,6 @@ void GAMEMANEGER::Draw_Scene_Title()
 
 	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, TITLE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
-
 	return;
 }
 
@@ -317,8 +315,6 @@ void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 
 	this->level_select->Draw();	//難易度の選択肢描画
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISELEVEL_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
-
 	return;
 }
 
@@ -330,9 +326,9 @@ void GAMEMANEGER::Scene_ChoiseStage()
 
 	if (this->stage_select->GetIsChoise())		//選択したら
 	{
-		this->gamelimittime->SetTime();			//制限時間の計測開始
+		this->gamelimittime->SetTime();					//制限時間の計測開始
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);	//アニメーション状態をリセット
-		this->NowScene = (int)SCENE_PLAY;		//プレイ画面へ
+		this->NowScene = (int)SCENE_PLAY;				//プレイ画面へ
 	}
 
 	return;
@@ -343,8 +339,6 @@ void GAMEMANEGER::Draw_Scene_ChoiseStage()
 {
 
 	this->stage_select->Draw();		//ステージ選択肢描画
-
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, CHOISESTAGE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
 }
@@ -389,13 +383,12 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	this->back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	this->player->DrawHP();				//プレイヤーHP描画
+	this->player->Draw();				//プレイヤーHP描画
 
-	this->enemy->DrawImage();			//敵キャラ描画
+	this->enemy->DrawCenter();			//敵キャラ描画
 
 	Q_BASE::DrawQuestion();				//問題文描画
-
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
+	Q_BASE::DrawInputNum();				//入力中の数字を描画
 
 	this->gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 

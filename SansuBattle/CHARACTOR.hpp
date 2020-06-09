@@ -49,5 +49,8 @@ public:
 
 	void SendDamege();			//ƒ_ƒ[ƒW‚ğ—^‚¦‚é
 
+	virtual void Draw();		//•`‰æ
+	void DrawCenter();			//’†‰›‚É•`‰æ
+
 };
 

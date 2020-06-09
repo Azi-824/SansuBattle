@@ -12,10 +12,15 @@ int Q_BASE::InputNum = 0;			//入力された数字初期化
 std::string Q_BASE::Q_Text = "";	//問題文初期化
 bool Q_BASE::IsCreate = false;		//問題を作成したか初期化
 int Q_BASE::SelectLevel = -1;		//選択した問題のレベル
+IMAGE* Q_BASE::img_kokuban;			//インスタンス生成
 
 //コンストラクタ
 Q_BASE::Q_BASE()
 {
+	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
+	{
+		img_kokuban = new IMAGE(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
+	}
 	return;
 }
 
@@ -29,11 +34,26 @@ Q_BASE::~Q_BASE()
 void Q_BASE::DrawQuestion()
 {
 
-	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, COLOR_WHITE, "%s", Q_Text.c_str());		//問題文を描画
+	img_kokuban->Draw(GAME_LEFT, Q_IMG_DRAW_Y);		//黒板の画像を描画
 
-	DrawFormatString(GAME_WIDTH / 2, GAME_HEIGHT / 2, COLOR_WHITE, "%d", InputNum);	//入力中の数字を描画
+	int Strlen = strlen(Q_Text.c_str());					//文字列長さを取得
+	int Width = GetDrawStringWidth(Q_Text.c_str(), Strlen);	//横幅取得
+
+	DrawFormatString((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, "%s", Q_Text.c_str());		//問題文を描画
 
 	return;
+}
+
+//入力中の数字を描画する
+void Q_BASE::DrawInputNum()
+{
+	int Strlen = strlen(std::to_string(InputNum).c_str());						//文字列の長さを取得
+	int Width = GetDrawStringWidth(std::to_string(InputNum).c_str(), Strlen);	//横幅取得
+	int Height = GetFontSize();													//高さ取得
+
+	DrawFormatString((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, "%d", InputNum);	//入力中の数字を描画
+
+
 }
 
 //正解か判定する

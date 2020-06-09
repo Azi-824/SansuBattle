@@ -74,7 +74,7 @@ public:
 	void SetIsDraw(bool);			//•`‰æ‚µ‚Ä‚æ‚¢‚©İ’è
 
 	void Draw(int, int);		//‰æ‘œ‚ğ•`‰æ
-	void DrawCenter(int ,int);	//‰æ‘œ‚ğ•`‰æi’†‰›j
+	void DrawCenter(int width = GAME_WIDTH,int height = GAME_HEIGHT);	//‰æ‘œ‚ğ•`‰æi’†‰›j
 
 	bool AddImage(const char *, const char *);	//‰æ‘œ‚ğ’Ç‰Á
 	void ChengeImage(int);						//•`‰æ‚·‚é‰æ‘œ‚ğ•ÏX

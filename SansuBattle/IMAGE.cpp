@@ -197,17 +197,18 @@ void IMAGE::Draw(int x, int y)
 }
 
 //‰æ‘œ‚ð•`‰æi’†‰›j
-//ˆø”FintF‰æ–Ê‚Ì‰¡•
-//ˆø”FintF•`‰æ‚·‚é‚‚³
-void IMAGE::DrawCenter(int width,int y)
+//ˆø”FintF‰æ–Ê‚Ì‰¡•FƒfƒtƒHƒ‹ƒg‚ÍƒQ[ƒ€‰æ–Ê‚Ì‰¡•
+//ˆø”FintF•`‰æ‚·‚é‚‚³FƒfƒtƒHƒ‹ƒg‚ÍƒQ[ƒ€‰æ–Ê‚Ì‚‚³
+void IMAGE::DrawCenter(int width,int height)
 {
 
-	int x = 0;	//•`‰æ‚·‚éXˆÊ’u
-	x = (width / 2) - (this->Width[this->Draw_Num] / 2);	//‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉŒvŽZ
+	int x = 0, y = 0;	//•`‰æ‚·‚éXˆÊ’u,YˆÊ’u
+	x = (width / 2) - (Width.at(Draw_Num) / 2);			//‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉŒvŽZ
+	y = (height / 2) - (Height.at(Draw_Num) / 2);		//‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉŒvŽZ
 
-	if (this->IsDraw[this->Draw_Num])	//•`‰æ‚µ‚Ä‚æ‚¯‚ê‚Î
+	if (IsDraw.at(Draw_Num))						//•`‰æ‚µ‚Ä‚æ‚¯‚ê‚Î
 	{
-		DrawGraph(x, y, this->Handle[this->Draw_Num], TRUE);	//‰æ‘œ‚ð•`‰æ
+		DrawGraph(x, y, Handle.at(Draw_Num), TRUE);	//‰æ‘œ‚ð•`‰æ
 	}
 
 	return;

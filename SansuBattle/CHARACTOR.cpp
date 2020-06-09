@@ -106,3 +106,14 @@ void CHARACTOR::SendDamege()
 
 }
 
+//•`‰æ
+void CHARACTOR::Draw()
+{
+	image->Draw(DrawX, DrawY);	//•`‰æ
+}
+
+//’†‰›‚É•`‰æ
+void CHARACTOR::DrawCenter()
+{
+	image->DrawCenter();		//’†‰›‚É•`‰æ
+}
