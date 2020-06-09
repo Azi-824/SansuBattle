@@ -7,15 +7,13 @@
 //############### クラス定義 ####################
 
 //インスタンスを生成
-int Q_BASE::Anser = -1;		//答え初期化
-int Q_BASE::InputNum = 0;	//入力された数字初期化
+int Q_BASE::Anser = -1;				//答え初期化
+int Q_BASE::InputNum = 0;			//入力された数字初期化
+std::string Q_BASE::Q_Text = "";	//問題文初期化
 
 //コンストラクタ
 Q_BASE::Q_BASE()
 {
-	//メンバー変数初期化
-	this->Q_Text = "";		//問題文初期化
-
 	return;
 }
 
@@ -29,9 +27,9 @@ Q_BASE::~Q_BASE()
 void Q_BASE::DrawQuestion()
 {
 
-	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, COLOR_WHITE, "%s", this->Q_Text.c_str());			//問題文を描画
+	DrawFormatString(Q_DRAW_X, Q_DRAW_Y, COLOR_WHITE, "%s", Q_Text.c_str());		//問題文を描画
 
-	DrawFormatString(GAME_WIDTH / 2, GAME_HEIGHT / 2, COLOR_WHITE, "%d", this->InputNum);	//入力中の数字を描画
+	DrawFormatString(GAME_WIDTH / 2, GAME_HEIGHT / 2, COLOR_WHITE, "%d", InputNum);	//入力中の数字を描画
 
 	return;
 }

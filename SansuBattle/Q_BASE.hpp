@@ -37,7 +37,7 @@ class Q_BASE
 {
 protected:
 
-	std::string Q_Text;			//–â‘è•¶
+	static std::string Q_Text;			//–â‘è•¶
 	static int Anser;					//“š‚¦
 	static int InputNum;				//“ü—Í‚³‚ê‚½”š
 
@@ -53,7 +53,7 @@ public:
 
 	virtual void CreateQuestion() = 0;	//–â‘èì¬
 
-	void DrawQuestion();				//–â‘è‚ğ•`‰æ‚·‚é
+	static void DrawQuestion();			//–â‘è‚ğ•`‰æ‚·‚é
 
 	static bool JudgAnser();			//³‰ğ‚©”»’è‚·‚é
 

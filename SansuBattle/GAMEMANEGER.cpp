@@ -31,11 +31,11 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->stage_select;	//stage_select破棄
 	delete this->player;		//player破棄
 	delete this->enemy;			//enemy破棄
-	delete this->q_add;			//q_add破棄
 	delete this->font;			//font破棄
 	delete this->gamelimittime;	//gamelimittime破棄
 	delete this->effect_atk;	//effect_atk破棄
 	
+	//問題関係
 	for (int i = 0; i < quesiton.size(); ++i)	//問題の種類分
 	{
 		delete quesiton.at(i);	//question破棄
@@ -104,7 +104,6 @@ bool GAMEMANEGER::Load()
 
 	//問題関係
 	//足し算
-	this->q_add = new Q_ADD();			//足し算の問題を管理するオブジェクトを生成
 	quesiton.push_back(new Q_ADD());	//足し算の問題を管理するオブジェクトを生成
 
 	return true;	//読み込み成功
@@ -221,7 +220,6 @@ void GAMEMANEGER::SetInit()
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
 	this->effect_atk->SetInit();														//エフェクト初期設定
 
-	this->q_add->CreateQuestion();	//足し算の問題を生成
 	quesiton.at(0)->CreateQuestion();	//足し算の問題を生成
 
 	return;
@@ -381,9 +379,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	this->enemy->DrawImage();			//敵キャラ描画
 
-	//this->q_add->DrawQuestion();		//問題描画
-
-	quesiton.at(0)->DrawQuestion();		//問題描画
+	Q_BASE::DrawQuestion();				//問題文描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
