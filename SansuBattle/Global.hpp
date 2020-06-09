@@ -25,3 +25,21 @@
 #define FADE_MAX_CNT	60	//フェード処理のカウント最大値
 #define TOUKA_MAX_VALUE	255	//透過の最大値
 
+//##################### マクロ定義 #####################
+enum Q_LEVEL_KIND
+{
+	Q_LEVEL_SUM,				//難易度、和（足し算）
+	Q_LEVEL_DIFFERENCE,			//難易度、差（引き算）
+	Q_LEVEL_PRODUCT,			//難易度、積（掛け算）
+	Q_LEVEL_DEALER,				//難易度、商（割り算）
+	Q_LEVEL_SUM_DEFFERENCE,		//難易度、和差（足し算、引き算）
+	Q_LEVEL_PRODUCT_DEALER		//難易度、積商（掛け算、割り算）
+};	//問題のレベル
+
+enum STAGE_LEVEL
+{
+	STAGE_LEVEL_EASY,		//簡単
+	STAGE_LEVEL_NORMAL,		//普通
+	STAGE_LEVEL_HARD		//難しい
+};	//ステージのレベル
+

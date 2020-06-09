@@ -35,6 +35,15 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->font;			//font破棄
 	delete this->gamelimittime;	//gamelimittime破棄
 	delete this->effect_atk;	//effect_atk破棄
+	
+	for (int i = 0; i < quesiton.size(); ++i)	//問題の種類分
+	{
+		delete quesiton.at(i);	//question破棄
+	}
+
+	//vectorのメモリ解放を行う
+	std::vector<Q_BASE*> v;		//空のvectorを作成する
+	quesiton.swap(v);			//空と中身を入れ替える
 
 	return;
 
@@ -64,21 +73,21 @@ bool GAMEMANEGER::Load()
 
 	//選択肢関係
 	//難易度の選択肢
-	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1, CODE_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
+	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1, Q_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (this->level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2, CODE_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3, CODE_LEVEL_PRODUCT) == false) { return false; }			//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4, CODE_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5, CODE_LEVEL_SUM_DEFFERENCE) == false) { return false; }	//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6, CODE_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2, Q_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3, Q_LEVEL_PRODUCT) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4, Q_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5, Q_LEVEL_SUM_DEFFERENCE) == false) { return false; }	//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6, Q_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
-	this->stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, CODE_STAGE_EASY);		//ステージの選択肢を管理するオブジェクトを生成
+	this->stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
 	if (this->stage_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY02, CODE_STAGE_NORMAL) == false) { return false; }	//ダミー画像追加
-	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY03, CODE_STAGE_HARD) == false) { return false; }	//ダミー画像追加
+	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY02, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
+	if (this->stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY03, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
 
 
 	//プレイヤー関係
@@ -96,6 +105,7 @@ bool GAMEMANEGER::Load()
 	//問題関係
 	//足し算
 	this->q_add = new Q_ADD();			//足し算の問題を管理するオブジェクトを生成
+	quesiton.push_back(new Q_ADD());	//足し算の問題を管理するオブジェクトを生成
 
 	return true;	//読み込み成功
 }
@@ -212,6 +222,7 @@ void GAMEMANEGER::SetInit()
 	this->effect_atk->SetInit();														//エフェクト初期設定
 
 	this->q_add->CreateQuestion();	//足し算の問題を生成
+	quesiton.at(0)->CreateQuestion();	//足し算の問題を生成
 
 	return;
 }
@@ -370,7 +381,9 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	this->enemy->DrawImage();			//敵キャラ描画
 
-	this->q_add->DrawQuestion();		//問題描画
+	//this->q_add->DrawQuestion();		//問題描画
+
+	quesiton.at(0)->DrawQuestion();		//問題描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, PLAY_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

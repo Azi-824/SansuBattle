@@ -57,6 +57,7 @@ private:
 	PLAYER* player;				//プレイヤー
 	ENEMY* enemy;				//敵キャラ
 	Q_ADD* q_add;				//問題（足し算）
+	std::vector<Q_BASE*> quesiton;	//問題
 	FONT* font;					//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト

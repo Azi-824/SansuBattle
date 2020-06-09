@@ -51,6 +51,8 @@ public:
 	Q_BASE();							//コンストラクタ
 	~Q_BASE();							//デストラクタ
 
+	virtual void CreateQuestion() = 0;	//問題作成
+
 	void DrawQuestion();				//問題を描画する
 
 	static bool JudgAnser();			//正解か判定する

@@ -33,22 +33,6 @@
 #define CHOISE_NONE	-1				//選択していない状態
 
 //##################### 列挙型 #######################
-enum CODE_SELECT_LEVEL
-{
-	CODE_LEVEL_SUM,					//難易度、和（足し算）
-	CODE_LEVEL_DIFFERENCE,			//難易度、差（引き算）
-	CODE_LEVEL_PRODUCT,				//難易度、積（掛け算）
-	CODE_LEVEL_DEALER,				//難易度、商（割り算）
-	CODE_LEVEL_SUM_DEFFERENCE,		//難易度、和差（足し算、引き算）
-	CODE_LEVEL_PRODUCT_DEALER,		//難易度、積商（掛け算、割り算）
-};
-
-enum CODE_SELECT_STAGE
-{
-	CODE_STAGE_EASY,		//簡単
-	CODE_STAGE_NORMAL,		//普通
-	CODE_STAGE_HARD			//難しい
-};
 
 //##################### クラス定義 ######################
 class SELECT
