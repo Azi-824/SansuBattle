@@ -34,6 +34,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->font;			//font破棄
 	delete this->gamelimittime;	//gamelimittime破棄
 	delete this->effect_atk;	//effect_atk破棄
+	delete bgm;					//bgm破棄
 	
 	//問題関係
 	for (int i = 0; i < quesiton.size(); ++i)	//問題の種類分
@@ -101,6 +102,12 @@ bool GAMEMANEGER::Load()
 	//エフェクト関係
 	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false);	//攻撃エフェクトを管理するオブジェクトを生成
 	if (this->effect_atk->GetIsLoad() == false) { return false; }//読み込み失敗
+
+	//音楽関係
+	//BGM
+	bgm = new MUSIC(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM);								//BGMを管理するオブジェクトを生成
+	if (bgm->GetIsLoad() == false) { return false; }								//読み込み失敗
+	if (bgm->Add(MUSIC_DIR_BGM, BGM_NAME_SELECT_BGM) == false) { return false; }	//選択画面のBGM追加
 
 	//問題関係
 	//足し算
@@ -220,6 +227,11 @@ void GAMEMANEGER::SetInit()
 	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
 	this->effect_atk->SetInit();														//エフェクト初期設定
 
+	//音楽関係
+	bgm->ChengeVolume(30, (int)BGM_TYPE_TITLE);	//タイトルBGMの音量を30%にする
+	bgm->ChengeVolume(30, (int)BGM_TYPE_SELECT);//選択画面のBGMの音量を30%にする
+	bgm->ChengePlayType(DX_PLAYTYPE_LOOP);		//BGMの再生方法をループ再生に変更
+
 	return;
 }
 
@@ -274,11 +286,14 @@ void GAMEMANEGER::Scene_Title()
 
 	this->back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
 
+	bgm->Play((int)BGM_TYPE_TITLE);		//BGMを再生
+
 	this->level_select->Init();	//難易度の選択肢初期化
 	this->stage_select->Init();	//ステージの選択肢初期化
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
+		bgm->Stop();								//再生中の音楽を止める
 		this->NowScene = (int)SCENE_CHOISELEVEL;	//難易度選択画面へ
 	}
 
@@ -297,6 +312,8 @@ void GAMEMANEGER::Draw_Scene_Title()
 //難易度選択画面の処理
 void GAMEMANEGER::Scene_ChoiseLevel()
 {
+
+	bgm->Play((int)BGM_TYPE_SELECT);	//選択画面のBGMを再生
 
 	this->level_select->Operation(keydown);			//選択肢キー操作
 
@@ -322,12 +339,13 @@ void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 void GAMEMANEGER::Scene_ChoiseStage()
 {
 
-	this->stage_select->Operation(keydown);		//選択肢キー操作
+	stage_select->Operation(keydown);		//選択肢キー操作
 
-	if (this->stage_select->GetIsChoise())		//選択したら
+	if (stage_select->GetIsChoise())		//選択したら
 	{
-		this->gamelimittime->SetTime();					//制限時間の計測開始
-		this->NowScene = (int)SCENE_PLAY;				//プレイ画面へ
+		bgm->Stop();						//再生中のBGMを止める
+		gamelimittime->SetTime();			//制限時間の計測開始
+		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
 
 	return;

@@ -161,6 +161,7 @@
     <ClInclude Include="IMAGE.hpp" />
     <ClInclude Include="KEYDOWN.hpp" />
     <ClInclude Include="main.hpp" />
+    <ClInclude Include="MUSIC.hpp" />
     <ClInclude Include="PLAYER.hpp" />
     <ClInclude Include="Q_ADD.hpp" />
     <ClInclude Include="Q_BASE.hpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="IMAGE.cpp" />
     <ClCompile Include="KEYDOWN.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MUSIC.cpp" />
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="Q_ADD.cpp" />
     <ClCompile Include="Q_BASE.cpp" />

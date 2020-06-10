@@ -15,6 +15,7 @@
 #include "FONT.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
+#include "MUSIC.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -60,6 +61,7 @@ private:
 	FONT* font;					//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
+	MUSIC* bgm;					//BGM
 	
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか
