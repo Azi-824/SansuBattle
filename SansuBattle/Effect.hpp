@@ -7,6 +7,7 @@
 #include "Global.hpp"
 #include <vector>
 #include <string>
+#include "MUSIC.hpp"
 
 //###################### マクロ定義：ファイルパス、名前 ######################
 #define EFFECT_DIR				R"(.\MY_EFFECT)"				//エフェクトの画像ファイルの場所
@@ -47,6 +48,8 @@ private:
 	std::vector<std::vector<int>> Handle;				//ハンドル
 	std::vector<std::vector<int>::iterator> Handle_itr;	//ハンドルのイテレータ
 
+	MUSIC* Se;							//エフェクト効果音
+
 	std::vector<int> Width;				//幅
 	std::vector<int> Height;			//高さ
 
@@ -61,6 +64,7 @@ private:
 	bool IsDrawEnd;				//描画終了したか
 
 	bool IsLoad;				//読み込めたか？
+	bool IsCreateSe;			//効果音のオブジェクトを作成したか
 
 	bool IsFadeout;				//フェードアウト処理を行うか
 	bool IsFadein;				//フェードイン処理を行うか
@@ -88,6 +92,7 @@ public:
 	void DrawCenter(int);		//画面中央に描画
 
 	bool Add(const char*, const char*, int, int, int, int, int, double, bool);	//エフェクト追加
+	bool AddSe(const char*, const char*);	//効果音追加
 
 	void SetInit();						//初期設定
 

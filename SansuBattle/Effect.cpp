@@ -25,6 +25,7 @@ Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX
 	this->IsDrawEnd = false;		//描画終了したか?
 	this->IsFadein = false;			//フェードイン処理を行わない
 	this->IsFadeout = false;		//フェードアウト処理を行わない
+	this->IsCreateSe = false;		//効果音のオブジェクトを作成していない
 	this->Width.push_back(0);		//横幅を初期化
 	this->Height.push_back(0);		//高さを初期化
 
@@ -171,9 +172,11 @@ void Effect::Draw(int x, int y, int type)
 		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
 			DrawGraph(x, y, *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
+			Se->PlayOne(type, false);	//効果音再生
 		}
 		else
 		{
+			Se->PlayReset();			//再生状態リセット
 			this->IsDrawEnd = true;		//描画終了
 		}
 
@@ -221,9 +224,11 @@ void Effect::DrawCenter(int type)
 		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
 			DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
+			Se->PlayOne(type,false);				//効果音再生
 		}
 		else
 		{
+			Se->PlayReset();			//再生状態リセット
 			this->IsDrawEnd = true;		//描画終了
 		}
 
@@ -317,6 +322,22 @@ bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNu
 
 	return true;		//読み込めた
 
+}
+
+//効果音追加
+//引　数：const char* ：画像のディレクトリ
+//引　数：const char* ：画像の名前
+bool Effect::AddSe(const char* dir, const char* name)
+{
+	if (Se == NULL)	//効果音のオブジェクトを作成していなければ
+	{
+		Se = new MUSIC(dir, name);			//効果音のオブジェクトを作成
+		return Se->GetIsLoad();
+	}
+	else			//効果音のオブジェクトを作成していれば 
+	{
+		return Se->Add(dir, name);	//効果音を追加
+	}
 }
 
 //初期設定

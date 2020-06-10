@@ -102,6 +102,7 @@ bool GAMEMANEGER::Load()
 	//エフェクト関係
 	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false);	//攻撃エフェクトを管理するオブジェクトを生成
 	if (this->effect_atk->GetIsLoad() == false) { return false; }//読み込み失敗
+	if (effect_atk->AddSe(MUSIC_DIR_EFFECT, SE_NAME_EFFECT_ATK) == false) { return false; }	//効果音追加
 
 	//音楽関係
 	//BGM

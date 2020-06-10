@@ -106,10 +106,16 @@ void MUSIC::ChengeVolume(double volume,int kind)
 }
 
 //音を再生する
-void MUSIC::Play(int kind)
+void MUSIC::Play(int kind,bool check)
 {
-
-	if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+	if (check)	//プレイ中か確認する場合
+	{
+		if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+		{
+			PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+		}
+	}
+	else		//確認しない場合
 	{
 		PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
 	}
@@ -118,16 +124,26 @@ void MUSIC::Play(int kind)
 }
 
 //音を再生する(1回だけ)
-void MUSIC::PlayOne(int kind)
+void MUSIC::PlayOne(int kind, bool check)
 {
 	if (!this->IsPlayed[kind])		//再生済みじゃなければ
 	{
-		if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+		if (check)	//プレイ中か確認する場合
+		{
+			if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+			{
+				PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+
+				this->IsPlayed[kind] = true;		//再生済み
+
+			}
+
+		}
+		else		//確認しない場合
 		{
 			PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
 
 			this->IsPlayed[kind] = true;		//再生済み
-
 		}
 	}
 }
