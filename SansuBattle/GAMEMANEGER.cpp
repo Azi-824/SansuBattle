@@ -73,14 +73,14 @@ bool GAMEMANEGER::Load()
 
 	//選択肢関係
 	//難易度の選択肢
-	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY1, Q_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
+	this->level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (this->level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY2, Q_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY3, Q_LEVEL_PRODUCT) == false) { return false; }		//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY4, Q_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY5, Q_LEVEL_SUM_DEFFERENCE) == false) { return false; }	//ダミー画像追加
-	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DAMMY6, Q_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_LEVEL_PRODUCT) == false) { return false; }		//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_LEVEL_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
+	if (this->level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
 	this->stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成

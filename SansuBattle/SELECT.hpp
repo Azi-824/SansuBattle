@@ -12,12 +12,12 @@
 //##################### マクロ定義 ######################
 #define SELECT_IMG_DIR			R"(.\MY_IMG\Select)"		//選択肢の画像ディレクトリ
 
-#define IMG_NAME_SELECT_DAMMY1	R"(\dammy01.png)"			//選択肢のダミー画像1
-#define IMG_NAME_SELECT_DAMMY2	R"(\dammy02.png)"			//選択肢のダミー画像2
-#define IMG_NAME_SELECT_DAMMY3	R"(\dammy03.png)"			//選択肢のダミー画像3
-#define IMG_NAME_SELECT_DAMMY4	R"(\dammy04.png)"			//選択肢のダミー画像4
-#define IMG_NAME_SELECT_DAMMY5	R"(\dammy05.png)"			//選択肢のダミー画像5
-#define IMG_NAME_SELECT_DAMMY6	R"(\dammy06.png)"			//選択肢のダミー画像6
+#define IMG_NAME_SELECT_SUM			R"(\select_sum.png)"			//選択肢のダミー画像1
+#define IMG_NAME_SELECT_DIFFERENCE	R"(\select_difference.png)"		//選択肢のダミー画像2
+#define IMG_NAME_SELECT_PRODUCT		R"(\select_product.png)"		//選択肢のダミー画像3
+#define IMG_NAME_SELECT_DEALER		R"(\select_dealer.png)"			//選択肢のダミー画像4
+#define IMG_NAME_SELECT_SUM_DIFF	R"(\select_sum_diff.png)"		//選択肢のダミー画像5
+#define IMG_NAME_SELECT_PRO_DEA		R"(\select_pro_dea.png)"		//選択肢のダミー画像6
 
 #define IMG_NAME_STAGE_DAMMY01	R"(\stage_dammy01.png)"		//ステージ選択肢のダミー画像1
 #define IMG_NAME_STAGE_DAMMY02	R"(\stage_dammy02.png)"		//ステージ選択肢のダミー画像2

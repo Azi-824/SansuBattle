@@ -32,7 +32,7 @@ enum Q_LEVEL_KIND
 	Q_LEVEL_DIFFERENCE,			//難易度、差（引き算）
 	Q_LEVEL_PRODUCT,			//難易度、積（掛け算）
 	Q_LEVEL_DEALER,				//難易度、商（割り算）
-	Q_LEVEL_SUM_DEFFERENCE,		//難易度、和差（足し算、引き算）
+	Q_LEVEL_SUM_DIFFERENCE,		//難易度、和差（足し算、引き算）
 	Q_LEVEL_PRODUCT_DEALER		//難易度、積商（掛け算、割り算）
 };	//問題のレベル
 
