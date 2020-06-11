@@ -43,4 +43,6 @@ public:
 	void DrawCenter();					//中央に描画
 	void DrawHp() override;				//HP描画
 
+	bool GetFadeEnd();					//フェードアウト終了したか
+
 };

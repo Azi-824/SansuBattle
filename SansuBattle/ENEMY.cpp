@@ -46,6 +46,7 @@ void ENEMY::Init()
 	NowEnemyNum = 0;	//現在の敵の数を初期化
 	HP = HP_INIT_VALUE;	//HP初期化
 	IsArive = true;		//生きている
+	image->SetIsFade(false);	//フェードアウトしない。
 }
 
 //次の敵へ
@@ -72,7 +73,15 @@ void ENEMY::Draw()
 //中央に描画
 void ENEMY::DrawCenter()
 {
-	image->DrawCenter();		//中央に描画
+	if (IsArive)	//生きていれば
+	{
+		image->DrawCenter();		//中央に描画
+	}
+	else			//死んでいれば
+	{
+		image->SetIsFade(true);	//フェードアウト開始
+		image->DrawCenter();	//中央に描画
+	}
 }
 
 //HP描画
@@ -84,4 +93,10 @@ void ENEMY::DrawHp()
 		image_hp->Draw(ENEMY_HP_DRAW_X + i * image_hp->GetWidth(), ENEMY_HP_DRAW_Y);	//HP画像描画
 	}
 
+}
+
+//フェードアウト終了したか取得
+bool ENEMY::GetFadeEnd()
+{
+	return image->GetFadeEnd();
 }

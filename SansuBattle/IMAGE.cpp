@@ -206,10 +206,57 @@ void IMAGE::DrawCenter(int width,int height)
 	x = (width / 2) - (Width.at(Draw_Num) / 2);			//画面中央になるように計算
 	y = (height / 2) - (Height.at(Draw_Num) / 2);		//画面中央になるように計算
 
-	if (IsDraw.at(Draw_Num))						//描画してよければ
+	static int cnt = FADE_MAX_CNT;				//カウント用
+
+	if (IsFade.at(Draw_Num))	//フェードアウトするときは
 	{
-		DrawGraph(x, y, Handle.at(Draw_Num), TRUE);	//画像を描画
+		if (!FadeEnd.at(Draw_Num))	//フェードアウト終了していなければ
+		{
+
+			if (IsDraw[Draw_Num])	//描画してよければ
+			{
+
+				//60フレーム分、待つ
+				if (cnt > 0)
+				{
+					--cnt;	//カウントアップ
+				}
+				else
+				{
+					FadeEnd.at(Draw_Num) = true;	//フェード終了
+				}
+
+				//フェードアウトの処理
+				double ToukaPercent = cnt / (double)FADE_MAX_CNT;						//透過%を計算
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);	//透過させる
+				DrawGraph(x, y, Handle[Draw_Num], TRUE);					//画像を描画
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);								//透過をやめる
+
+
+			}
+
+
+		}
+		else 		//フェードアウト終了したら
+		{
+			IsDraw.at(Draw_Num) = false;	//描画しない
+			cnt = FADE_MAX_CNT;				//カウントリセット
+			IsFade.at(Draw_Num) = false;	//フェードアウトしない
+		}
+
 	}
+	else		//フェードアウトしない時は
+	{
+		cnt = FADE_MAX_CNT;		//カウントリセット
+
+		if (IsDraw[Draw_Num])	//描画してよければ
+		{
+			DrawGraph(x, y, Handle[Draw_Num], TRUE);	//画像を描画
+		}
+
+	}
+
+
 
 	return;
 }
@@ -294,7 +341,7 @@ void IMAGE::PrevImage()
 	return;
 }
 
-//描画する画像を一つ前の画像へ
+//描画する画像を指定された数、前の画像へ
 void IMAGE::PrevImage(int value)
 {
 	if (this->Draw_Num - value > 0)	//描画する画像が最初の画像じゃなければ
@@ -314,8 +361,8 @@ void IMAGE::ChengeImageFront()
 //フェードアウトするか設定
 void IMAGE::SetIsFade(bool isfade)
 {
-	this->IsFade.at(this->Draw_Num) = isfade;
-	this->FadeEnd.at(this->Draw_Num) = false;	//フェードアウト終了フラグリセット
+	IsFade.at(Draw_Num) = isfade;
+	FadeEnd.at(Draw_Num) = false;	//フェードアウト終了フラグリセット
 
 	return;
 }
@@ -323,5 +370,5 @@ void IMAGE::SetIsFade(bool isfade)
 //フェードエフェクトが終了しているか取得
 bool IMAGE::GetFadeEnd()
 {
-	return this->FadeEnd.at(this->Draw_Num);
+	return FadeEnd.at(Draw_Num);
 }

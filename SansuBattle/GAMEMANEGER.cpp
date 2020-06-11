@@ -421,7 +421,10 @@ void GAMEMANEGER::Scene_Play()
 	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
 	{
 		enemy.at(ENEMY::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
-		ENEMY::NextEnemy();	//次の敵へ
+		if (enemy.at(ENEMY::GetNowEnemyNum())->GetFadeEnd())		//フェードアウト終了したら
+		{
+			ENEMY::NextEnemy();	//次の敵へ
+		}
 	}
 	
 	if (ENEMY::GetNowEnemyNum() >= enemy.size())	//敵の数が、最大数を超えたら
