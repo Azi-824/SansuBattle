@@ -5,6 +5,10 @@
 #include "CHARACTOR.hpp"
 
 //################ クラス定義 ########################
+
+//インスタンス生成
+IMAGE* CHARACTOR::image_hp;
+
 //コンストラクタ
 CHARACTOR::CHARACTOR()
 {
@@ -15,6 +19,12 @@ CHARACTOR::CHARACTOR()
 	this->IsKeyOperation = true;//キー操作可能か初期化
 	this->HP = HP_INIT_VALUE;	//HP初期化
 	this->IsLoad = false;		//読み込めたか初期化
+
+	if (image_hp == NULL)	//HP画像が作成されていなければ
+	{
+		image_hp = new IMAGE(IMG_DIR_CHARA, IMG_NAME_PLAYER_HP);	//プレイヤーのHP画像
+		image_hp->AddImage(IMG_DIR_CHARA, IMG_NAME_ENEMY_HP);		//敵のHP画像
+	}
 
 	return;
 }
@@ -84,11 +94,12 @@ void CHARACTOR::Operation(KEYDOWN *keydown)
 bool CHARACTOR::SetInit(int x,int y)
 {
 
-	this->image->SetInit();			//画像初期設定
-	this->DrawX = x;				//描画X位置
-	this->DrawY = y;				//描画Y位置
-	this->IsArive = true;			//生きている
-	this->IsKeyOperation = true;	//キーボード操作できる
+	image->SetInit();		//画像初期設定
+	image_hp->SetInit();	//HP画像初期設定
+	DrawX = x;				//描画X位置
+	DrawY = y;				//描画Y位置
+	IsArive = true;			//生きている
+	IsKeyOperation = true;	//キーボード操作できる
 
 	return true;
 

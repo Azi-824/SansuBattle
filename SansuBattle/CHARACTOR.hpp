@@ -9,6 +9,12 @@
 #include "IMAGE.hpp"
 
 //###################### マクロ定義 #######################
+#define IMG_DIR_CHARA			R"(.\MY_IMG\Charactor)"		//キャラクターの画像のディレクトリ
+
+#define IMG_NAME_PLAYER_HP		R"(\player_hp.png)"			//プレイヤーHP画像の名前
+#define IMG_NAME_ENEMY_HP		R"(\enemy_hp.png)"			//敵のHPの画像の名前
+
+
 #define HP_INIT_VALUE	5	//HPの初期値
 
 //###################### クラス定義 #######################
@@ -17,6 +23,8 @@ class CHARACTOR
 protected:
 
 	IMAGE* image;				//画像
+
+	static IMAGE* image_hp;		//HP画像
 
 	int DrawX;					//描画X位置
 	int DrawY;					//描画Y位置
@@ -51,6 +59,7 @@ public:
 
 	virtual void Draw();		//描画
 	void DrawCenter();			//中央に描画
+	virtual void DrawHp() = 0;	//HP描画
 
 	int GetHp();				//HP取得
 

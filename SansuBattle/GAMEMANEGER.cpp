@@ -439,11 +439,12 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	player->Draw();				//プレイヤーHP描画
+	player->DrawHp();				//プレイヤーHP描画
 
 	if (ENEMY::GetNowEnemyNum() < enemy.size())	//現在の敵が、敵の最大数位内だったら
 	{
 		enemy.at(ENEMY::GetNowEnemyNum())->DrawCenter();	//敵キャラ描画
+		enemy.at(ENEMY::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
 	Q_BASE::DrawQuestion();				//問題文描画

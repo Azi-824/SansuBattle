@@ -26,4 +26,6 @@ public:
 
 	void Draw() override;				//HP‚ð•`‰æ‚·‚é
 
+	void DrawHp() override;		//HP‚ð•`‰æ‚·‚é
+
 };
