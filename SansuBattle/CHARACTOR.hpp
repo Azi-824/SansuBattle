@@ -46,15 +46,9 @@ public:
 	~CHARACTOR();				//デストラクタ
 
 	void SetIsArive(bool);		//生きているかを設定
-	void SetKeyOperation(bool); //キーボードで操作できるか設定
-
-	void SetImagePos(int, int);	//位置を設定する
 
 	bool GetIsArive();			//生きているか取得
-	bool GetKeyOperation();		//キーボードで操作できるか取得
 	bool GetIsLoad();			//読み込めたか取得
-
-	void Operation(KEYDOWN *);	//操作
 
 	virtual void SetInit(int x = 0, int y = 0);		//初期設定
 

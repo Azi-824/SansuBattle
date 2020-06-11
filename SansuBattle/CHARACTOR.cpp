@@ -7,7 +7,7 @@
 //################ クラス定義 ########################
 
 //インスタンス生成
-IMAGE* CHARACTOR::image_hp;
+IMAGE* CHARACTOR::image_hp;	//HP画像
 
 //コンストラクタ
 CHARACTOR::CHARACTOR()
@@ -42,43 +42,16 @@ void CHARACTOR::SetIsArive(bool Isarive)
 	return;
 }
 
-//キーボードで操作できるか設定
-void CHARACTOR::SetKeyOperation(bool Iskeyoperation)
-{
-	this->IsKeyOperation = IsKeyOperation;
-	return;
-}
-
-//位置を設定する
-void CHARACTOR::SetImagePos(int x, int y)
-{
-	this->DrawX = x;	
-	this->DrawY = y;
-	return;
-}
-
 //生きているか取得
 bool CHARACTOR::GetIsArive()
 {
 	return this->IsArive;
 }
 
-//キーボード操作できるか取得
-bool CHARACTOR::GetKeyOperation()
-{
-	return this->IsKeyOperation;
-}
-
 //読み込めたか取得
 bool CHARACTOR::GetIsLoad()
 {
 	return this->IsLoad;
-}
-
-//操作
-void CHARACTOR::Operation(KEYDOWN *keydown)
-{
-	return;
 }
 
 //初期化設定
