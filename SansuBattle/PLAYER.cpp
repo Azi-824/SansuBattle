@@ -25,21 +25,9 @@ PLAYER::~PLAYER()
 }
 
 //HPを描画する
-void PLAYER::Draw()
-{
-	for (int i = 0; i < this->HP; ++i)		//HPの分ループ
-	{
-		this->image->Draw(this->DrawX + i * this->image->GetWidth(), this->DrawY);	//HP画像描画
-	}
-
-	return;
-
-}
-
-//HPを描画する
 void PLAYER::DrawHp()
 {
-	image_hp->ChengeImage(0);	//HPの画像の種類をプレイヤーの画像へ
+	image_hp->ChengeImage((int)HP_PLAYER);	//HPの画像の種類をプレイヤーの画像へ
 	for (int i = 0; i < HP; ++i)	//HPの分ループ
 	{
 		image_hp->Draw(PLAYER_HP_DRAW_X + i * image_hp->GetWidth(), PLAYER_HP_DRAW_Y);	//HP画像描画

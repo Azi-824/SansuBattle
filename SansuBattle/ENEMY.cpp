@@ -52,7 +52,7 @@ int ENEMY::GetNowEnemyNum()
 //HP•`‰æ
 void ENEMY::DrawHp()
 {
-	image_hp->ChengeImage(1);	//HP‚Ì‰æ‘œ‚ÌŽí—Þ‚ð“G‚Ì‰æ‘œ‚Ö
+	image_hp->ChengeImage((int)HP_ENEMY);	//HP‚Ì‰æ‘œ‚ÌŽí—Þ‚ð“G‚Ì‰æ‘œ‚Ö
 	for (int i = 0; i < HP; ++i)	//HP‚Ì•ªƒ‹[ƒv
 	{
 		image_hp->Draw(ENEMY_HP_DRAW_X + i * image_hp->GetWidth(), ENEMY_HP_DRAW_Y);	//HP‰æ‘œ•`‰æ

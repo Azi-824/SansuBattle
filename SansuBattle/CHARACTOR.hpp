@@ -17,6 +17,13 @@
 
 #define HP_INIT_VALUE	5	//HPの初期値
 
+//###################### 列挙型 #################
+enum HP_IMG_KIND
+{
+	HP_PLAYER,		//プレイヤーのHP
+	HP_ENEMY		//敵のHP
+};
+
 //###################### クラス定義 #######################
 class CHARACTOR
 {

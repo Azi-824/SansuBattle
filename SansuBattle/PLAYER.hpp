@@ -24,8 +24,6 @@ public:
 	PLAYER(const char*, const char*);	//コンストラクタ
 	~PLAYER();							//デストラクタ
 
-	void Draw() override;				//HPを描画する
-
 	void DrawHp() override;		//HPを描画する
 
 };
