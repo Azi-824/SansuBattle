@@ -184,6 +184,8 @@ void IMAGE::Draw(int x, int y)
 	}
 	else		//フェードアウトしない時は
 	{
+		cnt = FADE_MAX_CNT;		//カウントリセット
+
 		if (this->IsDraw[this->Draw_Num])	//描画してよければ
 		{
 			DrawGraph(x, y, this->Handle[this->Draw_Num], TRUE);	//画像を描画
