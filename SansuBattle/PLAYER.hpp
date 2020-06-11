@@ -21,7 +21,7 @@ private:
 
 public:
 
-	PLAYER(const char*, const char*);	//コンストラクタ
+	PLAYER();	//コンストラクタ
 	~PLAYER();							//デストラクタ
 
 	void DrawHp() override;		//HPを描画する

@@ -29,8 +29,6 @@ class CHARACTOR
 {
 protected:
 
-	IMAGE* image;				//画像
-
 	static IMAGE* image_hp;		//HP画像
 
 	int DrawX;					//描画X位置
@@ -47,8 +45,6 @@ public:
 	CHARACTOR();				//コンストラクタ
 	~CHARACTOR();				//デストラクタ
 
-	void NewImage(const char*, const char*);	//新しい画像を読み込む
-
 	void SetIsArive(bool);		//生きているかを設定
 	void SetKeyOperation(bool); //キーボードで操作できるか設定
 
@@ -60,12 +56,10 @@ public:
 
 	void Operation(KEYDOWN *);	//操作
 
-	bool SetInit(int x = 0, int y = 0);		//初期設定
+	virtual void SetInit(int x = 0, int y = 0);		//初期設定
 
 	void SendDamege();			//ダメージを与える
 
-	virtual void Draw();		//描画
-	void DrawCenter();			//中央に描画
 	virtual void DrawHp() = 0;	//HP描画
 
 	int GetHp();				//HP取得

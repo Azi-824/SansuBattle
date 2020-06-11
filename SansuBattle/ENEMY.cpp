@@ -15,7 +15,8 @@ int ENEMY::NowEnemyNum = 0;
 ENEMY::ENEMY(const char* dir, const char* name)
 {
 	//‰æ‘œ¶¬
-	this->NewImage(dir, name);
+	image = new IMAGE(dir, name);	//‰æ‘œ¶¬
+	IsLoad = image->GetIsLoad();	//“Ç‚Ýž‚ß‚½‚©
 
 	return;
 }
@@ -23,7 +24,20 @@ ENEMY::ENEMY(const char* dir, const char* name)
 //ƒfƒXƒgƒ‰ƒNƒ^
 ENEMY::~ENEMY()
 {
+	delete image;	//image”jŠü
 	return;
+}
+
+//‰ŠúÝ’è
+void ENEMY::SetInit(int x, int y)
+{
+	image->SetInit();		//“GƒLƒƒƒ‰‰æ‘œ‰ŠúÝ’è
+	image_hp->SetInit();	//HP‰æ‘œ‰ŠúÝ’è
+	DrawX = x;				//•`‰æXˆÊ’u
+	DrawY = y;				//•`‰æYˆÊ’u
+	IsArive = true;			//¶‚«‚Ä‚¢‚é
+	IsKeyOperation = true;	//ƒL[ƒ{[ƒh‘€ì‚Å‚«‚é
+
 }
 
 //‰Šú‰»
@@ -47,6 +61,18 @@ void ENEMY::NextEnemy()
 int ENEMY::GetNowEnemyNum()
 {
 	return NowEnemyNum;
+}
+
+//•`‰æ
+void ENEMY::Draw()
+{
+	image->Draw(DrawX, DrawY);	//•`‰æ
+}
+
+//’†‰›‚É•`‰æ
+void ENEMY::DrawCenter()
+{
+	image->DrawCenter();		//’†‰›‚É•`‰æ
 }
 
 //HP•`‰æ

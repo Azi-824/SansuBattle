@@ -103,8 +103,7 @@ bool GAMEMANEGER::Load()
 
 
 	//プレイヤー関係
-	player = new PLAYER(IMG_DIR_PLAYER, IMG_NAME_HP);		//プレイヤーを管理するオブジェクトを生成
-	if (player->GetIsLoad() == false) { return false; }	//読み込み失敗
+	player = new PLAYER();		//プレイヤーを管理するオブジェクトを生成
 
 	//敵関係
 	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_FIRST));	//敵を管理するオブジェクトを生成(1体目)
@@ -241,7 +240,7 @@ void GAMEMANEGER::SetInit()
 	level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
 	stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
-	effect_atk->SetInit();														//エフェクト初期設定
+	effect_atk->SetInit();															//エフェクト初期設定
 
 	for (int i = 0; i < enemy.size(); ++i)
 	{

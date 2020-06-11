@@ -9,13 +9,9 @@
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-PLAYER::PLAYER(const char* dir, const char* name)
+PLAYER::PLAYER()
 {
-
-	//HP画像生成 
-	this->NewImage(dir, name);		//HP画像を生成
 	return;
-
 }
 
 //デストラクタ

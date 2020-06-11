@@ -24,6 +24,8 @@ class ENEMY :public CHARACTOR		//CHARACTORクラスを継承
 {
 private:
 
+	IMAGE* image;				//画像
+
 	static int NowEnemyNum;						//現在何体目の敵か
 
 public:
@@ -31,11 +33,14 @@ public:
 	ENEMY(const char* ,const char*);	//コンストラクタ
 	~ENEMY();							//デストラクタ
 
+	void SetInit(int x = 0, int y = 0) override; //初期設定
 	void Init();						//初期化
 
 	static void NextEnemy();			//次の敵へ
 	static int GetNowEnemyNum();		//現在何体目の敵か取得
 
+	void Draw();						//敵キャラ描画
+	void DrawCenter();					//中央に描画
 	void DrawHp() override;				//HP描画
 
 };

@@ -32,16 +32,7 @@ CHARACTOR::CHARACTOR()
 //デストラクタ
 CHARACTOR::~CHARACTOR()
 {
-
-	delete this->image;		//image破棄
 	return;
-}
-
-//新しい画像を読み込む
-void CHARACTOR::NewImage(const char* dir, const char* name)
-{
-	this->image = new IMAGE(dir, name);		//画像オブジェクト生成
-	this->IsLoad = this->image->GetIsLoad();//読み込めたか設定
 }
 
 //生きているか設定
@@ -91,17 +82,14 @@ void CHARACTOR::Operation(KEYDOWN *keydown)
 }
 
 //初期化設定
-bool CHARACTOR::SetInit(int x,int y)
+void CHARACTOR::SetInit(int x,int y)
 {
 
-	image->SetInit();		//画像初期設定
 	image_hp->SetInit();	//HP画像初期設定
 	DrawX = x;				//描画X位置
 	DrawY = y;				//描画Y位置
 	IsArive = true;			//生きている
 	IsKeyOperation = true;	//キーボード操作できる
-
-	return true;
 
 }
 
@@ -115,18 +103,6 @@ void CHARACTOR::SendDamege()
 
 	return;
 
-}
-
-//描画
-void CHARACTOR::Draw()
-{
-	image->Draw(DrawX, DrawY);	//描画
-}
-
-//中央に描画
-void CHARACTOR::DrawCenter()
-{
-	image->DrawCenter();		//中央に描画
 }
 
 //HP取得
