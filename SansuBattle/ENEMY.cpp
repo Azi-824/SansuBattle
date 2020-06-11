@@ -26,6 +26,14 @@ ENEMY::~ENEMY()
 	return;
 }
 
+//‰Šú‰»
+void ENEMY::Init()
+{
+	NowEnemyNum = 0;	//Œ»İ‚Ì“G‚Ì”‚ğ‰Šú‰»
+	HP = HP_INIT_VALUE;	//HP‰Šú‰»
+	IsArive = true;		//¶‚«‚Ä‚¢‚é
+}
+
 //Ÿ‚Ì“G‚Ö
 void ENEMY::NextEnemy()
 {
@@ -33,12 +41,6 @@ void ENEMY::NextEnemy()
 	{
 		++NowEnemyNum;				//Ÿ‚Ì“G‚Ö
 	}
-}
-
-//Œ»İ‚Ì“G‚ğ‰Šú‰»
-void ENEMY::ResetNowEnemy()
-{
-	NowEnemyNum = 0;
 }
 
 //Œ»İ‰½‘Ì–Ú‚Ì“G‚©æ“¾

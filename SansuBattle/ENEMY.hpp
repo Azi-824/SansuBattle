@@ -30,8 +30,9 @@ public:
 	ENEMY(const char* ,const char*);	//コンストラクタ
 	~ENEMY();							//デストラクタ
 
+	void Init();						//初期化
+
 	static void NextEnemy();			//次の敵へ
-	static void ResetNowEnemy();		//現在の敵を初期化
 	static int GetNowEnemyNum();		//現在何体目の敵か取得
 
 };

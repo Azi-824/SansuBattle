@@ -348,7 +348,7 @@ void Effect::SetInit(void)
 	{
 		GetGraphSize(this->Handle[i][0], &this->Width[i], &this->Height[i]);	//サイズ取得
 	}
-
+	//SEの数だけループさせる
 	for (int i = 0; i < Se->GetSize(); ++i)
 	{
 		Se->ChengeVolume(30, i);	//音量を30％に設定

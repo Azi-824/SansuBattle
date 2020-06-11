@@ -366,7 +366,10 @@ void GAMEMANEGER::Scene_ChoiseStage()
 	if (stage_select->GetIsChoise())		//選択したら
 	{
 		bgm->Stop();						//再生中のBGMを止める
-		ENEMY::ResetNowEnemy();				//敵の状態をリセット
+		for (int i = 0; i < enemy.size(); ++i)	//敵の数分ループ
+		{
+			enemy.at(i)->Init();			//敵初期化
+		}
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
