@@ -13,9 +13,6 @@
 #define IMG_NAME_ENEMY_SECOND	R"(\enemy2.png)"	//敵(2体目)の画像の名前
 #define IMG_NAME_ENEMY_THIRD	R"(\enemy3.png)"	//敵(3体目)の画像の名前
 
-#define ENEMY_DRAW_X	300			//敵描画X位置
-#define ENEMY_DRAW_Y	300			//敵描画Y位置
-
 #define ENEMY_MAX		3			//敵の最大数
 
 //############### クラス定義 ####################

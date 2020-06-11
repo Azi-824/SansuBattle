@@ -45,7 +45,7 @@ public:
 
 	void Operation(KEYDOWN *);	//‘€ì
 
-	bool SetInit(int,int);		//‰Šúİ’è
+	bool SetInit(int x = 0, int y = 0);		//‰Šúİ’è
 
 	void SendDamege();			//ƒ_ƒ[ƒW‚ğ—^‚¦‚é
 

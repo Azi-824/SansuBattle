@@ -246,7 +246,7 @@ void GAMEMANEGER::SetInit()
 
 	for (int i = 0; i < enemy.size(); ++i)
 	{
-		enemy.at(i)->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);								//“G‚Ì‰Šúİ’è
+		enemy.at(i)->SetInit();								//“G‚Ì‰Šúİ’è
 	}
 
 	//‰¹ŠyŠÖŒW
