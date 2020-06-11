@@ -9,19 +9,29 @@
 //############### マクロ定義 ####################
 #define IMG_DIR_ENEMY	R"(.\MY_IMG\Enemy)"			//敵の画像のディレクトリ
 
-#define IMG_NAME_ENEMY	R"(\enemy.png)"				//敵の画像の名前
+#define IMG_NAME_ENEMY_FIRST	R"(\enemy.png)"		//敵(1体目)の画像の名前
+#define IMG_NAME_ENEMY_SECOND	R"(\enemy2.png)"	//敵(2体目)の画像の名前
+#define IMG_NAME_ENEMY_THIRD	R"(\enemy3.png)"	//敵(3体目)の画像の名前
 
 #define ENEMY_DRAW_X	300			//敵描画X位置
 #define ENEMY_DRAW_Y	300			//敵描画Y位置
+
+#define ENEMY_MAX		3			//敵の最大数
 
 //############### クラス定義 ####################
 class ENEMY :public CHARACTOR		//CHARACTORクラスを継承
 {
 private:
 
+	static int NowEnemyNum;						//現在何体目の敵か
+
 public:
 
 	ENEMY(const char* ,const char*);	//コンストラクタ
 	~ENEMY();							//デストラクタ
+
+	static void NextEnemy();			//次の敵へ
+	static void ResetNowEnemy();		//現在の敵を初期化
+	static int GetNowEnemyNum();		//現在何体目の敵か取得
 
 };

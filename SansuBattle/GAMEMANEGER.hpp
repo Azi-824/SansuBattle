@@ -56,7 +56,7 @@ private:
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
 	PLAYER* player;				//プレイヤー
-	ENEMY* enemy;				//敵キャラ
+	std::vector<ENEMY*> enemy;	//敵キャラ
 	std::vector<Q_BASE*> quesiton;	//問題
 	FONT* font;					//フォント
 	Time* gamelimittime;		//ゲーム制限時間

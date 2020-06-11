@@ -89,6 +89,12 @@ bool MUSIC::GetIsPlay(int kind)
 	return CheckSoundMem(this->Handle[kind]);
 }
 
+//‰¹Šy‚ª‰½í—Ş“ü‚Á‚Ä‚¢‚é‚©æ“¾
+int MUSIC::GetSize()
+{
+	return Handle.size();
+}
+
 //Ä¶•û–@‚ğ•ÏX‚·‚é
 void MUSIC::ChengePlayType(int type)
 {

@@ -30,11 +30,12 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete this->level_select;	//level_select破棄
 	delete this->stage_select;	//stage_select破棄
 	delete this->player;		//player破棄
-	delete this->enemy;			//enemy破棄
+	//delete this->enemy;			//enemy破棄
 	delete this->font;			//font破棄
 	delete this->gamelimittime;	//gamelimittime破棄
 	delete this->effect_atk;	//effect_atk破棄
 	delete bgm;					//bgm破棄
+
 	
 	//問題関係
 	for (int i = 0; i < quesiton.size(); ++i)	//問題の種類分
@@ -42,9 +43,20 @@ GAMEMANEGER::~GAMEMANEGER()
 		delete quesiton.at(i);	//question破棄
 	}
 
+	//敵関係
+	for (int i = 0; i < enemy.size(); ++i)	//敵の数分
+	{
+		delete enemy.at(i);	//enemyの破棄
+	}
+
 	//vectorのメモリ解放を行う
 	std::vector<Q_BASE*> v;		//空のvectorを作成する
 	quesiton.swap(v);			//空と中身を入れ替える
+
+	//vectorのメモリ解放を行う
+	std::vector<ENEMY*> v2;		//空のvectorを作成する
+	enemy.swap(v2);				//空と中身を入れ替える
+
 
 	return;
 
@@ -96,8 +108,13 @@ bool GAMEMANEGER::Load()
 	if (this->player->GetIsLoad() == false) { return false; }	//読み込み失敗
 
 	//敵関係
-	this->enemy = new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY);		//敵を管理するオブジェクトを生成
-	if (this->enemy->GetIsLoad() == false) { return false; }	//読み込み失敗
+	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_FIRST));	//敵を管理するオブジェクトを生成(1体目)
+	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_SECOND));	//敵を管理するオブジェクトを生成(2体目)
+	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_THIRD));	//敵を管理するオブジェクトを生成(3体目)
+	for (int i = 0; i < enemy.size(); ++i)	//敵の数だけ
+	{
+		if (enemy.at(i)->GetIsLoad() == false) { return false; }		//読み込み失敗
+	}
 
 	//エフェクト関係
 	this->effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false);	//攻撃エフェクトを管理するオブジェクトを生成
@@ -225,8 +242,12 @@ void GAMEMANEGER::SetInit()
 	this->level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
 	this->stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	this->player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
-	this->enemy->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);									//敵の初期設定
 	this->effect_atk->SetInit();														//エフェクト初期設定
+
+	for (int i = 0; i < enemy.size(); ++i)
+	{
+		enemy.at(i)->SetInit(ENEMY_DRAW_X, ENEMY_DRAW_Y);								//敵の初期設定
+	}
 
 	//音楽関係
 	bgm->ChengeVolume(30, (int)BGM_TYPE_TITLE);	//タイトルBGMの音量を30%にする
@@ -345,6 +366,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 	if (stage_select->GetIsChoise())		//選択したら
 	{
 		bgm->Stop();						//再生中のBGMを止める
+		ENEMY::ResetNowEnemy();				//敵の状態をリセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
@@ -387,13 +409,20 @@ void GAMEMANEGER::Scene_Play()
 	{
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);	//アニメーションを描画しない
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);		//アニメーション状態をリセット
-		enemy->SendDamege();								//敵にダメージを与える
+		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();	//敵にダメージを与える
 	}
 
-	if (enemy->GetHp() <= 0)		//敵のHPが0になったら
+	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
+	{
+		enemy.at(ENEMY::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
+		ENEMY::NextEnemy();	//次の敵へ
+	}
+	
+	if (ENEMY::GetNowEnemyNum() >= enemy.size())	//敵の数が、最大数を超えたら
 	{
 		NowScene = (int)SCENE_DRAWSCORE;		//スコア表示画面へ
 	}
+
 	return;
 }
 
@@ -405,7 +434,10 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	this->player->Draw();				//プレイヤーHP描画
 
-	this->enemy->DrawCenter();			//敵キャラ描画
+	if (ENEMY::GetNowEnemyNum() < enemy.size())	//現在の敵が、敵の最大数位内だったら
+	{
+		enemy.at(ENEMY::GetNowEnemyNum())->DrawCenter();	//敵キャラ描画
+	}
 
 	Q_BASE::DrawQuestion();				//問題文描画
 	Q_BASE::DrawInputNum();				//入力中の数字を描画
