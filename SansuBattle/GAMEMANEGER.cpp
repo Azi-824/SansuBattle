@@ -421,13 +421,14 @@ void GAMEMANEGER::Scene_Play()
 	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
 	{
 		enemy.at(ENEMY::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
-		if (enemy.at(ENEMY::GetNowEnemyNum())->GetFadeEnd())		//フェードアウト終了したら
+		if (enemy.at(ENEMY::GetNowEnemyNum())->GetFadeEnd())	//フェードアウト終了したら
 		{
 			ENEMY::NextEnemy();	//次の敵へ
 		}
 	}
 	
-	if (ENEMY::GetNowEnemyNum() >= enemy.size())	//敵の数が、最大数を超えたら
+	if (ENEMY::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
+		player->GetHp() <= 0)								//プレイヤーのHPが0になったら	
 	{
 		NowScene = (int)SCENE_DRAWSCORE;		//スコア表示画面へ
 	}
