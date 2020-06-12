@@ -30,42 +30,42 @@ SAVEDATA::~SAVEDATA()
 }
 
 //どのファイルを使用するか取得
-const char* SAVEDATA::GetFileName(int gamelevel)
+const char* SAVEDATA::GetFileName(int gamemode)
 {
-	switch (gamelevel)	//ゲームレベルごとにセーブするファイルを分ける
+	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
 	{
 
-	case (int)Q_LEVEL_SUM:		//足し算の時
+	case (int)Q_MODE_SUM:		//足し算の時
 
 		return SAVE_NAME_ADD;	//足し算用のファイルへ
 
 		break;	//足し算の時ここまで
 
-	case (int)Q_LEVEL_DIFFERENCE:		//引き算の時
+	case (int)Q_MODE_DIFFERENCE:		//引き算の時
 
 		return SAVE_NAME_DIF;	//引き算用のファイルへ
 
 		break;	//引き算の時ここまで
 
-	case (int)Q_LEVEL_PRODUCT:		//掛け算の時
+	case (int)Q_MODE_PRODUCT:		//掛け算の時
 
 		return SAVE_NAME_PRO;	//掛け算用のファイルへ
 
 		break;	//掛け算の時ここまで
 
-	case (int)Q_LEVEL_DEALER:		//割り算の時
+	case (int)Q_MODE_DEALER:		//割り算の時
 
 		return SAVE_NAME_DEA;	//割り算用のファイルへ
 
 		break;	//割り算の時ここまで
 
-	case (int)Q_LEVEL_SUM_DIFFERENCE:		//足し算、引き算の時
+	case (int)Q_MODE_SUM_DIFFERENCE:		//足し算、引き算の時
 
 		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイルへ
 
 		break;	//足し算、引き算の時ここまで
 
-	case (int)Q_LEVEL_PRODUCT_DEALER:		//掛け算、割り算の時
+	case (int)Q_MODE_PRODUCT_DEALER:		//掛け算、割り算の時
 
 		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイルへ
 
@@ -104,23 +104,15 @@ void SAVEDATA::Add(int score)
 }
 
 //セーブ
-bool SAVEDATA::Save(int gamelevel)
+bool SAVEDATA::Save(int gamemode)
 {
-
-	//struct stat statbuf;	//ディレクトリの存在確認に使用
-
-	//if (stat(SAVEDATA_DIR, &statbuf) != 0)//セーブデータ用のフォルダが作成されていない場合（初めてのセーブの場合）
-	//{
-	//	_mkdir(SAVEDATA_DIR);	//セーブデータを格納するフォルダを作成
-	//}
-
 	std::string LoadFile;
 	LoadFile += SAVEDATA_DIR;
 	if (!CheckCreateFile(LoadFile))//セーブデータ用のフォルダが作成されていない場合（初めてのセーブの場合）
 	{
 		_mkdir(SAVEDATA_DIR);	//セーブデータを格納するフォルダを作成
 	}
-	LoadFile += GetFileName(gamelevel);
+	LoadFile += GetFileName(gamemode);
 
 
 	std::ofstream ofs(LoadFile.c_str(), std::ios_base::ate);	//ファイルオープン
@@ -165,11 +157,11 @@ bool SAVEDATA::Save(int gamelevel)
 }
 
 //読み込み
-bool SAVEDATA::Load(int gamelevel)
+bool SAVEDATA::Load(int gamemode)
 {
 	std::string LoadFile;
 	LoadFile += SAVEDATA_DIR;
-	LoadFile += GetFileName(gamelevel);
+	LoadFile += GetFileName(gamemode);
 
 	if (CheckCreateFile(LoadFile))	//読み込むファイルが存在する場合
 	{

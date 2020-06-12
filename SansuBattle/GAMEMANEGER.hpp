@@ -68,7 +68,7 @@ private:
 	SAVEDATA* save;					//セーブデータ
 	
 	int NowScene;				//現在のシーン
-	int GameLevel;				//ゲームのレベル
+	int GameMode;				//ゲームのモード
 	bool IsLoad;				//読み込みが終わったか
 	bool GameEndFlg;			//ゲーム終了フラグ
 

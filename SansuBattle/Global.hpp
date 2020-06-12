@@ -26,14 +26,14 @@
 #define TOUKA_MAX_VALUE	255	//透過の最大値
 
 //##################### マクロ定義 #####################
-enum Q_LEVEL_KIND
+enum Q_MODE_KIND
 {
-	Q_LEVEL_SUM,				//難易度、和（足し算）
-	Q_LEVEL_DIFFERENCE,			//難易度、差（引き算）
-	Q_LEVEL_PRODUCT,			//難易度、積（掛け算）
-	Q_LEVEL_DEALER,				//難易度、商（割り算）
-	Q_LEVEL_SUM_DIFFERENCE,		//難易度、和差（足し算、引き算）
-	Q_LEVEL_PRODUCT_DEALER		//難易度、積商（掛け算、割り算）
+	Q_MODE_SUM,					//モード、和（足し算）
+	Q_MODE_DIFFERENCE,			//モード、差（引き算）
+	Q_MODE_PRODUCT,				//モード、積（掛け算）
+	Q_MODE_DEALER,				//モード、商（割り算）
+	Q_MODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
+	Q_MODE_PRODUCT_DEALER		//モード、積商（掛け算、割り算）
 };	//問題のレベル
 
 enum STAGE_LEVEL

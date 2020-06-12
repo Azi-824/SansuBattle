@@ -16,7 +16,7 @@ GAMEMANEGER::GAMEMANEGER()
 	//メンバー変数初期化
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	IsLoad = false;					//読み込み、未完了
-	GameLevel = -1;					//ゲームのレベル初期化
+	GameMode = -1;					//ゲームのレベル初期化
 	GameEndFlg = false;				//ゲーム終了フラグ初期化
 	return;
 
@@ -97,14 +97,14 @@ bool GAMEMANEGER::Load()
 
 	//選択肢関係
 	//難易度の選択肢
-	level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_LEVEL_SUM);		//難易度の選択肢を管理するオブジェクトを生成
+	level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_LEVEL_DIFFERENCE) == false) { return false; }		//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_LEVEL_PRODUCT) == false) { return false; }		//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_LEVEL_DEALER) == false) { return false; }			//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_LEVEL_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_LEVEL_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_MODE_DIFFERENCE) == false) { return false; }		//ダミー画像追加
+	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_MODE_PRODUCT) == false) { return false; }		//ダミー画像追加
+	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_MODE_DEALER) == false) { return false; }			//ダミー画像追加
+	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_MODE_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
+	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
 	stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
@@ -359,10 +359,10 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 
 	if (level_select->GetIsChoise())			//選択したら
 	{
-		GameLevel = level_select->GetChoiseSelectCode();		//ゲームレベル設定
+		GameMode = level_select->GetChoiseSelectCode();		//ゲームレベル設定
 
 		//(読み込み成功時はtrueが返ってくるので、そのまま代入するとゲーム終了してしまうため、反転させている。）
-		GameEndFlg = !(save->Load(GameLevel));					//セーブデータ読み込み
+		GameEndFlg = !(save->Load(GameMode));					//セーブデータ読み込み
 
 		NowScene = (int)SCENE_CHOISESTAGE;						//ステージ選択画面へ
 	}
@@ -418,7 +418,7 @@ void GAMEMANEGER::Scene_Play()
 
 	if (!Q_BASE::GetIsCreate())	//問題を作成していなければ
 	{
-		quesiton.at(GameLevel)->CreateQuestion();	//問題を作成
+		quesiton.at(GameMode)->CreateQuestion();	//問題を作成
 	}
 
 	if (Q_BASE::CheckInputKey(keydown))	//キー入力が完了したら
@@ -439,7 +439,7 @@ void GAMEMANEGER::Scene_Play()
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);					//アニメーションを描画しない
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);						//アニメーション状態をリセット
 		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
-		score.at(GameLevel)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
+		score.at(GameMode)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
@@ -455,7 +455,7 @@ void GAMEMANEGER::Scene_Play()
 	if (ENEMY::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
 		player->GetHp() <= 0)								//プレイヤーのHPが0になったら	
 	{
-		save->Add(score.at(GameLevel)->GetScore());	//スコアを追加
+		save->Add(score.at(GameMode)->GetScore());	//スコアを追加
 		save->Sort();								//ソート処理
 		NowScene = (int)SCENE_DRAWSCORE;			//スコア表示画面へ
 	}
@@ -540,5 +540,5 @@ void GAMEMANEGER::Draw_Scene_End()
 //セーブ
 bool GAMEMANEGER::Save()
 {
-	return save->Save(GameLevel);	
+	return save->Save(GameMode);	
 }
