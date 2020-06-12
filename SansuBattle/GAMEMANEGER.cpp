@@ -16,6 +16,7 @@ GAMEMANEGER::GAMEMANEGER()
 	//メンバー変数初期化
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	IsLoad = false;					//読み込み、未完了
+	GameLevel = -1;					//ゲームのレベル初期化
 	return;
 
 }
@@ -352,8 +353,8 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 
 	if (level_select->GetIsChoise())			//選択したら
 	{
-		Q_BASE::SelectLevel = level_select->GetChoiseSelectCode();	//選択したレベルを設定
-		NowScene = (int)SCENE_CHOISESTAGE;					//ステージ選択画面へ
+		GameLevel = level_select->GetChoiseSelectCode();		//ゲームレベル設定
+		NowScene = (int)SCENE_CHOISESTAGE;						//ステージ選択画面へ
 	}
 
 	return;
@@ -407,7 +408,7 @@ void GAMEMANEGER::Scene_Play()
 
 	if (!Q_BASE::GetIsCreate())	//問題を作成していなければ
 	{
-		quesiton.at(Q_BASE::SelectLevel)->CreateQuestion();	//問題を作成
+		quesiton.at(GameLevel)->CreateQuestion();	//問題を作成
 	}
 
 	if (Q_BASE::CheckInputKey(keydown))	//キー入力が完了したら
@@ -428,7 +429,7 @@ void GAMEMANEGER::Scene_Play()
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);			//アニメーションを描画しない
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);				//アニメーション状態をリセット
 		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();			//敵にダメージを与える
-		score.at(0)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
+		score.at(GameLevel)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
 		gamelimittime->SetTime();									//制限時間の再計測
 	}
 
@@ -467,7 +468,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 	Q_BASE::DrawQuestion();				//問題文描画
 	Q_BASE::DrawInputNum();				//入力中の数字を描画
 
-	score.at(0)->DrawNowScore();		//現在のスコア描画
+	score.at(GameLevel)->DrawNowScore();		//現在のスコア描画
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 

@@ -66,6 +66,7 @@ private:
 	std::vector<ScoreBase*> score;	//スコア
 	
 	int NowScene;				//現在のシーン
+	int GameLevel;				//ゲームのレベル
 	bool IsLoad;				//読み込みが終わったか
 
 public:
