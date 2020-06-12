@@ -34,7 +34,7 @@ enum Q_MODE_KIND
 	Q_MODE_DEALER,				//モード、商（割り算）
 	Q_MODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
 	Q_MODE_PRODUCT_DEALER		//モード、積商（掛け算、割り算）
-};	//問題のレベル
+};	//問題の種類
 
 enum STAGE_LEVEL
 {
