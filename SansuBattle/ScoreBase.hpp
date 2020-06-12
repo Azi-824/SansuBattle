@@ -5,6 +5,7 @@
 
 //################### ヘッダファイル読み込み ###################
 #include "Global.hpp"
+#include <string>
 
 //################### マクロ定義 ########################
 
@@ -13,7 +14,7 @@ class ScoreBase
 {
 protected:
 
-	int Score;			//得点
+	static int Score;			//得点
 
 public:
 
@@ -21,7 +22,7 @@ public:
 	~ScoreBase();							//デストラクタ
 
 	virtual void CalcScore(int) = 0;		//スコア計算処理
-	void DrawNowScore();					//現在のスコア表示
+	static void DrawNowScore();				//現在のスコア表示
 
 	int GetScore();							//スコア取得
 

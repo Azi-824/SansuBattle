@@ -426,11 +426,11 @@ void GAMEMANEGER::Scene_Play()
 
 	if (effect_atk->GetIsDrawEnd())							//アニメーション描画が終わったら
 	{
-		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);			//アニメーションを描画しない
-		effect_atk->ResetIsAnime((int)EFFECT_ATACK);				//アニメーション状態をリセット
-		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();			//敵にダメージを与える
+		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);					//アニメーションを描画しない
+		effect_atk->ResetIsAnime((int)EFFECT_ATACK);						//アニメーション状態をリセット
+		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
 		score.at(GameLevel)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
-		gamelimittime->SetTime();									//制限時間の再計測
+		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
 	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
@@ -468,7 +468,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 	Q_BASE::DrawQuestion();				//問題文描画
 	Q_BASE::DrawInputNum();				//入力中の数字を描画
 
-	score.at(GameLevel)->DrawNowScore();		//現在のスコア描画
+	ScoreBase::DrawNowScore();			//現在のスコア描画
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 
