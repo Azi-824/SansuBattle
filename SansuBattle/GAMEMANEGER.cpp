@@ -17,6 +17,7 @@ GAMEMANEGER::GAMEMANEGER()
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	IsLoad = false;					//読み込み、未完了
 	GameLevel = -1;					//ゲームのレベル初期化
+	GameEndFlg = false;				//ゲーム終了フラグ初期化
 	return;
 
 }
@@ -35,6 +36,7 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete gamelimittime;	//gamelimittime破棄
 	delete effect_atk;		//effect_atk破棄
 	delete bgm;				//bgm破棄
+	delete save;			//save破棄
 
 	
 	//問題関係
@@ -143,6 +145,8 @@ bool GAMEMANEGER::Load()
 	//足し算
 	score.push_back(new ScoreAdd());	//足し算のスコアを管理するオブジェクトを生成
 
+	//セーブデータ関係
+	save = new SAVEDATA();			//セーブデータを管理するオブジェクトを生成
 	return true;	//読み込み成功
 }
 
@@ -160,6 +164,8 @@ bool GAMEMANEGER::GameMainLoop()
 	keydown->KeyDownUpdate();	//キーの入力状態を更新する
 
 	fps->Update();		//FPSの処理[更新]
+
+	if (GameEndFlg) { return false; }		//ゲーム終了フラグが立ったら、強制終了
 
 	//▼▼▼▼▼ゲームのシーンここから▼▼▼▼▼
 
@@ -354,6 +360,10 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 	if (level_select->GetIsChoise())			//選択したら
 	{
 		GameLevel = level_select->GetChoiseSelectCode();		//ゲームレベル設定
+
+		//(読み込み成功時はtrueが返ってくるので、そのまま代入するとゲーム終了してしまうため、反転させている。）
+		GameEndFlg = !(save->Load(GameLevel));					//セーブデータ読み込み
+
 		NowScene = (int)SCENE_CHOISESTAGE;						//ステージ選択画面へ
 	}
 
@@ -445,7 +455,9 @@ void GAMEMANEGER::Scene_Play()
 	if (ENEMY::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
 		player->GetHp() <= 0)								//プレイヤーのHPが0になったら	
 	{
-		NowScene = (int)SCENE_DRAWSCORE;		//スコア表示画面へ
+		save->Add(score.at(GameLevel)->GetScore());	//スコアを追加
+		save->Sort();								//ソート処理
+		NowScene = (int)SCENE_DRAWSCORE;			//スコア表示画面へ
 	}
 
 	return;
@@ -495,6 +507,8 @@ void GAMEMANEGER::Draw_SceneDrawScore()
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
+	save->Draw();
+
 	return;
 }
 
@@ -521,4 +535,10 @@ void GAMEMANEGER::Draw_Scene_End()
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
 	return;
+}
+
+//セーブ
+bool GAMEMANEGER::Save()
+{
+	return save->Save(GameLevel);	
 }

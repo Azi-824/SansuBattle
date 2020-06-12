@@ -17,6 +17,7 @@
 #include "Effect.hpp"
 #include "MUSIC.hpp"
 #include "ScoreAdd.hpp"
+#include "SAVEDATA.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -64,10 +65,12 @@ private:
 	Effect* effect_atk;			//攻撃エフェクト
 	MUSIC* bgm;					//BGM
 	std::vector<ScoreBase*> score;	//スコア
+	SAVEDATA* save;					//セーブデータ
 	
 	int NowScene;				//現在のシーン
 	int GameLevel;				//ゲームのレベル
 	bool IsLoad;				//読み込みが終わったか
+	bool GameEndFlg;			//ゲーム終了フラグ
 
 public:
 
@@ -102,5 +105,7 @@ public:
 		
 	void Scene_End();				//エンド画面の処理
 	void Draw_Scene_End();			//エンド画面の描画処理
+
+	bool Save();					//セーブ
 
 };

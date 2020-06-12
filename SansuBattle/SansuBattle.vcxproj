@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CHARACTOR.hpp" />
+    <ClInclude Include="DATA.hpp" />
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="ENEMY.hpp" />
     <ClInclude Include="FONT.hpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="PLAYER.hpp" />
     <ClInclude Include="Q_ADD.hpp" />
     <ClInclude Include="Q_BASE.hpp" />
+    <ClInclude Include="SAVEDATA.hpp" />
     <ClInclude Include="ScoreAdd.hpp" />
     <ClInclude Include="ScoreBase.hpp" />
     <ClInclude Include="SELECT.hpp" />
@@ -172,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHARACTOR.cpp" />
+    <ClCompile Include="DATA.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="ENEMY.cpp" />
     <ClCompile Include="FONT.cpp" />
@@ -184,6 +187,7 @@
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="Q_ADD.cpp" />
     <ClCompile Include="Q_BASE.cpp" />
+    <ClCompile Include="SAVEDATA.cpp" />
     <ClCompile Include="ScoreAdd.cpp" />
     <ClCompile Include="ScoreBase.cpp" />
     <ClCompile Include="SELECT.cpp" />
