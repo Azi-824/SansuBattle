@@ -37,37 +37,85 @@ const char* SAVEDATA::GetFileName(int gamemode)
 
 	case (int)Q_MODE_SUM:		//足し算の時
 
-		return SAVE_NAME_ADD;	//足し算用のファイルへ
+		return SAVE_NAME_ADD;	//足し算用のファイル
 
 		break;	//足し算の時ここまで
 
 	case (int)Q_MODE_DIFFERENCE:		//引き算の時
 
-		return SAVE_NAME_DIF;	//引き算用のファイルへ
+		return SAVE_NAME_DIF;	//引き算用のファイル
 
 		break;	//引き算の時ここまで
 
 	case (int)Q_MODE_PRODUCT:		//掛け算の時
 
-		return SAVE_NAME_PRO;	//掛け算用のファイルへ
+		return SAVE_NAME_PRO;	//掛け算用のファイル
 
 		break;	//掛け算の時ここまで
 
 	case (int)Q_MODE_DEALER:		//割り算の時
 
-		return SAVE_NAME_DEA;	//割り算用のファイルへ
+		return SAVE_NAME_DEA;	//割り算用のファイル
 
 		break;	//割り算の時ここまで
 
 	case (int)Q_MODE_SUM_DIFFERENCE:		//足し算、引き算の時
 
-		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイルへ
+		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイル
 
 		break;	//足し算、引き算の時ここまで
 
 	case (int)Q_MODE_PRODUCT_DEALER:		//掛け算、割り算の時
 
-		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイルへ
+		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイル
+
+		break;	//掛け算、割り算の時ここまで
+
+	default:
+		break;
+	}
+
+}
+
+//ゲームモード毎のテキストを取得
+const char* SAVEDATA::GetTextGameMode(int gamemode)
+{
+	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
+	{
+
+	case (int)Q_MODE_SUM:		//足し算の時
+
+		return TEXT_GAMEMODE_ADD;	//足し算用のテキスト
+
+		break;	//足し算の時ここまで
+
+	case (int)Q_MODE_DIFFERENCE:		//引き算の時
+
+		return TEXT_GAMEMODE_DIF;	//引き算用のテキスト
+
+		break;	//引き算の時ここまで
+
+	case (int)Q_MODE_PRODUCT:		//掛け算の時
+
+		return TEXT_GAMEMODE_PRO;	//掛け算用のテキスト
+
+		break;	//掛け算の時ここまで
+
+	case (int)Q_MODE_DEALER:		//割り算の時
+
+		return TEXT_GAMEMODE_DEA;	//割り算用のテキスト
+
+		break;	//割り算の時ここまで
+
+	case (int)Q_MODE_SUM_DIFFERENCE:		//足し算、引き算の時
+
+		return  TEXT_GAMEMODE_SUM_DIF;	//足し算、引き算用のテキスト
+
+		break;	//足し算、引き算の時ここまで
+
+	case (int)Q_MODE_PRODUCT_DEALER:		//掛け算、割り算の時
+
+		return TEXT_GAMEMODE_PRO_DEA;	//掛け算、割り算用のテキスト
 
 		break;	//掛け算、割り算の時ここまで
 
@@ -106,7 +154,7 @@ void SAVEDATA::Add(int score)
 //セーブ
 bool SAVEDATA::Save(int gamemode)
 {
-	std::string LoadFile;
+	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
 	if (!CheckCreateFile(LoadFile))//セーブデータ用のフォルダが作成されていない場合（初めてのセーブの場合）
 	{
@@ -119,7 +167,7 @@ bool SAVEDATA::Save(int gamemode)
 
 	if (!ofs)		//ファイルオープン失敗時
 	{
-		std::string ErrorMsg(DATA_ERROR_MSG);	//エラーメッセージ作成
+		string ErrorMsg(DATA_ERROR_MSG);	//エラーメッセージ作成
 		ErrorMsg += TEXT('\n');						//改行
 		ErrorMsg += LoadFile;					//画像のパス
 
@@ -159,7 +207,7 @@ bool SAVEDATA::Save(int gamemode)
 //読み込み
 bool SAVEDATA::Load(int gamemode)
 {
-	std::string LoadFile;
+	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
 	LoadFile += GetFileName(gamemode);
 
@@ -169,7 +217,7 @@ bool SAVEDATA::Load(int gamemode)
 
 		if (!ifs)		//ファイルオープン失敗時
 		{
-			std::string ErrorMsg(DATA_ERROR_MSG);	//エラーメッセージ作成
+			string ErrorMsg(DATA_ERROR_MSG);	//エラーメッセージ作成
 			ErrorMsg += TEXT('\n');						//改行
 			ErrorMsg += LoadFile;					//画像のパス
 
@@ -184,7 +232,7 @@ bool SAVEDATA::Load(int gamemode)
 		}
 
 
-		std::string buf;
+		string buf;
 		int yy = 0, mm = 0, dd = 0, sc = 0;		//年、月、日、スコア
 
 		while (!ifs.eof())				//最後の行まで読み込み
@@ -232,12 +280,15 @@ void SAVEDATA::Sort()
 }
 
 //データ描画
-void SAVEDATA::Draw()
+void SAVEDATA::Draw(int gamemode)
 {
 
 	int Height = GetFontSize();		//高さ取得
 
-	DrawString(DRAW_DATA_X, DRAW_DATA_Y, DRAW_DATA_TEXT_INDEX, COLOR_WHITE);		//ランキングタイトル描画
+	string text_gamemode = TEXT_GAMEMODE;	//ゲームモードのテキスト
+	text_gamemode += GetTextGameMode(gamemode);	//ゲームモード毎のテキストを取得
+
+	DrawString(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE);		//ランキングタイトル描画
 
 	for (int i = 0; i < DataCode.size();++i)
 	{
@@ -248,7 +299,7 @@ void SAVEDATA::Draw()
 		}
 
 		DrawFormatString(DRAW_DATA_X, DRAW_DATA_Y + (i + 1) * Height, COLOR_WHITE, DRAW_DATA_TEXT,
-			i + 1,								//何位か
+			i + 1,						//何位か
 			DataCode.at(i)->GetScore(),	//スコア
 			DataCode.at(i)->GetYear(),	//年
 			DataCode.at(i)->GetMonth(),	//月

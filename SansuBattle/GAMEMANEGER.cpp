@@ -505,9 +505,11 @@ void GAMEMANEGER::Scene_DrawScore()
 void GAMEMANEGER::Draw_SceneDrawScore()
 {
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
+	//DrawString(TEST_TEXT_X, TEST_TEXT_Y, DRAWSCORE_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 
-	save->Draw();
+	font->SetSize(FONTSIZE_DRAW_RANKING);	//フォントサイズ変更
+	save->Draw(GameMode);					//データをランキング表示
+	font->SetSize(DEFAULT_FONTSIZE);		//フォントサイズ変更
 
 	return;
 }

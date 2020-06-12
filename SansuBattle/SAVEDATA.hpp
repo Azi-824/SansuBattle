@@ -24,7 +24,14 @@
 
 
 //テキスト関係
-#define DRAW_DATA_TEXT_INDEX	"ランキング"					//ランキングのテキストタイトル
+#define TEXT_GAMEMODE			"ゲームモード:"					//ゲームモードのテキスト
+#define TEXT_GAMEMODE_ADD		"たしざん"						//足し算モードのテキスト
+#define TEXT_GAMEMODE_DIF		"ひきざん"						//引き算モードのテキスト
+#define TEXT_GAMEMODE_PRO		"かけざん"						//掛け算モードのテキスト
+#define TEXT_GAMEMODE_DEA		"わりざん"						//割り算モードのテキスト
+#define TEXT_GAMEMODE_SUM_DIF	"たしざん、ひきざん"			//足し算と引き算モードのテキスト
+#define TEXT_GAMEMODE_PRO_DEA	"かけざん、わりざん"			//掛け算と割り算モードのテキスト
+
 #define DRAW_DATA_TEXT			"%2d位:%d人抜き(%d/%d/%d)"		//ランキング描画のテキスト
 #define DRAW_DATA_X		0	//ランキング描画開始X位置
 #define DRAW_DATA_Y		0	//ランキング描画開始Y位置
@@ -45,6 +52,7 @@ private:
 	std::vector<DATA*> DataCode;			//セーブデータ
 
 	const char* GetFileName(int);			//どのファイルを使用するか取得
+	const char* GetTextGameMode(int);		//ゲームモード毎のテキストを取得
 	bool CheckCreateFile(string);			//指定されたファイルが存在するか取得
 
 public:
@@ -59,7 +67,7 @@ public:
 
 	void Sort();	//セーブデータを降順に並べ替える
 
-	void Draw();	//データ描画
+	void Draw(int);	//データ描画
 
 
 };
