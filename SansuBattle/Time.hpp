@@ -32,4 +32,6 @@ public:
 	void DrawElapsedTime(int, int);		//Œo‰ßŠÔ•`‰æ
 	void DrawLimitTime(int, int,int);	//§ŒÀŠÔ•`‰æ
 
+	int GetElapsedTime();				//Œo‰ßŠÔæ“¾
+
 };

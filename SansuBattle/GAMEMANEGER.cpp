@@ -48,6 +48,12 @@ GAMEMANEGER::~GAMEMANEGER()
 		delete enemy.at(i);	//enemyの破棄
 	}
 
+	//スコア関係
+	for (int i = 0; i < score.size(); ++i)	//スコアの種類分
+	{
+		delete score.at(i);	//score破棄
+	}
+
 	//vectorのメモリ解放を行う
 	std::vector<Q_BASE*> v;		//空のvectorを作成する
 	quesiton.swap(v);			//空と中身を入れ替える
@@ -56,6 +62,9 @@ GAMEMANEGER::~GAMEMANEGER()
 	std::vector<ENEMY*> v2;		//空のvectorを作成する
 	enemy.swap(v2);				//空と中身を入れ替える
 
+	//vectorのメモリ解放を行う
+	std::vector<ScoreBase*> v3;		//空のvectorを作成する
+	score.swap(v3);					//空と中身を入れ替える
 
 	return;
 
@@ -128,6 +137,10 @@ bool GAMEMANEGER::Load()
 	//問題関係
 	//足し算
 	quesiton.push_back(new Q_ADD());	//足し算の問題を管理するオブジェクトを生成
+
+	//スコア関係
+	//足し算
+	score.push_back(new ScoreAdd());	//足し算のスコアを管理するオブジェクトを生成
 
 	return true;	//読み込み成功
 }
@@ -412,10 +425,11 @@ void GAMEMANEGER::Scene_Play()
 
 	if (effect_atk->GetIsDrawEnd())							//アニメーション描画が終わったら
 	{
-		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);	//アニメーションを描画しない
-		effect_atk->ResetIsAnime((int)EFFECT_ATACK);		//アニメーション状態をリセット
-		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();	//敵にダメージを与える
-		gamelimittime->SetTime();							//制限時間の再計測
+		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);			//アニメーションを描画しない
+		effect_atk->ResetIsAnime((int)EFFECT_ATACK);				//アニメーション状態をリセット
+		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();			//敵にダメージを与える
+		score.at(0)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
+		gamelimittime->SetTime();									//制限時間の再計測
 	}
 
 	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
@@ -452,6 +466,8 @@ void GAMEMANEGER::Draw_Scene_Play()
 
 	Q_BASE::DrawQuestion();				//問題文描画
 	Q_BASE::DrawInputNum();				//入力中の数字を描画
+
+	score.at(0)->DrawNowScore();		//現在のスコア描画
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 

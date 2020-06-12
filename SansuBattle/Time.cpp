@@ -68,3 +68,9 @@ void Time::DrawLimitTime(int x, int y,int limit_time)
 	DrawFormatString(x, y, COLOR_WHITE, "%d", this->NowLimitTime);	//§ŒÀŠÔ‚ğ•`‰æ
 	return;
 }
+
+//Œo‰ßŠÔæ“¾
+int Time::GetElapsedTime()
+{
+	return ElapsedTime;
+}

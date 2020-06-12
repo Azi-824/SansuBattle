@@ -16,6 +16,7 @@
 #include "Time.hpp"
 #include "Effect.hpp"
 #include "MUSIC.hpp"
+#include "ScoreAdd.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -62,6 +63,7 @@ private:
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
 	MUSIC* bgm;					//BGM
+	std::vector<ScoreBase*> score;	//スコア
 	
 	int NowScene;				//現在のシーン
 	bool IsLoad;				//読み込みが終わったか

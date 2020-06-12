@@ -165,6 +165,7 @@
     <ClInclude Include="PLAYER.hpp" />
     <ClInclude Include="Q_ADD.hpp" />
     <ClInclude Include="Q_BASE.hpp" />
+    <ClInclude Include="ScoreAdd.hpp" />
     <ClInclude Include="ScoreBase.hpp" />
     <ClInclude Include="SELECT.hpp" />
     <ClInclude Include="Time.hpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="Q_ADD.cpp" />
     <ClCompile Include="Q_BASE.cpp" />
+    <ClCompile Include="ScoreAdd.cpp" />
     <ClCompile Include="ScoreBase.cpp" />
     <ClCompile Include="SELECT.cpp" />
     <ClCompile Include="Time.cpp" />
