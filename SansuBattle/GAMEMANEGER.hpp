@@ -58,14 +58,14 @@ private:
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
 	PLAYER* player;				//プレイヤー
-	std::vector<ENEMY*> enemy;	//敵キャラ
-	std::vector<Q_BASE*> quesiton;	//問題
-	FONT* font;					//フォント
+	vector<ENEMY*> enemy;		//敵キャラ
+	vector<Q_BASE*> quesiton;	//問題
+	vector<FONT*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
 	MUSIC* bgm;					//BGM
-	std::vector<ScoreBase*> score;	//スコア
-	SAVEDATA* save;					//セーブデータ
+	vector<ScoreBase*> score;	//スコア
+	SAVEDATA* save;				//セーブデータ
 	
 	int NowScene;				//現在のシーン
 	int GameMode;				//ゲームのモード

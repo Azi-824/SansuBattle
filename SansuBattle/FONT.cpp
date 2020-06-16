@@ -6,48 +6,25 @@
 
 //############### クラスの定義 #####################
 
+//インスタンス背性
+vector<string> FONT::LoadFontName;	//読み込んだフォントの名前
+vector<string> FONT::FilePath;		//読み込んだフォントのパス
+
 //コンストラクタ
-//引　数：const char *：フォントのディレクトリ
-//引　数：const char *：フォントの名前
-//引　数：const char *：フォントの正式名称
-FONT::FONT(const char *dir,const char *filename,const char *name)
+//引　数：int：読み込むフォントの名前
+//引　数：int：フォントのサイズ
+//引　数：int：フォントの太さ
+//引　数：int：フォントのタイプ
+FONT::FONT(int fontname, int size, int bold, int fonttype)
 {
-	//メンバー変数初期化
-	this->LoadFontNow = 0;		//読み込んだフォントの数0
 								
-	//フォントを読み込み
-	std::string LoadFilePath;	//フォントのパスを作成
+	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype);	//フォントハンドルを作成
+	//Handle = CreateFontToHandle(NULL,size, bold, fonttype);	//フォントハンドルを作成
 
-	LoadFilePath += dir;
-	LoadFilePath += filename;
-	
-	if (AddFontResourceEx(LoadFilePath.c_str(), FR_PRIVATE, NULL) == 0)		//読み込み失敗
-	{
-		std::string ErroeMsg(FONT_ERROR_MSG);	//エラーメッセージ作成
-		ErroeMsg += TEXT('\n');					//改行
-		ErroeMsg += LoadFilePath;				//フォントのパス
-
-		MessageBox(
-			NULL,
-			ErroeMsg.c_str(),	//char * を返す
-			TEXT(FONT_ERROR_TITLE),
-			MB_OK);
-
-		this->Isload = false;		//読み込み失敗
-
-		return;
-
-	}
-
-	this->FilePath.push_back(LoadFilePath.c_str());
-	this->FileName.push_back(name);
-
-	ChangeFont(name);							//指定されたフォントに変更
-	ChangeFontType(DX_FONTTYPE_ANTIALIASING);	//フォントのタイプをアンチエイリアスフォントに変更
-	this->SetSize(DEFAULT_FONTSIZE);			//フォントサイズをデフォルトの数字に設定
-
-	this->Isload = true;		//読み込めた
-	++this->LoadFontNow;		//読み込んだフォントの数を追加
+	if (Handle == -1)		//ハンドル作成失敗
+		IsCreate = false;	//作成失敗
+	else					//ハンドル作成成功
+		IsCreate = true;	//作成成功
 
 	return;
 
@@ -56,59 +33,24 @@ FONT::FONT(const char *dir,const char *filename,const char *name)
 //デストラクタ	
 FONT::~FONT()
 {
-	for (int i = 0; i < this->LoadFontNow; ++i)
-	{
-		if (RemoveFontResourceEx(this->FilePath[i].c_str(), FR_PRIVATE, NULL) == 0)	//失敗時
-		{
-			MessageBox(NULL, "remove failure", "", MB_OK);				//エラーメッセージ
-		}
-	}
-
 	//vectorのメモリ解放を行う
 	std::vector<std::string> v;			//空のvectorを作成する
-	this->FilePath.swap(v);					//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	std::vector<std::string> v2;			//空のvectorを作成する
-	this->FileName.swap(v2);				//空と中身を入れ替える
+	this->FilePath.swap(v);				//空と中身を入れ替える
 
 }
 
-//読み込めたか
-bool FONT::GetIsLoad()
+//フォントを読み込み
+bool FONT::LoadFont(const char* dir, const char* name, const char* fontname)
 {
-	return this->Isload;
-}
+	string LoadFilePath = dir;
+	LoadFilePath += name;
 
-//フォントサイズ設定
-void FONT::SetSize(int size)
-{
-
-	SetFontSize(size);
-
-	return;
-}
-
-//フォント追加
-//引　数：const char *：フォントのディレクトリ
-//引　数：const char *：フォントの名前
-//引　数：const char *：フォントの正式名称
-void FONT::AddFont(const char *dir, const char *filename, const char *name)
-{
-
-	this->Isload = false;	//読み込んでない
-
-	//フォントを読み込み
-	std::string LoadFilePath;		//フォントのパスを作成
-
-	LoadFilePath += dir;
-	LoadFilePath += filename;
-
+	//フォント読み込み
 	if (AddFontResourceEx(LoadFilePath.c_str(), FR_PRIVATE, NULL) <= 0)		//読み込み失敗
 	{
-		std::string ErroeMsg(FONT_ERROR_MSG);	//エラーメッセージ作成
-		ErroeMsg += TEXT('\n');					//改行
-		ErroeMsg += LoadFilePath;				//フォントのパス
+		string ErroeMsg(FONT_ERROR_MSG);	//エラーメッセージ作成
+		ErroeMsg += TEXT('\n');				//改行
+		ErroeMsg += LoadFilePath;			//フォントのパス
 
 		MessageBox(
 			NULL,
@@ -116,24 +58,40 @@ void FONT::AddFont(const char *dir, const char *filename, const char *name)
 			TEXT(FONT_ERROR_TITLE),
 			MB_OK);
 
-		this->Isload = false;		//読み込み失敗
-
-		return;
+		return false;	//読み込み失敗
 
 	}
 
-	this->FilePath.push_back(LoadFilePath.c_str());
-	this->FileName.push_back(name);
+	LoadFontName.push_back(fontname);	//読み込んだフォントの名前を追加
+	FilePath.push_back(LoadFilePath);	//読み込んだフォントのパスを追加
 
-	this->Isload = true;		//読み込めた
-	++this->LoadFontNow;		//読み込んだフォントの数を追加
+	return true;
 
-	return;
 }
 
-//フォント変更
-void FONT::ChengFont(int fontType)
+//読み込んだフォントを開放
+bool FONT::ReleaseFont()
 {
-	ChangeFont(this->FileName[fontType].c_str());			//指定されたフォントに変更
-	return;
+	for (int i = 0; i < LoadFontName.size(); ++i)
+	{
+		if (RemoveFontResourceEx(FilePath.at(i).c_str(), FR_PRIVATE, NULL) == 0)	//失敗時
+		{
+			MessageBox(NULL, "remove failure", "", MB_OK);				//エラーメッセージ
+			return false;
+		}
+
+	}
+	return true;
+}
+
+//フォントハンドル作成
+int FONT::GetHandle()
+{
+	return Handle;
+}
+
+//フォントハンドルを作成できたか取得
+bool FONT::GetIsCreate()
+{
+	return IsCreate;
 }

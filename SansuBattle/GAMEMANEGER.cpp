@@ -16,7 +16,7 @@ GAMEMANEGER::GAMEMANEGER()
 	//メンバー変数初期化
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	IsLoad = false;					//読み込み、未完了
-	GameMode = -1;					//ゲームのレベル初期化
+	GameMode = -1;					//ゲームモード初期化
 	GameEndFlg = false;				//ゲーム終了フラグ初期化
 	return;
 
@@ -32,42 +32,44 @@ GAMEMANEGER::~GAMEMANEGER()
 	delete level_select;	//level_select破棄
 	delete stage_select;	//stage_select破棄
 	delete player;			//player破棄
-	delete font;			//font破棄
 	delete gamelimittime;	//gamelimittime破棄
 	delete effect_atk;		//effect_atk破棄
 	delete bgm;				//bgm破棄
 	delete save;			//save破棄
 
+	//フォント関係
+	FONT::ReleaseFont();	//読み込んだフォントを開放
+	for (int i = 0; i < font.size(); ++i)	//フォントハンドルの数分
+		delete font.at(i);	//font破棄
 	
 	//問題関係
 	for (int i = 0; i < quesiton.size(); ++i)	//問題の種類分
-	{
 		delete quesiton.at(i);	//question破棄
-	}
 
 	//敵関係
 	for (int i = 0; i < enemy.size(); ++i)	//敵の数分
-	{
 		delete enemy.at(i);	//enemyの破棄
-	}
 
 	//スコア関係
 	for (int i = 0; i < score.size(); ++i)	//スコアの種類分
-	{
 		delete score.at(i);	//score破棄
-	}
 
 	//vectorのメモリ解放を行う
-	std::vector<Q_BASE*> v;		//空のvectorを作成する
-	quesiton.swap(v);			//空と中身を入れ替える
+	vector<Q_BASE*> v;		//空のvectorを作成する
+	quesiton.swap(v);		//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
-	std::vector<ENEMY*> v2;		//空のvectorを作成する
-	enemy.swap(v2);				//空と中身を入れ替える
+	vector<ENEMY*> v2;		//空のvectorを作成する
+	enemy.swap(v2);			//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
-	std::vector<ScoreBase*> v3;		//空のvectorを作成する
-	score.swap(v3);					//空と中身を入れ替える
+	vector<ScoreBase*> v3;	//空のvectorを作成する
+	score.swap(v3);			//空と中身を入れ替える
+
+	//vectorのメモリ解放を行う
+	vector<FONT*> v4;		//空のvectorを作成する
+	font.swap(v4);			//空と中身を入れ替える
+
 
 	return;
 
@@ -82,8 +84,10 @@ bool GAMEMANEGER::Load()
 {
 
 	//フォント関係
-	font = new FONT(FONT_DIR, FONT_FILE_NAME, FONT_NAME);		//フォントを管理するオブジェクトを生成
-	if (font->GetIsLoad() == false) { return false; }			//読み込み失敗
+	if (FONT::LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME) == false) { return false; }	//フォントを読み込み
+	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//フォントを管理するオブジェクトを生成
+	for(int i = 0; i < font.size(); ++i)								//フォントハンドルの種類分
+	if (font.at(i)->GetIsCreate() == false) { return false; }			//読み込み失敗
 
 	//時間関係
 	gamelimittime = new Time();		//ゲームの制限時間を管理するオブジェクトを生成
@@ -310,11 +314,13 @@ void GAMEMANEGER::Draw_Scene_Load()
 
 	if (IsLoad)	//読み込みが完了したら
 	{
-		DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE);	//プッシュ、のテキストを描画
+		//DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE);	//プッシュ、のテキストを描画
+		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
 	}
 	else		//完了していなければ
 	{
-		DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE);	//読み込み中のテキストを描画
+		//DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE);	//読み込み中のテキストを描画
+		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
 	}
 
 	return;
@@ -505,9 +511,9 @@ void GAMEMANEGER::Scene_DrawScore()
 void GAMEMANEGER::Draw_SceneDrawScore()
 {
 
-	font->SetSize(FONTSIZE_DRAW_RANKING);	//フォントサイズ変更
+	//font->SetSize(FONTSIZE_DRAW_RANKING);	//フォントサイズ変更
 	save->Draw(GameMode);					//データをランキング表示
-	font->SetSize(DEFAULT_FONTSIZE);		//フォントサイズ変更
+	//font->SetSize(DEFAULT_FONTSIZE);		//フォントサイズ変更
 
 	return;
 }
