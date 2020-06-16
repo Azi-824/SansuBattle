@@ -48,8 +48,8 @@ void Q_BASE::DrawQuestion()
 void Q_BASE::DrawInputNum()
 {
 	int Strlen = strlen(std::to_string(InputNum).c_str());						//•¶š—ñ‚Ì’·‚³‚ğæ“¾
-	int Width = GetDrawStringWidthToHandle(std::to_string(InputNum).c_str(), Strlen, NowFontHandle);
-	int Height = GetFontSize();													//‚‚³æ“¾
+	int Width = GetDrawStringWidthToHandle(std::to_string(InputNum).c_str(), Strlen, NowFontHandle);	//‰¡•æ“¾
+	int Height = GetFontSizeToHandle(NowFontHandle);							//‚‚³æ“¾
 
 	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%d", InputNum);	//“ü—Í’†‚Ì”š‚ğ•`‰æ
 

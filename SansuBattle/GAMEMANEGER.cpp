@@ -85,7 +85,8 @@ bool GAMEMANEGER::Load()
 
 	//フォント関係
 	if (FONT::LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME) == false) { return false; }	//フォントを読み込み
-	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//フォントを管理するオブジェクトを生成
+	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
+	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, FONTSIZE_DRAW_RANKING, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ミニサイズ）作成
 	for(int i = 0; i < font.size(); ++i)								//フォントハンドルの種類分
 	if (font.at(i)->GetIsCreate() == false) { return false; }			//読み込み失敗
 	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
@@ -509,10 +510,9 @@ void GAMEMANEGER::Scene_DrawScore()
 //スコア表示画面の描画処理
 void GAMEMANEGER::Draw_SceneDrawScore()
 {
-
-	//font->SetSize(FONTSIZE_DRAW_RANKING);	//フォントサイズ変更
-	save->Draw(GameMode);					//データをランキング表示
-	//font->SetSize(DEFAULT_FONTSIZE);		//フォントサイズ変更
+	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_MINISIZE)->GetHandle();	//使用するフォントハンドル変更
+	save->Draw(GameMode);														//データをランキング表示
+	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントハンドル変更
 
 	return;
 }

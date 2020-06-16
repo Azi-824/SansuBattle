@@ -32,7 +32,7 @@
 #define TEXT_GAMEMODE_SUM_DIF	"たしざん、ひきざん"			//足し算と引き算モードのテキスト
 #define TEXT_GAMEMODE_PRO_DEA	"かけざん、わりざん"			//掛け算と割り算モードのテキスト
 
-#define DRAW_DATA_TEXT			"%2d位:%d人抜き(%d/%d/%d)"		//ランキング描画のテキスト
+#define DRAW_DATA_TEXT			"%2d:%dpoint(%d/%d/%d)"			//ランキング描画のテキスト
 #define DRAW_DATA_X		0	//ランキング描画開始X位置
 #define DRAW_DATA_Y		0	//ランキング描画開始Y位置
 #define DRAW_DATA_MAX	10	//描画するデータの数

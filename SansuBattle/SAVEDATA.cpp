@@ -283,12 +283,12 @@ void SAVEDATA::Sort()
 void SAVEDATA::Draw(int gamemode)
 {
 
-	int Height = GetFontSize();		//高さ取得
+	int Height = GetFontSizeToHandle(NowFontHandle);		//高さ取得
 
 	string text_gamemode = TEXT_GAMEMODE;	//ゲームモードのテキスト
 	text_gamemode += GetTextGameMode(gamemode);	//ゲームモード毎のテキストを取得
 
-	DrawString(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE);		//ランキングタイトル描画
+	DrawStringToHandle(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE, NowFontHandle);		//ランキングタイトル描画
 
 	for (int i = 0; i < DataCode.size();++i)
 	{
@@ -298,7 +298,7 @@ void SAVEDATA::Draw(int gamemode)
 			break;					//ループを抜ける
 		}
 
-		DrawFormatString(DRAW_DATA_X, DRAW_DATA_Y + (i + 1) * Height, COLOR_WHITE, DRAW_DATA_TEXT,
+		DrawFormatStringToHandle(DRAW_DATA_X, DRAW_DATA_Y + (i + 1) * Height, COLOR_WHITE, NowFontHandle, DRAW_DATA_TEXT,
 			i + 1,						//何位か
 			DataCode.at(i)->GetScore(),	//スコア
 			DataCode.at(i)->GetYear(),	//年
