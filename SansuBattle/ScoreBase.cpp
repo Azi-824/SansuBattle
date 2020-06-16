@@ -25,9 +25,9 @@ ScoreBase::~ScoreBase()
 void ScoreBase::DrawNowScore()
 {
 	int Strlen = strlen(std::to_string(Score).c_str());						//文字列の長さを取得
-	int Width = GetDrawStringWidth(std::to_string(Score).c_str(), Strlen);	//横幅取得
+	int Width = GetDrawStringWidthToHandle(std::to_string(Score).c_str(), Strlen, NowFontHandle);	//横幅取得
 
-	DrawFormatString((GAME_WIDTH / 2) - (Width / 2), GAME_TOP, COLOR_WHITE, "%d", Score);		//スコア表示
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), GAME_TOP, COLOR_WHITE, NowFontHandle, "%d", Score);		//スコア表示
 }
 
 //スコア取得

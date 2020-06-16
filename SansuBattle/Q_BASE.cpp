@@ -37,9 +37,9 @@ void Q_BASE::DrawQuestion()
 	img_kokuban->Draw(GAME_LEFT, Q_IMG_DRAW_Y);		//•”Â‚Ì‰æ‘œ‚ğ•`‰æ
 
 	int Strlen = strlen(Q_Text.c_str());					//•¶š—ñ’·‚³‚ğæ“¾
-	int Width = GetDrawStringWidth(Q_Text.c_str(), Strlen);	//‰¡•æ“¾
+	int Width = GetDrawStringWidthToHandle(Q_Text.c_str(), Strlen, NowFontHandle);	//‰¡•æ“¾
 
-	DrawFormatString((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, "%s", Q_Text.c_str());		//–â‘è•¶‚ğ•`‰æ
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, NowFontHandle, "%s", Q_Text.c_str());	//–â‘è•¶‚ğ•`‰æ
 
 	return;
 }
@@ -48,11 +48,10 @@ void Q_BASE::DrawQuestion()
 void Q_BASE::DrawInputNum()
 {
 	int Strlen = strlen(std::to_string(InputNum).c_str());						//•¶š—ñ‚Ì’·‚³‚ğæ“¾
-	int Width = GetDrawStringWidth(std::to_string(InputNum).c_str(), Strlen);	//‰¡•æ“¾
+	int Width = GetDrawStringWidthToHandle(std::to_string(InputNum).c_str(), Strlen, NowFontHandle);
 	int Height = GetFontSize();													//‚‚³æ“¾
 
-	DrawFormatString((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, "%d", InputNum);	//“ü—Í’†‚Ì”š‚ğ•`‰æ
-
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%d", InputNum);	//“ü—Í’†‚Ì”š‚ğ•`‰æ
 
 }
 

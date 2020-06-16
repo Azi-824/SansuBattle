@@ -44,7 +44,7 @@ enum LOAD_FONT_NAME
 
 enum FONT_HANDLE_TYPE
 {
-	HANDLE_TYPE_KOKUBAN_NORMALSIZE		//こくばんフォントのノーマルサイズ
+	HANDLE_TYPE_KOKUBAN_NORMALSIZE		//こくばんフォントのノーマルサイズのハンドル
 };
 
 using std::vector;

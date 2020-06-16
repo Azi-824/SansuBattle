@@ -43,3 +43,4 @@ enum STAGE_LEVEL
 	STAGE_LEVEL_HARD		//難しい
 };	//ステージのレベル
 
+extern int NowFontHandle;	//現在のフォントハンドル

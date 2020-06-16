@@ -19,7 +19,6 @@ FONT::FONT(int fontname, int size, int bold, int fonttype)
 {
 								
 	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype);	//フォントハンドルを作成
-	//Handle = CreateFontToHandle(NULL,size, bold, fonttype);	//フォントハンドルを作成
 
 	if (Handle == -1)		//ハンドル作成失敗
 		IsCreate = false;	//作成失敗
@@ -34,8 +33,8 @@ FONT::FONT(int fontname, int size, int bold, int fonttype)
 FONT::~FONT()
 {
 	//vectorのメモリ解放を行う
-	std::vector<std::string> v;			//空のvectorを作成する
-	this->FilePath.swap(v);				//空と中身を入れ替える
+	//std::vector<std::string> v;			//空のvectorを作成する
+	//this->FilePath.swap(v);				//空と中身を入れ替える
 
 }
 

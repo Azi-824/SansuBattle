@@ -54,7 +54,7 @@ void Time::UpdateLimitTime(int limit_time)
 void Time::DrawElapsedTime(int x, int y)
 {
 	this->UpdateElpasedTime();	//経過時間を更新
-	DrawFormatString(x, y, COLOR_WHITE, "%d", this->ElapsedTime);	//経過時間を描画
+	DrawFormatStringToHandle(x, y, COLOR_WHITE, NowFontHandle, "%d", this->ElapsedTime);	//経過時間を描画
 	return;
 }
 
@@ -65,7 +65,7 @@ void Time::DrawElapsedTime(int x, int y)
 void Time::DrawLimitTime(int x, int y,int limit_time)
 {
 	this->UpdateLimitTime(limit_time);	//残りの制限時間更新
-	DrawFormatString(x, y, COLOR_WHITE, "%d", this->NowLimitTime);	//制限時間を描画
+	DrawFormatStringToHandle(x, y, COLOR_WHITE, NowFontHandle ,"%d", this->NowLimitTime);	//制限時間を描画
 	return;
 }
 

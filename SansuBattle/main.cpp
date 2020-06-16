@@ -6,6 +6,7 @@
 
 //########## グローバルオブジェクト ##########
 GAMEMANEGER *gamemaneger = new GAMEMANEGER();	//gamemaneger生成
+int NowFontHandle;	//現在のフォントハンドル
 
 //########## プログラムで最初に実行される関数 ##########
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

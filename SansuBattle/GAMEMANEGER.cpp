@@ -88,6 +88,7 @@ bool GAMEMANEGER::Load()
 	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//フォントを管理するオブジェクトを生成
 	for(int i = 0; i < font.size(); ++i)								//フォントハンドルの種類分
 	if (font.at(i)->GetIsCreate() == false) { return false; }			//読み込み失敗
+	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
 
 	//時間関係
 	gamelimittime = new Time();		//ゲームの制限時間を管理するオブジェクトを生成
@@ -314,12 +315,10 @@ void GAMEMANEGER::Draw_Scene_Load()
 
 	if (IsLoad)	//読み込みが完了したら
 	{
-		//DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE);	//プッシュ、のテキストを描画
 		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
 	}
 	else		//完了していなければ
 	{
-		//DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE);	//読み込み中のテキストを描画
 		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
 	}
 
