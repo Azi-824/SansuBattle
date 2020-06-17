@@ -91,11 +91,11 @@ public:
 	void Scene_Title();				//タイトル画面の処理
 	void Draw_Scene_Title();		//タイトル画面の描画処理
 
-	void Scene_ChoiseLevel();		//難易度選択画面の処理
-	void Draw_Scene_ChoiseLevel();	//難易度選択画面の描画処理
+	void Scene_ChoiseGameMode();		//ゲームモード選択画面の処理
+	void Draw_Scene_ChoiseGameMode();	//ゲームモード選択画面の描画処理
 
-	void Scene_ChoiseStage();		//ステージ選択画面の処理
-	void Draw_Scene_ChoiseStage();	//ステージ選択画面の描画処理
+	void Scene_ChoiseLevel();		//レベル選択画面の処理
+	void Draw_Scene_ChoiseLevel();	//レベル選択画面の描画処理
 
 	void Scene_Play();				//プレイ画面の処理
 	void Draw_Scene_Play();			//プレイ画面の描画処理

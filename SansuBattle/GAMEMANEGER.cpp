@@ -98,7 +98,8 @@ bool GameManeger::Load()
 	//背景画像
 	back = new Image(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
 	if (back->GetIsLoad() == false) { return false; }		//読み込み失敗
-	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }	//プレイ画面の背景画像を追加
+	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }		//プレイ画面の背景画像を追加
+	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_SELECT) == false) { return false; }	//選択画面の背景画像を追加
 	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
@@ -213,17 +214,17 @@ void GameManeger::ProcesScene()
 
 	case (int)SCENE_CHOISELEVEL:	//難易度選択画面のとき
 
-		Scene_ChoiseLevel();		//処理
+		Scene_ChoiseGameMode();		//処理
 
-		Draw_Scene_ChoiseLevel();	//描画
+		Draw_Scene_ChoiseGameMode();	//描画
 
 		break;				//難易度選択画面のときここまで
 
 	case (int)SCENE_CHOISESTAGE:	//ステージ選択画面のとき
 
-		Scene_ChoiseStage();		//処理
+		Scene_ChoiseLevel();		//処理
 
-		Draw_Scene_ChoiseStage();	//描画
+		Draw_Scene_ChoiseLevel();	//描画
 
 		break;				//ステージ選択画面のときここまで
 
@@ -355,9 +356,11 @@ void GameManeger::Draw_Scene_Title()
 	return;
 }
 
-//難易度選択画面の処理
-void GameManeger::Scene_ChoiseLevel()
+//ゲームモード選択画面の処理
+void GameManeger::Scene_ChoiseGameMode()
 {
+
+	back->ChengeImage((int)SELECT_BACK);	//背景画像を変更
 
 	bgm->Play((int)BGM_TYPE_SELECT);	//選択画面のBGMを再生
 
@@ -376,17 +379,18 @@ void GameManeger::Scene_ChoiseLevel()
 	return;
 }
 
-//難易度選択画面の描画処理
-void GameManeger::Draw_Scene_ChoiseLevel()
+//ゲームモード選択画面の描画処理
+void GameManeger::Draw_Scene_ChoiseGameMode()
 {
+	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	level_select->Draw();	//難易度の選択肢描画
+	level_select->Draw();				//難易度の選択肢描画
 
 	return;
 }
 
-//ステージ選択画面の処理
-void GameManeger::Scene_ChoiseStage()
+//レベル選択画面の処理
+void GameManeger::Scene_ChoiseLevel()
 {
 
 	stage_select->Operation(keydown);		//選択肢キー操作
@@ -405,9 +409,11 @@ void GameManeger::Scene_ChoiseStage()
 	return;
 }
 
-//ステージ選択画面の描画処理
-void GameManeger::Draw_Scene_ChoiseStage()
+//レベル選択画面の描画処理
+void GameManeger::Draw_Scene_ChoiseLevel()
 {
+
+	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	stage_select->Draw();		//ステージ選択肢描画
 
