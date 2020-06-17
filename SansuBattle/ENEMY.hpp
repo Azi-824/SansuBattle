@@ -1,4 +1,4 @@
-//ENEMY.hpp
+//Enemy.hpp
 //敵を管理するクラス
 
 #pragma once
@@ -20,7 +20,7 @@
 #define ENEMY_MAX		3			//敵の最大数
 
 //############### クラス定義 ####################
-class ENEMY :public Charactor		//CHARACTORクラスを継承
+class Enemy :public Charactor		//CHARACTORクラスを継承
 {
 private:
 
@@ -30,8 +30,8 @@ private:
 
 public:
 
-	ENEMY(const char* ,const char*);	//コンストラクタ
-	~ENEMY();							//デストラクタ
+	Enemy(const char* ,const char*);	//コンストラクタ
+	~Enemy();							//デストラクタ
 
 	void SetInit(int x = 0, int y = 0) override; //初期設定
 	void Init();						//初期化

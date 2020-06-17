@@ -1,4 +1,4 @@
-//PLAYER.hpp
+//Player.hpp
 //プレイヤーを管理するクラス
 
 #pragma once
@@ -15,14 +15,14 @@
 #define PLAYER_HP_DRAW_Y		50	//HPの描画開始Y位置
 
 //##################### クラス定義 #########################
-class PLAYER : public Charactor		//キャラクタークラスを継承
+class Player : public Charactor		//キャラクタークラスを継承
 {
 private:
 
 public:
 
-	PLAYER();	//コンストラクタ
-	~PLAYER();							//デストラクタ
+	Player();	//コンストラクタ
+	~Player();							//デストラクタ
 
 	void DrawHp() override;		//HPを描画する
 

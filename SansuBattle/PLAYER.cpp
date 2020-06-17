@@ -1,27 +1,27 @@
-//PLAYER.cpp
+//Player.cpp
 //プレイヤーを管理するクラス
 
 //################### ヘッダファイル読み込み #####################
-#include "PLAYER.hpp"
+#include "Player.hpp"
 
 //################### クラス定義 ##################
 
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-PLAYER::PLAYER()
+Player::Player()
 {
 	return;
 }
 
 //デストラクタ
-PLAYER::~PLAYER()
+Player::~Player()
 {
 	return;
 }
 
 //HPを描画する
-void PLAYER::DrawHp()
+void Player::DrawHp()
 {
 	image_hp->ChengeImage((int)HP_PLAYER);	//HPの画像の種類をプレイヤーの画像へ
 	for (int i = 0; i < HP; ++i)	//HPの分ループ

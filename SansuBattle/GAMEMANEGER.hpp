@@ -9,8 +9,8 @@
 #include "KEYDOWN.hpp"
 #include "IMAGE.hpp"
 #include "SELECT.hpp"
-#include "PLAYER.hpp"
-#include "ENEMY.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 #include "Q_ADD.hpp"
 #include "FONT.hpp"
 #include "Time.hpp"
@@ -57,8 +57,8 @@ private:
 	IMAGE* back;				//背景画像
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
-	PLAYER* player;				//プレイヤー
-	vector<ENEMY*> enemy;		//敵キャラ
+	Player* player;				//プレイヤー
+	vector<Enemy*> enemy;		//敵キャラ
 	vector<Q_BASE*> quesiton;	//問題
 	vector<FONT*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間

@@ -59,7 +59,7 @@ GameManeger::~GameManeger()
 	quesiton.swap(v);		//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
-	vector<ENEMY*> v2;		//空のvectorを作成する
+	vector<Enemy*> v2;		//空のvectorを作成する
 	enemy.swap(v2);			//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
@@ -121,12 +121,12 @@ bool GameManeger::Load()
 
 
 	//プレイヤー関係
-	player = new PLAYER();		//プレイヤーを管理するオブジェクトを生成
+	player = new Player();		//プレイヤーを管理するオブジェクトを生成
 
 	//敵関係
-	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_FIRST));	//敵を管理するオブジェクトを生成(1体目)
-	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_SECOND));	//敵を管理するオブジェクトを生成(2体目)
-	enemy.push_back(new ENEMY(IMG_DIR_ENEMY, IMG_NAME_ENEMY_THIRD));	//敵を管理するオブジェクトを生成(3体目)
+	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY_FIRST));	//敵を管理するオブジェクトを生成(1体目)
+	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY_SECOND));	//敵を管理するオブジェクトを生成(2体目)
+	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY_THIRD));	//敵を管理するオブジェクトを生成(3体目)
 	for (int i = 0; i < enemy.size(); ++i)	//敵の数だけ
 	{
 		if (enemy.at(i)->GetIsLoad() == false) { return false; }		//読み込み失敗
@@ -444,21 +444,21 @@ void GameManeger::Scene_Play()
 	{
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);					//アニメーションを描画しない
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);						//アニメーション状態をリセット
-		enemy.at(ENEMY::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
+		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
 		score.at(GameMode)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
-	if (enemy.at(ENEMY::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
+	if (enemy.at(Enemy::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
 	{
-		enemy.at(ENEMY::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
-		if (enemy.at(ENEMY::GetNowEnemyNum())->GetFadeEnd())	//フェードアウト終了したら
+		enemy.at(Enemy::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
+		if (enemy.at(Enemy::GetNowEnemyNum())->GetFadeEnd())	//フェードアウト終了したら
 		{
-			ENEMY::NextEnemy();	//次の敵へ
+			Enemy::NextEnemy();	//次の敵へ
 		}
 	}
 	
-	if (ENEMY::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
+	if (Enemy::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
 		player->GetHp() <= 0)								//プレイヤーのHPが0になったら	
 	{
 		save->Add(score.at(GameMode)->GetScore());	//スコアを追加
@@ -477,10 +477,10 @@ void GameManeger::Draw_Scene_Play()
 
 	player->DrawHp();				//プレイヤーHP描画
 
-	if (ENEMY::GetNowEnemyNum() < enemy.size())	//現在の敵が、敵の最大数位内だったら
+	if (Enemy::GetNowEnemyNum() < enemy.size())	//現在の敵が、敵の最大数位内だったら
 	{
-		enemy.at(ENEMY::GetNowEnemyNum())->DrawCenter();	//敵キャラ描画
-		enemy.at(ENEMY::GetNowEnemyNum())->DrawHp();		//HP描画
+		enemy.at(Enemy::GetNowEnemyNum())->DrawCenter();	//敵キャラ描画
+		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
 	Q_BASE::DrawQuestion();				//問題文描画

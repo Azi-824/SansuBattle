@@ -1,18 +1,18 @@
-//ENEMY.cpp
+//Enemy.cpp
 //敵を管理するクラス
 
 //############### ヘッダファイル読み込み ##################
-#include "ENEMY.hpp"
+#include "Enemy.hpp"
 
 //############### クラス定義 #####################
 
 //インスタンスを生成
-int ENEMY::NowEnemyNum = 0;
+int Enemy::NowEnemyNum = 0;
 
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-ENEMY::ENEMY(const char* dir, const char* name)
+Enemy::Enemy(const char* dir, const char* name)
 {
 	//画像生成
 	image = new IMAGE(dir, name);	//画像生成
@@ -22,14 +22,14 @@ ENEMY::ENEMY(const char* dir, const char* name)
 }
 
 //デストラクタ
-ENEMY::~ENEMY()
+Enemy::~Enemy()
 {
 	delete image;	//image破棄
 	return;
 }
 
 //初期設定
-void ENEMY::SetInit(int x, int y)
+void Enemy::SetInit(int x, int y)
 {
 	image->SetInit();		//敵キャラ画像初期設定
 	image_hp->SetInit();	//HP画像初期設定
@@ -41,7 +41,7 @@ void ENEMY::SetInit(int x, int y)
 }
 
 //初期化
-void ENEMY::Init()
+void Enemy::Init()
 {
 	NowEnemyNum = 0;	//現在の敵の数を初期化
 	HP = HP_INIT_VALUE;	//HP初期化
@@ -50,7 +50,7 @@ void ENEMY::Init()
 }
 
 //次の敵へ
-void ENEMY::NextEnemy()
+void Enemy::NextEnemy()
 {
 	if (NowEnemyNum < ENEMY_MAX)	//現在の敵が、敵の最大数より少なければ
 	{
@@ -59,19 +59,19 @@ void ENEMY::NextEnemy()
 }
 
 //現在何体目の敵か取得
-int ENEMY::GetNowEnemyNum()
+int Enemy::GetNowEnemyNum()
 {
 	return NowEnemyNum;
 }
 
 //描画
-void ENEMY::Draw()
+void Enemy::Draw()
 {
 	image->Draw(DrawX, DrawY);	//描画
 }
 
 //中央に描画
-void ENEMY::DrawCenter()
+void Enemy::DrawCenter()
 {
 	if (IsArive)	//生きていれば
 	{
@@ -85,7 +85,7 @@ void ENEMY::DrawCenter()
 }
 
 //HP描画
-void ENEMY::DrawHp()
+void Enemy::DrawHp()
 {
 	image_hp->ChengeImage((int)HP_ENEMY);	//HPの画像の種類を敵の画像へ
 	for (int i = 0; i < HP; ++i)	//HPの分ループ
@@ -96,7 +96,7 @@ void ENEMY::DrawHp()
 }
 
 //フェードアウト終了したか取得
-bool ENEMY::GetFadeEnd()
+bool Enemy::GetFadeEnd()
 {
 	return image->GetFadeEnd();
 }
