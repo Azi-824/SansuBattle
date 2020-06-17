@@ -11,32 +11,31 @@
 //コンストラクタ
 Fps::Fps(int fps_value)
 {
-	this->value = fps_value;
-	this->drawValue = 0;
-	this->calcStartTime = 0;
-	this->calcEndTime = 0;
-	this->flameCount = 0;
-	this->calcAverage = (double)value;
+	value = fps_value;
+	drawValue = 0;
+	calcStartTime = 0;
+	flameCount = 0;
+	calcAverage = (double)value;
 
-	this->TotalFlameCnt = 0;
+	TotalFlameCnt = 0;
 
 	return;
 }
 
 //指定したFPSになるように待つ
-VOID Fps::Wait(VOID)
+void Fps::Wait(void)
 {
 	//現在の時刻をミリ秒で取得
-	DWORD nowTime = GetTickCount();
+	double nowTime = GetTickCount();
 
 	//1フレーム目から実際にかかった時間を計算
-	DWORD keikaTime = nowTime - this->calcStartTime;
+	double keikaTime = nowTime - calcStartTime;
 
 	//ゼロ除算対策
-	if (this->value > 0)
+	if (value > 0)
 	{
 		//待つべき時間 = フレーム数ごとにかかるべき時間 - 実際にかかった時間;
-		int wait_tm = (this->flameCount * 1000 / this->value) - (keikaTime);
+		int wait_tm = (flameCount * 1000 / value) - (keikaTime);
 
 		//待つべき時間があった場合
 		if (wait_tm > 0)
@@ -53,55 +52,55 @@ VOID Fps::Wait(VOID)
 }
 
 //画面更新の時刻を取得する
-VOID Fps::Update(VOID)
+void Fps::Update(void)
 {
 	//1フレーム目なら時刻を記憶
-	if (this->flameCount == 0)
+	if (flameCount == 0)
 	{
 		//Windowsが起動してから現在までの時刻をミリ秒で取得
-		this->calcStartTime = GetTickCount();
+		calcStartTime = GetTickCount();
 	}
 
 	//指定フレームの最後のフレームなら、平均を計算する
-	if (this->flameCount == this->calcAverage)
+	if (flameCount == calcAverage)
 	{
 		//Windowsが起動してから現在までの時刻をミリ秒で取得
-		this->calcEndTime = GetTickCount();
+		calcEndTime = GetTickCount();
 
 		//平均的なFPS値を計算
-		this->drawValue = 1000.0f / ((this->calcEndTime - this->calcStartTime) / this->calcAverage);
+		drawValue = 1000.0f / ((calcEndTime - calcStartTime) / calcAverage);
 
 		//次のFPS計算の準備
-		this->calcStartTime = this->calcEndTime;
+		calcStartTime = calcEndTime;
 
 		//カウント初期化
-		this->flameCount = 0;
+		flameCount = 0;
 	}
 
 	//フレーム数カウントアップ
-	this->flameCount++;
+	flameCount++;
 
 	return;
 }
 
 //FPSの値を表示する
-VOID Fps::Draw(int drawX, int drawY)
+void Fps::Draw(int drawX, int drawY)
 {
 	//文字列を描画
-	DrawFormatString(drawX, drawY, GetColor(255, 255, 255), "FPS:%.1f", this->drawValue);
+	DrawFormatString(drawX, drawY, GetColor(255, 255, 255), "FPS:%.1f", drawValue);
 	return;
 }
 
 //FPS値を取得する
-int Fps::Getvalue(VOID)
+int Fps::Getvalue(void)
 {
-	return this->value;
+	return value;
 }
 
 //総フレームを取得する
-int Fps::GetTotalFlameCnt(VOID)
+int Fps::GetTotalFlameCnt(void)
 {
-	return this->TotalFlameCnt;
+	return TotalFlameCnt;
 }
 
 //デストラクタ

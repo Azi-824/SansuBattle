@@ -14,9 +14,9 @@ class Fps
 private:
 	int			value;					//FPS値
 	double		drawValue;				//DrawするときのFPS値
-	DWORD		calcStartTime;			//0フレーム目の開始時刻
-	DWORD		calcEndTime;			//設定したフレームの終了時刻
-	DWORD		flameCount;				//フレームのカウント
+	double		calcStartTime;			//0フレーム目の開始時刻
+	double		calcEndTime;			//設定したフレームの終了時刻
+	double		flameCount;				//フレームのカウント
 	double		calcAverage; 			//FPSを計算するための平均サンプル数
 
 	int			TotalFlameCnt;			//現在の総フレーム数
@@ -28,21 +28,21 @@ public:
 	Fps(int);
 
 	//指定したFPSになるように待つ
-	VOID Wait(VOID);
+	void Wait(void);
 
 	//画面更新の時刻を取得する
-	VOID Update(VOID);
+	void Update(void);
 
 	//FPSの値を表示する
 	//引　数：int　：値を表示するX位置
 	//引　数：int　：値を表示するY位置
-	VOID Draw(int, int);
+	void Draw(int, int);
 
 	//FPS値を取得する
-	int Getvalue(VOID);
+	int Getvalue(void);
 
 	//総フレームを取得する
-	int GetTotalFlameCnt(VOID);
+	int GetTotalFlameCnt(void);
 
 	//デストラクタ
 	virtual ~Fps();
