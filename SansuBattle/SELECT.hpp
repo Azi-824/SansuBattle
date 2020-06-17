@@ -12,23 +12,23 @@
 //##################### マクロ定義 ######################
 #define SELECT_IMG_DIR			R"(.\MY_IMG\Select)"		//選択肢の画像ディレクトリ
 
-#define IMG_NAME_SELECT_SUM			R"(\select_sum.png)"			//選択肢のダミー画像1
-#define IMG_NAME_SELECT_DIFFERENCE	R"(\select_difference.png)"		//選択肢のダミー画像2
-#define IMG_NAME_SELECT_PRODUCT		R"(\select_product.png)"		//選択肢のダミー画像3
-#define IMG_NAME_SELECT_DEALER		R"(\select_dealer.png)"			//選択肢のダミー画像4
-#define IMG_NAME_SELECT_SUM_DIFF	R"(\select_sum_diff.png)"		//選択肢のダミー画像5
-#define IMG_NAME_SELECT_PRO_DEA		R"(\select_pro_dea.png)"		//選択肢のダミー画像6
+#define IMG_NAME_SELECT_SUM			R"(\select_sum.png)"			//ゲームモード選択肢（足し算）の画像
+#define IMG_NAME_SELECT_DIFFERENCE	R"(\select_difference.png)"		//ゲームモード選択肢（引き算）の画像
+#define IMG_NAME_SELECT_PRODUCT		R"(\select_product.png)"		//ゲームモード選択肢（掛け算）の画像
+#define IMG_NAME_SELECT_DEALER		R"(\select_dealer.png)"			//ゲームモード選択肢（割り算）の画像
+#define IMG_NAME_SELECT_SUM_DIFF	R"(\select_sum_diff.png)"		//ゲームモード選択肢（足し算、引き算）の画像
+#define IMG_NAME_SELECT_PRO_DEA		R"(\select_pro_dea.png)"		//ゲームモード選択肢（掛け算、割り算）の画像
 
-#define IMG_NAME_STAGE_DAMMY01	R"(\stage_dammy01.png)"		//ステージ選択肢のダミー画像1
-#define IMG_NAME_STAGE_DAMMY02	R"(\stage_dammy02.png)"		//ステージ選択肢のダミー画像2
-#define IMG_NAME_STAGE_DAMMY03	R"(\stage_dammy03.png)"		//ステージ選択肢のダミー画像3
+#define IMG_NAME_SELECTLEVEL_EASY	R"(\select_level_easy.png)"		//レベル選択肢（簡単）の画像
+#define IMG_NAME_SELECTLEVEL_NORMAL	R"(\select_level_normal.png)"	//レベル選択肢（普通）の画像
+#define IMG_NAME_SELECTLEVEL_HARD	R"(\select_level_hard.png)"		//レベル選択肢（難しい）の画像
 
-#define SELECT_LEVEL_DRAW_X		20	//難易度の選択肢の描画開始X位置
-#define SELECT_LEVEL_DRAW_Y		20	//難易度の選択肢の描画開始Y位置
-#define SELECT_STAGE_DRAW_X		50	//ステージの選択肢の描画開始X位置
-#define SELECT_STAGE_DRAW_Y		20	//ステージの選択肢の描画開始Y位置
+#define SELECT_GAMEMODE_DRAW_X		20	//ゲームモードの選択肢の描画開始X位置
+#define SELECT_GAMEMODE_DRAW_Y		20	//ゲームモードの選択肢の描画開始Y位置
+#define SELECT_LEVEL_DRAW_X		0		//レベルの選択肢の描画開始X位置
+#define SELECT_LEVEL_DRAW_Y		250		//レベルの選択肢の描画開始Y位置
 
-#define SELECT_INTERVAL		20		//選択肢の間隔
+#define SELECT_INTERVAL		10		//選択肢の間隔
 
 #define CHOISE_NONE	-1				//選択していない状態
 

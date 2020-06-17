@@ -113,11 +113,11 @@ bool GAMEMANEGER::Load()
 	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
-	stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY01, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
+	stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
 	if (stage_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY02, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
-	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_STAGE_DAMMY03, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
+	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
+	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_HARD, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
 
 
 	//プレイヤー関係
@@ -263,8 +263,8 @@ void GAMEMANEGER::ProcesScene()
 void GAMEMANEGER::SetInit()
 {
 	back->SetInit();			//画像初期設定
-	level_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
-	stage_select->SetInit(SELECT_STAGE_DRAW_X, SELECT_STAGE_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
+	level_select->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
+	stage_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 	effect_atk->SetInit();															//エフェクト初期設定
 
