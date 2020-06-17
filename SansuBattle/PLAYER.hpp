@@ -4,7 +4,7 @@
 #pragma once
 
 //##################### ヘッダファイル読み込み #######################
-#include "CHARACTOR.hpp"
+#include "Charactor.hpp"
 
 //##################### マクロ定義 #########################
 #define IMG_DIR_PLAYER	R"(.\MY_IMG\Player)"		//プレイヤーの画像のディレクトリ
@@ -15,7 +15,7 @@
 #define PLAYER_HP_DRAW_Y		50	//HPの描画開始Y位置
 
 //##################### クラス定義 #########################
-class PLAYER : public CHARACTOR		//キャラクタークラスを継承
+class PLAYER : public Charactor		//キャラクタークラスを継承
 {
 private:
 

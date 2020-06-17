@@ -1,13 +1,13 @@
-//GAMEMANEGER.cpp
+//GameManeger.cpp
 //ゲームのシステムを管理するクラス
 
 //############### ヘッダファイル読み込み ################
-#include "GAMEMANEGER.hpp"
+#include "GameManeger.hpp"
 
 //############### クラス定義 ################
 
 //コンストラクタ
-GAMEMANEGER::GAMEMANEGER()
+GameManeger::GameManeger()
 {
 	//オブジェクトの生成
 	fps = new FPS(GAME_FPS_SPEED);	//FPSクラスのオブジェクトを生成
@@ -23,7 +23,7 @@ GAMEMANEGER::GAMEMANEGER()
 }
 
 //デストラクタ
-GAMEMANEGER::~GAMEMANEGER()
+GameManeger::~GameManeger()
 {
 	//オブジェクトの破棄
 	delete fps;				//fps破棄
@@ -80,7 +80,7 @@ GAMEMANEGER::~GAMEMANEGER()
 戻り値：true：正常
 戻り値：false：エラー、強制終了
 */
-bool GAMEMANEGER::Load()
+bool GameManeger::Load()
 {
 
 	//フォント関係
@@ -161,7 +161,7 @@ bool GAMEMANEGER::Load()
 戻り値：true：正常
 戻り値：false：エラー、強制終了
 */
-bool GAMEMANEGER::GameMainLoop()
+bool GameManeger::GameMainLoop()
 {
 	if (ProcessMessage() != 0) { return false; }	//メッセージ処理の結果がエラーのとき、強制終了
 
@@ -190,7 +190,7 @@ bool GAMEMANEGER::GameMainLoop()
 }
 
 //各シーンの処理
-void GAMEMANEGER::ProcesScene()
+void GameManeger::ProcesScene()
 {
 	switch (NowScene)		//現在のシーンの描画処理を実行
 	{
@@ -260,7 +260,7 @@ void GAMEMANEGER::ProcesScene()
 }
 
 //初期設定
-void GAMEMANEGER::SetInit()
+void GameManeger::SetInit()
 {
 	back->SetInit();			//画像初期設定
 	level_select->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
@@ -283,7 +283,7 @@ void GAMEMANEGER::SetInit()
 
 //***************************** シーン毎の処理 ********************************
 //ロード画面の処理
-void GAMEMANEGER::Scene_Load()
+void GameManeger::Scene_Load()
 {
 	if (IsLoad)	//読み込みが完了していたら
 	{
@@ -311,7 +311,7 @@ void GAMEMANEGER::Scene_Load()
 }
 
 //ロード画面の描画処理
-void GAMEMANEGER::Draw_Scene_Load()
+void GameManeger::Draw_Scene_Load()
 {
 
 	if (IsLoad)	//読み込みが完了したら
@@ -327,7 +327,7 @@ void GAMEMANEGER::Draw_Scene_Load()
 }
 
 //タイトル画面の処理
-void GAMEMANEGER::Scene_Title()
+void GameManeger::Scene_Title()
 {
 
 	back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
@@ -347,7 +347,7 @@ void GAMEMANEGER::Scene_Title()
 }
 
 //タイトル画面の描画処理
-void GAMEMANEGER::Draw_Scene_Title()
+void GameManeger::Draw_Scene_Title()
 {
 
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
@@ -356,7 +356,7 @@ void GAMEMANEGER::Draw_Scene_Title()
 }
 
 //難易度選択画面の処理
-void GAMEMANEGER::Scene_ChoiseLevel()
+void GameManeger::Scene_ChoiseLevel()
 {
 
 	bgm->Play((int)BGM_TYPE_SELECT);	//選択画面のBGMを再生
@@ -377,7 +377,7 @@ void GAMEMANEGER::Scene_ChoiseLevel()
 }
 
 //難易度選択画面の描画処理
-void GAMEMANEGER::Draw_Scene_ChoiseLevel()
+void GameManeger::Draw_Scene_ChoiseLevel()
 {
 
 	level_select->Draw();	//難易度の選択肢描画
@@ -386,7 +386,7 @@ void GAMEMANEGER::Draw_Scene_ChoiseLevel()
 }
 
 //ステージ選択画面の処理
-void GAMEMANEGER::Scene_ChoiseStage()
+void GameManeger::Scene_ChoiseStage()
 {
 
 	stage_select->Operation(keydown);		//選択肢キー操作
@@ -406,7 +406,7 @@ void GAMEMANEGER::Scene_ChoiseStage()
 }
 
 //ステージ選択画面の描画処理
-void GAMEMANEGER::Draw_Scene_ChoiseStage()
+void GameManeger::Draw_Scene_ChoiseStage()
 {
 
 	stage_select->Draw();		//ステージ選択肢描画
@@ -415,7 +415,7 @@ void GAMEMANEGER::Draw_Scene_ChoiseStage()
 }
 
 //プレイ画面の処理
-void GAMEMANEGER::Scene_Play()
+void GameManeger::Scene_Play()
 {
 
 	back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
@@ -470,7 +470,7 @@ void GAMEMANEGER::Scene_Play()
 }
 
 //プレイ画面の描画処理
-void GAMEMANEGER::Draw_Scene_Play()
+void GameManeger::Draw_Scene_Play()
 {
 
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
@@ -496,7 +496,7 @@ void GAMEMANEGER::Draw_Scene_Play()
 }
 
 //スコア表示画面の処理
-void GAMEMANEGER::Scene_DrawScore()
+void GameManeger::Scene_DrawScore()
 {
 
 	if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
@@ -508,7 +508,7 @@ void GAMEMANEGER::Scene_DrawScore()
 }
 
 //スコア表示画面の描画処理
-void GAMEMANEGER::Draw_SceneDrawScore()
+void GameManeger::Draw_SceneDrawScore()
 {
 	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_MINISIZE)->GetHandle();	//使用するフォントハンドル変更
 	save->Draw(GameMode);														//データをランキング表示
@@ -518,7 +518,7 @@ void GAMEMANEGER::Draw_SceneDrawScore()
 }
 
 //エンド画面の処理
-void GAMEMANEGER::Scene_End()
+void GameManeger::Scene_End()
 {
 
 	back->ChengeImage((int)DAMMY_BACK);	//背景画像を変更
@@ -532,7 +532,7 @@ void GAMEMANEGER::Scene_End()
 }
 
 //エンド画面の描画処理
-void GAMEMANEGER::Draw_Scene_End()
+void GameManeger::Draw_Scene_End()
 {
 
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
@@ -543,7 +543,7 @@ void GAMEMANEGER::Draw_Scene_End()
 }
 
 //セーブ
-bool GAMEMANEGER::Save()
+bool GameManeger::Save()
 {
 	return save->Save(GameMode);	
 }

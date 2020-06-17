@@ -1,4 +1,4 @@
-//GAMEMANEGER.hpp
+//GameManeger.hpp
 //ゲームのシステムを管理するクラス
 
 #pragma once
@@ -47,7 +47,7 @@ enum GAME_SCENE
 };
 
 //############### クラス定義 ################
-class GAMEMANEGER
+class GameManeger
 {
 
 private:
@@ -74,8 +74,8 @@ private:
 
 public:
 
-	GAMEMANEGER();				//コンストラクタ
-	~GAMEMANEGER();				//デストラクタ
+	GameManeger();				//コンストラクタ
+	~GameManeger();				//デストラクタ
 
 	bool Load();				//ゲームに使用するデータの読み込み処理
 	bool GameMainLoop();		//ゲームのメインループ

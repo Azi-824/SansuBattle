@@ -2,10 +2,10 @@
 
 //#################### ヘッダファイル読み込み #######################
 #include "main.hpp"
-#include "GAMEMANEGER.hpp"
+#include "GameManeger.hpp"
 
 //########## グローバルオブジェクト ##########
-GAMEMANEGER *gamemaneger = new GAMEMANEGER();	//gamemaneger生成
+GameManeger *gamemaneger = new GameManeger();	//gamemaneger生成
 int NowFontHandle;	//現在のフォントハンドル
 
 //########## プログラムで最初に実行される関数 ##########

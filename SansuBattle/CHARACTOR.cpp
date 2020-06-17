@@ -1,16 +1,16 @@
-//CHARACTOR.cpp
+//Charactor.cpp
 //キャラクタークラス
 
 //################# ヘッダファイル読み込み #####################
-#include "CHARACTOR.hpp"
+#include "Charactor.hpp"
 
 //################ クラス定義 ########################
 
 //インスタンス生成
-IMAGE* CHARACTOR::image_hp;	//HP画像
+IMAGE* Charactor::image_hp;	//HP画像
 
 //コンストラクタ
-CHARACTOR::CHARACTOR()
+Charactor::Charactor()
 {
 	//メンバー変数初期化
 	this->DrawX = 0;			//X位置初期化
@@ -30,32 +30,32 @@ CHARACTOR::CHARACTOR()
 }
 
 //デストラクタ
-CHARACTOR::~CHARACTOR()
+Charactor::~Charactor()
 {
 	return;
 }
 
 //生きているか設定
-void CHARACTOR::SetIsArive(bool Isarive)
+void Charactor::SetIsArive(bool Isarive)
 {
 	this->IsArive = Isarive;
 	return;
 }
 
 //生きているか取得
-bool CHARACTOR::GetIsArive()
+bool Charactor::GetIsArive()
 {
 	return this->IsArive;
 }
 
 //読み込めたか取得
-bool CHARACTOR::GetIsLoad()
+bool Charactor::GetIsLoad()
 {
 	return this->IsLoad;
 }
 
 //初期化設定
-void CHARACTOR::SetInit(int x,int y)
+void Charactor::SetInit(int x,int y)
 {
 
 	image_hp->SetInit();	//HP画像初期設定
@@ -67,7 +67,7 @@ void CHARACTOR::SetInit(int x,int y)
 }
 
 //ダメージを与える
-void CHARACTOR::SendDamege()
+void Charactor::SendDamege()
 {
 	if (this->HP > 0)		//HPが0じゃなければ
 	{
@@ -79,7 +79,7 @@ void CHARACTOR::SendDamege()
 }
 
 //HP取得
-int CHARACTOR::GetHp()
+int Charactor::GetHp()
 {
 	return HP;
 }

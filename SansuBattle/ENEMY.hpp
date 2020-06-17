@@ -4,7 +4,7 @@
 #pragma once
 
 //############### ヘッダファイル読み込み ####################
-#include "CHARACTOR.hpp"
+#include "Charactor.hpp"
 
 //############### マクロ定義 ####################
 #define IMG_DIR_ENEMY	R"(.\MY_IMG\Enemy)"			//敵の画像のディレクトリ
@@ -20,7 +20,7 @@
 #define ENEMY_MAX		3			//敵の最大数
 
 //############### クラス定義 ####################
-class ENEMY :public CHARACTOR		//CHARACTORクラスを継承
+class ENEMY :public Charactor		//CHARACTORクラスを継承
 {
 private:
 

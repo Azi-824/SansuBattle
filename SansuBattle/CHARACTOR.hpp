@@ -25,7 +25,7 @@ enum HP_IMG_KIND
 };
 
 //###################### クラス定義 #######################
-class CHARACTOR
+class Charactor
 {
 protected:
 
@@ -42,8 +42,8 @@ protected:
 
 public:
 
-	CHARACTOR();				//コンストラクタ
-	~CHARACTOR();				//デストラクタ
+	Charactor();				//コンストラクタ
+	~Charactor();				//デストラクタ
 
 	void SetIsArive(bool);		//生きているかを設定
 

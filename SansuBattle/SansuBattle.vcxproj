@@ -151,13 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CHARACTOR.hpp" />
+    <ClInclude Include="Charactor.hpp" />
     <ClInclude Include="DATA.hpp" />
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="ENEMY.hpp" />
     <ClInclude Include="FONT.hpp" />
     <ClInclude Include="FPS.hpp" />
-    <ClInclude Include="GAMEMANEGER.hpp" />
+    <ClInclude Include="GameManeger.hpp" />
     <ClInclude Include="Global.hpp" />
     <ClInclude Include="IMAGE.hpp" />
     <ClInclude Include="KEYDOWN.hpp" />
@@ -173,13 +173,13 @@
     <ClInclude Include="Time.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CHARACTOR.cpp" />
+    <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="DATA.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="ENEMY.cpp" />
     <ClCompile Include="FONT.cpp" />
     <ClCompile Include="FPS.cpp" />
-    <ClCompile Include="GAMEMANEGER.cpp" />
+    <ClCompile Include="GameManeger.cpp" />
     <ClCompile Include="IMAGE.cpp" />
     <ClCompile Include="KEYDOWN.cpp" />
     <ClCompile Include="main.cpp" />
