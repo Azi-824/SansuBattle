@@ -11,7 +11,7 @@
 #include "SELECT.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
-#include "Q_ADD.hpp"
+#include "Q_Add.hpp"
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
@@ -59,7 +59,7 @@ private:
 	SELECT* stage_select;		//ステージ選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
-	vector<Q_BASE*> quesiton;	//問題
+	vector<Q_Base*> quesiton;	//問題
 	vector<Font*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト

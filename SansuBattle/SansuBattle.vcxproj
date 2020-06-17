@@ -164,8 +164,8 @@
     <ClInclude Include="main.hpp" />
     <ClInclude Include="MUSIC.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Q_ADD.hpp" />
-    <ClInclude Include="Q_BASE.hpp" />
+    <ClInclude Include="Q_Add.hpp" />
+    <ClInclude Include="Q_Base.hpp" />
     <ClInclude Include="SaveData.hpp" />
     <ClInclude Include="ScoreAdd.hpp" />
     <ClInclude Include="ScoreBase.hpp" />
@@ -185,8 +185,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MUSIC.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Q_ADD.cpp" />
-    <ClCompile Include="Q_BASE.cpp" />
+    <ClCompile Include="Q_Add.cpp" />
+    <ClCompile Include="Q_Base.cpp" />
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="ScoreAdd.cpp" />
     <ClCompile Include="ScoreBase.cpp" />

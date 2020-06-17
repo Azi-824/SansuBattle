@@ -6,7 +6,7 @@
 //#################### ヘッダファイル読み込み #####################
 #include "Global.hpp"
 #include "IMAGE.hpp"
-#include "KEYDOWN.hpp"
+#include "KeyDown.hpp"
 #include <vector>
 
 //##################### マクロ定義 ######################

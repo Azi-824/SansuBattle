@@ -55,7 +55,7 @@ GameManeger::~GameManeger()
 		delete score.at(i);	//score破棄
 
 	//vectorのメモリ解放を行う
-	vector<Q_BASE*> v;		//空のvectorを作成する
+	vector<Q_Base*> v;		//空のvectorを作成する
 	quesiton.swap(v);		//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
@@ -145,7 +145,7 @@ bool GameManeger::Load()
 
 	//問題関係
 	//足し算
-	quesiton.push_back(new Q_ADD());	//足し算の問題を管理するオブジェクトを生成
+	quesiton.push_back(new Q_Add());	//足し算の問題を管理するオブジェクトを生成
 
 	//スコア関係
 	//足し算
@@ -422,14 +422,14 @@ void GameManeger::Scene_Play()
 
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
-	if (!Q_BASE::GetIsCreate())	//問題を作成していなければ
+	if (!Q_Base::GetIsCreate())	//問題を作成していなければ
 	{
 		quesiton.at(GameMode)->CreateQuestion();	//問題を作成
 	}
 
-	if (Q_BASE::CheckInputKey(keydown))	//キー入力が完了したら
+	if (Q_Base::CheckInputKey(keydown))	//キー入力が完了したら
 	{
-		if (Q_BASE::JudgAnser())				//プレイヤーの回答が正解だったら
+		if (Q_Base::JudgAnser())				//プレイヤーの回答が正解だったら
 		{
 			effect_atk->SetIsDraw(true,(int)EFFECT_ATACK);			//アニメーションの描画を開始する
 		}
@@ -483,8 +483,8 @@ void GameManeger::Draw_Scene_Play()
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
-	Q_BASE::DrawQuestion();				//問題文描画
-	Q_BASE::DrawInputNum();				//入力中の数字を描画
+	Q_Base::DrawQuestion();				//問題文描画
+	Q_Base::DrawInputNum();				//入力中の数字を描画
 
 	ScoreBase::DrawNowScore();			//現在のスコア描画
 

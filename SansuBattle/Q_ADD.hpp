@@ -1,23 +1,23 @@
-//Q_ADD.hpp
+//Q_Add.hpp
 //足し算の問題を管理するクラス
 
 #pragma once
 
 //################# ヘッダファイル読み込み #################
-#include "Q_BASE.hpp"
+#include "Q_Base.hpp"
 
 //################# マクロ定義 ####################
 
 //################# クラス定義 ####################
-class Q_ADD :public Q_BASE
+class Q_Add :public Q_Base
 {
 private:
 
 
 public:
 
-	Q_ADD();					//コンストラクタ
-	~Q_ADD();					//デストラクタ
+	Q_Add();					//コンストラクタ
+	~Q_Add();					//デストラクタ
 
 	void CreateQuestion() override;		//問題作成
 

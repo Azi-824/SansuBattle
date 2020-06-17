@@ -1,4 +1,4 @@
-//Q_BASE.hpp
+//Q_Base.hpp
 //問題関係の全ての基になるクラス
 
 #pragma once
@@ -6,7 +6,7 @@
 //################# ヘッダファイル読み込み ###############
 #include "Global.hpp"
 #include <string>
-#include "KEYDOWN.hpp"
+#include "KeyDown.hpp"
 #include "IMAGE.hpp"
 
 //################# マクロ定義 #################
@@ -38,7 +38,7 @@ enum INPUT_NUM
 
 
 //################# クラス定義 #################
-class Q_BASE
+class Q_Base
 {
 protected:
 
@@ -57,8 +57,8 @@ public:
 
 	static int SelectLevel;				//選択した問題のレベル
 
-	Q_BASE();							//コンストラクタ
-	~Q_BASE();							//デストラクタ
+	Q_Base();							//コンストラクタ
+	~Q_Base();							//デストラクタ
 
 	virtual void CreateQuestion() = 0;	//問題作成
 

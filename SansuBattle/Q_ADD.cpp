@@ -1,25 +1,25 @@
-//Q_ADD.cpp
+//Q_Base.cpp
 //足し算の問題を管理するクラス
 
 //################# ヘッダファイル読み込み ##################
-#include "Q_ADD.hpp"
+#include "Q_Add.hpp"
 
 //################# クラス定義 ####################
 
 //コンストラクタ
-Q_ADD::Q_ADD()
+Q_Add::Q_Add()
 {
 	return;
 }
 
 //デストラクタ
-Q_ADD::~Q_ADD()
+Q_Add::~Q_Add()
 {
 	return;
 }
 
 //問題を作成
-void Q_ADD::CreateQuestion()
+void Q_Add::CreateQuestion()
 {
 	int num1 = 0, num2 = 0;		//問題を入れる変数
 
