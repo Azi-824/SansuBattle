@@ -1,11 +1,11 @@
-//SELECT.hpp
+//Select.hpp
 //選択肢を管理するクラス
 
 #pragma once
 
 //#################### ヘッダファイル読み込み #####################
 #include "Global.hpp"
-#include "IMAGE.hpp"
+#include "Image.hpp"
 #include "KeyDown.hpp"
 #include <vector>
 
@@ -35,7 +35,7 @@
 //##################### 列挙型 #######################
 
 //##################### クラス定義 ######################
-class SELECT
+class Select
 {
 
 private:
@@ -57,8 +57,8 @@ private:
 
 public:
 
-	SELECT(const char *,const char *,int);		//コンストラクタ
-	~SELECT();									//デストラクタ
+	Select(const char *,const char *,int);		//コンストラクタ
+	~Select();									//デストラクタ
 
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
 	bool GetIsChoise();							//選択したか取得

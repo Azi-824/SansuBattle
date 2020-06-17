@@ -7,7 +7,7 @@
 #include "Global.hpp"
 #include <vector>
 #include <string>
-#include "MUSIC.hpp"
+#include "Music.hpp"
 
 //###################### マクロ定義：ファイルパス、名前 ######################
 #define EFFECT_DIR				R"(.\MY_EFFECT)"				//エフェクトの画像ファイルの場所

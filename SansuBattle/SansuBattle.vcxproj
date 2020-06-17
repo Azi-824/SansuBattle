@@ -169,7 +169,7 @@
     <ClInclude Include="SaveData.hpp" />
     <ClInclude Include="ScoreAdd.hpp" />
     <ClInclude Include="ScoreBase.hpp" />
-    <ClInclude Include="SELECT.hpp" />
+    <ClInclude Include="Select.hpp" />
     <ClInclude Include="Time.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,7 @@
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="ScoreAdd.cpp" />
     <ClCompile Include="ScoreBase.cpp" />
-    <ClCompile Include="SELECT.cpp" />
+    <ClCompile Include="Select.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,8 +5,8 @@
 
 //###################### ヘッダファイル読み込み ###################
 #include "Global.hpp"
-#include "KEYDOWN.hpp"
-#include "IMAGE.hpp"
+#include "KeyDown.hpp"
+#include "Image.hpp"
 
 //###################### マクロ定義 #######################
 #define IMG_DIR_CHARA			R"(.\MY_IMG\Charactor)"		//キャラクターの画像のディレクトリ

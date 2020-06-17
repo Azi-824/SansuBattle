@@ -103,7 +103,7 @@ bool GameManeger::Load()
 
 	//選択肢関係
 	//難易度の選択肢
-	level_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
+	level_select = new Select(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
 	if (level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
 	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_MODE_DIFFERENCE) == false) { return false; }		//ダミー画像追加
@@ -113,7 +113,7 @@ bool GameManeger::Load()
 	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
-	stage_select = new SELECT(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
+	stage_select = new Select(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
 	if (stage_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
 	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加

@@ -1,13 +1,13 @@
-//SELECT.cpp
+//Select.cpp
 //選択肢を管理するクラス
 
 //################# ヘッダファイル読み込み #######################
-#include "SELECT.hpp"
+#include "Select.hpp"
 
 //################# クラス定義 ########################
 
 //コンストラクタ
-SELECT::SELECT(const char* dir, const char* name,int code)
+Select::Select(const char* dir, const char* name,int code)
 {
 
 	//メンバー変数初期化
@@ -27,7 +27,7 @@ SELECT::SELECT(const char* dir, const char* name,int code)
 }
 
 //デストラクタ
-SELECT::~SELECT()
+Select::~Select()
 {
 	//vectorのメモリ解放を行う
 	std::vector<int> v;				//空のvectorを作成する
@@ -38,19 +38,19 @@ SELECT::~SELECT()
 }
 
 //選択肢を作れたか取得
-bool SELECT::GetIsCreateSelect()
+bool Select::GetIsCreateSelect()
 {
 	return this->IsCreateSelect;
 }
 
 //選択したか取得
-bool SELECT::GetIsChoise()
+bool Select::GetIsChoise()
 {
 	return this->IsChoise;
 }
 
 //選んだ選択肢のコード番号を取得
-bool SELECT::GetChoiseSelectCode()
+bool Select::GetChoiseSelectCode()
 {
 	return Choise_SelectCode;
 }
@@ -61,7 +61,7 @@ bool SELECT::GetChoiseSelectCode()
 引数：int：描画開始Y位置
 引数：int：描画可能横幅
 */
-void SELECT::SetInit(int x, int y, int width)
+void Select::SetInit(int x, int y, int width)
 {
 	this->SelectImage->SetInit();	//画像初期設定
 
@@ -86,7 +86,7 @@ void SELECT::SetInit(int x, int y, int width)
 }
 
 //初期化
-void SELECT::Init()
+void Select::Init()
 {
 	this->Choise_SelectCode = CHOISE_NONE;			//選んだ選択肢のコードを初期化
 	this->IsChoise = false;							//選択したか初期化
@@ -96,7 +96,7 @@ void SELECT::Init()
 }
 
 //選択肢を追加
-bool SELECT::Add(const char* dir, const char* name,int code)
+bool Select::Add(const char* dir, const char* name,int code)
 {
 	this->IsCreateSelect = this->SelectImage->AddImage(dir, name);		//画像を追加
 	this->SelectCode.push_back(code);									//選択肢コードを設定
@@ -105,7 +105,7 @@ bool SELECT::Add(const char* dir, const char* name,int code)
 }
 
 //描画
-void SELECT::Draw()
+void Select::Draw()
 {
 
 	int NowDrawX = this->DrawX, NowDrawY = this->DrawY;		//現在の描画位置
@@ -143,7 +143,7 @@ void SELECT::Draw()
 }
 
 //キー操作
-void SELECT::Operation(KeyDown* keydown)
+void Select::Operation(KeyDown* keydown)
 {
 	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
 	{
@@ -172,7 +172,7 @@ void SELECT::Operation(KeyDown* keydown)
 }
 
 //次の選択肢へ
-void SELECT::Next()
+void Select::Next()
 {
 
 	if (*this->NowSelectCode < this->SelectCode.back())	//最後の選択肢じゃなければ
@@ -184,7 +184,7 @@ void SELECT::Next()
 }
 
 //指定された分、次の選択肢へ
-void SELECT::Next(int value)
+void Select::Next(int value)
 {
 	if (*this->NowSelectCode + value <= this->SelectCode.back())	//最後の選択肢じゃなければ
 	{
@@ -195,7 +195,7 @@ void SELECT::Next(int value)
 }
 
 //前の選択肢へ
-void SELECT::Prev()
+void Select::Prev()
 {
 	if (*this->NowSelectCode > this->SelectCode.front())		//最初の選択肢じゃなければ
 	{
@@ -206,7 +206,7 @@ void SELECT::Prev()
 }
 
 //指定された分、前の選択肢へ
-void SELECT::Prev(int value)
+void Select::Prev(int value)
 {
 	if (*this->NowSelectCode - value >= this->SelectCode.front())		//最初の選択肢じゃなければ
 	{

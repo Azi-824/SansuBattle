@@ -4,7 +4,7 @@
 #pragma once
 
 //################## ヘッダファイル読み込み ####################
-#include "DATA.hpp"
+#include "Data.hpp"
 #include <vector>
 #include <string>
 #include <fstream>

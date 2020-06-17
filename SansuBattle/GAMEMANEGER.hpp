@@ -8,7 +8,7 @@
 #include "Fps.hpp"
 #include "KeyDown.hpp"
 #include "Image.hpp"
-#include "SELECT.hpp"
+#include "Select.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Q_Add.hpp"
@@ -55,8 +55,8 @@ private:
 	Fps *fps;					//fps
 	KeyDown *keydown;			//キーボード関係
 	Image* back;				//背景画像
-	SELECT* level_select;		//難易度選択肢
-	SELECT* stage_select;		//ステージ選択肢
+	Select* level_select;		//難易度選択肢
+	Select* stage_select;		//ステージ選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
 	vector<Q_Base*> quesiton;	//問題

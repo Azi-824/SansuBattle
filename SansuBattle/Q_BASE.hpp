@@ -7,7 +7,7 @@
 #include "Global.hpp"
 #include <string>
 #include "KeyDown.hpp"
-#include "IMAGE.hpp"
+#include "Image.hpp"
 
 //################# マクロ定義 #################
 #define Q_IMG_DRAW_Y 490	//問題の画像（黒板）描画Y位置
