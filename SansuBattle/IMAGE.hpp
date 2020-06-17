@@ -1,5 +1,5 @@
 /*--+----1----+----2----+----3----+----4----+----5-----+----6----+----7----+----8----+----9----+---*/
-/* IMAGE.cpp     																				　 */
+/* Image.cpp     																				　 */
 /* 画像クラス 																					　 */
 
 /*
@@ -39,7 +39,7 @@ enum BACK_IMAGE
 
 //########## クラスの定義 ##########
 
-class IMAGE
+class Image
 {
 private:
 	std::string FilePath;	//パス
@@ -59,8 +59,8 @@ private:
 	std::vector<bool> FadeEnd;	//フェードエフェクトが終わったか
 
 public:
-	IMAGE(const char *,const char *);	//コンストラクタ
-	virtual ~IMAGE();					//デストラクタ
+	Image(const char *,const char *);	//コンストラクタ
+	virtual ~Image();					//デストラクタ
 
 	std::string GetFileName(void);	//名前を取得
 

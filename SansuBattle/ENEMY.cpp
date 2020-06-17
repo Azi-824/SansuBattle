@@ -15,7 +15,7 @@ int Enemy::NowEnemyNum = 0;
 Enemy::Enemy(const char* dir, const char* name)
 {
 	//‰æ‘œ¶¬
-	image = new IMAGE(dir, name);	//‰æ‘œ¶¬
+	image = new Image(dir, name);	//‰æ‘œ¶¬
 	IsLoad = image->GetIsLoad();	//“Ç‚İ‚ß‚½‚©
 
 	return;

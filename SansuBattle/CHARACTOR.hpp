@@ -29,7 +29,7 @@ class Charactor
 {
 protected:
 
-	static IMAGE* image_hp;		//HP‰æ‘œ
+	static Image* image_hp;		//HP‰æ‘œ
 
 	int DrawX;					//•`‰æXˆÊ’u
 	int DrawY;					//•`‰æYˆÊ’u

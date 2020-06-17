@@ -7,7 +7,7 @@
 //################ クラス定義 ########################
 
 //インスタンス生成
-IMAGE* Charactor::image_hp;	//HP画像
+Image* Charactor::image_hp;	//HP画像
 
 //コンストラクタ
 Charactor::Charactor()
@@ -22,7 +22,7 @@ Charactor::Charactor()
 
 	if (image_hp == NULL)	//HP画像が作成されていなければ
 	{
-		image_hp = new IMAGE(IMG_DIR_CHARA, IMG_NAME_PLAYER_HP);	//プレイヤーのHP画像
+		image_hp = new Image(IMG_DIR_CHARA, IMG_NAME_PLAYER_HP);	//プレイヤーのHP画像
 		image_hp->AddImage(IMG_DIR_CHARA, IMG_NAME_ENEMY_HP);		//敵のHP画像
 	}
 

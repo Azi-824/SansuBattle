@@ -40,7 +40,7 @@ class SELECT
 
 private:
 
-	IMAGE* SelectImage;							//選択肢の画像
+	Image* SelectImage;							//選択肢の画像
 
 	std::vector<int> SelectCode;				//選択肢のコード番号
 	std::vector<int>::iterator NowSelectCode;	//現在選んでいるコード番号

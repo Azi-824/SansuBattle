@@ -1,8 +1,8 @@
-//MUSIC.cpp
+//Music.cpp
 //音楽用クラス
 
 //################### ヘッダファイル読み込み ####################
-#include "MUSIC.hpp"
+#include "Music.hpp"
 
 //################## クラス定義 ###########################
 
@@ -10,7 +10,7 @@
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
 //引　数：int：音素材の種類数
-MUSIC::MUSIC(const char *dir, const char *name)
+Music::Music(const char *dir, const char *name)
 {
 	//メンバ変数を初期化
 	this->FilePath = "";	//パス
@@ -54,7 +54,7 @@ MUSIC::MUSIC(const char *dir, const char *name)
 }
 
 //デストラクタ
-MUSIC::~MUSIC()
+Music::~Music()
 {
 
 	//範囲ベースの for ループ
@@ -77,26 +77,26 @@ MUSIC::~MUSIC()
 }
 
 //読み込めたかどうかを取得
-bool MUSIC::GetIsLoad()
+bool Music::GetIsLoad()
 {
 	return this->IsLoad;
 }
 
 //音が再生されているか取得
 //戻り値：再生中：true　再生中じゃない：false
-bool MUSIC::GetIsPlay(int kind)
+bool Music::GetIsPlay(int kind)
 {
 	return CheckSoundMem(this->Handle[kind]);
 }
 
 //音楽が何種類入っているか取得
-int MUSIC::GetSize()
+int Music::GetSize()
 {
 	return Handle.size();
 }
 
 //再生方法を変更する
-void MUSIC::ChengePlayType(int type)
+void Music::ChengePlayType(int type)
 {
 	this->PlayType = type;	
 	return;
@@ -105,14 +105,14 @@ void MUSIC::ChengePlayType(int type)
 //音量を変更する
 //引数：int：音量(0～100%で指定)
 //引数：int：音量を変えたい音の種類
-void MUSIC::ChengeVolume(double volume,int kind)
+void Music::ChengeVolume(double volume,int kind)
 {
 	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), this->Handle[kind]);
 	return;
 }
 
 //音を再生する
-void MUSIC::Play(int kind,bool check)
+void Music::Play(int kind,bool check)
 {
 	if (check)	//プレイ中か確認する場合
 	{
@@ -130,7 +130,7 @@ void MUSIC::Play(int kind,bool check)
 }
 
 //音を再生する(1回だけ)
-void MUSIC::PlayOne(int kind, bool check)
+void Music::PlayOne(int kind, bool check)
 {
 	if (!this->IsPlayed[kind])		//再生済みじゃなければ
 	{
@@ -155,14 +155,14 @@ void MUSIC::PlayOne(int kind, bool check)
 }
 
 //再生済みかどうかをリセットする(指定されたものだけ)
-void MUSIC::PlayReset(int kind)
+void Music::PlayReset(int kind)
 {
 	this->IsPlayed[kind] = false;	//再生済みじゃない
 	return;
 }
 
 //再生済みかどうかをリセットする(全て)
-void MUSIC::PlayReset()
+void Music::PlayReset()
 {
 	for (int i = 0; i < this->Handle.size(); ++i)
 	{
@@ -172,7 +172,7 @@ void MUSIC::PlayReset()
 }
 
 //音を止める（すべて）
-void MUSIC::Stop(void)
+void Music::Stop(void)
 {
 	for (int i = 0; i < this->Handle.size(); ++i)
 	{
@@ -182,14 +182,14 @@ void MUSIC::Stop(void)
 }
 
 //音を止める（指定されたものだけ）
-void MUSIC::Stop(int kind)
+void Music::Stop(int kind)
 {
 	StopSoundMem(this->Handle[kind]);
 	return;
 }
 
 //音を追加する
-bool MUSIC::Add(const char *dir, const char *name)
+bool Music::Add(const char *dir, const char *name)
 {
 
 	//音を読み込み

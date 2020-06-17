@@ -7,7 +7,7 @@
 #include "Global.hpp"
 #include "Fps.hpp"
 #include "KeyDown.hpp"
-#include "IMAGE.hpp"
+#include "Image.hpp"
 #include "SELECT.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
@@ -15,7 +15,7 @@
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
-#include "MUSIC.hpp"
+#include "Music.hpp"
 #include "ScoreAdd.hpp"
 #include "SaveData.hpp"
 
@@ -54,7 +54,7 @@ private:
 
 	Fps *fps;					//fps
 	KeyDown *keydown;			//キーボード関係
-	IMAGE* back;				//背景画像
+	Image* back;				//背景画像
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢
 	Player* player;				//プレイヤー
@@ -63,7 +63,7 @@ private:
 	vector<Font*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
-	MUSIC* bgm;					//BGM
+	Music* bgm;					//BGM
 	vector<ScoreBase*> score;	//スコア
 	SaveData* save;				//セーブデータ
 	

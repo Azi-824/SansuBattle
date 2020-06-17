@@ -48,7 +48,7 @@ private:
 	std::vector<std::vector<int>> Handle;				//ハンドル
 	std::vector<std::vector<int>::iterator> Handle_itr;	//ハンドルのイテレータ
 
-	MUSIC* Se;							//エフェクト効果音
+	Music* Se;							//エフェクト効果音
 
 	std::vector<int> Width;				//幅
 	std::vector<int> Height;			//高さ

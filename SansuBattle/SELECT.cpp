@@ -18,7 +18,7 @@ SELECT::SELECT(const char* dir, const char* name,int code)
 	this->DrawWidth_Range = 0;					//描画幅の範囲初期化
 	this->RowNum = 0;							//描画範囲の中で描画できる列の数初期化
 
-	this->SelectImage = new IMAGE(dir, name);					//選択肢の画像を生成
+	this->SelectImage = new Image(dir, name);					//選択肢の画像を生成
 	this->IsCreateSelect = this->SelectImage->GetIsLoad();		//画像を読み込めたか設定
 	this->SelectCode.push_back(code);							//選択肢のコード番号を設定
 	this->NowSelectCode = this->SelectCode.begin();				//現在選択しているコード番号を最初の選択肢に設定

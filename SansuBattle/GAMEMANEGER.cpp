@@ -96,7 +96,7 @@ bool GameManeger::Load()
 
 	//画像関係
 	//背景画像
-	back = new IMAGE(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
+	back = new Image(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
 	if (back->GetIsLoad() == false) { return false; }		//読み込み失敗
 	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }	//プレイ画面の背景画像を追加
 	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
@@ -139,7 +139,7 @@ bool GameManeger::Load()
 
 	//音楽関係
 	//BGM
-	bgm = new MUSIC(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM);								//BGMを管理するオブジェクトを生成
+	bgm = new Music(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM);								//BGMを管理するオブジェクトを生成
 	if (bgm->GetIsLoad() == false) { return false; }								//読み込み失敗
 	if (bgm->Add(MUSIC_DIR_BGM, BGM_NAME_SELECT_BGM) == false) { return false; }	//選択画面のBGM追加
 

@@ -331,7 +331,7 @@ bool Effect::AddSe(const char* dir, const char* name)
 {
 	if (Se == NULL)	//効果音のオブジェクトを作成していなければ
 	{
-		Se = new MUSIC(dir, name);			//効果音のオブジェクトを作成
+		Se = new Music(dir, name);			//効果音のオブジェクトを作成
 		return Se->GetIsLoad();
 	}
 	else			//効果音のオブジェクトを作成していれば 

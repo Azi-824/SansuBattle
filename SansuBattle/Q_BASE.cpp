@@ -12,14 +12,14 @@ int Q_Base::InputNum = 0;			//入力された数字初期化
 std::string Q_Base::Q_Text = "";	//問題文初期化
 bool Q_Base::IsCreate = false;		//問題を作成したか初期化
 int Q_Base::SelectLevel = -1;		//選択した問題のレベル
-IMAGE* Q_Base::img_kokuban;			//黒板の画像
+Image* Q_Base::img_kokuban;			//黒板の画像
 
 //コンストラクタ
 Q_Base::Q_Base()
 {
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
 	{
-		img_kokuban = new IMAGE(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
+		img_kokuban = new Image(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
 	}
 	return;
 }

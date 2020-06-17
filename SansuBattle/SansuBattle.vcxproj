@@ -159,10 +159,10 @@
     <ClInclude Include="Fps.hpp" />
     <ClInclude Include="GameManeger.hpp" />
     <ClInclude Include="Global.hpp" />
-    <ClInclude Include="IMAGE.hpp" />
+    <ClInclude Include="Image.hpp" />
     <ClInclude Include="KeyDown.hpp" />
     <ClInclude Include="main.hpp" />
-    <ClInclude Include="MUSIC.hpp" />
+    <ClInclude Include="Music.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Q_Add.hpp" />
     <ClInclude Include="Q_Base.hpp" />
@@ -180,10 +180,10 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Fps.cpp" />
     <ClCompile Include="GameManeger.cpp" />
-    <ClCompile Include="IMAGE.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="KeyDown.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MUSIC.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Q_Add.cpp" />
     <ClCompile Include="Q_Base.cpp" />

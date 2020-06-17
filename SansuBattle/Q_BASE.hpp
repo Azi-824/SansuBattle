@@ -42,7 +42,7 @@ class Q_Base
 {
 protected:
 
-	static IMAGE* img_kokuban;			//•”Â‚Ì‰æ‘œ
+	static Image* img_kokuban;			//•”Â‚Ì‰æ‘œ
 
 	static std::string Q_Text;			//–â‘è•¶
 	static int Anser;					//“š‚¦

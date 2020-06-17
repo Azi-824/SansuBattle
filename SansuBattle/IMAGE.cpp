@@ -1,16 +1,16 @@
 /*--+----1----+----2----+----3----+----4----+----5-----+----6----+----7----+----8----+----9----+---*/
-/* IMAGE.cpp     																				　 */
+/* Image.cpp     																				　 */
 /*       																						　 */
 
 //########## ヘッダーファイル読み込み ##########
-#include "IMAGE.hpp"
+#include "Image.hpp"
 
 //########## クラスの定義 ##########
 
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-IMAGE::IMAGE(const char *dir,const char *name)
+Image::Image(const char *dir,const char *name)
 {
 	//メンバ変数を初期化
 	this->FilePath = "";	//パス
@@ -59,7 +59,7 @@ IMAGE::IMAGE(const char *dir,const char *name)
 }
 
 //デストラクタ
-IMAGE::~IMAGE()
+Image::~Image()
 {
 	for (int handle : this->Handle)
 	{
@@ -89,13 +89,13 @@ IMAGE::~IMAGE()
 }
 
 //ファイルの名前を取得
-std::string IMAGE::GetFileName(void)
+std::string Image::GetFileName(void)
 {
 	return this->FileName;
 }
 
 //サイズを設定する
-void IMAGE::SetInit(void)
+void Image::SetInit(void)
 {
 	this->Width.resize(this->Handle.size());	//サイズ変更
 	this->Height.resize(this->Handle.size());	//サイズ変更
@@ -108,31 +108,31 @@ void IMAGE::SetInit(void)
 }
 
 //画像数を取得する
-int IMAGE::GetSize(void)
+int Image::GetSize(void)
 {
 	return this->Handle.size();
 }
 
 //幅を取得
-int IMAGE::GetWidth()
+int Image::GetWidth()
 {
 	return this->Width[this->Draw_Num];
 }
 
 //高さを取得
-int IMAGE::GetHeight()
+int Image::GetHeight()
 {
 	return this->Height[this->Draw_Num];
 }
 
 //読み込めた？
-bool IMAGE::GetIsLoad(void)
+bool Image::GetIsLoad(void)
 {
 	return this->IsLoad;
 }
 
 //描画してよいか設定
-void IMAGE::SetIsDraw(bool isdraw)
+void Image::SetIsDraw(bool isdraw)
 {
 	this->IsDraw[this->Draw_Num] = isdraw;
 	this->FadeEnd.at(this->Draw_Num) = false;	//フェードアウト終了フラグリセット
@@ -140,7 +140,7 @@ void IMAGE::SetIsDraw(bool isdraw)
 }
 
 //画像を描画
-void IMAGE::Draw(int x, int y)
+void Image::Draw(int x, int y)
 {
 
 	static int cnt = FADE_MAX_CNT;				//カウント用
@@ -201,7 +201,7 @@ void IMAGE::Draw(int x, int y)
 //画像を描画（中央）
 //引数：int：画面の横幅：デフォルトはゲーム画面の横幅
 //引数：int：描画する高さ：デフォルトはゲーム画面の高さ
-void IMAGE::DrawCenter(int width,int height)
+void Image::DrawCenter(int width,int height)
 {
 
 	int x = 0, y = 0;	//描画するX位置,Y位置
@@ -266,7 +266,7 @@ void IMAGE::DrawCenter(int width,int height)
 //画像を追加
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-bool IMAGE::AddImage(const char *dir, const char *name)
+bool Image::AddImage(const char *dir, const char *name)
 {
 
 	this->IsLoad = false;	//読み込めていない
@@ -307,14 +307,14 @@ bool IMAGE::AddImage(const char *dir, const char *name)
 }
 
 //描画する画像を変更
-void IMAGE::ChengeImage(int kind)
+void Image::ChengeImage(int kind)
 {
 	this->Draw_Num = kind;
 	return;
 }
 
 //描画する画像を一つ次の画像へ
-void IMAGE::NextImage()
+void Image::NextImage()
 {
 	if (this->Draw_Num < this->Handle.size() - 1)	//描画する画像が最後の画像じゃなければ
 	{
@@ -324,7 +324,7 @@ void IMAGE::NextImage()
 }
 
 //描画する画像を指定された数、次の画像へ
-void IMAGE::NextImage(int value)
+void Image::NextImage(int value)
 {
 	if (this->Draw_Num + value < this->Handle.size() - 1)	//描画する画像が最後の画像じゃなければ
 	{
@@ -334,7 +334,7 @@ void IMAGE::NextImage(int value)
 }
 
 //描画する画像を一つ前の画像へ
-void IMAGE::PrevImage()
+void Image::PrevImage()
 {
 	if (this->Draw_Num > 0)	//描画する画像が最初の画像じゃなければ
 	{
@@ -344,7 +344,7 @@ void IMAGE::PrevImage()
 }
 
 //描画する画像を指定された数、前の画像へ
-void IMAGE::PrevImage(int value)
+void Image::PrevImage(int value)
 {
 	if (this->Draw_Num - value > 0)	//描画する画像が最初の画像じゃなければ
 	{
@@ -354,14 +354,14 @@ void IMAGE::PrevImage(int value)
 }
 
 //描画する画像を先頭の画像へ
-void IMAGE::ChengeImageFront()
+void Image::ChengeImageFront()
 {
 	this->Draw_Num = 0;	//先頭の画像へ
 	return;
 }
 
 //フェードアウトするか設定
-void IMAGE::SetIsFade(bool isfade)
+void Image::SetIsFade(bool isfade)
 {
 	IsFade.at(Draw_Num) = isfade;
 	FadeEnd.at(Draw_Num) = false;	//フェードアウト終了フラグリセット
@@ -370,7 +370,7 @@ void IMAGE::SetIsFade(bool isfade)
 }
 
 //フェードエフェクトが終了しているか取得
-bool IMAGE::GetFadeEnd()
+bool Image::GetFadeEnd()
 {
 	return FadeEnd.at(Draw_Num);
 }

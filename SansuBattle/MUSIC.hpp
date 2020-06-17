@@ -1,4 +1,4 @@
-//MUSIC.hpp
+//Music.hpp
 //音楽用クラス
 
 /*
@@ -62,7 +62,7 @@ enum BGM_TYPE
 };
 
 //##################### クラス定義 ############################
-class MUSIC
+class Music
 {
 private:
 
@@ -78,9 +78,9 @@ private:
 
 public:
 
-	MUSIC(const char *, const char *);		//コンストラクタ
+	Music(const char *, const char *);		//コンストラクタ
 
-	~MUSIC();								//デストラクタ
+	~Music();								//デストラクタ
 
 	bool GetIsLoad();						//読み込めたかを取得する
 	bool GetIsPlay(int);					//音が再生されているか取得する
