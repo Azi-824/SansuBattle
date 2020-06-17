@@ -1,4 +1,4 @@
-//DATA..hpp
+//Data..hpp
 //データを管理するクラス
 
 #pragma once
@@ -9,7 +9,7 @@
 //################### マクロ定義 #####################
 
 //################### クラス定義 #####################
-class DATA
+class Data
 {
 
 private:
@@ -21,8 +21,8 @@ private:
 
 public:
 
-	DATA(int,int,int,int);			//コンストラクタ
-	~DATA();						//デストラクタ
+	Data(int,int,int,int);			//コンストラクタ
+	~Data();						//デストラクタ
 
 	int GetYear();		//年取得
 	int GetMonth();		//月取得

@@ -152,7 +152,7 @@ bool GameManeger::Load()
 	score.push_back(new ScoreAdd());	//足し算のスコアを管理するオブジェクトを生成
 
 	//セーブデータ関係
-	save = new SAVEDATA();			//セーブデータを管理するオブジェクトを生成
+	save = new SaveData();			//セーブデータを管理するオブジェクトを生成
 	return true;	//読み込み成功
 }
 

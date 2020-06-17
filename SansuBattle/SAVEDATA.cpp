@@ -1,19 +1,19 @@
-//SAVEDATA.cpp
+//SaveData.cpp
 //セーブデータを管理するクラス
 
 //################### ヘッダファイル読み込み ##################
-#include "SAVEDATA.hpp"
+#include "SaveData.hpp"
 
 //#################### クラス定義 #######################
 
 //コンストラクタ
-SAVEDATA::SAVEDATA()
+SaveData::SaveData()
 {
 	return;
 }
 
 //デストラクタ
-SAVEDATA::~SAVEDATA()
+SaveData::~SaveData()
 {
 
 	for (int i = 0; i < DataCode.size(); ++i)
@@ -22,7 +22,7 @@ SAVEDATA::~SAVEDATA()
 	}
 
 	//vectorのメモリ解放を行う
-	std::vector<DATA*> v;			//空のvectorを作成する
+	std::vector<Data*> v;			//空のvectorを作成する
 	DataCode.swap(v);			//空と中身を入れ替える
 
 
@@ -30,7 +30,7 @@ SAVEDATA::~SAVEDATA()
 }
 
 //どのファイルを使用するか取得
-const char* SAVEDATA::GetFileName(int gamemode)
+const char* SaveData::GetFileName(int gamemode)
 {
 	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
 	{
@@ -78,7 +78,7 @@ const char* SAVEDATA::GetFileName(int gamemode)
 }
 
 //ゲームモード毎のテキストを取得
-const char* SAVEDATA::GetTextGameMode(int gamemode)
+const char* SaveData::GetTextGameMode(int gamemode)
 {
 	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
 	{
@@ -127,7 +127,7 @@ const char* SAVEDATA::GetTextGameMode(int gamemode)
 
 //指定されたファイルが存在するか取得
 //戻り値：bool：true　ファイルが存在する：false　ファイルが存在しない
-bool SAVEDATA::CheckCreateFile(string filename)
+bool SaveData::CheckCreateFile(string filename)
 {
 	struct stat statbuf;			//ファイルの存在確認に使用
 
@@ -138,21 +138,21 @@ bool SAVEDATA::CheckCreateFile(string filename)
 }
 
 //データ追加
-void SAVEDATA::Add(int score)
+void SaveData::Add(int score)
 {
 
 	DATEDATA Date;		//現在時刻
 
 	GetDateTime(&Date);	//現在時刻取得
 
-	DataCode.push_back(new DATA(Date.Year,Date.Mon,Date.Day,score));	//データ情報追加
+	DataCode.push_back(new Data(Date.Year,Date.Mon,Date.Day,score));	//データ情報追加
 
 	return;
 
 }
 
 //セーブ
-bool SAVEDATA::Save(int gamemode)
+bool SaveData::Save(int gamemode)
 {
 	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
@@ -205,7 +205,7 @@ bool SAVEDATA::Save(int gamemode)
 }
 
 //読み込み
-bool SAVEDATA::Load(int gamemode)
+bool SaveData::Load(int gamemode)
 {
 	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
@@ -249,7 +249,7 @@ bool SAVEDATA::Load(int gamemode)
 			std::getline(ifs, buf, '\n');	//改行まで読み込み
 			sc = atoi(buf.c_str());			//スコア読み込み
 
-			DataCode.push_back(new DATA(yy, mm, dd, sc));		//データ追加
+			DataCode.push_back(new Data(yy, mm, dd, sc));		//データ追加
 
 		}
 
@@ -260,7 +260,7 @@ bool SAVEDATA::Load(int gamemode)
 
 //**************** ソート関係 ******************
 //セーブデータを降順に並べ替える
-void SAVEDATA::Sort()
+void SaveData::Sort()
 {
 
 	for (int i = 0; i < DataCode.size(); ++i)
@@ -280,7 +280,7 @@ void SAVEDATA::Sort()
 }
 
 //データ描画
-void SAVEDATA::Draw(int gamemode)
+void SaveData::Draw(int gamemode)
 {
 
 	int Height = GetFontSizeToHandle(NowFontHandle);		//高さ取得

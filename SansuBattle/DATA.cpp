@@ -1,13 +1,13 @@
-//DATA.cpp
+//Data.cpp
 //データを管理するクラス
 
 //################# ヘッダファイル読み込み ##################
-#include "DATA.hpp"
+#include "Data.hpp"
 
 //################# クラス定義 ###################
 
 //コンストラクタ
-DATA::DATA(int year,int month,int day,int score)
+Data::Data(int year,int month,int day,int score)
 {
 
 	Year = year;		//年
@@ -19,31 +19,31 @@ DATA::DATA(int year,int month,int day,int score)
 }
 
 //デストラクタ
-DATA::~DATA()
+Data::~Data()
 {
 	return;
 }
 
 //年取得
-int DATA::GetYear()
+int Data::GetYear()
 {
 	return Year;
 }
 
 //月取得
-int DATA::GetMonth()
+int Data::GetMonth()
 {
 	return Month;
 }
 
 //日取得
-int DATA::GetDay()
+int Data::GetDay()
 {
 	return Day;
 }
 
 //スコア取得
-int DATA::GetScore()
+int Data::GetScore()
 {
 	return Score;
 }

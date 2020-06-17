@@ -17,7 +17,7 @@
 #include "Effect.hpp"
 #include "MUSIC.hpp"
 #include "ScoreAdd.hpp"
-#include "SAVEDATA.hpp"
+#include "SaveData.hpp"
 
 //############### マクロ定義 ################
 //テキスト関係
@@ -65,7 +65,7 @@ private:
 	Effect* effect_atk;			//攻撃エフェクト
 	MUSIC* bgm;					//BGM
 	vector<ScoreBase*> score;	//スコア
-	SAVEDATA* save;				//セーブデータ
+	SaveData* save;				//セーブデータ
 	
 	int NowScene;				//現在のシーン
 	int GameMode;				//ゲームのモード

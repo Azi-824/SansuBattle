@@ -1,4 +1,4 @@
-//SAVEDATA.hpp
+//SaveData.hpp
 //セーブデータを管理するクラス
 
 #pragma once
@@ -44,12 +44,12 @@
 using std::string;
 
 //################## クラス定義 #######################
-class SAVEDATA
+class SaveData
 {
 
 private:
 
-	std::vector<DATA*> DataCode;			//セーブデータ
+	std::vector<Data*> DataCode;			//セーブデータ
 
 	const char* GetFileName(int);			//どのファイルを使用するか取得
 	const char* GetTextGameMode(int);		//ゲームモード毎のテキストを取得
@@ -57,8 +57,8 @@ private:
 
 public:
 
-	SAVEDATA();		//コンストラクタ
-	~SAVEDATA();	//デストラクタ
+	SaveData();		//コンストラクタ
+	~SaveData();	//デストラクタ
 
 	void Add(int);	//データ追加
 
