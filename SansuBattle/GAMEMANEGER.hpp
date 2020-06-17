@@ -5,8 +5,8 @@
 
 //############### ヘッダファイル読み込み ##################
 #include "Global.hpp"
-#include "FPS.hpp"
-#include "KEYDOWN.hpp"
+#include "Fps.hpp"
+#include "KeyDown.hpp"
 #include "IMAGE.hpp"
 #include "SELECT.hpp"
 #include "Player.hpp"
@@ -52,8 +52,8 @@ class GameManeger
 
 private:
 
-	FPS *fps;					//fps
-	KEYDOWN *keydown;			//キーボード関係
+	Fps *fps;					//fps
+	KeyDown *keydown;			//キーボード関係
 	IMAGE* back;				//背景画像
 	SELECT* level_select;		//難易度選択肢
 	SELECT* stage_select;		//ステージ選択肢

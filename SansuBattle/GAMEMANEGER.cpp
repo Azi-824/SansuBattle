@@ -10,8 +10,8 @@
 GameManeger::GameManeger()
 {
 	//オブジェクトの生成
-	fps = new FPS(GAME_FPS_SPEED);	//FPSクラスのオブジェクトを生成
-	keydown = new KEYDOWN();			//KEYDOWNクラスのオブジェクトを生成
+	fps = new Fps(GAME_FPS_SPEED);	//FPSクラスのオブジェクトを生成
+	keydown = new KeyDown();			//KEYDOWNクラスのオブジェクトを生成
 
 	//メンバー変数初期化
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面

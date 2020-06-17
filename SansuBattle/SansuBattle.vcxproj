@@ -156,11 +156,11 @@
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Font.hpp" />
-    <ClInclude Include="FPS.hpp" />
+    <ClInclude Include="Fps.hpp" />
     <ClInclude Include="GameManeger.hpp" />
     <ClInclude Include="Global.hpp" />
     <ClInclude Include="IMAGE.hpp" />
-    <ClInclude Include="KEYDOWN.hpp" />
+    <ClInclude Include="KeyDown.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="MUSIC.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -178,10 +178,10 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FPS.cpp" />
+    <ClCompile Include="Fps.cpp" />
     <ClCompile Include="GameManeger.cpp" />
     <ClCompile Include="IMAGE.cpp" />
-    <ClCompile Include="KEYDOWN.cpp" />
+    <ClCompile Include="KeyDown.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MUSIC.cpp" />
     <ClCompile Include="Player.cpp" />

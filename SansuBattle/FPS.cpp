@@ -1,15 +1,15 @@
 /*--+----1----+----2----+----3----+----4----+----5-----+----6----+----7----+----8----+----9----+---*/
-/* fps.cpp     																					   */
-/* FPS(Flame Per Second)クラス																	   */
+/* Fps.cpp     																					   */
+/* Fps(Flame Per Second)クラス																	   */
 /* 一つのインスタンスのみにする																	   */
 
 //########## ヘッダーファイル読み込み ##########
-#include "FPS.hpp"
+#include "Fps.hpp"
 
 //########## クラスの定義 ##########
 
 //コンストラクタ
-FPS::FPS(int fps_value)
+Fps::Fps(int fps_value)
 {
 	this->value = fps_value;
 	this->drawValue = 0;
@@ -24,7 +24,7 @@ FPS::FPS(int fps_value)
 }
 
 //指定したFPSになるように待つ
-VOID FPS::Wait(VOID)
+VOID Fps::Wait(VOID)
 {
 	//現在の時刻をミリ秒で取得
 	DWORD nowTime = GetTickCount();
@@ -53,7 +53,7 @@ VOID FPS::Wait(VOID)
 }
 
 //画面更新の時刻を取得する
-VOID FPS::Update(VOID)
+VOID Fps::Update(VOID)
 {
 	//1フレーム目なら時刻を記憶
 	if (this->flameCount == 0)
@@ -85,7 +85,7 @@ VOID FPS::Update(VOID)
 }
 
 //FPSの値を表示する
-VOID FPS::Draw(int drawX, int drawY)
+VOID Fps::Draw(int drawX, int drawY)
 {
 	//文字列を描画
 	DrawFormatString(drawX, drawY, GetColor(255, 255, 255), "FPS:%.1f", this->drawValue);
@@ -93,19 +93,19 @@ VOID FPS::Draw(int drawX, int drawY)
 }
 
 //FPS値を取得する
-int FPS::Getvalue(VOID)
+int Fps::Getvalue(VOID)
 {
 	return this->value;
 }
 
 //総フレームを取得する
-int FPS::GetTotalFlameCnt(VOID)
+int Fps::GetTotalFlameCnt(VOID)
 {
 	return this->TotalFlameCnt;
 }
 
 //デストラクタ
-FPS::~FPS()
+Fps::~Fps()
 {
 	return;
 }

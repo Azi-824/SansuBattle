@@ -143,7 +143,7 @@ void SELECT::Draw()
 }
 
 //キー操作
-void SELECT::Operation(KEYDOWN* keydown)
+void SELECT::Operation(KeyDown* keydown)
 {
 	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
 	{

@@ -51,7 +51,7 @@ protected:
 
 private:
 
-	static int GetInputNum(KEYDOWN*);	//入力された数字を取得
+	static int GetInputNum(KeyDown*);	//入力された数字を取得
 
 public:
 
@@ -67,7 +67,7 @@ public:
 
 	static bool JudgAnser();			//正解か判定する
 
-	static bool CheckInputKey(KEYDOWN*);//キー入力中か取得
+	static bool CheckInputKey(KeyDown*);//キー入力中か取得
 
 	static bool GetIsCreate();			//問題を作成したか取得
 

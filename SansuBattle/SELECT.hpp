@@ -71,7 +71,7 @@ public:
 
 	void Draw();								//選択肢を描画
 
-	void Operation(KEYDOWN*);					//キー操作
+	void Operation(KeyDown*);					//キー操作
 	void Next();								//次の選択肢へ
 	void Next(int);								//指定された数分、次の選択肢へ
 	void Prev();								//前の選択肢へ

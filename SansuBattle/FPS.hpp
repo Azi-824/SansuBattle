@@ -1,6 +1,6 @@
 /*--+----1----+----2----+----3----+----4----+----5-----+----6----+----7----+----8----+----9----+---*/
-/* fps.hpp     																					   */
-/* FPS(Flame Per Second)クラス																	   */
+/* Fps.hpp     																					   */
+/* Fps(Flame Per Second)クラス																	   */
 /* 一つのインスタンスのみにする																	   */
 
 #pragma once
@@ -9,7 +9,7 @@
 #include "Global.hpp"
 
 //########## クラスの定義 ##########
-class FPS
+class Fps
 {
 private:
 	int			value;					//FPS値
@@ -25,7 +25,7 @@ public:
 
 	//コンストラクタ
 	//引　数：int　：FPS値
-	FPS(int);
+	Fps(int);
 
 	//指定したFPSになるように待つ
 	VOID Wait(VOID);
@@ -45,8 +45,8 @@ public:
 	int GetTotalFlameCnt(VOID);
 
 	//デストラクタ
-	virtual ~FPS();
+	virtual ~Fps();
 };
 
 //########## 外部オブジェクト ##########
-extern FPS *fps;
+extern Fps *fps;

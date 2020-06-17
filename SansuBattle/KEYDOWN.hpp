@@ -1,6 +1,6 @@
 /*--+----1----+----2----+----3----+----4----+----5-----+----6----+----7----+----8----+----9----+---*/
-/* KEYDOWN.cpp     																				   */
-/* KEYDOWNクラス																				   */
+/* KeyDown.cpp     																				   */
+/* KeyDownクラス																				   */
 /* 一つのインスタンスのみにする																	   */
 
 #pragma once
@@ -10,7 +10,7 @@
 
 //########## クラスの定義 ##########
 
-class KEYDOWN
+class KeyDown
 {
 private:
 	static char AllKeyState[256];		//すべてのキーの状態が入る	//staticは、共通の変数を使用する
@@ -27,8 +27,8 @@ public:
 	int GetInputKeyCode();	//入力中のキーコードを取得
 
 public:
-	KEYDOWN();			//コンストラクタ
-	virtual ~KEYDOWN();	//デストラクタ
+	KeyDown();			//コンストラクタ
+	virtual ~KeyDown();	//デストラクタ
 };
 
 

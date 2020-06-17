@@ -73,7 +73,7 @@ bool Q_BASE::JudgAnser()
 
 //キー入力中か確認
 //戻り値：bool：true 入力終了：false 入力中
-bool Q_BASE::CheckInputKey(KEYDOWN* keydown)
+bool Q_BASE::CheckInputKey(KeyDown* keydown)
 {
 	static int InputNumBuf = 0;						//入力された数字
 	static int Weight = 10;							//桁の重み
@@ -102,7 +102,7 @@ bool Q_BASE::CheckInputKey(KEYDOWN* keydown)
 }
 
 //入力された数字を取得
-int Q_BASE::GetInputNum(KEYDOWN* keydown)
+int Q_BASE::GetInputNum(KeyDown* keydown)
 {
 	switch (keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
 	{
