@@ -154,7 +154,7 @@
     <ClInclude Include="Charactor.hpp" />
     <ClInclude Include="DATA.hpp" />
     <ClInclude Include="Effect.hpp" />
-    <ClInclude Include="ENEMY.hpp" />
+    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="FONT.hpp" />
     <ClInclude Include="FPS.hpp" />
     <ClInclude Include="GameManeger.hpp" />
@@ -163,7 +163,7 @@
     <ClInclude Include="KEYDOWN.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="MUSIC.hpp" />
-    <ClInclude Include="PLAYER.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="Q_ADD.hpp" />
     <ClInclude Include="Q_BASE.hpp" />
     <ClInclude Include="SAVEDATA.hpp" />
@@ -176,7 +176,7 @@
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="DATA.cpp" />
     <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="ENEMY.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FONT.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameManeger.cpp" />
@@ -184,7 +184,7 @@
     <ClCompile Include="KEYDOWN.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MUSIC.cpp" />
-    <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Q_ADD.cpp" />
     <ClCompile Include="Q_BASE.cpp" />
     <ClCompile Include="SAVEDATA.cpp" />
