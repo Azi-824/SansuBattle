@@ -1,4 +1,4 @@
-//FONT.hpp
+//Font.hpp
 //フォントクラス
 
 /*
@@ -52,7 +52,7 @@ using std::vector;
 using std::string;
 
 //################ クラスの定義 ##################
-class FONT {
+class Font {
 
 private:
 	static vector<string> FilePath;			//パス
@@ -63,8 +63,8 @@ private:
 
 public:
 
-	FONT(int, int, int, int);		//コンストラクタ
-	~FONT();						//デストラクタ
+	Font(int, int, int, int);		//コンストラクタ
+	~Font();						//デストラクタ
 
 	static bool LoadFont(const char*, const char*, const char*);	//フォントを読み込み
 	static bool ReleaseFont();										//読み込んだフォントを開放

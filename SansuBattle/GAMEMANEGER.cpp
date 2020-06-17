@@ -38,7 +38,7 @@ GameManeger::~GameManeger()
 	delete save;			//save破棄
 
 	//フォント関係
-	FONT::ReleaseFont();	//読み込んだフォントを開放
+	Font::ReleaseFont();	//読み込んだフォントを開放
 	for (int i = 0; i < font.size(); ++i)	//フォントハンドルの数分
 		delete font.at(i);	//font破棄
 	
@@ -67,7 +67,7 @@ GameManeger::~GameManeger()
 	score.swap(v3);			//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
-	vector<FONT*> v4;		//空のvectorを作成する
+	vector<Font*> v4;		//空のvectorを作成する
 	font.swap(v4);			//空と中身を入れ替える
 
 
@@ -84,9 +84,9 @@ bool GameManeger::Load()
 {
 
 	//フォント関係
-	if (FONT::LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME) == false) { return false; }	//フォントを読み込み
-	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
-	font.push_back(new FONT((int)FONT_NAME_KOKUBAN, FONTSIZE_DRAW_RANKING, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ミニサイズ）作成
+	if (Font::LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME) == false) { return false; }	//フォントを読み込み
+	font.push_back(new Font((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
+	font.push_back(new Font((int)FONT_NAME_KOKUBAN, FONTSIZE_DRAW_RANKING, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ミニサイズ）作成
 	for(int i = 0; i < font.size(); ++i)								//フォントハンドルの種類分
 	if (font.at(i)->GetIsCreate() == false) { return false; }			//読み込み失敗
 	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更

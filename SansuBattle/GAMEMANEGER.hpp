@@ -12,7 +12,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Q_ADD.hpp"
-#include "FONT.hpp"
+#include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
 #include "MUSIC.hpp"
@@ -60,7 +60,7 @@ private:
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
 	vector<Q_BASE*> quesiton;	//問題
-	vector<FONT*> font;			//フォント
+	vector<Font*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
 	MUSIC* bgm;					//BGM

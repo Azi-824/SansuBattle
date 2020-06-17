@@ -1,21 +1,21 @@
-//FONT.cpp
+//Font.cpp
 //フォントクラス
 
 //############### ヘッダファイル読み込み ####################
-#include "FONT.hpp"
+#include "Font.hpp"
 
 //############### クラスの定義 #####################
 
 //インスタンス背性
-vector<string> FONT::LoadFontName;	//読み込んだフォントの名前
-vector<string> FONT::FilePath;		//読み込んだフォントのパス
+vector<string> Font::LoadFontName;	//読み込んだフォントの名前
+vector<string> Font::FilePath;		//読み込んだフォントのパス
 
 //コンストラクタ
 //引　数：int：読み込むフォントの名前
 //引　数：int：フォントのサイズ
 //引　数：int：フォントの太さ
 //引　数：int：フォントのタイプ
-FONT::FONT(int fontname, int size, int bold, int fonttype)
+Font::Font(int fontname, int size, int bold, int fonttype)
 {
 								
 	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype);	//フォントハンドルを作成
@@ -30,7 +30,7 @@ FONT::FONT(int fontname, int size, int bold, int fonttype)
 }
 
 //デストラクタ	
-FONT::~FONT()
+Font::~Font()
 {
 	//vectorのメモリ解放を行う
 	//std::vector<std::string> v;			//空のvectorを作成する
@@ -39,7 +39,7 @@ FONT::~FONT()
 }
 
 //フォントを読み込み
-bool FONT::LoadFont(const char* dir, const char* name, const char* fontname)
+bool Font::LoadFont(const char* dir, const char* name, const char* fontname)
 {
 	string LoadFilePath = dir;
 	LoadFilePath += name;
@@ -69,7 +69,7 @@ bool FONT::LoadFont(const char* dir, const char* name, const char* fontname)
 }
 
 //読み込んだフォントを開放
-bool FONT::ReleaseFont()
+bool Font::ReleaseFont()
 {
 	for (int i = 0; i < LoadFontName.size(); ++i)
 	{
@@ -84,13 +84,13 @@ bool FONT::ReleaseFont()
 }
 
 //フォントハンドル作成
-int FONT::GetHandle()
+int Font::GetHandle()
 {
 	return Handle;
 }
 
 //フォントハンドルを作成できたか取得
-bool FONT::GetIsCreate()
+bool Font::GetIsCreate()
 {
 	return IsCreate;
 }

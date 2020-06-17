@@ -155,7 +155,7 @@
     <ClInclude Include="Data.hpp" />
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="Enemy.hpp" />
-    <ClInclude Include="FONT.hpp" />
+    <ClInclude Include="Font.hpp" />
     <ClInclude Include="FPS.hpp" />
     <ClInclude Include="GameManeger.hpp" />
     <ClInclude Include="Global.hpp" />
@@ -177,7 +177,7 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="FONT.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameManeger.cpp" />
     <ClCompile Include="IMAGE.cpp" />
