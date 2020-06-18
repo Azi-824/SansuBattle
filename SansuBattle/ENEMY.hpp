@@ -34,7 +34,7 @@ public:
 	~Enemy();							//デストラクタ
 
 	void SetInit(int x = 0, int y = 0) override; //初期設定
-	void Init();						//初期化
+	void Init() override;						//初期化
 
 	static void NextEnemy();			//次の敵へ
 	static int GetNowEnemyNum();		//現在何体目の敵か取得

@@ -35,6 +35,13 @@ Charactor::~Charactor()
 	return;
 }
 
+//‰Šú‰»
+void Charactor::Init()
+{
+	HP = HP_INIT_VALUE;	//HP‰Šú‰»
+	IsArive = true;		//¶‚«‚Ä‚¢‚é
+}
+
 //¶‚«‚Ä‚¢‚é‚©İ’è
 void Charactor::SetIsArive(bool Isarive)
 {

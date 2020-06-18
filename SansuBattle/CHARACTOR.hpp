@@ -45,6 +45,8 @@ public:
 	Charactor();				//コンストラクタ
 	~Charactor();				//デストラクタ
 
+	virtual void Init();		//初期化
+
 	void SetIsArive(bool);		//生きているかを設定
 
 	bool GetIsArive();			//生きているか取得
