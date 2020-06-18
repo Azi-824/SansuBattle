@@ -17,7 +17,8 @@ Select::Select(const char* dir, const char* name,int code)
 	DrawY = 0;							//描画開始Y位置初期化
 	DrawWidth_Range = 0;				//描画幅の範囲初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
-	Interval = 0;						//選択肢の間隔初期化
+	Interval_Side = 0;					//選択肢の間隔(横)初期化
+	Interval_Vertical = 0;				//選択肢の間隔(縦)初期化
 
 	SelectImage = new Image(dir, name);				//選択肢の画像を生成
 	IsCreateSelect = SelectImage->GetIsLoad();		//画像を読み込めたか設定
@@ -61,27 +62,29 @@ bool Select::GetChoiseSelectCode()
 引数：int：描画開始X位置
 引数：int：描画開始Y位置
 引数：int：描画可能横幅
-引数：int：選択肢の間隔
+引数：int：選択肢の間隔(横)
+引数：int：選択肢の間隔(縦)、デフォルトは0
 */
-void Select::SetInit(int x, int y, int width,int interval)
+void Select::SetInit(int x, int y, int width,int interval_side,int interval_vertical)
 {
 	SelectImage->SetInit();	//画像初期設定
 
 	DrawX = x;				//描画開始X位置設定
 	DrawY = y;				//描画開始Y位置設定
 	DrawWidth_Range = width;//描画幅の範囲を設定
-	Interval = interval;	//選択肢の間隔を設定
+	Interval_Side = interval_side;	//選択肢の間隔(横)を設定
+	Interval_Vertical = interval_vertical;	//選択肢の間隔(縦)を設定
 
 	//描画範囲の中で描画できる列の数を計算
 	while (true)	//無限ループ
 	{
 
-		if (x + SelectImage->GetWidth() + Interval > width)	//描画可能横幅を超えたら
+		if (x + SelectImage->GetWidth() + Interval_Side > width)	//描画可能横幅を超えたら
 		{
 			break;	//ループを抜ける
 		}
 
-		x += SelectImage->GetWidth() + Interval;			//Xの位置をずらす
+		x += SelectImage->GetWidth() + Interval_Side;			//Xの位置をずらす
 		++RowNum;											//カウントアップ
 	}
 
@@ -120,8 +123,8 @@ void Select::Draw()
 		if (row_cnt >= RowNum)		//列数が、描画できる範囲を超えたら
 		{
 			NowDrawX = DrawX;											//Xの描画位置を最初の位置へ
-			NowDrawY += SelectImage->GetHeight() + Interval;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
-			row_cnt = 0;													//カウントリセット
+			NowDrawY += SelectImage->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			row_cnt = 0;												//カウントリセット
 		}
 
 		++row_cnt;	//カウントアップ
@@ -137,7 +140,7 @@ void Select::Draw()
 			SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 
-		NowDrawX += SelectImage->GetWidth() + Interval;			//描画位置をずらす
+		NowDrawX += SelectImage->GetWidth() + Interval_Side;			//描画位置をずらす
 		SelectImage->NextImage();									//次の画像へ
 
 	}
