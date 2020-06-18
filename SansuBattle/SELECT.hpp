@@ -32,6 +32,9 @@
 #define SELECT_GAMEMODE_INTERVAL_VERTICAL	120		//ゲームモード選択肢の間隔(縦)
 #define SELECT_LEVEL_INTERVAL_SIDE			10		//レベル選択肢の間隔(縦)
 
+#define RECT_EXPANSION_VALUE	20	//領域の拡大量
+#define RECT_TOUKA_VALUE		0.4	//領域の透過率
+
 #define CHOISE_NONE	-1				//選択していない状態
 
 //##################### 列挙型 #######################
@@ -43,6 +46,7 @@ class Select
 private:
 
 	Image* SelectImage;							//選択肢の画像
+	RECT rect;									//選択肢の領域
 
 	std::vector<int> SelectCode;				//選択肢のコード番号
 	std::vector<int>::iterator NowSelectCode;	//現在選んでいるコード番号

@@ -382,7 +382,7 @@ bool Effect::FadeOut(int x, int y, int width, int height)
 	static int cnt = 0;				//カウント用
 	static bool end_flg = false;	//フェード終了フラグ
 
-	if (this->IsFadeout)		//フェードアウトするとき
+	if (IsFadeout)		//フェードアウトするとき
 	{
 
 		if (!end_flg)	//フェードアウト終了していなければ
@@ -400,13 +400,13 @@ bool Effect::FadeOut(int x, int y, int width, int height)
 			//フェードアウトの処理
 			double ToukaPercent = cnt / (double)FADE_MAX_CNT;						//透過%を計算
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);	//透過させる
-			DrawBox(x, y, width, height, GetColor(0, 0, 0), TRUE);					//真っ暗な画面にする
+			DrawBox(x, y, width, height, COLOR_BLACK, TRUE);						//真っ暗な画面にする
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);								//透過をやめる
 
 		}
 		else if (end_flg)	//フェードアウト終了したら
 		{
-			this->IsFadeout = false;	//フェードアウトしない
+			IsFadeout = false;	//フェードアウトしない
 			cnt = 0;			//カウントリセット
 			end_flg = false;	//終了フラグリセット
 		}
@@ -435,7 +435,7 @@ bool Effect::FadeIn(int x, int y, int width, int height)
 	static int cnt = FADE_MAX_CNT;	//カウント用
 	static bool end_flg = false;	//フェード終了フラグ
 
-	if (this->IsFadein)		//フェードインするとき
+	if (IsFadein)		//フェードインするとき
 	{
 
 		if (!end_flg)	//フェードイン終了していなければ
@@ -453,7 +453,7 @@ bool Effect::FadeIn(int x, int y, int width, int height)
 			//フェードインの処理
 			double ToukaPercent = cnt / (double)FADE_MAX_CNT;						//透過%を計算
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);	//透過させる
-			DrawBox(x, y, width, height, GetColor(0, 0, 0), TRUE);					//真っ暗な画面にする
+			DrawBox(x, y, width, height, COLOR_BLACK, TRUE);						//真っ暗な画面にする
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);								//透過をやめる
 
 		}
@@ -461,7 +461,7 @@ bool Effect::FadeIn(int x, int y, int width, int height)
 		{
 			cnt = FADE_MAX_CNT;		//カウントリセット
 			end_flg = false;		//エンドフラグリセット
-			this->IsFadein = false;	//フェードインしない
+			IsFadein = false;	//フェードインしない
 		}
 
 	}

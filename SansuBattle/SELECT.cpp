@@ -19,6 +19,11 @@ Select::Select(const char* dir, const char* name,int code)
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
 	Interval_Side = 0;					//選択肢の間隔(横)初期化
 	Interval_Vertical = 0;				//選択肢の間隔(縦)初期化
+	//領域初期化
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = 0;
+	rect.bottom = 0;
 
 	SelectImage = new Image(dir, name);				//選択肢の画像を生成
 	IsCreateSelect = SelectImage->GetIsLoad();		//画像を読み込めたか設定
@@ -129,10 +134,18 @@ void Select::Draw()
 
 		++row_cnt;	//カウントアップ
 
-		if (i == *this->NowSelectCode)		//現在選択しているものだったら
+		if (i == *NowSelectCode)		//現在選択しているものだったら
 		{
-			//後で修正
-			DrawBox(NowDrawX - 10, NowDrawY - 10, NowDrawX + 10, NowDrawY + 10, GetColor(255, 255, 255), TRUE);		//左上に四角形を描画
+			//領域設定
+			rect.left = NowDrawX - RECT_EXPANSION_VALUE;								//左上X
+			rect.top = NowDrawY - RECT_EXPANSION_VALUE;									//左上Y
+			rect.right = NowDrawX + SelectImage->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
+			rect.bottom = NowDrawY + SelectImage->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
+
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
+			DrawBox(rect.left, rect.top, rect.right, rect.bottom, COLOR_WHITE, TRUE);	//薄い四角形を描画
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
+
 			SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 		else		//それ以外は
