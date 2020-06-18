@@ -100,7 +100,7 @@ bool GameManeger::Load()
 	if (back->GetIsLoad() == false) { return false; }		//読み込み失敗
 	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }		//プレイ画面の背景画像を追加
 	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_SELECT) == false) { return false; }	//選択画面の背景画像を追加
-	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_DAMMY) == false) { return false; }	//ダミー画像を追加
+	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_END) == false) { return false; }	//ダミー画像を追加
 
 	//選択肢関係
 	//難易度の選択肢
@@ -402,6 +402,8 @@ void GameManeger::Scene_ChoiseLevel()
 		{
 			enemy.at(i)->Init();			//敵初期化
 		}
+		player->Init();						//プレイヤー初期化
+		ScoreBase::ResetScore();			//スコアリセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
@@ -527,7 +529,7 @@ void GameManeger::Draw_SceneDrawScore()
 void GameManeger::Scene_End()
 {
 
-	back->ChengeImage((int)DAMMY_BACK);	//背景画像を変更
+	back->ChengeImage((int)END_BACK);	//背景画像を変更
 
 	if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{

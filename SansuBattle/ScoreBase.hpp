@@ -25,6 +25,7 @@ public:
 
 	virtual void CalcScore(int) = 0;		//スコア計算処理
 	static void DrawNowScore();				//現在のスコア表示
+	static void ResetScore();				//スコアリセット
 
 	int GetScore();							//スコア取得
 

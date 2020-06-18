@@ -29,3 +29,11 @@ void Player::DrawHp()
 		image_hp->Draw(PLAYER_HP_DRAW_X + i * image_hp->GetWidth(), PLAYER_HP_DRAW_Y);	//HP‰æ‘œ•`‰æ
 	}
 }
+
+//‰Šú‰»
+void Player::Init()
+{
+	HP = HP_INIT_VALUE;	//HP‰Šú‰»
+	IsArive = true;		//¶‚«‚Ä‚¢‚é
+
+}

@@ -30,6 +30,12 @@ void ScoreBase::DrawNowScore()
 	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), GAME_TOP, COLOR_WHITE, NowFontHandle, "%d", Score);		//スコア表示
 }
 
+//スコアリセット
+void ScoreBase::ResetScore()
+{
+	Score = 0;	//スコアリセット
+}
+
 //スコア取得
 int ScoreBase::GetScore()
 {

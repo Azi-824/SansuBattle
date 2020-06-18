@@ -25,5 +25,6 @@ public:
 	~Player();							//デストラクタ
 
 	void DrawHp() override;		//HPを描画する
+	void Init();				//初期化
 
 };
