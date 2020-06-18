@@ -23,12 +23,13 @@
 #define IMG_NAME_SELECTLEVEL_NORMAL	R"(\select_level_normal.png)"	//レベル選択肢（普通）の画像
 #define IMG_NAME_SELECTLEVEL_HARD	R"(\select_level_hard.png)"		//レベル選択肢（難しい）の画像
 
-#define SELECT_GAMEMODE_DRAW_X		20	//ゲームモードの選択肢の描画開始X位置
+#define SELECT_GAMEMODE_DRAW_X		40	//ゲームモードの選択肢の描画開始X位置
 #define SELECT_GAMEMODE_DRAW_Y		20	//ゲームモードの選択肢の描画開始Y位置
 #define SELECT_LEVEL_DRAW_X		0		//レベルの選択肢の描画開始X位置
 #define SELECT_LEVEL_DRAW_Y		250		//レベルの選択肢の描画開始Y位置
 
-#define SELECT_INTERVAL		10		//選択肢の間隔
+#define SELECT_GAMEMODE_INTERVAL		30		//ゲームモード選択肢の間隔
+#define SELECT_LEVEL_INTERVAL			10		//レベル選択肢の間隔
 
 #define CHOISE_NONE	-1				//選択していない状態
 
@@ -54,6 +55,7 @@ private:
 	int DrawY;									//描画開始Y位置
 	int DrawWidth_Range;						//描画幅の範囲
 	int RowNum;									//描画範囲の中で描画できる列の数
+	int Interval;								//選択肢の間隔
 
 public:
 
@@ -64,7 +66,7 @@ public:
 	bool GetIsChoise();							//選択したか取得
 	bool GetChoiseSelectCode();					//選んだ選択肢のコード番号
 
-	void SetInit(int,int,int);					//初期設定
+	void SetInit(int,int,int,int);				//初期設定
 	void Init();								//初期化
 
 	bool Add(const char*, const char*,int);		//選択肢を追加

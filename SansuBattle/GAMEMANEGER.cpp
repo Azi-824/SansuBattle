@@ -29,8 +29,8 @@ GameManeger::~GameManeger()
 	delete fps;				//fps破棄
 	delete keydown;			//keydown破棄
 	delete back;			//back破棄
-	delete level_select;	//level_select破棄
-	delete stage_select;	//stage_select破棄
+	delete select_gamemode;	//level_select破棄
+	delete select_level;	//stage_select破棄
 	delete player;			//player破棄
 	delete gamelimittime;	//gamelimittime破棄
 	delete effect_atk;		//effect_atk破棄
@@ -104,21 +104,21 @@ bool GameManeger::Load()
 
 	//選択肢関係
 	//難易度の選択肢
-	level_select = new Select(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
-	if (level_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
+	select_gamemode = new Select(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
+	if (select_gamemode->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_MODE_DIFFERENCE) == false) { return false; }		//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_MODE_PRODUCT) == false) { return false; }		//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_MODE_DEALER) == false) { return false; }			//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_MODE_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
-	if (level_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_MODE_DIFFERENCE) == false) { return false; }		//ダミー画像追加
+	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_MODE_PRODUCT) == false) { return false; }		//ダミー画像追加
+	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_MODE_DEALER) == false) { return false; }			//ダミー画像追加
+	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_MODE_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
+	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
 
 	//ステージの選択肢
-	stage_select = new Select(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
-	if (stage_select->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
+	select_level = new Select(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
+	if (select_level->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
 	//選択肢の追加
-	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
-	if (stage_select->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_HARD, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
+	if (select_level->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
+	if (select_level->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_HARD, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
 
 
 	//プレイヤー関係
@@ -264,8 +264,8 @@ void GameManeger::ProcesScene()
 void GameManeger::SetInit()
 {
 	back->SetInit();			//画像初期設定
-	level_select->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH);	//難易度の選択肢初期設定
-	stage_select->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH);	//ステージの選択肢初期設定
+	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH, SELECT_GAMEMODE_INTERVAL);	//ゲームモードの選択肢初期設定
+	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH, SELECT_LEVEL_INTERVAL);				//レベルの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 	effect_atk->SetInit();															//エフェクト初期設定
 
@@ -335,8 +335,8 @@ void GameManeger::Scene_Title()
 
 	bgm->Play((int)BGM_TYPE_TITLE);		//BGMを再生
 
-	level_select->Init();	//難易度の選択肢初期化
-	stage_select->Init();	//ステージの選択肢初期化
+	select_gamemode->Init();	//難易度の選択肢初期化
+	select_level->Init();	//ステージの選択肢初期化
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
@@ -364,11 +364,11 @@ void GameManeger::Scene_ChoiseGameMode()
 
 	bgm->Play((int)BGM_TYPE_SELECT);	//選択画面のBGMを再生
 
-	level_select->Operation(keydown);			//選択肢キー操作
+	select_gamemode->Operation(keydown);			//選択肢キー操作
 
-	if (level_select->GetIsChoise())			//選択したら
+	if (select_gamemode->GetIsChoise())			//選択したら
 	{
-		GameMode = level_select->GetChoiseSelectCode();		//ゲームレベル設定
+		GameMode = select_gamemode->GetChoiseSelectCode();		//ゲームレベル設定
 
 		//(読み込み成功時はtrueが返ってくるので、そのまま代入するとゲーム終了してしまうため、反転させている。）
 		GameEndFlg = !(save->Load(GameMode));					//セーブデータ読み込み
@@ -384,7 +384,7 @@ void GameManeger::Draw_Scene_ChoiseGameMode()
 {
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	level_select->Draw();				//難易度の選択肢描画
+	select_gamemode->Draw();				//難易度の選択肢描画
 
 	return;
 }
@@ -393,9 +393,9 @@ void GameManeger::Draw_Scene_ChoiseGameMode()
 void GameManeger::Scene_ChoiseLevel()
 {
 
-	stage_select->Operation(keydown);		//選択肢キー操作
+	select_level->Operation(keydown);		//選択肢キー操作
 
-	if (stage_select->GetIsChoise())		//選択したら
+	if (select_level->GetIsChoise())		//選択したら
 	{
 		bgm->Stop();						//再生中のBGMを止める
 		for (int i = 0; i < enemy.size(); ++i)	//敵の数分ループ
@@ -415,7 +415,7 @@ void GameManeger::Draw_Scene_ChoiseLevel()
 
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	stage_select->Draw();		//ステージ選択肢描画
+	select_level->Draw();		//ステージ選択肢描画
 
 	return;
 }
