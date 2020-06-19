@@ -35,6 +35,7 @@ GameManeger::~GameManeger()
 	delete gamelimittime;	//gamelimittime破棄
 	delete effect_atk;		//effect_atk破棄
 	delete bgm;				//bgm破棄
+	delete bgm_play;		//bgm_play破棄
 	delete save;			//save破棄
 
 	//フォント関係
@@ -143,6 +144,9 @@ bool GameManeger::Load()
 	bgm = new Music(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM);								//BGMを管理するオブジェクトを生成
 	if (bgm->GetIsLoad() == false) { return false; }								//読み込み失敗
 	if (bgm->Add(MUSIC_DIR_BGM, BGM_NAME_SELECT_BGM) == false) { return false; }	//選択画面のBGM追加
+
+	bgm_play = new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ADD_BGM);						//BGM(プレイ画面)を管理するオブジェクトを生成
+	if (bgm_play->GetIsLoad() == false) { return false; }							//読み込み失敗
 
 	//問題関係
 	//足し算
@@ -278,6 +282,13 @@ void GameManeger::SetInit()
 	bgm->ChengeVolume(30, (int)BGM_TYPE_TITLE);	//タイトルBGMの音量を30%にする
 	bgm->ChengeVolume(30, (int)BGM_TYPE_SELECT);//選択画面のBGMの音量を30%にする
 	bgm->ChengePlayType(DX_PLAYTYPE_LOOP);		//BGMの再生方法をループ再生に変更
+	//プレイ画面のBGM
+	/*
+	後から修正
+	ゲームモードの数を使用して、for文でループさせる
+	*/
+	bgm_play->ChengeVolume(30, 0);				//プレイ画面のBGMの音量を30%にする
+	bgm_play->ChengePlayType(DX_PLAYTYPE_LOOP);	//BGMの再生方法をループ再生に変更
 
 	return;
 }
@@ -428,6 +439,8 @@ void GameManeger::Scene_Play()
 
 	back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
+	bgm_play->Play(GameMode);			//プレイ画面のBGMを再生
+
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
 	if (!Q_Base::GetIsCreate())	//問題を作成していなければ
@@ -471,6 +484,7 @@ void GameManeger::Scene_Play()
 	{
 		save->Add(score.at(GameMode)->GetScore());	//スコアを追加
 		save->Sort();								//ソート処理
+		bgm_play->Stop();							//再生中のBGMを止める
 		NowScene = (int)SCENE_DRAWSCORE;			//スコア表示画面へ
 	}
 

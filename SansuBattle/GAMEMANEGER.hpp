@@ -64,6 +64,7 @@ private:
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
 	Music* bgm;					//BGM
+	Music* bgm_play;			//プレイ画面のBGM
 	vector<ScoreBase*> score;	//スコア
 	SaveData* save;				//セーブデータ
 	
