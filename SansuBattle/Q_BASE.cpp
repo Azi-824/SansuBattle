@@ -11,7 +11,6 @@ int Q_Base::Anser = -1;				//答え初期化
 int Q_Base::InputNum = 0;			//入力された数字初期化
 std::string Q_Base::Q_Text = "";	//問題文初期化
 bool Q_Base::IsCreate = false;		//問題を作成したか初期化
-int Q_Base::SelectLevel = -1;		//選択した問題のレベル
 Image* Q_Base::img_kokuban;			//黒板の画像
 
 //コンストラクタ
@@ -195,4 +194,13 @@ int Q_Base::GetInputNum(KeyDown* keydown)
 bool Q_Base::GetIsCreate()
 {
 	return IsCreate;
+}
+
+//問題をリセット
+void Q_Base::Reset()
+{
+	Anser = -1;			//答えリセット
+	InputNum = 0;		//キー入力内容リセット
+	Q_Text = "";		//問題文リセット
+	IsCreate = false;	//問題を作成したかリセット
 }

@@ -55,12 +55,10 @@ private:
 
 public:
 
-	static int SelectLevel;				//選択した問題のレベル
-
 	Q_Base();							//コンストラクタ
 	~Q_Base();							//デストラクタ
 
-	virtual void CreateQuestion() = 0;	//問題作成
+	virtual void CreateQuestion(int) = 0;	//問題作成
 
 	static void DrawQuestion();			//問題を描画する
 	static void DrawInputNum();			//入力中の数字を描画する
@@ -70,6 +68,8 @@ public:
 	static bool CheckInputKey(KeyDown*);//キー入力中か取得
 
 	static bool GetIsCreate();			//問題を作成したか取得
+
+	static void Reset();				//問題をリセット
 
 
 };

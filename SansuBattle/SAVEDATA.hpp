@@ -36,6 +36,7 @@
 #define DRAW_DATA_X		0	//ランキング描画開始X位置
 #define DRAW_DATA_Y		0	//ランキング描画開始Y位置
 #define DRAW_DATA_MAX	10	//描画するデータの数
+#define SAVE_MAX		15	//保存するデータの最大数
 
 //############## マクロ定義：エラーメッセージ ###################
 #define DATA_ERROR_TTILE	"DATA_ERROR"						//エラータイトル

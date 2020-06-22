@@ -70,6 +70,7 @@ private:
 	
 	int NowScene;				//現在のシーン
 	int GameMode;				//ゲームのモード
+	int GameLevel;				//ゲームレベル
 	bool IsLoad;				//読み込みが終わったか
 	bool GameEndFlg;			//ゲーム終了フラグ
 

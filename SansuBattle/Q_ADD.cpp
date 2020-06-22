@@ -19,12 +19,49 @@ Q_Add::~Q_Add()
 }
 
 //問題を作成
-void Q_Add::CreateQuestion()
+void Q_Add::CreateQuestion(int gamelevel)
 {
+
+	int q_min = 0, q_max = 0;	//問題の最小値と最大値を入れる変数
+
+	switch (gamelevel)	//ゲームレベル毎に分岐
+	{
+
+	case (int)STAGE_LEVEL_EASY:	//簡単の時
+
+		q_min = 1;					//最小値1
+		q_max = Q_EASY_VALUE_MAX;	//最大値9
+
+		break;	//簡単の時
+
+	case (int)STAGE_LEVEL_NORMAL:	//普通の時
+
+		q_min = 10;					//最小値1
+		q_max = 20;	//最大値9
+
+		break;	//普通の時
+
+	case (int)STAGE_LEVEL_HARD:	//難しいの時
+
+		q_min = 20;					//最小値1
+		q_max = 30;	//最大値9
+
+		break;	//難しいの時
+
+
+	default:
+		break;
+	}
+
 	int num1 = 0, num2 = 0;		//問題を入れる変数
 
-	num1 = GetRand(Q_EASY_VALUE_MAX);			//問題を生成
-	num2 = GetRand(Q_EASY_VALUE_MAX);			//問題を生成
+	num1 = GetRand(q_max);			//問題を生成
+	num2 = GetRand(q_max);			//問題を生成
+
+	if (num1 < q_min)	//最小値より小さければ
+		num1 += q_min;	//最小値より大きくなるよう設定
+	if (num2 < q_min)	//最小値より小さければ
+		num2 += q_min;	//最小値より大きくなるよう設定
 
 	this->Anser = num1 + num2;	//問題の計算結果を答えに格納
 	this->Q_Text = (std::to_string(num1) + "＋" + (std::to_string(num2) + "＝？"));		//問題文を設定

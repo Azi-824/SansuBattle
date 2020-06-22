@@ -182,8 +182,12 @@ bool SaveData::Save(int gamemode)
 	}
 
 	//セーブデータを書き込む
-	for (int i = 0; i < DataCode.size(); ++i)	//データの数だけループ
+	for (int i = 0; i < SAVE_MAX; ++i)	//保存する最大数までループ
 	{
+
+		if (i >= DataCode.size())	//データの個数に達したら
+			break;
+
 		ofs << DataCode.at(i)->GetYear() << ',';				//年、書き出し
 		ofs << DataCode.at(i)->GetMonth() << ',';				//月、書き出し
 		ofs << DataCode.at(i)->GetDay() << ',';				//日、書き出し

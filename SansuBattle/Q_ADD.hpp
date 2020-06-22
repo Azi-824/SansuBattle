@@ -19,6 +19,6 @@ public:
 	Q_Add();					//コンストラクタ
 	~Q_Add();					//デストラクタ
 
-	void CreateQuestion() override;		//問題作成
+	void CreateQuestion(int) override;		//問題作成
 
 };

@@ -17,6 +17,7 @@ GameManeger::GameManeger()
 	NowScene = (int)SCENE_LOAD;		//最初のシーンは、ロード画面
 	IsLoad = false;					//読み込み、未完了
 	GameMode = -1;					//ゲームモード初期化
+	GameLevel = -1;					//ゲームレベル初期化
 	GameEndFlg = false;				//ゲーム終了フラグ初期化
 	return;
 
@@ -408,6 +409,7 @@ void GameManeger::Scene_ChoiseLevel()
 
 	if (select_level->GetIsChoise())		//選択したら
 	{
+		GameLevel = select_level->GetChoiseSelectCode();	//ゲームレベルを設定
 		bgm->Stop();						//再生中のBGMを止める
 		for (int i = 0; i < enemy.size(); ++i)	//敵の数分ループ
 		{
@@ -415,6 +417,7 @@ void GameManeger::Scene_ChoiseLevel()
 		}
 		player->Init();						//プレイヤー初期化
 		ScoreBase::ResetScore();			//スコアリセット
+		Q_Base::Reset();					//問題関係リセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
@@ -445,7 +448,7 @@ void GameManeger::Scene_Play()
 
 	if (!Q_Base::GetIsCreate())	//問題を作成していなければ
 	{
-		quesiton.at(GameMode)->CreateQuestion();	//問題を作成
+		quesiton.at(GameMode)->CreateQuestion(GameLevel);	//問題を作成
 	}
 
 	if (Q_Base::CheckInputKey(keydown))	//キー入力が完了したら
