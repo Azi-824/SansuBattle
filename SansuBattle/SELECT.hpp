@@ -70,7 +70,7 @@ public:
 
 	bool GetIsCreateSelect();					//選択肢を作れたか取得
 	bool GetIsChoise();							//選択したか取得
-	bool GetChoiseSelectCode();					//選んだ選択肢のコード番号
+	int GetChoiseSelectCode();					//選んだ選択肢のコード番号
 
 	void SetInit(int,int,int,int,int interval_vertical = 0);	//初期設定
 	void Init();								//初期化

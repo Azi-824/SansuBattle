@@ -57,7 +57,7 @@ bool Select::GetIsChoise()
 }
 
 //選んだ選択肢のコード番号を取得
-bool Select::GetChoiseSelectCode()
+int Select::GetChoiseSelectCode()
 {
 	return Choise_SelectCode;
 }
