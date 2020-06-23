@@ -44,14 +44,14 @@ protected:
 
 	static Image* img_kokuban;			//黒板の画像
 
-	static std::string Q_Text;			//問題文
-	static int Anser;					//答え
-	static int InputNum;				//入力された数字
-	static bool IsCreate;				//問題を作成したか
+	std::string Q_Text;			//問題文
+	int Anser;					//答え
+	int InputNum;				//入力された数字
+	bool IsCreate;				//問題を作成したか
 
 private:
 
-	static int GetInputNum(KeyDown*);	//入力された数字を取得
+	int GetInputNum(KeyDown*);	//入力された数字を取得
 
 public:
 
@@ -60,16 +60,16 @@ public:
 
 	virtual void CreateQuestion(int) = 0;	//問題作成
 
-	static void DrawQuestion();			//問題を描画する
-	static void DrawInputNum();			//入力中の数字を描画する
+	void DrawQuestion();			//問題を描画する
+	void DrawInputNum();			//入力中の数字を描画する
 
-	static bool JudgAnser();			//正解か判定する
+	bool JudgAnser();			//正解か判定する
 
-	static bool CheckInputKey(KeyDown*);//キー入力中か取得
+	bool CheckInputKey(KeyDown*);//キー入力中か取得
 
-	static bool GetIsCreate();			//問題を作成したか取得
+	bool GetIsCreate();			//問題を作成したか取得
 
-	static void Reset();				//問題をリセット
+	void Reset();				//問題をリセット
 
 
 };

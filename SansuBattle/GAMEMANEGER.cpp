@@ -417,7 +417,7 @@ void GameManeger::Scene_ChoiseLevel()
 		}
 		player->Init();						//プレイヤー初期化
 		score.at(GameMode)->ResetScore();	//スコアリセット
-		Question::Reset();					//問題関係リセット
+		quesiton.at(GameMode)->Reset();		//問題関係リセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
@@ -446,14 +446,14 @@ void GameManeger::Scene_Play()
 
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
-	if (!Question::GetIsCreate())	//問題を作成していなければ
+	if (!quesiton.at(GameMode)->GetIsCreate())	//問題を作成していなければ
 	{
 		quesiton.at(GameMode)->CreateQuestion(GameLevel);	//問題を作成
 	}
 
-	if (Question::CheckInputKey(keydown))	//キー入力が完了したら
+	if (quesiton.at(GameMode)->CheckInputKey(keydown))	//キー入力が完了したら
 	{
-		if (Question::JudgAnser())				//プレイヤーの回答が正解だったら
+		if (quesiton.at(GameMode)->JudgAnser())				//プレイヤーの回答が正解だったら
 		{
 			effect_atk->SetIsDraw(true,(int)EFFECT_ATACK);			//アニメーションの描画を開始する
 		}
@@ -508,8 +508,8 @@ void GameManeger::Draw_Scene_Play()
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
-	Question::DrawQuestion();				//問題文描画
-	Question::DrawInputNum();				//入力中の数字を描画
+	quesiton.at(GameMode)->DrawQuestion();				//問題文描画
+	quesiton.at(GameMode)->DrawInputNum();				//入力中の数字を描画
 
 	score.at(GameMode)->DrawNowScore();	//現在のスコア描画
 

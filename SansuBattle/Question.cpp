@@ -7,15 +7,17 @@
 //############### クラス定義 ####################
 
 //インスタンスを生成
-int Question::Anser = -1;				//答え初期化
-int Question::InputNum = 0;			//入力された数字初期化
-std::string Question::Q_Text = "";	//問題文初期化
-bool Question::IsCreate = false;		//問題を作成したか初期化
 Image* Question::img_kokuban;			//黒板の画像
 
 //コンストラクタ
 Question::Question()
 {
+	//メンバー初期化
+	Anser = -1;				//答え初期化
+	InputNum = 0;			//入力された数字初期化
+	Q_Text = "";			//問題文初期化
+	IsCreate = false;		//問題を作成したか初期化
+
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
 	{
 		img_kokuban = new Image(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
