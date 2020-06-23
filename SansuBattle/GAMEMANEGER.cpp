@@ -57,7 +57,7 @@ GameManeger::~GameManeger()
 		delete score.at(i);	//score破棄
 
 	//vectorのメモリ解放を行う
-	vector<Q_Base*> v;		//空のvectorを作成する
+	vector<Question*> v;		//空のvectorを作成する
 	quesiton.swap(v);		//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
@@ -65,7 +65,7 @@ GameManeger::~GameManeger()
 	enemy.swap(v2);			//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
-	vector<ScoreBase*> v3;	//空のvectorを作成する
+	vector<Score*> v3;		//空のvectorを作成する
 	score.swap(v3);			//空と中身を入れ替える
 
 	//vectorのメモリ解放を行う
@@ -417,7 +417,7 @@ void GameManeger::Scene_ChoiseLevel()
 		}
 		player->Init();						//プレイヤー初期化
 		score.at(GameMode)->ResetScore();	//スコアリセット
-		Q_Base::Reset();					//問題関係リセット
+		Question::Reset();					//問題関係リセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
@@ -446,14 +446,14 @@ void GameManeger::Scene_Play()
 
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
-	if (!Q_Base::GetIsCreate())	//問題を作成していなければ
+	if (!Question::GetIsCreate())	//問題を作成していなければ
 	{
 		quesiton.at(GameMode)->CreateQuestion(GameLevel);	//問題を作成
 	}
 
-	if (Q_Base::CheckInputKey(keydown))	//キー入力が完了したら
+	if (Question::CheckInputKey(keydown))	//キー入力が完了したら
 	{
-		if (Q_Base::JudgAnser())				//プレイヤーの回答が正解だったら
+		if (Question::JudgAnser())				//プレイヤーの回答が正解だったら
 		{
 			effect_atk->SetIsDraw(true,(int)EFFECT_ATACK);			//アニメーションの描画を開始する
 		}
@@ -508,8 +508,8 @@ void GameManeger::Draw_Scene_Play()
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
-	Q_Base::DrawQuestion();				//問題文描画
-	Q_Base::DrawInputNum();				//入力中の数字を描画
+	Question::DrawQuestion();				//問題文描画
+	Question::DrawInputNum();				//入力中の数字を描画
 
 	score.at(GameMode)->DrawNowScore();	//現在のスコア描画
 

@@ -65,6 +65,6 @@ void ScoreAdd::CalcScore(int gamelevel, int time)
 		break;
 	}
 
-	Score += addscore_value;	//スコア加算
+	score += addscore_value;	//スコア加算
 
 }

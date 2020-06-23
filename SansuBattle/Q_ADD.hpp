@@ -4,12 +4,12 @@
 #pragma once
 
 //################# ヘッダファイル読み込み #################
-#include "Q_Base.hpp"
+#include "Question.hpp"
 
 //################# マクロ定義 ####################
 
 //################# クラス定義 ####################
-class Q_Add :public Q_Base
+class Q_Add :public Question
 {
 private:
 

@@ -1,4 +1,4 @@
-//Q_Base.hpp
+//Question.hpp
 //問題関係の全ての基になるクラス
 
 #pragma once
@@ -38,7 +38,7 @@ enum INPUT_NUM
 
 
 //################# クラス定義 #################
-class Q_Base
+class Question
 {
 protected:
 
@@ -55,8 +55,8 @@ private:
 
 public:
 
-	Q_Base();							//コンストラクタ
-	~Q_Base();							//デストラクタ
+	Question();							//コンストラクタ
+	~Question();							//デストラクタ
 
 	virtual void CreateQuestion(int) = 0;	//問題作成
 

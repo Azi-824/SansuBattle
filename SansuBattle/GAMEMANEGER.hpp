@@ -59,13 +59,13 @@ private:
 	Select* select_level;		//レベル選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
-	vector<Q_Base*> quesiton;	//問題
+	vector<Question*> quesiton;	//問題
 	vector<Font*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
 	Music* bgm;					//BGM
 	Music* bgm_play;			//プレイ画面のBGM
-	vector<ScoreBase*> score;	//スコア
+	vector<Score*> score;		//スコア
 	SaveData* save;				//セーブデータ
 	
 	int NowScene;				//現在のシーン

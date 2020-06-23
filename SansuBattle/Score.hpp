@@ -1,4 +1,4 @@
-//ScoreBase.hpp
+//Score.hpp
 //スコア関係の基になるクラス
 
 #pragma once
@@ -15,16 +15,16 @@
 #define LEVEL_BONUS_HARD		3		//難しいレベルのボーナス倍率
 
 //################### クラス定義 ########################
-class ScoreBase
+class Score
 {
 protected:
 
-	int Score;			//得点
+	int score;			//得点
 
 public:
 
-	ScoreBase();							//コンストラクタ
-	~ScoreBase();							//デストラクタ
+	Score();							//コンストラクタ
+	~Score();							//デストラクタ
 
 	virtual void CalcScore(int,int) = 0;	//スコア計算処理
 	void DrawNowScore();					//現在のスコア表示

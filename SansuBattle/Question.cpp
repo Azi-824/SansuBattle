@@ -1,20 +1,20 @@
-//Q_Base.cpp
+//Question.cpp
 //問題関係の全ての基になるクラス
 
 //############### ヘッダファイル読み込み #######################
-#include "Q_Base.hpp"
+#include "Question.hpp"
 
 //############### クラス定義 ####################
 
 //インスタンスを生成
-int Q_Base::Anser = -1;				//答え初期化
-int Q_Base::InputNum = 0;			//入力された数字初期化
-std::string Q_Base::Q_Text = "";	//問題文初期化
-bool Q_Base::IsCreate = false;		//問題を作成したか初期化
-Image* Q_Base::img_kokuban;			//黒板の画像
+int Question::Anser = -1;				//答え初期化
+int Question::InputNum = 0;			//入力された数字初期化
+std::string Question::Q_Text = "";	//問題文初期化
+bool Question::IsCreate = false;		//問題を作成したか初期化
+Image* Question::img_kokuban;			//黒板の画像
 
 //コンストラクタ
-Q_Base::Q_Base()
+Question::Question()
 {
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
 	{
@@ -24,13 +24,13 @@ Q_Base::Q_Base()
 }
 
 //デストラクタ
-Q_Base::~Q_Base()
+Question::~Question()
 {
 	return;
 }
 
 //問題を描画する
-void Q_Base::DrawQuestion()
+void Question::DrawQuestion()
 {
 
 	img_kokuban->Draw(GAME_LEFT, Q_IMG_DRAW_Y);		//黒板の画像を描画
@@ -44,7 +44,7 @@ void Q_Base::DrawQuestion()
 }
 
 //入力中の数字を描画する
-void Q_Base::DrawInputNum()
+void Question::DrawInputNum()
 {
 	int Strlen = strlen(std::to_string(InputNum).c_str());						//文字列の長さを取得
 	int Width = GetDrawStringWidthToHandle(std::to_string(InputNum).c_str(), Strlen, NowFontHandle);	//横幅取得
@@ -59,11 +59,11 @@ void Q_Base::DrawInputNum()
 引数：int：プレイヤーの答え
 戻り値：bool：true 正解：false 不正解
 */
-bool Q_Base::JudgAnser()
+bool Question::JudgAnser()
 {
 	if (Anser == InputNum)				//プレイヤーの回答が、答えと一緒だったら
 	{
-		Q_Base::IsCreate = false;		//問題を作成したか、リセット
+		Question::IsCreate = false;		//問題を作成したか、リセット
 		return true;					//正解
 	}
 	else								//一緒じゃなかったら
@@ -72,7 +72,7 @@ bool Q_Base::JudgAnser()
 
 //キー入力中か確認
 //戻り値：bool：true 入力終了：false 入力中
-bool Q_Base::CheckInputKey(KeyDown* keydown)
+bool Question::CheckInputKey(KeyDown* keydown)
 {
 	static int InputNumBuf = 0;						//入力された数字
 	static int Weight = 10;							//桁の重み
@@ -101,7 +101,7 @@ bool Q_Base::CheckInputKey(KeyDown* keydown)
 }
 
 //入力された数字を取得
-int Q_Base::GetInputNum(KeyDown* keydown)
+int Question::GetInputNum(KeyDown* keydown)
 {
 	switch (keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
 	{
@@ -191,13 +191,13 @@ int Q_Base::GetInputNum(KeyDown* keydown)
 }
 
 //問題を作成したか取得
-bool Q_Base::GetIsCreate()
+bool Question::GetIsCreate()
 {
 	return IsCreate;
 }
 
 //問題をリセット
-void Q_Base::Reset()
+void Question::Reset()
 {
 	Anser = -1;			//答えリセット
 	InputNum = 0;		//キー入力内容リセット
