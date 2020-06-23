@@ -469,7 +469,7 @@ void GameManeger::Scene_Play()
 		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);					//アニメーションを描画しない
 		effect_atk->ResetIsAnime((int)EFFECT_ATACK);						//アニメーション状態をリセット
 		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
-		score.at(GameMode)->CalcScore(gamelimittime->GetElapsedTime());	//スコア加算						
+		score.at(GameMode)->CalcScore(GameLevel, gamelimittime->GetElapsedTime());	//スコア加算						
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
