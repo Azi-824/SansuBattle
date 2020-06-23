@@ -165,7 +165,7 @@
     <ClInclude Include="Music.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Question.hpp" />
-    <ClInclude Include="Q_Add.hpp" />
+    <ClInclude Include="QuestionAdd.hpp" />
     <ClInclude Include="SaveData.hpp" />
     <ClInclude Include="Score.hpp" />
     <ClInclude Include="ScoreAdd.hpp" />
@@ -186,7 +186,7 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
-    <ClCompile Include="Q_Add.cpp" />
+    <ClCompile Include="QuestionAdd.cpp" />
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoreAdd.cpp" />

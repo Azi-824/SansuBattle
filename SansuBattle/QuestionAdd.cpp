@@ -1,25 +1,25 @@
-//Q_Base.cpp
+//QuestionAdd.cpp
 //足し算の問題を管理するクラス
 
 //################# ヘッダファイル読み込み ##################
-#include "Q_Add.hpp"
+#include "QuestionAdd.hpp"
 
 //################# クラス定義 ####################
 
 //コンストラクタ
-Q_Add::Q_Add()
+QuestionAdd::QuestionAdd()
 {
 	return;
 }
 
 //デストラクタ
-Q_Add::~Q_Add()
+QuestionAdd::~QuestionAdd()
 {
 	return;
 }
 
 //問題を作成
-void Q_Add::CreateQuestion(int gamelevel)
+void QuestionAdd::CreateQuestion(int gamelevel)
 {
 
 	int q_min = 0, q_max = 0;	//問題の最小値と最大値を入れる変数

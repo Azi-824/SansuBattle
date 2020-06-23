@@ -11,7 +11,7 @@
 #include "Select.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
-#include "Q_Add.hpp"
+#include "QuestionAdd.hpp"
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
@@ -59,7 +59,7 @@ private:
 	Select* select_level;		//レベル選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
-	vector<Question*> quesiton;	//問題
+	vector<Question*> question;	//問題
 	vector<Font*> font;			//フォント
 	Time* gamelimittime;		//ゲーム制限時間
 	Effect* effect_atk;			//攻撃エフェクト
