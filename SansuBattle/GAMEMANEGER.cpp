@@ -148,14 +148,17 @@ bool GameManeger::Load()
 
 	bgm_play = new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ADD_BGM);						//BGM(プレイ画面)を管理するオブジェクトを生成
 	if (bgm_play->GetIsLoad() == false) { return false; }							//読み込み失敗
+	if (bgm_play->Add(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIFF_BGM) == false) { return false; }	//プレイ画面（引き算）のBGM追加
 
 	//問題関係
 	//足し算
-	question.push_back(new QuestionAdd());	//足し算の問題を管理するオブジェクトを生成
+	question.push_back(new QuestionAdd());			//足し算の問題を管理するオブジェクトを生成
+	question.push_back(new QuestionDifference());	//引き算の問題を管理するオブジェクトを生成
 
 	//スコア関係
 	//足し算
-	score.push_back(new ScoreAdd());	//足し算のスコアを管理するオブジェクトを生成
+	score.push_back(new ScoreAdd());		//足し算のスコアを管理するオブジェクトを生成
+	score.push_back(new ScoreDifference());	//引き算のスコアを管理するオブジェクトを生成
 
 	//セーブデータ関係
 	save = new SaveData();			//セーブデータを管理するオブジェクトを生成
@@ -286,9 +289,11 @@ void GameManeger::SetInit()
 	//プレイ画面のBGM
 	/*
 	後から修正
-	ゲームモードの数を使用して、for文でループさせる
 	*/
-	bgm_play->ChengeVolume(30, 0);				//プレイ画面のBGMの音量を30%にする
+	for (int i = 0; i < bgm_play->GetSize(); ++i)
+	{
+		bgm_play->ChengeVolume(30, i);				//プレイ画面のBGMの音量を30%にする
+	}
 	bgm_play->ChengePlayType(DX_PLAYTYPE_LOOP);	//BGMの再生方法をループ再生に変更
 
 	return;

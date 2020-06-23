@@ -1,27 +1,21 @@
-//ScoreAdd.cpp
+//ScoreDifference.cpp
 //足し算のスコアを管理するクラス
 
 //################ ヘッダファイル読み込み ##################
-#include "ScoreAdd.hpp"
+#include "ScoreDifference.hpp"
 
 //################ クラス定義 ##################
 
 //コンストラクタ
-ScoreAdd::ScoreAdd()
-{
-
-}
+ScoreDifference::ScoreDifference(){}
 
 //デストラクタ
-ScoreAdd::~ScoreAdd()
-{
-
-}
+ScoreDifference::~ScoreDifference(){}
 
 //スコア計算処理
 //引数：int：ゲームレベル
 //引数：int：回答までにかかった時間
-void ScoreAdd::CalcScore(int gamelevel, int time)
+void ScoreDifference::CalcScore(int gamelevel, int time)
 {
 	const int time_excellent = 5;		//エクセレントの評価基準の時間(5秒以内)
 	const int time_great = 15;			//グレートの評価基準の時間(15秒以内)
@@ -29,15 +23,15 @@ void ScoreAdd::CalcScore(int gamelevel, int time)
 
 	if (time <= time_excellent)	//エクセレントの評価基準より短ければ
 	{
-		addscore_value = SCORE_ADD_ANSER * TIME_BONUS_EXCELLENT;	//エクセレントのボーナスを加えて計算
+		addscore_value = SCORE_DIFFERENCE_ANSER * TIME_BONUS_EXCELLENT;	//エクセレントのボーナスを加えて計算
 	}
 	else if (time <= time_great)//グレートの評価基準より短ければ
 	{
-		addscore_value = SCORE_ADD_ANSER * TIME_BONUS_GREAT;		//グレートのボーナスを加えて計算
+		addscore_value = SCORE_DIFFERENCE_ANSER * TIME_BONUS_GREAT;		//グレートのボーナスを加えて計算
 	}
 	else						//それより遅ければ
 	{
-		addscore_value = SCORE_ADD_ANSER;	//ボーナスなしで計算
+		addscore_value = SCORE_DIFFERENCE_ANSER;	//ボーナスなしで計算
 	}
 
 	switch (gamelevel)	//ゲームレベル毎
@@ -46,7 +40,7 @@ void ScoreAdd::CalcScore(int gamelevel, int time)
 	case (int)STAGE_LEVEL_EASY:		//簡単のとき
 
 		addscore_value *= LEVEL_BONUS_EASY;	//簡単のレベルボーナスを乗算
-		
+
 		break;	//簡単の時ここまで
 
 	case (int)STAGE_LEVEL_NORMAL:		//普通のとき

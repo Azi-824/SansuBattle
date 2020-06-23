@@ -12,11 +12,13 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "QuestionAdd.hpp"
+#include "QuestionDifference.hpp"
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
 #include "Music.hpp"
 #include "ScoreAdd.hpp"
+#include "ScoreDifference.hpp"
 #include "SaveData.hpp"
 
 //############### É}ÉNÉçíËã` ################

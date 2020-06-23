@@ -1,27 +1,20 @@
-//QuestionAdd.cpp
-//足し算の問題を管理するクラス
+//QuestionDifference.cpp
+//引き算の問題を管理するクラス
 
-//################# ヘッダファイル読み込み ##################
-#include "QuestionAdd.hpp"
+//############ ヘッダファイル読み込み ###############
+#include "QuestionDifference.hpp"
 
-//################# クラス定義 ####################
+//############ クラス定義 ##############
 
 //コンストラクタ
-QuestionAdd::QuestionAdd()
-{
-	return;
-}
+QuestionDifference::QuestionDifference(){}
 
 //デストラクタ
-QuestionAdd::~QuestionAdd()
-{
-	return;
-}
+QuestionDifference::~QuestionDifference(){}
 
-//問題を作成
-void QuestionAdd::CreateQuestion(int gamelevel)
+//問題作成
+void QuestionDifference::CreateQuestion(int gamelevel)
 {
-
 	int q_min = 0, q_max = 0;	//問題の最小値と最大値を入れる変数
 
 	switch (gamelevel)	//ゲームレベル毎に分岐
@@ -58,8 +51,15 @@ void QuestionAdd::CreateQuestion(int gamelevel)
 	num1 = GetRand(q_max - q_min) + q_min;			//問題を生成
 	num2 = GetRand(q_max - q_min) + q_min;			//問題を生成
 
-	Anser = num1 + num2;	//問題の計算結果を答えに格納
-	Q_Text = (std::to_string(num1) + "＋" + (std::to_string(num2) + "＝？"));		//問題文を設定
+	if (num1 < num2)		//num1の値がnum2より小さいとき
+	{
+		//値の交換
+		int w = num2;
+		num2 = num1;
+		num1 = w;	
+	}
+	Anser = num1 - num2;	//問題の計算結果を答えに格納
+	Q_Text = (std::to_string(num1) + "－" + (std::to_string(num2) + "＝？"));		//問題文を設定
 
 	IsCreate = true;	//問題を作成した
 
