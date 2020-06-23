@@ -416,7 +416,7 @@ void GameManeger::Scene_ChoiseLevel()
 			enemy.at(i)->Init();			//敵初期化
 		}
 		player->Init();						//プレイヤー初期化
-		ScoreBase::ResetScore();			//スコアリセット
+		score.at(GameMode)->ResetScore();	//スコアリセット
 		Q_Base::Reset();					//問題関係リセット
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
@@ -511,7 +511,7 @@ void GameManeger::Draw_Scene_Play()
 	Q_Base::DrawQuestion();				//問題文描画
 	Q_Base::DrawInputNum();				//入力中の数字を描画
 
-	ScoreBase::DrawNowScore();			//現在のスコア描画
+	score.at(GameMode)->DrawNowScore();	//現在のスコア描画
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 

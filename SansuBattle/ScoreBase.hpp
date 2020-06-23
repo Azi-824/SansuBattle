@@ -16,7 +16,7 @@ class ScoreBase
 {
 protected:
 
-	static int Score;			//得点
+	int Score;			//得点
 
 public:
 
@@ -24,8 +24,8 @@ public:
 	~ScoreBase();							//デストラクタ
 
 	virtual void CalcScore(int) = 0;		//スコア計算処理
-	static void DrawNowScore();				//現在のスコア表示
-	static void ResetScore();				//スコアリセット
+	void DrawNowScore();					//現在のスコア表示
+	void ResetScore();						//スコアリセット
 
 	int GetScore();							//スコア取得
 
