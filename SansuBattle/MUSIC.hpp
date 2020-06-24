@@ -79,6 +79,7 @@ public:
 	bool GetIsLoad();						//読み込めたかを取得する
 	bool GetIsPlay(int);					//音が再生されているか取得する
 	int GetSize();							//音楽が何種類入っているか取得
+	void SetInit(int, double);				//初期設定
 
 	void ChengePlayType(int);				//音の再生方法を変更する
 	void ChengeVolume(double,int);			//音量を変更する

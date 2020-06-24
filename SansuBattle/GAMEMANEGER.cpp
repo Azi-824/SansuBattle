@@ -283,18 +283,10 @@ void GameManeger::SetInit()
 	}
 
 	//音楽関係
-	bgm->ChengeVolume(30, (int)BGM_TYPE_TITLE);	//タイトルBGMの音量を30%にする
-	bgm->ChengeVolume(30, (int)BGM_TYPE_SELECT);//選択画面のBGMの音量を30%にする
-	bgm->ChengePlayType(DX_PLAYTYPE_LOOP);		//BGMの再生方法をループ再生に変更
+	//BGM
+	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);			//再生方法をループ再生、音量を30%に設定
 	//プレイ画面のBGM
-	/*
-	後から修正
-	*/
-	for (int i = 0; i < bgm_play->GetSize(); ++i)
-	{
-		bgm_play->ChengeVolume(30, i);				//プレイ画面のBGMの音量を30%にする
-	}
-	bgm_play->ChengePlayType(DX_PLAYTYPE_LOOP);	//BGMの再生方法をループ再生に変更
+	bgm_play->SetInit(DX_PLAYTYPE_LOOP, 30);	//再生方法をループ再生、音量を30%に設定
 
 	return;
 }

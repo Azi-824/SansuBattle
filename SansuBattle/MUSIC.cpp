@@ -95,10 +95,20 @@ int Music::GetSize()
 	return Handle.size();
 }
 
+//初期設定
+void Music::SetInit(int type, double volume)
+{
+	PlayType = type;	//再生方法設定
+	for (int i = 0; i < Handle.size(); ++i)	//音楽の種類分
+	{
+		ChengeVolume(volume, i);			//音量を変更
+	}
+}
+
 //再生方法を変更する
 void Music::ChengePlayType(int type)
 {
-	this->PlayType = type;	
+	PlayType = type;	
 	return;
 }
 
@@ -107,7 +117,7 @@ void Music::ChengePlayType(int type)
 //引数：int：音量を変えたい音の種類
 void Music::ChengeVolume(double volume,int kind)
 {
-	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), this->Handle[kind]);
+	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), Handle[kind]);
 	return;
 }
 
