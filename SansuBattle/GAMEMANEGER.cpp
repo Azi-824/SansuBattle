@@ -35,8 +35,45 @@ GameManeger::~GameManeger()
 	delete player;			//player破棄
 	delete gamelimittime;	//gamelimittime破棄
 	delete save;			//save破棄
+	
+	//問題関係
+	for (auto q : question)
+	{
+		delete q;	//question破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Question*> v;		//空のvectorを作成する
+	question.swap(v);		//空と中身を入れ替える
 
-	//音楽関係
+	//敵関係
+	for (auto e : enemy)
+	{
+		delete e;	//enemy破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Enemy*> v2;		//空のvectorを作成する
+	enemy.swap(v2);			//空と中身を入れ替える
+
+	//スコア関係
+	for (auto s : score)
+	{
+		delete s;		//score破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Score*> v3;		//空のvectorを作成する
+	score.swap(v3);			//空と中身を入れ替える
+
+	//フォント関係
+	Font::ReleaseFont();	//読み込んだフォントを開放
+	for (auto font : this->font)
+	{
+		delete font;	//font破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Font*> v4;		//空のvectorを作成する
+	font.swap(v4);			//空と中身を入れ替える
+
+		//音楽関係
 	//BGM
 	for (auto bgm : this->bgm)
 	{
@@ -55,57 +92,21 @@ GameManeger::~GameManeger()
 	vector<Music*> v6;		//空のvectorを作成する
 	bgm_play.swap(v6);		//空と中身を入れ替える
 
-	//エフェクトSE
-	for (auto se : effect_se)
-	{
-		delete se;		//effect_se破棄
-	}
-	//vectorのメモリ解放を行う
-	vector<Music*> v7;		//空のvectorを作成する
-	effect_se.swap(v7);		//空と中身を入れ替える
-
 	//エフェクト関係
 	for (auto effect : effect_atk)
 	{
 		delete effect;	//effect_atk破棄
 	}
 	//vectorのメモリ解放を行う
-	vector<Effect*> v8;		//空のvectorを作成する
-	effect_atk.swap(v8);	//空と中身を入れ替える
+	vector<Effect*> v7;		//空のvectorを作成する
+	effect_atk.swap(v7);	//空と中身を入れ替える
 
-
-	//フォント関係
-	Font::ReleaseFont();	//読み込んだフォントを開放
-	for (int i = 0; i < font.size(); ++i)	//フォントハンドルの数分
-		delete font.at(i);	//font破棄
-	
-	//問題関係
-	for (int i = 0; i < question.size(); ++i)	//問題の種類分
-		delete question.at(i);	//question破棄
-
-	//敵関係
-	for (int i = 0; i < enemy.size(); ++i)	//敵の数分
-		delete enemy.at(i);	//enemyの破棄
-
-	//スコア関係
-	for (int i = 0; i < score.size(); ++i)	//スコアの種類分
-		delete score.at(i);	//score破棄
-
+	//エフェクトSE
+	//オブジェクトの破棄は、エフェクトクラスを破棄した時に同時に破棄されるので、
+	//vectorの解放だけ行う
 	//vectorのメモリ解放を行う
-	vector<Question*> v;		//空のvectorを作成する
-	question.swap(v);		//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	vector<Enemy*> v2;		//空のvectorを作成する
-	enemy.swap(v2);			//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	vector<Score*> v3;		//空のvectorを作成する
-	score.swap(v3);			//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	vector<Font*> v4;		//空のvectorを作成する
-	font.swap(v4);			//空と中身を入れ替える
+	vector<Music*> v8;		//空のvectorを作成する
+	effect_se.swap(v8);		//空と中身を入れ替える
 
 }
 

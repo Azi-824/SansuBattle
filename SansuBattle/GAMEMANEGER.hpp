@@ -20,6 +20,7 @@
 #include "ScoreAdd.hpp"
 #include "ScoreDifference.hpp"
 #include "SaveData.hpp"
+#include <typeinfo>
 
 //############### マクロ定義 ################
 //テキスト関係
