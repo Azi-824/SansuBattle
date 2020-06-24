@@ -344,9 +344,6 @@ void GameManeger::Scene_Title()
 
 	bgm->Play((int)BGM_TYPE_TITLE);		//BGMを再生
 
-	select_gamemode->Init();	//難易度の選択肢初期化
-	select_level->Init();	//ステージの選択肢初期化
-
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
 		bgm->Stop();								//再生中の音楽を止める
@@ -382,6 +379,8 @@ void GameManeger::Scene_ChoiseGameMode()
 		//(読み込み成功時はtrueが返ってくるので、そのまま代入するとゲーム終了してしまうため、反転させている。）
 		GameEndFlg = !(save->Load(GameMode));					//セーブデータ読み込み
 
+		select_gamemode->Init();	//ゲームモードの選択肢初期化
+
 		NowScene = (int)SCENE_CHOISESTAGE;						//ステージ選択画面へ
 	}
 
@@ -415,6 +414,7 @@ void GameManeger::Scene_ChoiseLevel()
 		player->Init();						//プレイヤー初期化
 		score.at(GameMode)->ResetScore();	//スコアリセット
 		question.at(GameMode)->Reset();		//問題関係リセット
+		select_level->Init();				//レベルの選択肢初期化
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
 	}
