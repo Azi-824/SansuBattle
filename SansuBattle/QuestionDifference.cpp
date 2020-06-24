@@ -29,14 +29,14 @@ void QuestionDifference::CreateQuestion(int gamelevel)
 
 	case (int)STAGE_LEVEL_NORMAL:	//普通の時
 
-		q_min = 10;					//最小値10
+		q_min = 5;					//最小値5
 		q_max = 20;	//最大値20
 
 		break;	//普通の時
 
 	case (int)STAGE_LEVEL_HARD:	//難しいの時
 
-		q_min = 20;					//最小値20
+		q_min = 10;					//最小値10
 		q_max = 30;	//最大値30
 
 		break;	//難しいの時
