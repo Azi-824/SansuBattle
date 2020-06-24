@@ -64,17 +64,6 @@ Select::~Select()
 
 }
 
-//選択肢を作れたか取得
-//bool Select::GetIsCreateSelect()
-//{
-//	for (auto img : SelectImage)
-//	{
-//		if (!img->GetIsLoad())
-//			return false;
-//	}
-//	return true;
-//}
-
 //選択したか取得
 bool Select::GetIsChoise()
 {
@@ -147,42 +136,44 @@ void Select::Draw()
 {
 
 	int NowDrawX = DrawX, NowDrawY = DrawY;		//現在の描画位置
-	int row_cnt = 0;					//列数のカウント
+	int row_cnt = 0;							//列数のカウント
+	int cnt = 0;
 
-	for (int i = SelectCode.front(); i <= SelectCode.back(); ++i)		//選択肢の画像の数分ループ
+	for (auto img : SelectImage)
 	{
-
 		if (row_cnt >= RowNum)		//列数が、描画できる範囲を超えたら
 		{
-			NowDrawX = DrawX;													//Xの描画位置を最初の位置へ
-			NowDrawY += SelectImage.front()->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
-			row_cnt = 0;														//カウントリセット
+			NowDrawX = DrawX;									//Xの描画位置を最初の位置へ
+			NowDrawY += img->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			row_cnt = 0;										//カウントリセット
 		}
 
 		++row_cnt;	//カウントアップ
 
-		if (i == *NowSelectCode)		//現在選択しているものだったら
+		if (cnt == *NowSelectCode)		//現在選択しているものだったら
 		{
 			//領域設定
 			rect.left = NowDrawX - RECT_EXPANSION_VALUE;								//左上X
 			rect.top = NowDrawY - RECT_EXPANSION_VALUE;									//左上Y
-			rect.right = NowDrawX + SelectImage.front()->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
-			rect.bottom = NowDrawY + SelectImage.front()->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
+			rect.right = NowDrawX + img->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
+			rect.bottom = NowDrawY + img->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
 
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
 			DrawBox(rect.left, rect.top, rect.right, rect.bottom, COLOR_WHITE, TRUE);	//薄い四角形を描画
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
 
-			SelectImage.at(i)->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+			img->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 		else		//それ以外は
 		{
-			SelectImage.at(i)->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+			img->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 
-		NowDrawX += SelectImage.front()->GetWidth() + Interval_Side;			//描画位置をずらす
+		NowDrawX += img->GetWidth() + Interval_Side;			//描画位置をずらす
+		++cnt;	//カウントアップ
 
 	}
+
 }
 
 //キー操作
