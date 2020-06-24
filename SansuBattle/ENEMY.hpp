@@ -24,9 +24,9 @@ class Enemy :public Charactor		//CHARACTORƒNƒ‰ƒX‚ğŒp³
 {
 private:
 
-	Image* image;				//‰æ‘œ
+	Image* image;			//‰æ‘œ
 
-	static int NowEnemyNum;						//Œ»İ‰½‘Ì–Ú‚Ì“G‚©
+	static int NowEnemyNum;	//Œ»İ‰½‘Ì–Ú‚Ì“G‚©
 
 public:
 

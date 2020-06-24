@@ -23,9 +23,8 @@ Player::~Player()
 //HPを描画する
 void Player::DrawHp()
 {
-	image_hp->ChengeImage((int)HP_PLAYER);	//HPの画像の種類をプレイヤーの画像へ
 	for (int i = 0; i < HP; ++i)	//HPの分ループ
 	{
-		image_hp->Draw(PLAYER_HP_DRAW_X + i * image_hp->GetWidth(), PLAYER_HP_DRAW_Y);	//HP画像描画
+		image_hp.at((int)HP_PLAYER)->Draw(PLAYER_HP_DRAW_X + i * image_hp.at((int)HP_PLAYER)->GetWidth(), PLAYER_HP_DRAW_Y);	//HP画像描画
 	}
 }

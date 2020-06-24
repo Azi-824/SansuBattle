@@ -29,7 +29,6 @@ GameManeger::~GameManeger()
 	//オブジェクトの破棄
 	delete fps;				//fps破棄
 	delete keydown;			//keydown破棄
-	delete back;			//back破棄
 	delete select_gamemode;	//level_select破棄
 	delete select_level;	//stage_select破棄
 	delete player;			//player破棄
@@ -50,7 +49,6 @@ GameManeger::~GameManeger()
 	{
 		delete e;	//enemy破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Enemy*> v2;		//空のvectorを作成する
 	enemy.swap(v2);			//空と中身を入れ替える
 
@@ -59,7 +57,6 @@ GameManeger::~GameManeger()
 	{
 		delete s;		//score破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Score*> v3;		//空のvectorを作成する
 	score.swap(v3);			//空と中身を入れ替える
 
@@ -69,17 +66,15 @@ GameManeger::~GameManeger()
 	{
 		delete font;	//font破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Font*> v4;		//空のvectorを作成する
 	font.swap(v4);			//空と中身を入れ替える
 
-		//音楽関係
+	//音楽関係
 	//BGM
 	for (auto bgm : this->bgm)
 	{
 		delete bgm;		//bgm破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Music*> v5;		//空のvectorを作成する
 	bgm.swap(v5);			//空と中身を入れ替える
 
@@ -88,7 +83,6 @@ GameManeger::~GameManeger()
 	{
 		delete bgm;		//bgm_play破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Music*> v6;		//空のvectorを作成する
 	bgm_play.swap(v6);		//空と中身を入れ替える
 
@@ -97,16 +91,30 @@ GameManeger::~GameManeger()
 	{
 		delete effect;	//effect_atk破棄
 	}
-	//vectorのメモリ解放を行う
 	vector<Effect*> v7;		//空のvectorを作成する
 	effect_atk.swap(v7);	//空と中身を入れ替える
 
 	//エフェクトSE
 	//オブジェクトの破棄は、エフェクトクラスを破棄した時に同時に破棄されるので、
 	//vectorの解放だけ行う
-	//vectorのメモリ解放を行う
 	vector<Music*> v8;		//空のvectorを作成する
 	effect_se.swap(v8);		//空と中身を入れ替える
+
+	//背景画像
+	for (auto img : back)
+	{
+		delete img;
+	}
+	vector<Image*> v9;		//空のvector
+	back.swap(v9);			//空と交換
+
+	//選択肢画像
+	//オブジェクトの破棄は、選択肢クラスを破棄した時に同時に破棄されるので、
+	//vectorの解放だけ行う
+	vector<Image*> v10;			//空のvector
+	gamemode_img.swap(v10);		//空と交換
+	vector<Image*> v11;			//空のvector
+	gamelevel_img.swap(v11);	//空と交換
 
 }
 
@@ -131,30 +139,38 @@ bool GameManeger::Load()
 
 	//画像関係
 	//背景画像
-	back = new Image(IMG_DIR_BACK, IMG_NAME_TITLE);		//背景画像を管理するオブジェクトを生成
-	if (back->GetIsLoad() == false) { return false; }		//読み込み失敗
-	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_PLAY) == false) { return false; }		//プレイ画面の背景画像を追加
-	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_SELECT) == false) { return false; }	//選択画面の背景画像を追加
-	if (back->AddImage(IMG_DIR_BACK, IMG_NAME_END) == false) { return false; }	//ダミー画像を追加
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_TITLE));	//背景（タイトル画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_PLAY));		//背景（タイトル画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_SELECT));	//背景（タイトル画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_END));		//背景（タイトル画面）を生成
+	for (auto img : back)
+	{
+		if (img->GetIsLoad() == false) { return false; }	//読み込み失敗
+	}
 
 	//選択肢関係
 	//難易度の選択肢
-	select_gamemode = new Select(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM, Q_MODE_SUM);		//難易度の選択肢を管理するオブジェクトを生成
-	if (select_gamemode->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
-	//選択肢の追加
-	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE, Q_MODE_DIFFERENCE) == false) { return false; }		//ダミー画像追加
-	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT, Q_MODE_PRODUCT) == false) { return false; }		//ダミー画像追加
-	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER, Q_MODE_DEALER) == false) { return false; }			//ダミー画像追加
-	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF, Q_MODE_SUM_DIFFERENCE) == false) { return false; }	//ダミー画像追加
-	if (select_gamemode->Add(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA, Q_MODE_PRODUCT_DEALER) == false) { return false; }	//ダミー画像追加
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM));			//ゲームモード選択肢の画像生成(足し算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_DIFFERENCE));	//ゲームモード選択肢の画像生成(引き算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_PRODUCT));		//ゲームモード選択肢の画像生成(掛け算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER));		//ゲームモード選択肢の画像生成(割り算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF));	//ゲームモード選択肢の画像生成(足し算引き算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA));		//ゲームモード選択肢の画像生成(掛け算割り算)
+	for (auto img : gamemode_img)
+	{
+		if (!img->GetIsLoad()) { return false; }	//読み込み失敗
+	}
+	select_gamemode = new Select(gamemode_img);	//ゲームモードの選択肢生成
 
 	//ステージの選択肢
-	select_level = new Select(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY, STAGE_LEVEL_EASY);		//ステージの選択肢を管理するオブジェクトを生成
-	if (select_level->GetIsCreateSelect() == false) { return false; }			//読み込み失敗
-	//選択肢の追加
-	if (select_level->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL, STAGE_LEVEL_NORMAL) == false) { return false; }	//ダミー画像追加
-	if (select_level->Add(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_HARD, STAGE_LEVEL_HARD) == false) { return false; }	//ダミー画像追加
-
+	gamelevel_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_EASY));		//ゲームレベル選択肢の画像生成(簡単)
+	gamelevel_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_NORMAL));	//ゲームレベル選択肢の画像生成(普通)
+	gamelevel_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECTLEVEL_HARD));		//ゲームレベル選択肢の画像生成(難しい)
+	for (auto img : gamelevel_img)
+	{
+		if (!img->GetIsLoad()) { return false; }	//読み込み失敗
+	}
+	select_level = new Select(gamelevel_img);	//ゲームレベルの選択肢生成
 
 	//プレイヤー関係
 	player = new Player();		//プレイヤーを管理するオブジェクトを生成
@@ -320,10 +336,14 @@ void GameManeger::ProcesScene()
 //初期設定
 void GameManeger::SetInit()
 {
-	back->SetInit();			//画像初期設定
 	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH, SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
 	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH, SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
+
+	for (auto img : back)
+	{
+		img->SetInit();	//初期設定
+	}
 
 	for (auto effect : effect_atk)
 	{
@@ -387,8 +407,6 @@ void GameManeger::Draw_Scene_Load()
 void GameManeger::Scene_Title()
 {
 
-	back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
-
 	bgm.at((int)BGM_TYPE_TITLE)->Play();		//BGMを再生
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
@@ -404,7 +422,7 @@ void GameManeger::Scene_Title()
 void GameManeger::Draw_Scene_Title()
 {
 
-	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+	back.at((int)TITLE_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	return;
 }
@@ -412,8 +430,6 @@ void GameManeger::Draw_Scene_Title()
 //ゲームモード選択画面の処理
 void GameManeger::Scene_ChoiseGameMode()
 {
-
-	back->ChengeImage((int)SELECT_BACK);	//背景画像を変更
 
 	bgm.at((int)BGM_TYPE_SELECT)->Play();	//選択画面のBGMを再生
 
@@ -437,7 +453,7 @@ void GameManeger::Scene_ChoiseGameMode()
 //ゲームモード選択画面の描画処理
 void GameManeger::Draw_Scene_ChoiseGameMode()
 {
-	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+	back.at((int)SELECT_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	select_gamemode->Draw();				//難易度の選択肢描画
 
@@ -473,7 +489,7 @@ void GameManeger::Scene_ChoiseLevel()
 void GameManeger::Draw_Scene_ChoiseLevel()
 {
 
-	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+	back.at((int)SELECT_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	select_level->Draw();		//ステージ選択肢描画
 
@@ -483,8 +499,6 @@ void GameManeger::Draw_Scene_ChoiseLevel()
 //プレイ画面の処理
 void GameManeger::Scene_Play()
 {
-
-	back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
 	bgm_play.at(GameMode)->Play();			//プレイ画面のBGMを再生
 
@@ -542,7 +556,7 @@ void GameManeger::Scene_Play()
 void GameManeger::Draw_Scene_Play()
 {
 
-	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+	back.at((int)PLAY_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	player->DrawHp();				//プレイヤーHP描画
 
@@ -590,8 +604,6 @@ void GameManeger::Draw_SceneDrawScore()
 void GameManeger::Scene_End()
 {
 
-	back->ChengeImage((int)END_BACK);	//背景画像を変更
-
 	if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
 		NowScene = (int)SCENE_TITLE;	//タイトル画面へ
@@ -604,7 +616,7 @@ void GameManeger::Scene_End()
 void GameManeger::Draw_Scene_End()
 {
 
-	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+	back.at((int)END_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
 

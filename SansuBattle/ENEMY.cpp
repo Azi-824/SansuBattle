@@ -32,7 +32,10 @@ Enemy::~Enemy()
 void Enemy::SetInit(int x, int y)
 {
 	image->SetInit();		//“GƒLƒƒƒ‰‰æ‘œ‰ŠúÝ’è
-	image_hp->SetInit();	//HP‰æ‘œ‰ŠúÝ’è
+	for (auto img : image_hp)
+	{
+		img->SetInit();		//‰ŠúÝ’è
+	}
 	DrawX = x;				//•`‰æXˆÊ’u
 	DrawY = y;				//•`‰æYˆÊ’u
 	IsArive = true;			//¶‚«‚Ä‚¢‚é
@@ -87,10 +90,9 @@ void Enemy::DrawCenter()
 //HP•`‰æ
 void Enemy::DrawHp()
 {
-	image_hp->ChengeImage((int)HP_ENEMY);	//HP‚Ì‰æ‘œ‚ÌŽí—Þ‚ð“G‚Ì‰æ‘œ‚Ö
 	for (int i = 0; i < HP; ++i)	//HP‚Ì•ªƒ‹[ƒv
 	{
-		image_hp->Draw(ENEMY_HP_DRAW_X + i * image_hp->GetWidth(), ENEMY_HP_DRAW_Y);	//HP‰æ‘œ•`‰æ
+		image_hp.at((int)HP_ENEMY)->Draw(ENEMY_HP_DRAW_X + i * image_hp.at((int)HP_ENEMY)->GetWidth(), ENEMY_HP_DRAW_Y);	//HP‰æ‘œ•`‰æ
 	}
 
 }

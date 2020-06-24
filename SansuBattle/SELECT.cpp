@@ -10,7 +10,7 @@
 vector<Music*> Select::Key_se;	//キーボードの効果音
 
 //コンストラクタ
-Select::Select(const char* dir, const char* name,int code)
+Select::Select(vector<Image*>image)
 {
 
 	//メンバー変数初期化
@@ -34,26 +34,46 @@ Select::Select(const char* dir, const char* name,int code)
 		Key_se.at((int)SE_KEY_KETTEI)->SetInit(DX_PLAYTYPE_BACK, 30);	//初期設定
 	}
 
-	SelectImage = new Image(dir, name);				//選択肢の画像を生成
-	IsCreateSelect = SelectImage->GetIsLoad();		//画像を読み込めたか設定
-	SelectCode.push_back(code);						//選択肢のコード番号を設定
-	NowSelectCode = SelectCode.begin();				//現在選択しているコード番号を最初の選択肢に設定
+	SelectImage = image;				//選択肢の画像を生成
+	/*
+	修正案が思いついたら、修正
+	*/
+	for (int i = 0; i < SelectImage.size(); ++i)
+	{
+		SelectCode.push_back(i);		//選択肢のコード番号を設定
+	}
+	NowSelectCode = SelectCode.begin();	//現在選択しているコード番号を最初の選択肢に設定
 }
 
 //デストラクタ
 Select::~Select()
 {
+
+	for (auto img : SelectImage)
+	{
+		delete img;	//SelectImage破棄
+	}
+
 	//vectorのメモリ解放を行う
 	vector<int> v;				//空のvectorを作成する
 	SelectCode.swap(v);			//空と中身を入れ替える
 
+	//vectorのメモリ解放を行う
+	vector<Image*> v2;				//空のvectorを作成する
+	SelectImage.swap(v2);			//空と中身を入れ替える
+
 }
 
 //選択肢を作れたか取得
-bool Select::GetIsCreateSelect()
-{
-	return IsCreateSelect;
-}
+//bool Select::GetIsCreateSelect()
+//{
+//	for (auto img : SelectImage)
+//	{
+//		if (!img->GetIsLoad())
+//			return false;
+//	}
+//	return true;
+//}
 
 //選択したか取得
 bool Select::GetIsChoise()
@@ -77,7 +97,10 @@ int Select::GetChoiseSelectCode()
 */
 void Select::SetInit(int x, int y, int width,int interval_side,int interval_vertical)
 {
-	SelectImage->SetInit();	//画像初期設定
+	for (auto img : SelectImage)
+	{
+		img->SetInit();		//画像初期設定
+	}
 
 	DrawX = x;				//描画開始X位置設定
 	DrawY = y;				//描画開始Y位置設定
@@ -89,13 +112,13 @@ void Select::SetInit(int x, int y, int width,int interval_side,int interval_vert
 	while (true)	//無限ループ
 	{
 
-		if (x + SelectImage->GetWidth() + Interval_Side > width)	//描画可能横幅を超えたら
+		if (x + SelectImage.front()->GetWidth() + Interval_Side > width)	//描画可能横幅を超えたら
 		{
 			break;	//ループを抜ける
 		}
 
-		x += SelectImage->GetWidth() + Interval_Side;			//Xの位置をずらす
-		++RowNum;											//カウントアップ
+		x += SelectImage.front()->GetWidth() + Interval_Side;			//Xの位置をずらす
+		++RowNum;														//カウントアップ
 	}
 
 	return;
@@ -112,12 +135,11 @@ void Select::Init()
 }
 
 //選択肢を追加
-bool Select::Add(const char* dir, const char* name,int code)
+void Select::Add(Image* image)
 {
-	IsCreateSelect = SelectImage->AddImage(dir, name);		//画像を追加
-	SelectCode.push_back(code);									//選択肢コードを設定
-	NowSelectCode = SelectCode.begin();						//現在選択しているコード番号を最初の選択肢に設定
-	return IsCreateSelect;
+	SelectImage.push_back(image);				//選択肢の画像追加
+	SelectCode.push_back(SelectImage.size());	//選択肢コードを設定
+	NowSelectCode = SelectCode.begin();			//現在選択しているコード番号を最初の選択肢に設定
 }
 
 //描画
@@ -132,9 +154,9 @@ void Select::Draw()
 
 		if (row_cnt >= RowNum)		//列数が、描画できる範囲を超えたら
 		{
-			NowDrawX = DrawX;											//Xの描画位置を最初の位置へ
-			NowDrawY += SelectImage->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
-			row_cnt = 0;												//カウントリセット
+			NowDrawX = DrawX;													//Xの描画位置を最初の位置へ
+			NowDrawY += SelectImage.front()->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			row_cnt = 0;														//カウントリセット
 		}
 
 		++row_cnt;	//カウントアップ
@@ -144,26 +166,23 @@ void Select::Draw()
 			//領域設定
 			rect.left = NowDrawX - RECT_EXPANSION_VALUE;								//左上X
 			rect.top = NowDrawY - RECT_EXPANSION_VALUE;									//左上Y
-			rect.right = NowDrawX + SelectImage->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
-			rect.bottom = NowDrawY + SelectImage->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
+			rect.right = NowDrawX + SelectImage.front()->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
+			rect.bottom = NowDrawY + SelectImage.front()->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
 
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
 			DrawBox(rect.left, rect.top, rect.right, rect.bottom, COLOR_WHITE, TRUE);	//薄い四角形を描画
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
 
-			SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+			SelectImage.at(i)->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 		else		//それ以外は
 		{
-			SelectImage->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
+			SelectImage.at(i)->Draw(NowDrawX, NowDrawY);	//選択肢画像を描画
 		}
 
-		NowDrawX += SelectImage->GetWidth() + Interval_Side;			//描画位置をずらす
-		SelectImage->NextImage();									//次の画像へ
+		NowDrawX += SelectImage.front()->GetWidth() + Interval_Side;			//描画位置をずらす
 
 	}
-
-	SelectImage->ChengeImageFront();	//描画する画像を先頭の画像に戻す
 }
 
 //キー操作

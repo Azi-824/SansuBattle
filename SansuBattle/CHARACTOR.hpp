@@ -7,6 +7,7 @@
 #include "Global.hpp"
 #include "KeyDown.hpp"
 #include "Image.hpp"
+#include <vector>
 
 //###################### マクロ定義 #######################
 #define IMG_DIR_CHARA			R"(.\MY_IMG\Charactor)"		//キャラクターの画像のディレクトリ
@@ -24,12 +25,14 @@ enum HP_IMG_KIND
 	HP_ENEMY		//敵のHP
 };
 
+using std::vector;
+
 //###################### クラス定義 #######################
 class Charactor
 {
 protected:
 
-	static Image* image_hp;		//HP画像
+	static vector<Image*> image_hp;		//HP画像
 
 	int DrawX;					//描画X位置
 	int DrawY;					//描画Y位置

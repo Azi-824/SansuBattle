@@ -48,7 +48,7 @@ class Select
 
 private:
 
-	Image* SelectImage;							//選択肢の画像
+	vector<Image*> SelectImage;					//選択肢の画像
 	RECT rect;									//選択肢の領域
 	static vector<Music*> Key_se;				//キーボード操作の時の効果音
 
@@ -57,7 +57,6 @@ private:
 
 	int Choise_SelectCode;						//選んだ選択肢のコード番号
 
-	bool IsCreateSelect;						//選択肢を作れたか
 	bool IsChoise;								//選択したか
 
 	int DrawX;									//描画開始X位置
@@ -74,17 +73,16 @@ private:
 
 public:
 
-	Select(const char *,const char *,int);		//コンストラクタ
+	Select(vector<Image*>);						//コンストラクタ
 	~Select();									//デストラクタ
 
-	bool GetIsCreateSelect();					//選択肢を作れたか取得
 	bool GetIsChoise();							//選択したか取得
 	int GetChoiseSelectCode();					//選んだ選択肢のコード番号
 
 	void SetInit(int,int,int,int,int interval_vertical = 0);	//初期設定
 	void Init();								//初期化
 
-	bool Add(const char*, const char*,int);		//選択肢を追加
+	void Add(Image*);							//選択肢を追加
 
 	void Draw();								//選択肢を描画
 

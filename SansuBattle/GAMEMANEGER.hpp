@@ -57,8 +57,10 @@ private:
 
 	Fps *fps;					//fps
 	KeyDown *keydown;			//キーボード関係
-	Image* back;				//背景画像
+	vector<Image*> back;		//背景画像
+	vector<Image*> gamemode_img;//背景画像
 	Select* select_gamemode;	//ゲームモード選択肢
+	vector<Image*> gamelevel_img;//背景画像
 	Select* select_level;		//レベル選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
