@@ -40,26 +40,28 @@ enum EFFECT_KIND
 {
 	EFFECT_ATACK		//攻撃エフェクト
 };
+
+using std::vector;
 //################### クラス定義 #########################
 class Effect
 {
 private:
 
-	std::vector<std::vector<int>> Handle;				//ハンドル
-	std::vector<std::vector<int>::iterator> Handle_itr;	//ハンドルのイテレータ
+	vector<vector<int>> Handle;				//ハンドル
+	vector<vector<int>::iterator> Handle_itr;	//ハンドルのイテレータ
 
-	Music* Se;							//エフェクト効果音
+	vector<Music*> Se;					//エフェクト効果音
 
-	std::vector<int> Width;				//幅
-	std::vector<int> Height;			//高さ
+	vector<int> Width;					//幅
+	vector<int> Height;					//高さ
 
-	std::vector<double> NextChangeSpeed;		//アニメーションを変更する速さ(秒)
-	int ChangeCnt;								//アニメーションするフレームのカウント
-	std::vector<int> ChangeMaxCnt;				//アニメーションするフレームの最大値
+	vector<double> NextChangeSpeed;		//アニメーションを変更する速さ(秒)
+	int ChangeCnt;						//アニメーションするフレームのカウント
+	vector<int> ChangeMaxCnt;			//アニメーションするフレームの最大値
 
-	std::vector<bool> IsAnimeLoop;			//アニメーションはループする？
-	std::vector<bool> IsAnimeStop;			//アニメーションはストップしたか？
-	std::vector<bool> IsDraw;				//描画してよいか
+	vector<bool> IsAnimeLoop;			//アニメーションはループする？
+	vector<bool> IsAnimeStop;			//アニメーションはストップしたか？
+	vector<bool> IsDraw;				//描画してよいか
 
 	bool IsDrawEnd;				//描画終了したか
 

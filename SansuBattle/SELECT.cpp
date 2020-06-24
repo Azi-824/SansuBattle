@@ -38,8 +38,6 @@ Select::Select(const char* dir, const char* name,int code)
 	IsCreateSelect = SelectImage->GetIsLoad();		//画像を読み込めたか設定
 	SelectCode.push_back(code);						//選択肢のコード番号を設定
 	NowSelectCode = SelectCode.begin();				//現在選択しているコード番号を最初の選択肢に設定
-
-	return;
 }
 
 //デストラクタ
@@ -48,17 +46,6 @@ Select::~Select()
 	//vectorのメモリ解放を行う
 	vector<int> v;				//空のvectorを作成する
 	SelectCode.swap(v);			//空と中身を入れ替える
-
-	//for (auto se : Key_se)
-	//{
-	//	delete se;	//Key_seを破棄
-	//}
-
-	////vectorのメモリ解放を行う
-	//vector<Music*> v2;				//空のvectorを作成する
-	//Key_se.swap(v2);				//空と中身を入れ替える
-
-	return;
 
 }
 
@@ -202,7 +189,7 @@ void Select::Operation(KeyDown* keydown)
 	{
 		Choise_SelectCode = *NowSelectCode;	//現在選択している選択肢を設定
 		IsChoise = true;							//選択した
-		Key_se.at((int)SE_KEY_KETTEI)->Play(0,false);		//決定の効果音を鳴らす
+		Key_se.at((int)SE_KEY_KETTEI)->Play(false);		//決定の効果音を鳴らす
 	}
 
 	return;

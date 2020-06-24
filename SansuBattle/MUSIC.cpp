@@ -13,21 +13,21 @@
 Music::Music(const char *dir, const char *name)
 {
 	//メンバ変数を初期化
-	this->FilePath = "";	//パス
-	this->FileName = "";	//名前
+	FilePath = "";	//パス
+	FileName = "";	//名前
 
-	this->IsLoad = false;	//読み込めたか？
+	IsLoad = false;	//読み込めたか？
 
 	//音を読み込み
-	std::string LoadfilePath;	//音のファイルパスを作成
+	string LoadfilePath;	//音のファイルパスを作成
 	LoadfilePath += dir;
 	LoadfilePath += name;
 
-	this->Handle.push_back(LoadSoundMem(LoadfilePath.c_str()));	//音の読み込み
+	Handle = LoadSoundMem(LoadfilePath.c_str());	//音の読み込み
 
-	if (this->Handle.back() == -1)	//音が読み込めなかったとき
+	if (Handle == -1)	//音が読み込めなかったとき
 	{
-		std::string ErroeMsg(MUSIC_ERROR_MSG);	//エラーメッセージ作成
+		string ErroeMsg(MUSIC_ERROR_MSG);	//エラーメッセージ作成
 		ErroeMsg += TEXT('\n');					//改行
 		ErroeMsg += LoadfilePath;				//音のパス
 
@@ -40,14 +40,14 @@ Music::Music(const char *dir, const char *name)
 		return;
 	}
 
-	this->FilePath = LoadfilePath;		//音のパスを設定
-	this->FileName = name;				//音の名前を設定
+	FilePath = LoadfilePath;		//音のパスを設定
+	FileName = name;				//音の名前を設定
 
-	this->PlayType = DX_PLAYTYPE_BACK;	//最初は再生方法をバックグラウンド再生にする
+	PlayType = DX_PLAYTYPE_BACK;	//最初は再生方法をバックグラウンド再生にする
 
-	this->IsLoad = true;				//読み込み成功
+	IsLoad = true;				//読み込み成功
 
-	this->IsPlayed.push_back(false);	//再生済みではない
+	IsPlayed = false;		//再生済みではない
 
 	return;
 
@@ -56,53 +56,28 @@ Music::Music(const char *dir, const char *name)
 //デストラクタ
 Music::~Music()
 {
-
-	//範囲ベースの for ループ
-	//vectorなどのコンテナクラスで使用できる
-	//auto：型推論：コンパイラが初期値から推論して型を決めてくれる
-	for (int handle : this->Handle)
-	{
-		DeleteMusicMem(handle);		//音のハンドルの削除
-	}
-
-	//vectorのメモリ解放を行う
-	std::vector<int> v;			//空のvectorを作成する
-	this->Handle.swap(v);		//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	std::vector<bool> v2;		//空のvectorを作成する
-	this->IsPlayed.swap(v2);	//空と中身を入れ替える
-
-	return;
+	DeleteMusicMem(Handle);		//音のハンドルの削除
 }
 
 //読み込めたかどうかを取得
 bool Music::GetIsLoad()
 {
-	return this->IsLoad;
+	return IsLoad;
 }
 
 //音が再生されているか取得
 //戻り値：再生中：true　再生中じゃない：false
-bool Music::GetIsPlay(int kind)
+bool Music::GetIsPlay()
 {
-	return CheckSoundMem(this->Handle[kind]);
+	return CheckSoundMem(Handle);
 }
 
-//音楽が何種類入っているか取得
-int Music::GetSize()
-{
-	return Handle.size();
-}
 
 //初期設定
 void Music::SetInit(int type, double volume)
 {
 	PlayType = type;	//再生方法設定
-	for (int i = 0; i < Handle.size(); ++i)	//音楽の種類分
-	{
-		ChengeVolume(volume, i);			//音量を変更
-	}
+	ChengeVolume(volume);
 }
 
 //再生方法を変更する
@@ -114,118 +89,66 @@ void Music::ChengePlayType(int type)
 
 //音量を変更する
 //引数：int：音量(0～100%で指定)
-//引数：int：音量を変えたい音の種類
-void Music::ChengeVolume(double volume,int kind)
+void Music::ChengeVolume(double volume)
 {
-	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), Handle[kind]);
+	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), Handle);
 	return;
 }
 
 //音を再生する
-void Music::Play(int kind,bool check)
+void Music::Play(bool check)
 {
 	if (check)	//プレイ中か確認する場合
 	{
-		if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+		if (!GetIsPlay())		//プレイ中じゃなければ
 		{
-			PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+			PlaySoundMem(Handle, PlayType);	//音の再生
 		}
 	}
 	else		//確認しない場合
 	{
-		PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+		PlaySoundMem(Handle, PlayType);	//音の再生
 	}
 
 	return;
 }
 
 //音を再生する(1回だけ)
-void Music::PlayOne(int kind, bool check)
+void Music::PlayOne(bool check)
 {
-	if (!this->IsPlayed[kind])		//再生済みじゃなければ
+	if (!IsPlayed)		//再生済みじゃなければ
 	{
 		if (check)	//プレイ中か確認する場合
 		{
-			if (!this->GetIsPlay(kind))		//プレイ中じゃなければ
+			if (!GetIsPlay())		//プレイ中じゃなければ
 			{
-				PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+				PlaySoundMem(Handle, PlayType);	//音の再生
 
-				this->IsPlayed[kind] = true;		//再生済み
+				IsPlayed = true;		//再生済み
 
 			}
 
 		}
 		else		//確認しない場合
 		{
-			PlaySoundMem(this->Handle[kind], this->PlayType);	//音の再生
+			PlaySoundMem(Handle, PlayType);	//音の再生
 
-			this->IsPlayed[kind] = true;		//再生済み
+			IsPlayed = true;		//再生済み
 		}
 	}
 }
 
-//再生済みかどうかをリセットする(指定されたものだけ)
-void Music::PlayReset(int kind)
-{
-	this->IsPlayed[kind] = false;	//再生済みじゃない
-	return;
-}
 
-//再生済みかどうかをリセットする(全て)
+//再生済みかどうかをリセットする
 void Music::PlayReset()
 {
-	for (int i = 0; i < this->Handle.size(); ++i)
-	{
-		this->IsPlayed[i] = false;	//再生済みじゃない
-	}
+	IsPlayed = false;	//再生済みじゃない
 	return;
 }
 
-//音を止める（すべて）
+//音を止める
 void Music::Stop(void)
 {
-	for (int i = 0; i < this->Handle.size(); ++i)
-	{
-		StopSoundMem(this->Handle[i]);		//音を止める
-	}
-	return;
-}
-
-//音を止める（指定されたものだけ）
-void Music::Stop(int kind)
-{
-	StopSoundMem(this->Handle[kind]);
-	return;
-}
-
-//音を追加する
-bool Music::Add(const char *dir, const char *name)
-{
-
-	//音を読み込み
-	std::string LoadfilePath;	//音のファイルパスを作成
-	LoadfilePath += dir;
-	LoadfilePath += name;
-
-	this->Handle.push_back(LoadSoundMem(LoadfilePath.c_str()));	//音の読み込み
-
-	if (this->Handle.back() == -1)	//音が読み込めなかったとき
-	{
-		std::string ErroeMsg(MUSIC_ERROR_MSG);	//エラーメッセージ作成
-		ErroeMsg += TEXT('\n');					//改行
-		ErroeMsg += LoadfilePath;				//音のパス
-
-		MessageBox(
-			NULL,
-			ErroeMsg.c_str(),	//char * を返す
-			TEXT(MUSIC_ERROR_TITLE),
-			MB_OK);
-
-		return false;	//読み込み失敗
-	}
-
-	this->IsPlayed.push_back(false);	//再生済みではない
-
-	return true;		//読み込み成功
+	StopSoundMem(Handle);		//音を止める
 
 }

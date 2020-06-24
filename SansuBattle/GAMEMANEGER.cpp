@@ -35,9 +35,19 @@ GameManeger::~GameManeger()
 	delete player;			//player破棄
 	delete gamelimittime;	//gamelimittime破棄
 	delete effect_atk;		//effect_atk破棄
-	delete bgm;				//bgm破棄
-	delete bgm_play;		//bgm_play破棄
 	delete save;			//save破棄
+
+	//音楽関係
+	//BGM
+	for (auto bgm : this->bgm)
+	{
+		delete bgm;		//bgm破棄
+	}
+	//プレイ画面のBGM
+	for (auto bgm : bgm_play)
+	{
+		delete bgm;		//bgm_play破棄
+	}
 
 	//フォント関係
 	Font::ReleaseFont();	//読み込んだフォントを開放
@@ -72,6 +82,13 @@ GameManeger::~GameManeger()
 	vector<Font*> v4;		//空のvectorを作成する
 	font.swap(v4);			//空と中身を入れ替える
 
+	//vectorのメモリ解放を行う
+	vector<Music*> v5;		//空のvectorを作成する
+	bgm.swap(v5);			//空と中身を入れ替える
+
+	//vectorのメモリ解放を行う
+	vector<Music*> v6;		//空のvectorを作成する
+	bgm_play.swap(v6);		//空と中身を入れ替える
 
 	return;
 
@@ -142,13 +159,21 @@ bool GameManeger::Load()
 
 	//音楽関係
 	//BGM
-	bgm = new Music(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM);								//BGMを管理するオブジェクトを生成
-	if (bgm->GetIsLoad() == false) { return false; }								//読み込み失敗
-	if (bgm->Add(MUSIC_DIR_BGM, BGM_NAME_SELECT_BGM) == false) { return false; }	//選択画面のBGM追加
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_TITLE_BGM));					//BGMを管理するオブジェクトを生成
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_SELECT_BGM));					//選択肢画面のBGM追加
+	for (auto bgm : this->bgm)
+	{
+		if (bgm->GetIsLoad() == false) { return false; }	//読み込み失敗
+		bgm->SetInit(DX_PLAYTYPE_LOOP, 30);					//初期設定
+	}
 
-	bgm_play = new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ADD_BGM);						//BGM(プレイ画面)を管理するオブジェクトを生成
-	if (bgm_play->GetIsLoad() == false) { return false; }							//読み込み失敗
-	if (bgm_play->Add(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIFF_BGM) == false) { return false; }	//プレイ画面（引き算）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ADD_BGM));					//BGM(プレイ画面)を管理するオブジェクトを生成
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIFF_BGM));				//プレイ画面（引き算）のBGM追加
+	for (auto bgm : bgm_play)
+	{
+		if (bgm->GetIsLoad() == false) { return false; }	//読み込み失敗
+		bgm->SetInit(DX_PLAYTYPE_LOOP, 30);					//初期設定
+	}
 
 	//問題関係
 	//足し算
@@ -282,12 +307,6 @@ void GameManeger::SetInit()
 		enemy.at(i)->SetInit();								//敵の初期設定
 	}
 
-	//音楽関係
-	//BGM
-	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);			//再生方法をループ再生、音量を30%に設定
-	//プレイ画面のBGM
-	bgm_play->SetInit(DX_PLAYTYPE_LOOP, 30);	//再生方法をループ再生、音量を30%に設定
-
 	return;
 }
 
@@ -342,11 +361,11 @@ void GameManeger::Scene_Title()
 
 	back->ChengeImage((int)TITLE_BACK);	//背景画像を変更
 
-	bgm->Play((int)BGM_TYPE_TITLE);		//BGMを再生
+	bgm.at((int)BGM_TYPE_TITLE)->Play();		//BGMを再生
 
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
-		bgm->Stop();								//再生中の音楽を止める
+		bgm.at((int)BGM_TYPE_TITLE)->Stop();//再生中の音楽を止める
 		NowScene = (int)SCENE_CHOISELEVEL;	//難易度選択画面へ
 	}
 
@@ -368,7 +387,7 @@ void GameManeger::Scene_ChoiseGameMode()
 
 	back->ChengeImage((int)SELECT_BACK);	//背景画像を変更
 
-	bgm->Play((int)BGM_TYPE_SELECT);	//選択画面のBGMを再生
+	bgm.at((int)BGM_TYPE_SELECT)->Play();	//選択画面のBGMを再生
 
 	select_gamemode->Operation(keydown);			//選択肢キー操作
 
@@ -406,7 +425,7 @@ void GameManeger::Scene_ChoiseLevel()
 	if (select_level->GetIsChoise())		//選択したら
 	{
 		GameLevel = select_level->GetChoiseSelectCode();	//ゲームレベルを設定
-		bgm->Stop();						//再生中のBGMを止める
+		bgm.at((int)BGM_TYPE_SELECT)->Stop();				//再生中のBGMを止める
 		for (int i = 0; i < enemy.size(); ++i)	//敵の数分ループ
 		{
 			enemy.at(i)->Init();			//敵初期化
@@ -439,7 +458,7 @@ void GameManeger::Scene_Play()
 
 	back->ChengeImage((int)PLAY_BACK);	//背景画像を変更
 
-	bgm_play->Play(GameMode);			//プレイ画面のBGMを再生
+	bgm_play.at(GameMode)->Play();			//プレイ画面のBGMを再生
 
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
@@ -484,7 +503,7 @@ void GameManeger::Scene_Play()
 	{
 		save->Add(score.at(GameMode)->GetScore());	//スコアを追加
 		save->Sort();								//ソート処理
-		bgm_play->Stop();							//再生中のBGMを止める
+		bgm_play.at(GameMode)->Stop();				//再生中のBGMを止める
 		NowScene = (int)SCENE_DRAWSCORE;			//スコア表示画面へ
 	}
 

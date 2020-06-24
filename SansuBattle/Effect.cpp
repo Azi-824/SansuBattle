@@ -84,30 +84,39 @@ Effect::~Effect()
 		DeleteGraph(this->Handle[i][0]);
 	}
 
+	for (auto se : Se)
+	{
+		delete se;	//se破棄
+	}
+
 	//vectorのメモリ解放を行う
-	std::vector<std::vector<int>> v;			//空のvectorを作成する
-	this->Handle.swap(v);						//空と中身を入れ替える
+	vector<vector<int>> v;			//空のvectorを作成する
+	Handle.swap(v);						//空と中身を入れ替える
 
-	std::vector<int> v2;
-	this->Width.swap(v2);
+	vector<int> v2;
+	Width.swap(v2);
 
-	std::vector<int> v3;
-	this->Height.swap(v3);
+	vector<int> v3;
+	Height.swap(v3);
 
-	std::vector<bool> v4;
-	this->IsAnimeLoop.swap(v4);
+	vector<bool> v4;
+	IsAnimeLoop.swap(v4);
 
-	std::vector<bool> v5;
-	this->IsAnimeStop.swap(v5);
+	vector<bool> v5;
+	IsAnimeStop.swap(v5);
 
-	std::vector<double> v6;
-	this->NextChangeSpeed.swap(v6);
+	vector<double> v6;
+	NextChangeSpeed.swap(v6);
 
-	std::vector<int> v7;
-	this->ChangeMaxCnt.swap(v7);
+	vector<int> v7;
+	ChangeMaxCnt.swap(v7);
 
-	std::vector<std::vector<int>::iterator> v8;
+	vector<vector<int>::iterator> v8;
 	this->Handle_itr.swap(v8);
+
+	vector<Music*> v9;
+	Se.swap(v9);
+
 
 	return;
 
@@ -172,11 +181,11 @@ void Effect::Draw(int x, int y, int type)
 		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
 			DrawGraph(x, y, *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-			Se->PlayOne(type, false);	//効果音再生
+			Se.at(type)->PlayOne(false);	//効果音再生
 		}
 		else
 		{
-			Se->PlayReset();			//再生状態リセット
+			Se.at(type)->PlayReset();	//再生状態リセット
 			this->IsDrawEnd = true;		//描画終了
 		}
 
@@ -224,11 +233,11 @@ void Effect::DrawCenter(int type)
 		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
 		{
 			DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-			Se->PlayOne(type,false);				//効果音再生
+			Se.at(type)->PlayOne(false);				//効果音再生
 		}
 		else
 		{
-			Se->PlayReset();			//再生状態リセット
+			Se.at(type)->PlayReset();	//再生状態リセット
 			this->IsDrawEnd = true;		//描画終了
 		}
 
@@ -329,15 +338,8 @@ bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNu
 //引　数：const char* ：画像の名前
 bool Effect::AddSe(const char* dir, const char* name)
 {
-	if (Se == NULL)	//効果音のオブジェクトを作成していなければ
-	{
-		Se = new Music(dir, name);			//効果音のオブジェクトを作成
-		return Se->GetIsLoad();
-	}
-	else			//効果音のオブジェクトを作成していれば 
-	{
-		return Se->Add(dir, name);	//効果音を追加
-	}
+	Se.push_back(new Music(dir, name));			//効果音のオブジェクトを作成
+	return Se.front()->GetIsLoad();
 }
 
 //初期設定
@@ -349,9 +351,9 @@ void Effect::SetInit(void)
 		GetGraphSize(this->Handle[i][0], &this->Width[i], &this->Height[i]);	//サイズ取得
 	}
 	//SEの数だけループさせる
-	for (int i = 0; i < Se->GetSize(); ++i)
+	for (auto se : Se)
 	{
-		Se->ChengeVolume(30, i);	//音量を30％に設定
+		se->SetInit(DX_PLAYTYPE_BACK,30);		//初期設定
 	}
 }
 

@@ -62,19 +62,21 @@ enum BGM_TYPE_PLAY
 	BGM_PLAY_ADD			//足し算のBGM
 };
 
+using std::string;
+
 //##################### クラス定義 ############################
 class Music
 {
 private:
 
-	std::string FilePath;		//ファイルパス
-	std::string FileName;		//名前
+	string FilePath;		//ファイルパス
+	string FileName;		//名前
 
-	std::vector<int> Handle;	//ハンドル
-	int PlayType;				//音の再生方法
+	int Handle;				//ハンドル
+	int PlayType;			//音の再生方法
 
-	bool IsLoad;				//読み込めたか
-	std::vector<bool> IsPlayed;	//再生済みか
+	bool IsLoad;			//読み込めたか
+	bool IsPlayed;			//再生済みか
 
 
 public:
@@ -84,22 +86,17 @@ public:
 	~Music();								//デストラクタ
 
 	bool GetIsLoad();						//読み込めたかを取得する
-	bool GetIsPlay(int);					//音が再生されているか取得する
-	int GetSize();							//音楽が何種類入っているか取得
+	bool GetIsPlay();					//音が再生されているか取得する
 	void SetInit(int, double);				//初期設定
 
 	void ChengePlayType(int);				//音の再生方法を変更する
-	void ChengeVolume(double,int);			//音量を変更する
+	void ChengeVolume(double);			//音量を変更する
 
-	void Play(int,bool check =true);		//音を再生する
-	void PlayOne(int,bool check = true);	//音を再生する(1回だけ)
+	void Play(bool check =true);		//音を再生する
+	void PlayOne(bool check = true);	//音を再生する(1回だけ)
 
-	void PlayReset(int);					//再生済みかどうかをリセットする(指定されたものだけ)
 	void PlayReset();						//再生済みがどうかをリセットする(全て)
 
 	void Stop();							//音を止める(全て)
-	void Stop(int);							//音を止める(指定されたものだけ)
-
-	bool Add(const char*, const char*);		//音を追加する
 
 };
