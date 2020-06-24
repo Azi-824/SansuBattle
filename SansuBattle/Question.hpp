@@ -47,6 +47,7 @@ protected:
 	std::string Q_Text;			//–â‘è•¶
 	int Anser;					//“š‚¦
 	int InputNum;				//“ü—Í‚³‚ê‚½”š
+	int InputNumBuf;			//“ü—Í‚³‚ê‚½”š‚ğ’™‚ß‚Ä‚¨‚­
 	bool IsCreate;				//–â‘è‚ğì¬‚µ‚½‚©
 
 private:

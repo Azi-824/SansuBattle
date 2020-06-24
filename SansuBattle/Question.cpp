@@ -15,6 +15,7 @@ Question::Question()
 	//メンバー初期化
 	Anser = -1;				//答え初期化
 	InputNum = 0;			//入力された数字初期化
+	InputNumBuf = 0;		//貯めてある数字を初期化
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
@@ -76,8 +77,7 @@ bool Question::JudgAnser()
 //戻り値：bool：true 入力終了：false 入力中
 bool Question::CheckInputKey(KeyDown* keydown)
 {
-	static int InputNumBuf = 0;						//入力された数字
-	static int Weight = 10;							//桁の重み
+	static int Weight = 10;					//桁の重み
 	int NewInputNum = GetInputNum(keydown);	//新たに入力された数字
 
 	if (!(NewInputNum == INPUT_ENTER || NewInputNum == INPUT_NOT_NUM))	//数値を入力した時
@@ -203,6 +203,7 @@ void Question::Reset()
 {
 	Anser = -1;			//答えリセット
 	InputNum = 0;		//キー入力内容リセット
+	InputNumBuf = 0;	//貯めてある数字を初期化
 	Q_Text = "";		//問題文リセット
 	IsCreate = false;	//問題を作成したかリセット
 }
