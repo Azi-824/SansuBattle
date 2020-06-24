@@ -39,8 +39,9 @@ enum BACK_IMAGE
 	END_BACK		//エンド画面の画像
 };
 
-//########## クラスの定義 ##########
+using std::string;
 
+//########## クラスの定義 ##########
 class Image
 {
 private:
