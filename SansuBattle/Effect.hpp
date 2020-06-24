@@ -47,21 +47,21 @@ class Effect
 {
 private:
 
-	vector<vector<int>> Handle;				//ハンドル
-	vector<vector<int>::iterator> Handle_itr;	//ハンドルのイテレータ
+	vector<int> Handle;					//ハンドル
+	vector<int>::iterator Handle_itr;	//ハンドルのイテレータ
 
-	vector<Music*> Se;					//エフェクト効果音
+	Music* Se;					//エフェクト効果音
 
-	vector<int> Width;					//幅
-	vector<int> Height;					//高さ
+	int Width;					//幅
+	int Height;					//高さ
 
-	vector<double> NextChangeSpeed;		//アニメーションを変更する速さ(秒)
+	double NextChangeSpeed;		//アニメーションを変更する速さ(秒)
 	int ChangeCnt;						//アニメーションするフレームのカウント
-	vector<int> ChangeMaxCnt;			//アニメーションするフレームの最大値
+	int ChangeMaxCnt;			//アニメーションするフレームの最大値
 
-	vector<bool> IsAnimeLoop;			//アニメーションはループする？
-	vector<bool> IsAnimeStop;			//アニメーションはストップしたか？
-	vector<bool> IsDraw;				//描画してよいか
+	bool IsAnimeLoop;			//アニメーションはループする？
+	bool IsAnimeStop;			//アニメーションはストップしたか？
+	bool IsDraw;				//描画してよいか
 
 	bool IsDrawEnd;				//描画終了したか
 
@@ -73,28 +73,25 @@ private:
 
 public:
 
-	Effect(const char*, const char*, int, int, int, int, int, double, bool);	//コンストラクタ	
+	Effect(const char*, const char*, int, int, int, int, int, double, bool,Music*);	//コンストラクタ	
 
 	~Effect();					//デストラクタ
 
-	int GetWidth(int);			//幅を取得
-	int GetHeight(int);			//高さを取得
+	int GetWidth();			//幅を取得
+	int GetHeight();			//高さを取得
 
 	bool GetIsLoad(void);		//読み込めた？
 
-	bool GetIsAnimeStop(int);	//アニメーションはストップしたかを取得
+	bool GetIsAnimeStop();	//アニメーションはストップしたかを取得
 
 	bool GetIsDrawEnd();		//描画終了したか取得
 
 	void SetIsDrawEnd(bool);	//描画終了したか設定
 
-	void ResetIsAnime(int);		//アニメーションがストップしたかをリセット
+	void ResetIsAnime();		//アニメーションがストップしたかをリセット
 
-	void Draw(int, int, int);	//描画
-	void DrawCenter(int);		//画面中央に描画
-
-	bool Add(const char*, const char*, int, int, int, int, int, double, bool);	//エフェクト追加
-	bool AddSe(const char*, const char*);	//効果音追加
+	void Draw(int, int);	//描画
+	void DrawCenter();		//画面中央に描画
 
 	void SetInit();						//初期設定
 
@@ -104,7 +101,7 @@ public:
 	bool FadeOut(int, int, int, int);		//フェードアウトエフェクト
 	bool FadeIn(int, int, int, int);	//フェードインエフェクト
 
-	void SetIsDraw(bool, int);			//描画してよいか設定
-	bool GetIsDraw(int);				//描画してよいか取得
+	void SetIsDraw(bool);			//描画してよいか設定
+	bool GetIsDraw();				//描画してよいか取得
 
 };

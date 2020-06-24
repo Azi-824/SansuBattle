@@ -18,29 +18,29 @@
 引　数：double：次の画像に変更する速さ
 引　数：bool：アニメーションをループするかどうか
 */
-Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop)
+Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop,Music* se)
 {
 	//メンバー変数初期化
-	this->IsLoad = false;			//読み込めたか？
-	this->IsDrawEnd = false;		//描画終了したか?
-	this->IsFadein = false;			//フェードイン処理を行わない
-	this->IsFadeout = false;		//フェードアウト処理を行わない
-	this->IsCreateSe = false;		//効果音のオブジェクトを作成していない
-	this->Width.push_back(0);		//横幅を初期化
-	this->Height.push_back(0);		//高さを初期化
+	IsLoad = false;			//読み込めたか？
+	IsDrawEnd = false;		//描画終了したか?
+	IsFadein = false;		//フェードイン処理を行わない
+	IsFadeout = false;		//フェードアウト処理を行わない
+	IsCreateSe = false;		//効果音のオブジェクトを作成していない
+	Width = 0;				//横幅を初期化
+	Height = 0;				//高さを初期化
 
 	//画像を読み込み
 	std::string LoadfilePath;		//画像のファイルパスを作成
 	LoadfilePath += dir;
 	LoadfilePath += name;
 
-	std::vector<int> work(SplitNumALL);	//分割読み込みで得たハンドルを格納する配列を総分割数で初期化
+	vector<int> work(SplitNumALL);	//分割読み込みで得たハンドルを格納する配列を総分割数で初期化
 
 	//画像を分割して読み込み
 	LoadDivGraph(LoadfilePath.c_str(), SplitNumALL, SpritNumX, SplitNumY, SplitWidth, SplitHeight, &work.front());
-	this->Handle.push_back(work);
+	Handle = work;
 
-	if (this->Handle.front().front() == -1)	//画像が読み込めなかったとき
+	if (Handle.front() == -1)	//画像が読み込めなかったとき
 	{
 		std::string ErrorMsg(EFFECT_ERROR_MSG);	//エラーメッセージ作成
 		ErrorMsg += TEXT('\n');						//改行
@@ -55,22 +55,24 @@ Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX
 		return;
 	}
 
-	this->ChangeMaxCnt.push_back(GAME_FPS_SPEED * changeSpeed);
-	this->ChangeCnt = 0;	//アニメーションするフレームのカウント
+	ChangeMaxCnt = (GAME_FPS_SPEED * changeSpeed);
+	ChangeCnt = 0;	//アニメーションするフレームのカウント
 
-	this->NextChangeSpeed.push_back(changeSpeed);	//画像を変える速さ
+	NextChangeSpeed = changeSpeed;	//画像を変える速さ
 
-	this->IsAnimeLoop.push_back(IsLoop);	//アニメーションがループするか
-	this->IsAnimeStop.push_back(false);		//アニメーションを動かす
-	IsDraw.push_back(false);				//描画してよいか（最初は描画しない）
+	IsAnimeLoop = IsLoop;		//アニメーションがループするか
+	IsAnimeStop = false;		//アニメーションを動かす
+	IsDraw = false;				//描画してよいか（最初は描画しない）
 
-	this->Handle_itr.push_back(this->Handle.front().begin());	//先頭要素をイテレータに設定
+	Handle_itr = Handle.begin();	//先頭要素をイテレータに設定
 
-	this->IsLoad = true;		//読み込めた
+	Se = se;			//効果音追加
+
+	IsLoad = true;		//読み込めた
 
 	//vectorのメモリ解放を行う
-	std::vector<int> v;			//空のvectorを作成する
-	work.swap(v);				//空と中身を入れ替える
+	vector<int> v;			//空のvectorを作成する
+	work.swap(v);			//空と中身を入れ替える
 
 	return;
 
@@ -79,91 +81,61 @@ Effect::Effect(const char* dir, const char* name, int SplitNumALL, int SpritNumX
 //デストラクタ
 Effect::~Effect()
 {
-	for (int i = 0; i < this->Handle.size(); ++i)
-	{
-		DeleteGraph(this->Handle[i][0]);
-	}
 
-	for (auto se : Se)
-	{
-		delete se;	//se破棄
-	}
+	DeleteGraph(Handle.front());
+
+	delete Se;	//Se破棄
 
 	//vectorのメモリ解放を行う
-	vector<vector<int>> v;			//空のvectorを作成する
-	Handle.swap(v);						//空と中身を入れ替える
-
-	vector<int> v2;
-	Width.swap(v2);
-
-	vector<int> v3;
-	Height.swap(v3);
-
-	vector<bool> v4;
-	IsAnimeLoop.swap(v4);
-
-	vector<bool> v5;
-	IsAnimeStop.swap(v5);
-
-	vector<double> v6;
-	NextChangeSpeed.swap(v6);
-
-	vector<int> v7;
-	ChangeMaxCnt.swap(v7);
-
-	vector<vector<int>::iterator> v8;
-	this->Handle_itr.swap(v8);
-
-	vector<Music*> v9;
-	Se.swap(v9);
-
+	vector<int> v;			//空のvectorを作成する
+	Handle.swap(v);			//空と中身を入れ替える
 
 	return;
 
 }
 
 //幅を取得
-int Effect::GetWidth(int type)
+int Effect::GetWidth()
 {
-	return this->Width[type];
+	return Width;
 }
 
 //高さを取得
-int Effect::GetHeight(int type)
+int Effect::GetHeight()
 {
-	return this->Height[type];
+	return Height;
 }
 
 //読み込めた？
 bool Effect::GetIsLoad(void)
 {
-	return this->IsLoad;
+	return IsLoad;
 }
 
 //アニメーションはストップしたかを取得
-bool  Effect::GetIsAnimeStop(int type)
+bool  Effect::GetIsAnimeStop()
 {
-	return this->IsAnimeStop[type];
+	return IsAnimeStop;
 }
 
 //描画終了したかどうか取得
 bool Effect::GetIsDrawEnd()
 {
-	return this->IsDrawEnd;
+	return IsDrawEnd;
 }
 
 //描画終了したか設定
 void Effect::SetIsDrawEnd(bool isend)
 {
-	this->IsDrawEnd = isend;
+	IsDrawEnd = isend;
 	return;
 }
 
 //アニメーションがストップしたかをリセット
-void Effect::ResetIsAnime(int type)
+void Effect::ResetIsAnime()
 {
-	this->IsAnimeStop[type] = false;
-	this->IsDrawEnd = false;
+	IsAnimeStop = false;
+	IsDrawEnd = false;
 	return;
 }
 
@@ -171,203 +143,118 @@ void Effect::ResetIsAnime(int type)
 /*
 引数：int：Xの描画位置
 引数：int：Yの描画位置
-引数：int：描画するエフェクトの種類
 */
-void Effect::Draw(int x, int y, int type)
+void Effect::Draw(int x, int y)
 {
 
-	if (IsDraw.at(type))		//描画してよければ
+	if (IsDraw)		//描画してよければ
 	{
-		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
+		if (IsAnimeStop == false)	//アニメーションをストップさせないなら
 		{
-			DrawGraph(x, y, *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-			Se.at(type)->PlayOne(false);	//効果音再生
+			DrawGraph(x, y, *Handle_itr, TRUE);	//イテレータ(ポインタ)を使用して描画
+			Se->PlayOne(false);	//効果音再生
 		}
 		else
 		{
-			Se.at(type)->PlayReset();	//再生状態リセット
-			this->IsDrawEnd = true;		//描画終了
+			Se->PlayReset();	//再生状態リセット
+			IsDrawEnd = true;	//描画終了
 		}
 
-		if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
+		if (ChangeCnt == ChangeMaxCnt)	//次の画像を表示する時がきたら
 		{
 			//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
-			if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+			if (Handle_itr == Handle.end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
 			{
 				//アニメーションをループしないなら
-				if (this->IsAnimeLoop[type] == false)
+				if (IsAnimeLoop == false)
 				{
-					this->IsAnimeStop[type] = true;	//アニメーションを止める
+					IsAnimeStop = true;	//アニメーションを止める
 				}
 
 				//次回の描画に備えて、先頭の画像に戻しておく
-				this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+				Handle_itr = Handle.begin();	//イテレータ(ポインタ)を要素の最初に戻す
 			}
 			else
 			{
-				++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+				++Handle_itr;	//次のイテレータ(ポインタ)(次の画像)に移動する
 			}
 
-			this->ChangeCnt = 0;	//カウント初期化
+			ChangeCnt = 0;	//カウント初期化
 		}
 		else
 		{
-			this->ChangeCnt++;	//カウントアップ
+			++ChangeCnt;	//カウントアップ
 		}
 
 	}
-
-	return;
 
 }
 
 //画面中央に描画
-/*
-引数：int：描画するエフェクトの種類
-*/
-void Effect::DrawCenter(int type)
+void Effect::DrawCenter()
 {
 
-	if (IsDraw.at(type))	//描画してよければ
+	if (IsDraw)	//描画してよければ
 	{
-		if (this->IsAnimeStop[type] == false)	//アニメーションをストップさせないなら
+		if (IsAnimeStop == false)	//アニメーションをストップさせないなら
 		{
-			DrawGraph((GAME_WIDTH / 2) - (Width.at(type) / 2), (GAME_HEIGHT / 2) - (Height.at(type) / 2), *this->Handle_itr.at(type), TRUE);	//イテレータ(ポインタ)を使用して描画
-			Se.at(type)->PlayOne(false);				//効果音再生
+			DrawGraph((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), *Handle_itr, TRUE);	//イテレータ(ポインタ)を使用して描画
+			Se->PlayOne(false);				//効果音再生
 		}
 		else
 		{
-			Se.at(type)->PlayReset();	//再生状態リセット
-			this->IsDrawEnd = true;		//描画終了
+			Se->PlayReset();	//再生状態リセット
+			IsDrawEnd = true;		//描画終了
 		}
 
-		if (this->ChangeCnt == this->ChangeMaxCnt.at(type))	//次の画像を表示する時がきたら
+		if (ChangeCnt == ChangeMaxCnt)	//次の画像を表示する時がきたら
 		{
 			//this->Handle.end()は、最後の要素の１個次のイテレータを返すので、-1している。
-			if (this->Handle_itr.at(type) == this->Handle[type].end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
+			if (Handle_itr == Handle.end() - 1)	//イテレータ(ポインタ)が最後の要素のときは
 			{
 				//アニメーションをループしないなら
-				if (this->IsAnimeLoop[type] == false)
+				if (IsAnimeLoop == false)
 				{
-					this->IsAnimeStop[type] = true;	//アニメーションを止める
+					IsAnimeStop = true;	//アニメーションを止める
 				}
 
 				//次回の描画に備えて、先頭の画像に戻しておく
-				this->Handle_itr.at(type) = this->Handle[type].begin();	//イテレータ(ポインタ)を要素の最初に戻す
+				Handle_itr = Handle.begin();	//イテレータ(ポインタ)を要素の最初に戻す
 			}
 			else
 			{
-				++this->Handle_itr.at(type);	//次のイテレータ(ポインタ)(次の画像)に移動する
+				++Handle_itr;	//次のイテレータ(ポインタ)(次の画像)に移動する
 			}
 
-			this->ChangeCnt = 0;	//カウント初期化
+			ChangeCnt = 0;	//カウント初期化
 		}
 		else
 		{
-			this->ChangeCnt++;	//カウントアップ
+			++ChangeCnt;	//カウントアップ
 		}
 
 	}
 
-
-	return;
-
-}
-
-//追加
-/*
-引　数：const char *：画像のディレクトリ
-引　数：const char *：画像の名前
-引　数：int：画像の総分割数
-引　数：int：画像の横向きの分割数
-引　数：int：画像の縦向きの分割数
-引　数：int：画像の分割された横の大きさ
-引　数：int：画像の分割された縦の大きさ
-引　数：double：次の画像に変更する速さ
-引　数：bool：アニメーションをループするかどうか
-*/
-bool Effect::Add(const char* dir, const char* name, int SplitNumALL, int SpritNumX, int SplitNumY, int SplitWidth, int SplitHeight, double changeSpeed, bool IsLoop)
-{
-	this->IsAnimeLoop.push_back(IsLoop);		//アニメーションはループする？
-	this->IsAnimeStop.push_back(false);			//アニメーションを動かす
-	IsDraw.push_back(false);					//描画してよいか
-	this->Width.push_back(0);					//横幅を初期化
-	this->Height.push_back(0);					//高さを初期化
-
-	//画像を読み込み
-	std::string LoadfilePath;		//画像のファイルパスを作成
-	LoadfilePath += dir;
-	LoadfilePath += name;
-
-	std::vector<int> work(SplitNumALL);	//分割読み込みで得たハンドルを、格納する配列を総分割数で初期化
-
-	//画像を分割して読み込み
-	LoadDivGraph(LoadfilePath.c_str(), SplitNumALL, SpritNumX, SplitNumY, SplitWidth, SplitHeight, &work.front());
-	this->Handle.push_back(work);	//ハンドルを格納
-
-	if (this->Handle.back().front() == -1)	//画像が読み込めなかったとき
-	{
-		std::string ErrorMsg(EFFECT_ERROR_MSG);	//エラーメッセージ作成
-		ErrorMsg += TEXT('\n');						//改行
-		ErrorMsg += LoadfilePath;					//画像のパス
-
-		MessageBox(
-			NULL,
-			ErrorMsg.c_str(),	//char * を返す
-			TEXT(EFFECT_ERROR_TTILE),
-			MB_OK);
-
-		return false;		//読み込み失敗
-	}
-
-	this->Handle_itr.push_back(this->Handle.back().begin());		//先頭要素をイテレータに設定
-
-	this->ChangeMaxCnt.push_back(GAME_FPS_SPEED * changeSpeed);
-	this->NextChangeSpeed.push_back(changeSpeed);		//次の画像に変更する速さ
-
-	//vectorのメモリ解放を行う
-	std::vector<int> v;			//空のvectorを作成する
-	work.swap(v);				//空と中身を入れ替える
-
-	return true;		//読み込めた
-
-}
-
-//効果音追加
-//引　数：const char* ：画像のディレクトリ
-//引　数：const char* ：画像の名前
-bool Effect::AddSe(const char* dir, const char* name)
-{
-	Se.push_back(new Music(dir, name));			//効果音のオブジェクトを作成
-	return Se.front()->GetIsLoad();
 }
 
 //初期設定
 void Effect::SetInit(void)
 {
-	//エフェクトの数だけループさせる
-	for (int i = 0; i < this->Handle.size(); ++i)
-	{
-		GetGraphSize(this->Handle[i][0], &this->Width[i], &this->Height[i]);	//サイズ取得
-	}
-	//SEの数だけループさせる
-	for (auto se : Se)
-	{
-		se->SetInit(DX_PLAYTYPE_BACK,30);		//初期設定
-	}
+	GetGraphSize(Handle.front(), &Width, &Height);		//サイズ取得
+	Se->SetInit(DX_PLAYTYPE_BACK, 30);					//初期設定
 }
 
 //フェードアウトをするか設定
 void Effect::SetIsFadeout(bool isfadeout)
 {
-	this->IsFadeout = isfadeout;
+	IsFadeout = isfadeout;
 	return;
 }
 
 //フェードインをするか設定
 void Effect::SetIsFadein(bool isfadein)
 {
-	this->IsFadein = isfadein;
+	IsFadein = isfadein;
 	return;
 }
 
@@ -481,14 +368,14 @@ bool Effect::FadeIn(int x, int y, int width, int height)
 //描画してよいか設定
 //引数：bool：描画してよいか
 //引数：int：描画するエフェクトの種類
-void Effect::SetIsDraw(bool isdraw, int type)
+void Effect::SetIsDraw(bool isdraw)
 {
-	IsDraw.at(type) = isdraw;
+	IsDraw = isdraw;
 }
 
 //描画してよいか取得
 //引数：int：描画するエフェクトの種類
-bool Effect::GetIsDraw(int type)
+bool Effect::GetIsDraw()
 {
-	return IsDraw.at(type);
+	return IsDraw;
 }

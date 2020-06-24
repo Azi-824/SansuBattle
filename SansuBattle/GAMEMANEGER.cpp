@@ -34,7 +34,6 @@ GameManeger::~GameManeger()
 	delete select_level;	//stage_select破棄
 	delete player;			//player破棄
 	delete gamelimittime;	//gamelimittime破棄
-	delete effect_atk;		//effect_atk破棄
 	delete save;			//save破棄
 
 	//音楽関係
@@ -43,11 +42,37 @@ GameManeger::~GameManeger()
 	{
 		delete bgm;		//bgm破棄
 	}
+	//vectorのメモリ解放を行う
+	vector<Music*> v5;		//空のvectorを作成する
+	bgm.swap(v5);			//空と中身を入れ替える
+
 	//プレイ画面のBGM
 	for (auto bgm : bgm_play)
 	{
 		delete bgm;		//bgm_play破棄
 	}
+	//vectorのメモリ解放を行う
+	vector<Music*> v6;		//空のvectorを作成する
+	bgm_play.swap(v6);		//空と中身を入れ替える
+
+	//エフェクトSE
+	for (auto se : effect_se)
+	{
+		delete se;		//effect_se破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Music*> v7;		//空のvectorを作成する
+	effect_se.swap(v7);		//空と中身を入れ替える
+
+	//エフェクト関係
+	for (auto effect : effect_atk)
+	{
+		delete effect;	//effect_atk破棄
+	}
+	//vectorのメモリ解放を行う
+	vector<Effect*> v8;		//空のvectorを作成する
+	effect_atk.swap(v8);	//空と中身を入れ替える
+
 
 	//フォント関係
 	Font::ReleaseFont();	//読み込んだフォントを開放
@@ -81,16 +106,6 @@ GameManeger::~GameManeger()
 	//vectorのメモリ解放を行う
 	vector<Font*> v4;		//空のvectorを作成する
 	font.swap(v4);			//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	vector<Music*> v5;		//空のvectorを作成する
-	bgm.swap(v5);			//空と中身を入れ替える
-
-	//vectorのメモリ解放を行う
-	vector<Music*> v6;		//空のvectorを作成する
-	bgm_play.swap(v6);		//空と中身を入れ替える
-
-	return;
 
 }
 
@@ -153,9 +168,17 @@ bool GameManeger::Load()
 	}
 
 	//エフェクト関係
-	effect_atk = new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT, EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false);	//攻撃エフェクトを管理するオブジェクトを生成
-	if (effect_atk->GetIsLoad() == false) { return false; }//読み込み失敗
-	if (effect_atk->AddSe(MUSIC_DIR_EFFECT, SE_NAME_EFFECT_ATK) == false) { return false; }	//効果音追加
+	effect_se.push_back(new Music(MUSIC_DIR_EFFECT, SE_NAME_EFFECT_ATK));	//エフェクトの効果音作成
+	for (auto se : effect_se)
+	{
+		if (se->GetIsLoad() == false) { return false; }	//読み込み失敗
+	}
+	effect_atk.push_back(new Effect(EFFECT_DIR, EFFECT_NAME_ATACK, EFFECT_ATACK_ALL_CNT, EFFECT_ATACK_YOKO_CNT, EFFECT_ATACK_TATE_CNT,
+		EFFECT_ATACK_WIDTH, EFFECT_ATACK_HEIGHT, EFFECT_ATACK_SPEED, false,effect_se.at((int)SE_EFFECT_ATACK)));	//攻撃エフェクトを管理するオブジェクトを生成
+	for (auto effect : effect_atk)
+	{
+		if (effect->GetIsLoad() == false) { return false; }	//読み込み失敗
+	}
 
 	//音楽関係
 	//BGM
@@ -300,7 +323,11 @@ void GameManeger::SetInit()
 	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH, SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
 	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH, SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
-	effect_atk->SetInit();															//エフェクト初期設定
+
+	for (auto effect : effect_atk)
+	{
+		effect->SetInit();	//初期設定
+	}
 
 	for (int i = 0; i < enemy.size(); ++i)
 	{
@@ -471,7 +498,7 @@ void GameManeger::Scene_Play()
 	{
 		if (question.at(GameMode)->JudgAnser())				//プレイヤーの回答が正解だったら
 		{
-			effect_atk->SetIsDraw(true,(int)EFFECT_ATACK);			//アニメーションの描画を開始する
+			effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(true);			//アニメーションの描画を開始する
 		}
 		else		//不正解だったら
 		{
@@ -480,10 +507,10 @@ void GameManeger::Scene_Play()
 
 	}
 
-	if (effect_atk->GetIsDrawEnd())							//アニメーション描画が終わったら
+	if (effect_atk.at((int)EFFECT_ATACK)->GetIsDrawEnd())							//アニメーション描画が終わったら
 	{
-		effect_atk->SetIsDraw(false, (int)EFFECT_ATACK);					//アニメーションを描画しない
-		effect_atk->ResetIsAnime((int)EFFECT_ATACK);						//アニメーション状態をリセット
+		effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(false);					//アニメーションを描画しない
+		effect_atk.at((int)EFFECT_ATACK)->ResetIsAnime();					//アニメーション状態をリセット
 		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
 		score.at(GameMode)->CalcScore(GameLevel, gamelimittime->GetElapsedTime());	//スコア加算						
 		gamelimittime->SetTime();											//制限時間の再計測
@@ -531,7 +558,7 @@ void GameManeger::Draw_Scene_Play()
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 
-	effect_atk->DrawCenter((int)EFFECT_ATACK);	//攻撃エフェクト描画
+	effect_atk.at((int)EFFECT_ATACK)->DrawCenter();	//攻撃エフェクト描画
 
 	return;
 }
