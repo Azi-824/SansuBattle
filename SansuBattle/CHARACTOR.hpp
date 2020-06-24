@@ -18,6 +18,12 @@
 
 #define HP_INIT_VALUE	5	//HPの初期値
 
+#define PLAYER_HP_DRAW_X		20	//HPの描画開始X位置
+#define PLAYER_HP_DRAW_Y		50	//HPの描画開始Y位置
+
+#define ENEMY_HP_DRAW_X		20		//HPの描画開始X位置
+#define ENEMY_HP_DRAW_Y		150		//HPの描画開始Y位置
+
 //###################### 列挙型 #################
 enum HP_IMG_KIND
 {
@@ -38,6 +44,7 @@ protected:
 	int DrawY;					//描画Y位置
 
 	int HP;						//HP
+	int DrawHp_type;			//描画するHP画像のタイプ
 
 	bool IsArive;				//生きているか
 	bool IsKeyOperation;		//キーボードで操作できるか
@@ -59,7 +66,7 @@ public:
 
 	void SendDamege();			//ダメージを与える
 
-	virtual void DrawHp() = 0;	//HP描画
+	void DrawHp();				//HP描画
 
 	int GetHp();				//HP取得
 

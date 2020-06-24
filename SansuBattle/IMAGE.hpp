@@ -65,7 +65,6 @@ public:
 	std::string GetFileName(void);	//名前を取得
 
 	void SetInit(void);				//サイズをセット
-	//int GetSize();					//画像数を取得
 
 	int GetWidth();		//幅を取得
 	int GetHeight();	//高さを取得
@@ -75,14 +74,6 @@ public:
 
 	void Draw(int, int);		//画像を描画
 	void DrawCenter(int width = GAME_WIDTH,int height = GAME_HEIGHT);	//画像を描画（中央）
-
-	//bool AddImage(const char *, const char *);	//画像を追加
-	//void ChengeImage(int);						//描画する画像を変更
-	//void NextImage();							//描画する画像を一つ次の画像へ
-	//void NextImage(int);						//描画する画像を指定された数、次の画像へ
-	//void PrevImage();							//描画する画像を一つ前の画像へ
-	//void PrevImage(int);						//描画する画像を指定された数、前の画像へ
-	//void ChengeImageFront();					//描画する画像を先頭の画像へ
 
 	void SetIsFade(bool);		//フェードアウトするか設定
 	bool GetFadeEnd();			//フェードエフェクトが終了しているか取得

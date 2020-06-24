@@ -14,9 +14,6 @@
 #define IMG_NAME_ENEMY_THIRD	R"(\enemy3.png)"	//敵(3体目)の画像の名前
 #define IMG_NAME_ENEMY_HP		R"(\enemy_hp.png)"	//敵のHPの画像の名前
 
-#define ENEMY_HP_DRAW_X		20	//HPの描画開始X位置
-#define ENEMY_HP_DRAW_Y		150	//HPの描画開始Y位置
-
 #define ENEMY_MAX		3			//敵の最大数
 
 //############### クラス定義 ####################
@@ -41,7 +38,6 @@ public:
 
 	void Draw();						//敵キャラ描画
 	void DrawCenter();					//中央に描画
-	void DrawHp() override;				//HP描画
 
 	bool GetFadeEnd();					//フェードアウト終了したか
 

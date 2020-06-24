@@ -18,6 +18,8 @@ Enemy::Enemy(const char* dir, const char* name)
 	image = new Image(dir, name);	//画像生成
 	IsLoad = image->GetIsLoad();	//読み込めたか
 
+	DrawHp_type = HP_ENEMY;			//HPのタイプは敵
+
 	return;
 }
 
@@ -85,16 +87,6 @@ void Enemy::DrawCenter()
 		image->SetIsFade(true);	//フェードアウト開始
 		image->DrawCenter();	//中央に描画
 	}
-}
-
-//HP描画
-void Enemy::DrawHp()
-{
-	for (int i = 0; i < HP; ++i)	//HPの分ループ
-	{
-		image_hp.at((int)HP_ENEMY)->Draw(ENEMY_HP_DRAW_X + i * image_hp.at((int)HP_ENEMY)->GetWidth(), ENEMY_HP_DRAW_Y);	//HP画像描画
-	}
-
 }
 
 //フェードアウト終了したか取得

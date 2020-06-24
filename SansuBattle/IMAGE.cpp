@@ -56,33 +56,7 @@ Image::Image(const char *dir,const char *name)
 //デストラクタ
 Image::~Image()
 {
-	//for (int handle : this->Handle)
-	//{
-	//	DeleteGraph(handle);		//読み込んだ画像を削除
-	//}
-
 	DeleteGraph(Handle);	//読み込んだ画像を削除
-
-	//vectorのメモリ解放を行う
-	//std::vector<int> v;			//空のvectorを作成する
-	//this->Handle.swap(v);		//空と中身を入れ替える
-
-	//std::vector<int>v2;
-	//this->Width.swap(v2);
-
-	//std::vector<int>v3;
-	//this->Height.swap(v3);
-
-	//std::vector<bool>v4;
-	//this->IsDraw.swap(v4);
-
-	//std::vector<bool>v5;
-	//this->IsFade.swap(v5);
-
-	//std::vector<bool>v6;
-	//this->FadeEnd.swap(v6);
-
-	//return;
 }
 
 //ファイルの名前を取得
@@ -94,23 +68,9 @@ std::string Image::GetFileName(void)
 //サイズを設定する
 void Image::SetInit(void)
 {
-	//Width.resize(Handle.size());	//サイズ変更
-	//Height.resize(Handle.size());	//サイズ変更
-	//画像の数だけループする
-	//for (int i = 0; i < this->Handle.size(); ++i)
-	//{
-	//	GetGraphSize(this->Handle[i], &this->Width[i], &this->Height[i]);	//画像サイズ取得
-	//}
-
 	GetGraphSize(Handle, &Width, &Height);	//画像サイズ取得
 	return;
 }
-
-//画像数を取得する
-//int Image::GetSize(void)
-//{
-//	return this->Handle.size();
-//}
 
 //幅を取得
 int Image::GetWidth()
@@ -260,103 +220,6 @@ void Image::DrawCenter(int width,int height)
 
 	return;
 }
-
-//画像を追加
-//引　数：const char *：画像のディレクトリ
-//引　数：const char *：画像の名前
-//bool Image::AddImage(const char *dir, const char *name)
-//{
-//
-//	this->IsLoad = false;	//読み込めていない
-//
-//	//画像を読み込み
-//	std::string LoadfilePath;	//画像のファイルパスを作成
-//	LoadfilePath += dir;
-//	LoadfilePath += name;
-//
-//	this->Handle.push_back(LoadGraph(LoadfilePath.c_str()));	//画像を読み込み
-//
-//
-//	if (this->Handle.back() == -1)	//画像が読み込めなかったとき
-//	{
-//		std::string ErroeMsg(IMAGE_ERROR_MSG);	//エラーメッセージ作成
-//		ErroeMsg += TEXT('\n');					//改行
-//		ErroeMsg += LoadfilePath;				//画像のパス
-//
-//		MessageBox(
-//			NULL,
-//			ErroeMsg.c_str(),	//char * を返す
-//			TEXT(IMAGE_ERROR_TITLE),
-//			MB_OK);
-//
-//		return false;
-//	}
-//
-//	this->IsLoad = true;		//読み込めた
-//
-//	this->IsDraw.push_back(true);	//描画してよい
-//	this->IsFade.push_back(false);	//フェードアウトしない
-//	this->FadeEnd.push_back(false);	//フェードエフェクトが終わっていない
-//
-//	this->ImageKind = this->Handle.size();	//読み込んだ数を取得
-//
-//	return true;
-//
-//}
-//
-////描画する画像を変更
-//void Image::ChengeImage(int kind)
-//{
-//	this->Draw_Num = kind;
-//	return;
-//}
-//
-////描画する画像を一つ次の画像へ
-//void Image::NextImage()
-//{
-//	if (this->Draw_Num < this->Handle.size() - 1)	//描画する画像が最後の画像じゃなければ
-//	{
-//		++this->Draw_Num;	//次の画像へ
-//	}
-//	return;
-//}
-//
-////描画する画像を指定された数、次の画像へ
-//void Image::NextImage(int value)
-//{
-//	if (this->Draw_Num + value < this->Handle.size() - 1)	//描画する画像が最後の画像じゃなければ
-//	{
-//		this->Draw_Num += value;	//指定された数、次の画像へ
-//	}
-//	return;
-//}
-//
-////描画する画像を一つ前の画像へ
-//void Image::PrevImage()
-//{
-//	if (this->Draw_Num > 0)	//描画する画像が最初の画像じゃなければ
-//	{
-//		--this->Draw_Num;	//前の画像へ
-//	}
-//	return;
-//}
-//
-////描画する画像を指定された数、前の画像へ
-//void Image::PrevImage(int value)
-//{
-//	if (this->Draw_Num - value > 0)	//描画する画像が最初の画像じゃなければ
-//	{
-//		this->Draw_Num -= value;		//前の画像へ
-//	}
-//	return;
-//}
-//
-////描画する画像を先頭の画像へ
-//void Image::ChengeImageFront()
-//{
-//	this->Draw_Num = 0;	//先頭の画像へ
-//	return;
-//}
 
 //フェードアウトするか設定
 void Image::SetIsFade(bool isfade)

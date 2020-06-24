@@ -11,8 +11,6 @@
 
 #define IMG_NAME_HP		R"(\hp.png)"				//HP画像の名前
 
-#define PLAYER_HP_DRAW_X		20	//HPの描画開始X位置
-#define PLAYER_HP_DRAW_Y		50	//HPの描画開始Y位置
 
 //##################### クラス定義 #########################
 class Player : public Charactor		//キャラクタークラスを継承
@@ -23,7 +21,5 @@ public:
 
 	Player();	//コンストラクタ
 	~Player();							//デストラクタ
-
-	void DrawHp() override;		//HPを描画する
 
 };

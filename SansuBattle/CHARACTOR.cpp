@@ -18,6 +18,7 @@ Charactor::Charactor()
 	IsArive = true;		//生きているか初期化
 	IsKeyOperation = true;//キー操作可能か初期化
 	HP = HP_INIT_VALUE;	//HP初期化
+	DrawHp_type = -1;	//描画するHPの種類
 	IsLoad = false;		//読み込めたか初期化
 
 	if (image_hp.empty())	//HP画像が作成されていなければ
@@ -85,4 +86,28 @@ void Charactor::SendDamege()
 int Charactor::GetHp()
 {
 	return HP;
+}
+
+//HP描画
+void Charactor::DrawHp()
+{
+	int draw_x = 0, draw_y = 0;	//描画X,Y位置
+	if (DrawHp_type == HP_PLAYER)	//プレイヤーHPの場合
+	{
+		//プレイヤーのHP描画位置に設定
+		draw_x = PLAYER_HP_DRAW_X;
+		draw_y = PLAYER_HP_DRAW_X;
+	}
+	else if (DrawHp_type == HP_ENEMY)//敵HPの場合
+	{
+		//敵のHP描画位置に設定
+		draw_x = ENEMY_HP_DRAW_X;
+		draw_y = ENEMY_HP_DRAW_Y;
+
+	}
+	for (int i = 0; i < HP; ++i)	//HPの分ループ
+	{
+		image_hp.at(DrawHp_type)->Draw(draw_x + i * image_hp.at(DrawHp_type)->GetWidth(), draw_y);	//HP画像描画
+	}
+
 }
