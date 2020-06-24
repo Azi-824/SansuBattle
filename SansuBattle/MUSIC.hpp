@@ -30,6 +30,8 @@
 #define BGM_NAME_PLAY_DIFF_BGM	R"(\play_diff_bgm.mp3)"	//プレイ画面（引き算）のBGMの名前
 #define BGM_NAME_END_BGM		R"(\end_bgm.mp3)"		//エンド画面のBGMの名前
 
+#define SE_NAME_KETTEI			R"(\kettei.mp3)"		//決定の効果音SE
+
 //##################### マクロ定義：エラーメッセージ ######################
 #define MUSIC_ERROR_TITLE "MUSIC_ERROR"					//エラータイトル
 #define MUSIC_ERROR_MSG	"音が読み込めませんでした"		//エラーメッセージ
@@ -41,6 +43,11 @@
 enum SE_EFFECT
 {
 	SE_EFFECT_ATACK			//攻撃エフェクトの効果音
+};
+
+enum SE_KEY
+{
+	SE_KEY_KETTEI			//キー操作（決定）の効果音
 };
 
 enum BGM_TYPE

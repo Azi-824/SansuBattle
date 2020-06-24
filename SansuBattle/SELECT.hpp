@@ -7,6 +7,7 @@
 #include "Global.hpp"
 #include "Image.hpp"
 #include "KeyDown.hpp"
+#include "Music.hpp"
 #include <vector>
 
 //##################### マクロ定義 ######################
@@ -39,6 +40,8 @@
 
 //##################### 列挙型 #######################
 
+using std::vector;
+
 //##################### クラス定義 ######################
 class Select
 {
@@ -47,9 +50,10 @@ private:
 
 	Image* SelectImage;							//選択肢の画像
 	RECT rect;									//選択肢の領域
+	static vector<Music*> Key_se;				//キーボード操作の時の効果音
 
-	std::vector<int> SelectCode;				//選択肢のコード番号
-	std::vector<int>::iterator NowSelectCode;	//現在選んでいるコード番号
+	vector<int> SelectCode;						//選択肢のコード番号
+	vector<int>::iterator NowSelectCode;		//現在選んでいるコード番号
 
 	int Choise_SelectCode;						//選んだ選択肢のコード番号
 
@@ -62,6 +66,11 @@ private:
 	int RowNum;									//描画範囲の中で描画できる列の数
 	int Interval_Side;							//選択肢の間隔(横)
 	int Interval_Vertical;						//選択肢の間隔(縦)
+
+	void Next();								//次の選択肢へ
+	void Next(int);								//指定された数分、次の選択肢へ
+	void Prev();								//前の選択肢へ
+	void Prev(int);								//指定された数分、前の選択肢へ
 
 public:
 
@@ -80,9 +89,5 @@ public:
 	void Draw();								//選択肢を描画
 
 	void Operation(KeyDown*);					//キー操作
-	void Next();								//次の選択肢へ
-	void Next(int);								//指定された数分、次の選択肢へ
-	void Prev();								//前の選択肢へ
-	void Prev(int);								//指定された数分、前の選択肢へ
 
 };
