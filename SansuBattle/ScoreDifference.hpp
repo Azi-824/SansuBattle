@@ -17,6 +17,6 @@ public:
 	ScoreDifference();			//コンストラクタ
 	~ScoreDifference();			//デストラクタ
 
-	virtual void CalcScore(int, int) override;		//スコア計算処理
+	void CalcScore(int, int) override;		//スコア計算処理
 
 };

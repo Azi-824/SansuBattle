@@ -13,12 +13,14 @@
 #include "Enemy.hpp"
 #include "QuestionAdd.hpp"
 #include "QuestionDifference.hpp"
+#include "QuestionProduct.hpp"
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
 #include "Music.hpp"
 #include "ScoreAdd.hpp"
 #include "ScoreDifference.hpp"
+#include "ScoreProduct.hpp"
 #include "SaveData.hpp"
 #include <typeinfo>
 

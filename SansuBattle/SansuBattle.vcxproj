@@ -167,10 +167,12 @@
     <ClInclude Include="Question.hpp" />
     <ClInclude Include="QuestionAdd.hpp" />
     <ClInclude Include="QuestionDifference.hpp" />
+    <ClInclude Include="QuestionProduct.hpp" />
     <ClInclude Include="SaveData.hpp" />
     <ClInclude Include="Score.hpp" />
     <ClInclude Include="ScoreAdd.hpp" />
     <ClInclude Include="ScoreDifference.hpp" />
+    <ClInclude Include="ScoreProduct.hpp" />
     <ClInclude Include="Select.hpp" />
     <ClInclude Include="Time.hpp" />
   </ItemGroup>
@@ -190,10 +192,12 @@
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="QuestionAdd.cpp" />
     <ClCompile Include="QuestionDifference.cpp" />
+    <ClCompile Include="QuestionProduct.cpp" />
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoreAdd.cpp" />
     <ClCompile Include="ScoreDifference.cpp" />
+    <ClCompile Include="ScoreProduct.cpp" />
     <ClCompile Include="Select.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>

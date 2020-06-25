@@ -17,6 +17,6 @@ public:
 	ScoreAdd();			//コンストラクタ
 	~ScoreAdd();		//デストラクタ
 
-	virtual void CalcScore(int,int) override;		//スコア計算処理
+	void CalcScore(int,int) override;		//スコア計算処理
 
 };
