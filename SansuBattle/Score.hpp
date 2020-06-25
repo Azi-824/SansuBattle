@@ -31,10 +31,10 @@ public:
 	Score();							//コンストラクタ
 	~Score();							//デストラクタ
 
-	virtual void CalcScore(int,int,int);	//スコア計算処理
-	void DrawNowScore();					//現在のスコア表示
-	void ResetScore();						//スコアリセット
+	void CalcScore(int,int,int);		//スコア計算処理
+	void DrawNowScore();				//現在のスコア表示
+	void ResetScore();					//スコアリセット
 
-	int GetScore();							//スコア取得
+	int GetScore();						//スコア取得
 
 };

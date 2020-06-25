@@ -53,13 +53,15 @@ protected:
 private:
 
 	int GetInputNum(KeyDown*);	//入力された数字を取得
+	void SetMinMax(int, int, int*, int*);	//指定されたゲームモード、ゲームレベルの問題の最大値最小値を設定
+	void CreateQuestion(int, int, int);		//ゲームモード、ゲームレベル毎の問題を作成
 
 public:
 
 	Question();							//コンストラクタ
-	~Question();							//デストラクタ
+	~Question();						//デストラクタ
 
-	virtual void CreateQuestion(int) = 0;	//問題作成
+	void Create(int, int);			//問題作成
 
 	void DrawQuestion();			//問題を描画する
 	void DrawInputNum();			//入力中の数字を描画する

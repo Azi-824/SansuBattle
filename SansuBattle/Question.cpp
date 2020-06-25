@@ -32,6 +32,171 @@ Question::~Question()
 	return;
 }
 
+//問題作成
+void Question::Create(int gamemode, int gamelevel)
+{
+	int min = 0, max = 0;	//問題の最小値、最大値
+	SetMinMax(gamemode, gamelevel, &min, &max);	//問題の最小値、最大値設定
+
+	int num1 = 0, num2 = 0;		//問題を入れる変数
+
+	num1 = GetRand(max - min) + min;			//問題を生成
+	num2 = GetRand(max - min) + min;			//問題を生成
+
+	CreateQuestion(gamemode, num1, num2);		//ゲームモード毎の問題を作成。
+	IsCreate = true;	//問題を作成した
+
+}
+
+//指定されたゲームモード、ゲームレベルの問題の最大値最小値を設定
+void Question::SetMinMax(int gamemode, int gamelevel, int* min, int* max)
+{
+	switch (gamemode)	//ゲームモード毎
+	{
+
+	case Q_MODE_SUM:	//足し算の時
+
+		switch (gamelevel)	//ゲームレベル毎
+		{
+
+		case STAGE_LEVEL_EASY:	//簡単の時
+
+			*min = 1;					//最小値1
+			*max = Q_EASY_VALUE_MAX;	//最大値9
+
+			break;	//簡単の時
+
+		case STAGE_LEVEL_NORMAL:	//普通の時
+
+			*min = 10;	//最小値10
+			*max = 20;	//最大値20
+
+			break;	//普通の時
+
+		case STAGE_LEVEL_HARD:	//難しいの時
+
+			*min = 20;	//最小値20
+			*max = 30;	//最大値30
+
+			break;	//難しいの時
+
+		default:
+			break;
+		}
+
+		break;			//足し算の時ここまで
+
+	case Q_MODE_DIFFERENCE:	//引き算の時
+
+		switch (gamelevel)	//ゲームレベル毎
+		{
+
+		case STAGE_LEVEL_EASY:	//簡単の時
+
+			*min = 1;					//最小値1
+			*max = Q_EASY_VALUE_MAX;	//最大値9
+
+			break;	//簡単の時
+
+		case STAGE_LEVEL_NORMAL:	//普通の時
+
+			*min = 5;	//最小値5
+			*max = 20;	//最大値20
+
+			break;	//普通の時
+
+		case STAGE_LEVEL_HARD:	//難しいの時
+
+			*min = 10;	//最小値10
+			*max = 30;	//最大値30
+
+			break;	//難しいの時
+
+		default:
+			break;
+		}
+
+		break;			//引き算の時ここまで
+
+	case Q_MODE_PRODUCT:	//掛け算の時
+
+		switch (gamelevel)	//ゲームレベル毎
+		{
+
+		case STAGE_LEVEL_EASY:	//簡単の時
+
+			*min = 1;					//最小値1
+			*max = Q_EASY_VALUE_MAX;	//最大値9
+
+			break;	//簡単の時
+
+		case STAGE_LEVEL_NORMAL:	//普通の時
+
+			*min = 5;	//最小値5
+			*max = 20;	//最大値20
+
+			break;	//普通の時
+
+		case STAGE_LEVEL_HARD:	//難しいの時
+
+			*min = 10;	//最小値10
+			*max = 30;	//最大値30
+
+			break;	//難しいの時
+
+		default:
+			break;
+		}
+
+		break;			//掛け算の時ここまで
+
+
+	default:
+		break;
+	}
+
+}
+
+//ゲームモード毎の問題を作成
+void Question::CreateQuestion(int gamemode,int num1, int num2)
+{
+	switch (gamemode)	//ゲームモード毎
+	{
+
+	case Q_MODE_SUM:	//足し算の時
+
+		Anser = num1 + num2;	//足し算の答えを設定
+		Q_Text = (std::to_string(num1) + "＋" + (std::to_string(num2) + "＝？"));		//問題文を設定
+
+		break;			//足し算の時ここまで
+
+	case Q_MODE_DIFFERENCE:	//引き算の時
+
+		if (num1 < num2)		//num1の値がnum2より小さいとき
+		{
+			//値の交換
+			int w = num2;
+			num2 = num1;
+			num1 = w;
+		}
+		Anser = num1 - num2;	//問題の計算結果を答えに格納
+		Q_Text = (std::to_string(num1) + "－" + (std::to_string(num2) + "＝？"));		//問題文を設定
+
+		break;			//引き算の時ここまで
+
+	case Q_MODE_PRODUCT:	//掛け算の時
+
+		Anser = num1 * num2;	//問題の計算結果を答えに格納
+		Q_Text = (std::to_string(num1) + "×" + (std::to_string(num2) + "＝？"));		//問題文を設定
+
+		break;			//掛け算の時ここまで
+
+
+	default:
+		break;
+	}
+}
+
 //問題を描画する
 void Question::DrawQuestion()
 {

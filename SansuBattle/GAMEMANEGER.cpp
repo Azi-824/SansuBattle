@@ -34,15 +34,8 @@ GameManeger::~GameManeger()
 	delete player;			//player破棄
 	delete gamelimittime;	//gamelimittime破棄
 	delete save;			//save破棄
-	
-	//問題関係
-	for (auto q : question)
-	{
-		delete q;	//question破棄
-	}
-	//vectorのメモリ解放を行う
-	vector<Question*> v;		//空のvectorを作成する
-	question.swap(v);		//空と中身を入れ替える
+	delete question;		//question破棄
+	delete score;			//score破棄
 
 	//敵関係
 	for (auto e : enemy)
@@ -51,9 +44,6 @@ GameManeger::~GameManeger()
 	}
 	vector<Enemy*> v2;		//空のvectorを作成する
 	enemy.swap(v2);			//空と中身を入れ替える
-
-	//スコア関係
-	delete score;		//score破棄
 
 	//フォント関係
 	Font::ReleaseFont();	//読み込んだフォントを開放
@@ -212,10 +202,7 @@ bool GameManeger::Load()
 	}
 
 	//問題関係
-	//足し算
-	question.push_back(new QuestionAdd());			//足し算の問題を管理するオブジェクトを生成
-	question.push_back(new QuestionDifference());	//引き算の問題を管理するオブジェクトを生成
-	question.push_back(new QuestionProduct());		//掛け算の問題を管理するオブジェクトを生成
+	question = new Question();	//問題を管理するオブジェクトを生成
 
 	//スコア関係
 	score = new Score();		//スコアを管理するオブジェクトを生成
@@ -471,7 +458,7 @@ void GameManeger::Scene_ChoiseLevel()
 		}
 		player->Init();						//プレイヤー初期化
 		score->ResetScore();				//スコアリセット
-		question.at(GameMode)->Reset();		//問題関係リセット
+		question->Reset();					//問題関係リセット
 		select_level->Init();				//レベルの選択肢初期化
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
@@ -499,14 +486,14 @@ void GameManeger::Scene_Play()
 
 	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
 
-	if (!question.at(GameMode)->GetIsCreate())	//問題を作成していなければ
+	if (!question->GetIsCreate())	//問題を作成していなければ
 	{
-		question.at(GameMode)->CreateQuestion(GameLevel);	//問題を作成
+		question->Create(GameMode, GameLevel);	//問題を作成
 	}
 
-	if (question.at(GameMode)->CheckInputKey(keydown))	//キー入力が完了したら
+	if (question->CheckInputKey(keydown))	//キー入力が完了したら
 	{
-		if (question.at(GameMode)->JudgAnser())				//プレイヤーの回答が正解だったら
+		if (question->JudgAnser())				//プレイヤーの回答が正解だったら
 		{
 			effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(true);			//アニメーションの描画を開始する
 		}
@@ -561,8 +548,8 @@ void GameManeger::Draw_Scene_Play()
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
-	question.at(GameMode)->DrawQuestion();				//問題文描画
-	question.at(GameMode)->DrawInputNum();				//入力中の数字を描画
+	question->DrawQuestion();		//問題文描画
+	question->DrawInputNum();		//入力中の数字を描画
 
 	score->DrawNowScore();	//現在のスコア描画
 
