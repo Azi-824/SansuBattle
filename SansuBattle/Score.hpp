@@ -14,6 +14,11 @@
 #define LEVEL_BONUS_NORMAL		2		//普通レベルのボーナス倍率
 #define LEVEL_BONUS_HARD		3		//難しいレベルのボーナス倍率
 
+#define SCORE_ADD_ANSER	100				//足し算の回答をした時のスコア
+#define SCORE_DIFFERENCE_ANSER	150		//引き算の回答をした時のスコア
+#define SCORE_PRODUCT_ANSER	200			//掛け算の回答をした時のスコア
+
+
 //################### クラス定義 ########################
 class Score
 {
@@ -26,7 +31,7 @@ public:
 	Score();							//コンストラクタ
 	~Score();							//デストラクタ
 
-	virtual void CalcScore(int,int) = 0;	//スコア計算処理
+	virtual void CalcScore(int,int,int);	//スコア計算処理
 	void DrawNowScore();					//現在のスコア表示
 	void ResetScore();						//スコアリセット
 

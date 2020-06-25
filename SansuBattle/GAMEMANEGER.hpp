@@ -14,13 +14,11 @@
 #include "QuestionAdd.hpp"
 #include "QuestionDifference.hpp"
 #include "QuestionProduct.hpp"
+#include "Score.hpp"
 #include "Font.hpp"
 #include "Time.hpp"
 #include "Effect.hpp"
 #include "Music.hpp"
-#include "ScoreAdd.hpp"
-#include "ScoreDifference.hpp"
-#include "ScoreProduct.hpp"
 #include "SaveData.hpp"
 #include <typeinfo>
 
@@ -73,7 +71,7 @@ private:
 	vector<Music*> bgm;			//BGM
 	vector<Music*> bgm_play;	//プレイ画面のBGM
 	vector<Music*> effect_se;	//エフェクトの効果音
-	vector<Score*> score;		//スコア
+	Score* score;				//スコア
 	SaveData* save;				//セーブデータ
 	
 	int NowScene;				//現在のシーン

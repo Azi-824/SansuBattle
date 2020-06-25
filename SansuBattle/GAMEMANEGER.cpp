@@ -53,12 +53,7 @@ GameManeger::~GameManeger()
 	enemy.swap(v2);			//空と中身を入れ替える
 
 	//スコア関係
-	for (auto s : score)
-	{
-		delete s;		//score破棄
-	}
-	vector<Score*> v3;		//空のvectorを作成する
-	score.swap(v3);			//空と中身を入れ替える
+	delete score;		//score破棄
 
 	//フォント関係
 	Font::ReleaseFont();	//読み込んだフォントを開放
@@ -224,9 +219,10 @@ bool GameManeger::Load()
 
 	//スコア関係
 	//足し算
-	score.push_back(new ScoreAdd());		//足し算のスコアを管理するオブジェクトを生成
-	score.push_back(new ScoreDifference());	//引き算のスコアを管理するオブジェクトを生成
-	score.push_back(new ScoreProduct());	//掛け算のスコアを管理するオブジェクトを生成
+	//score.push_back(new ScoreAdd());		//足し算のスコアを管理するオブジェクトを生成
+	//score.push_back(new ScoreDifference());	//引き算のスコアを管理するオブジェクトを生成
+	//score.push_back(new ScoreProduct());	//掛け算のスコアを管理するオブジェクトを生成
+	score = new Score();
 
 	//セーブデータ関係
 	save = new SaveData();			//セーブデータを管理するオブジェクトを生成
@@ -478,7 +474,7 @@ void GameManeger::Scene_ChoiseLevel()
 			enemy.at(i)->Init();			//敵初期化
 		}
 		player->Init();						//プレイヤー初期化
-		score.at(GameMode)->ResetScore();	//スコアリセット
+		score->ResetScore();				//スコアリセット
 		question.at(GameMode)->Reset();		//問題関係リセット
 		select_level->Init();				//レベルの選択肢初期化
 		gamelimittime->SetTime();			//制限時間の計測開始
@@ -530,7 +526,7 @@ void GameManeger::Scene_Play()
 		effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(false);					//アニメーションを描画しない
 		effect_atk.at((int)EFFECT_ATACK)->ResetIsAnime();					//アニメーション状態をリセット
 		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();					//敵にダメージを与える
-		score.at(GameMode)->CalcScore(GameLevel, gamelimittime->GetElapsedTime());	//スコア加算						
+		score->CalcScore(GameMode, GameLevel, gamelimittime->GetElapsedTime());//スコア加算
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
@@ -546,10 +542,10 @@ void GameManeger::Scene_Play()
 	if (Enemy::GetNowEnemyNum() >= enemy.size() ||			//敵の数が、最大数を超えたら
 		player->GetHp() <= 0)								//プレイヤーのHPが0になったら	
 	{
-		save->Add(score.at(GameMode)->GetScore());	//スコアを追加
-		save->Sort();								//ソート処理
-		bgm_play.at(GameMode)->Stop();				//再生中のBGMを止める
-		NowScene = (int)SCENE_DRAWSCORE;			//スコア表示画面へ
+		save->Add(score->GetScore());		//スコアを追加
+		save->Sort();						//ソート処理
+		bgm_play.at(GameMode)->Stop();		//再生中のBGMを止める
+		NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
 
 	return;
@@ -572,7 +568,7 @@ void GameManeger::Draw_Scene_Play()
 	question.at(GameMode)->DrawQuestion();				//問題文描画
 	question.at(GameMode)->DrawInputNum();				//入力中の数字を描画
 
-	score.at(GameMode)->DrawNowScore();	//現在のスコア描画
+	score->DrawNowScore();	//現在のスコア描画
 
 	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
 
