@@ -70,10 +70,6 @@ void Score::CalcScore(int gamemode, int gamelevel, int time)
 	{
 		add_value *= TIME_BONUS_GREAT;		//グレートのボーナスを加えて計算
 	}
-	//else						//それより遅ければ
-	//{
-	//	add_value = SCORE_ADD_ANSER;	//ボーナスなしで計算
-	//}
 
 	switch (gamelevel)	//ゲームレベル毎
 	{

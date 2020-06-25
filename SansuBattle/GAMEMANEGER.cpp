@@ -218,11 +218,7 @@ bool GameManeger::Load()
 	question.push_back(new QuestionProduct());		//掛け算の問題を管理するオブジェクトを生成
 
 	//スコア関係
-	//足し算
-	//score.push_back(new ScoreAdd());		//足し算のスコアを管理するオブジェクトを生成
-	//score.push_back(new ScoreDifference());	//引き算のスコアを管理するオブジェクトを生成
-	//score.push_back(new ScoreProduct());	//掛け算のスコアを管理するオブジェクトを生成
-	score = new Score();
+	score = new Score();		//スコアを管理するオブジェクトを生成
 
 	//セーブデータ関係
 	save = new SaveData();			//セーブデータを管理するオブジェクトを生成
