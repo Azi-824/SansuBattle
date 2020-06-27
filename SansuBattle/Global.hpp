@@ -26,21 +26,23 @@
 #define TOUKA_MAX_VALUE	255	//透過の最大値
 
 //##################### マクロ定義 #####################
-enum Q_MODE_KIND
+enum GAMEMODE_KIND
 {
-	Q_MODE_SUM,					//モード、和（足し算）
-	Q_MODE_DIFFERENCE,			//モード、差（引き算）
-	Q_MODE_PRODUCT,				//モード、積（掛け算）
-	Q_MODE_DEALER,				//モード、商（割り算）
-	Q_MODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
-	Q_MODE_PRODUCT_DEALER		//モード、積商（掛け算、割り算）
+	GAMEMODE_SUM,					//モード、和（足し算）
+	GAMEMODE_DIFFERENCE,			//モード、差（引き算）
+	GAMEMODE_PRODUCT,				//モード、積（掛け算）
+	GAMEMODE_DEALER,				//モード、商（割り算）
+	GAMEMODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
+	GAMEMODE_PRODUCT_DEALER,		//モード、積商（掛け算、割り算）
+	GAMEMODE_MAX					//ゲームモードの種類数
 };	//問題の種類
 
-enum STAGE_LEVEL
+enum GAME_LEVEL
 {
-	STAGE_LEVEL_EASY,		//簡単
-	STAGE_LEVEL_NORMAL,		//普通
-	STAGE_LEVEL_HARD		//難しい
+	GAME_LEVEL_EASY,		//簡単
+	GAME_LEVEL_NORMAL,		//普通
+	GAME_LEVEL_HARD,		//難しい
+	GAMELEVEL_MAX			//ゲームレベルの種類数
 };	//ステージのレベル
 
 extern int NowFontHandle;	//現在のフォントハンドル

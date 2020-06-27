@@ -6,6 +6,7 @@
 //################# ヘッダファイル読み込み ###############
 #include "Global.hpp"
 #include <string>
+#include <vector>
 #include "KeyDown.hpp"
 #include "Image.hpp"
 
@@ -36,6 +37,8 @@ enum INPUT_NUM
 	INPUT_NOT_NUM = -1	//数値以外
 };		//入力値の値
 
+using std::vector;
+using std::string;
 
 //################# クラス定義 #################
 class Question
@@ -44,7 +47,10 @@ private:
 
 	static Image* img_kokuban;			//黒板の画像
 
-	std::string Q_Text;			//問題文
+	vector<vector<int>> min_list;	//問題の最小値のリスト
+	vector<vector<int>> max_list;	//問題の最大値のリスト
+
+	string Q_Text;				//問題文
 	int Anser;					//答え
 	int InputNum;				//入力された数字
 	int InputNumBuf;			//入力された数字を貯めておく

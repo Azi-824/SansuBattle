@@ -35,37 +35,37 @@ const char* SaveData::GetFileName(int gamemode)
 	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
 	{
 
-	case (int)Q_MODE_SUM:		//足し算の時
+	case (int)GAMEMODE_SUM:		//足し算の時
 
 		return SAVE_NAME_ADD;	//足し算用のファイル
 
 		break;	//足し算の時ここまで
 
-	case (int)Q_MODE_DIFFERENCE:		//引き算の時
+	case (int)GAMEMODE_DIFFERENCE:		//引き算の時
 
 		return SAVE_NAME_DIF;	//引き算用のファイル
 
 		break;	//引き算の時ここまで
 
-	case (int)Q_MODE_PRODUCT:		//掛け算の時
+	case (int)GAMEMODE_PRODUCT:		//掛け算の時
 
 		return SAVE_NAME_PRO;	//掛け算用のファイル
 
 		break;	//掛け算の時ここまで
 
-	case (int)Q_MODE_DEALER:		//割り算の時
+	case (int)GAMEMODE_DEALER:		//割り算の時
 
 		return SAVE_NAME_DEA;	//割り算用のファイル
 
 		break;	//割り算の時ここまで
 
-	case (int)Q_MODE_SUM_DIFFERENCE:		//足し算、引き算の時
+	case (int)GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
 
 		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイル
 
 		break;	//足し算、引き算の時ここまで
 
-	case (int)Q_MODE_PRODUCT_DEALER:		//掛け算、割り算の時
+	case (int)GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
 
 		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイル
 
@@ -83,37 +83,37 @@ const char* SaveData::GetTextGameMode(int gamemode)
 	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
 	{
 
-	case (int)Q_MODE_SUM:		//足し算の時
+	case (int)GAMEMODE_SUM:		//足し算の時
 
 		return TEXT_GAMEMODE_ADD;	//足し算用のテキスト
 
 		break;	//足し算の時ここまで
 
-	case (int)Q_MODE_DIFFERENCE:		//引き算の時
+	case (int)GAMEMODE_DIFFERENCE:		//引き算の時
 
 		return TEXT_GAMEMODE_DIF;	//引き算用のテキスト
 
 		break;	//引き算の時ここまで
 
-	case (int)Q_MODE_PRODUCT:		//掛け算の時
+	case (int)GAMEMODE_PRODUCT:		//掛け算の時
 
 		return TEXT_GAMEMODE_PRO;	//掛け算用のテキスト
 
 		break;	//掛け算の時ここまで
 
-	case (int)Q_MODE_DEALER:		//割り算の時
+	case (int)GAMEMODE_DEALER:		//割り算の時
 
 		return TEXT_GAMEMODE_DEA;	//割り算用のテキスト
 
 		break;	//割り算の時ここまで
 
-	case (int)Q_MODE_SUM_DIFFERENCE:		//足し算、引き算の時
+	case (int)GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
 
 		return  TEXT_GAMEMODE_SUM_DIF;	//足し算、引き算用のテキスト
 
 		break;	//足し算、引き算の時ここまで
 
-	case (int)Q_MODE_PRODUCT_DEALER:		//掛け算、割り算の時
+	case (int)GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
 
 		return TEXT_GAMEMODE_PRO_DEA;	//掛け算、割り算用のテキスト
 
