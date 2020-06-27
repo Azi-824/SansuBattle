@@ -1,4 +1,0 @@
-１．Questionクラスから派生させて、新しいゲームモードのクラスを作成（例：Questionから、QuestionAddを作成）
-２．Scoreクラスから派生させて、新しいスコアクラスを作成（例：Scoreから、ScoreAddを作成）
-３．追加したゲームモードのBGMを追加
-４．Loadメソッド内で、Question,Score,BGMをそれぞれ追加

@@ -150,6 +150,37 @@ void Question::SetMinMax(int gamemode, int gamelevel, int* min, int* max)
 
 		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
 
+	case Q_MODE_DEALER:		//Š„‚èZ‚Ì
+
+		switch (gamelevel)	//ƒQ[ƒ€ƒŒƒxƒ‹–ˆ
+		{
+
+		case STAGE_LEVEL_EASY:	//ŠÈ’P‚Ì
+
+			*min = 1;					//Å¬’l1
+			*max = Q_EASY_VALUE_MAX;	//Å‘å’l9
+
+			break;	//ŠÈ’P‚Ì
+
+		case STAGE_LEVEL_NORMAL:	//•’Ê‚Ì
+
+			*min = 5;	//Å¬’l5
+			*max = 20;	//Å‘å’l20
+
+			break;	//•’Ê‚Ì
+
+		case STAGE_LEVEL_HARD:	//“ï‚µ‚¢‚Ì
+
+			*min = 10;	//Å¬’l10
+			*max = 30;	//Å‘å’l30
+
+			break;	//“ï‚µ‚¢‚Ì
+
+		default:
+			break;
+		}
+
+		break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
 
 	default:
 		break;
@@ -191,6 +222,16 @@ void Question::CreateQuestion(int gamemode,int num1, int num2)
 
 		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
 
+	case Q_MODE_DEALER:		//Š„‚èZ‚Ì
+
+		if (num1 % num2 != 0)	//Š„‚èØ‚ê‚È‚¢
+		{
+			num1 -= num1 % num2;	//Š„‚èØ‚ê‚é‚æ‚¤‚É’²®
+		}
+		Anser = num1 / num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
+		Q_Text = (std::to_string(num1) + "€" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
+
+		break;			//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
 
 	default:
 		break;

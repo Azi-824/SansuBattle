@@ -17,7 +17,7 @@
 #define SCORE_ADD_ANSER	100				//足し算の回答をした時のスコア
 #define SCORE_DIFFERENCE_ANSER	150		//引き算の回答をした時のスコア
 #define SCORE_PRODUCT_ANSER	200			//掛け算の回答をした時のスコア
-
+#define SCORE_DEALER_ANSER	200			//割り算の回答をした時のスコア
 
 //################### クラス定義 ########################
 class Score

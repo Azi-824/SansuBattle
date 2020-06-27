@@ -55,6 +55,12 @@ void Score::CalcScore(int gamemode, int gamelevel, int time)
 
 		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
 
+	case Q_MODE_DEALER:	//Š„‚èZ‚Ì
+
+		add_value = SCORE_PRODUCT_ANSER;	//Š„‚èZ‚ÌƒXƒRƒA‚ğA‰ÁZ‚³‚ê‚é—Ê‚Éİ’è
+
+		break;			//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
+
 	default:
 		break;
 	}
