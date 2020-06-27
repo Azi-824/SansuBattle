@@ -7,11 +7,11 @@
 //############## クラス定義 ################
 
 //コンストラクタ
-CalcInfo::CalcInfo(vector<int> min, vector<int>max, vector<int>value_num)
+CalcInfo::CalcInfo(vector<int> min, vector<int>max, vector<int>calc_num)
 {
 	Min = min;				//最小値設定
 	Max = max;				//最大値設定
-	Value_Num = value_num;	//数設定
+	CalcNum = calc_num;		//計算回数設定
 }
 
 //デストラクタ
@@ -23,7 +23,7 @@ CalcInfo::~CalcInfo()
 	vector<int> v2;
 	Max.swap(v2);
 	vector<int> v3;
-	Value_Num.swap(v3);
+	CalcNum.swap(v3);
 
 }
 
@@ -39,8 +39,8 @@ int CalcInfo::GetMax(int level)
 	return Max.at(level);
 }
 
-//数取得
-int CalcInfo::GetValueNum(int level)
+//計算回数取得
+int CalcInfo::GetCalcNum(int level)
 {
-	return Value_Num.at(level);
+	return CalcNum.at(level);
 }

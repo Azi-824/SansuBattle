@@ -9,12 +9,13 @@
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
 vector<CalcInfo*> Question::calc_info;	//計算に使用する情報
+vector<vector<int>> Question::value_num;	//値の数
 
 //コンストラクタ
 Question::Question()
 {
 	//メンバー初期化
-	Anser = -1;				//答え初期化
+	Anser = 0;				//答え初期化
 	InputNum = 0;			//入力された数字初期化
 	InputNumBuf = 0;		//貯めてある数字を初期化
 	Q_Text = "";			//問題文初期化
@@ -26,6 +27,13 @@ Question::Question()
 		{
 			CreateInfo(i);	//情報を作成
 		}
+
+		value_num.resize(GAMEMODE_MAX);	//サイズ変更
+		for (int i = GAMEMODE_SUM; i < GAMEMODE_MAX; ++i)	//ゲームモードの種類分
+		{
+			CreateValueNum(i);	//値の数の情報を作成
+		}
+
 	}
 
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
@@ -42,17 +50,34 @@ Question::~Question(){}
 void Question::Create(int gamemode, int gamelevel)
 {
 	int min = 0, max = 0;	//問題の最小値、最大値
-	int calc_type = SetCalcType(gamemode);		//計算の種類設定
-	min = calc_info.at(calc_type)->GetMin(gamelevel);	//最小値取得
-	max = calc_info.at(calc_type)->GetMax(gamelevel);	//最小値取得
+	vector<int> calc_value, calc_type;	//値、計算の種類
+	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)		//計算回数分ループ
+	{
+		calc_type.push_back(SetCalcType(gamemode));				//計算の種類を取得
 
-	int num1 = 0, num2 = 0;		//問題を入れる変数
+		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//最小値取得
+		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最小値取得
 
-	num1 = GetRand(max - min) + min;			//問題を生成
-	num2 = GetRand(max - min) + min;			//問題を生成
+		//int num1 = 0, num2 = 0;		//問題を入れる変数
 
-	CreateQuestion(gamemode, num1, num2);		//ゲームモード毎の問題を作成。
+		calc_value.push_back(GetRand(max - min) + min);	//値を生成
+
+		//num1 = GetRand(max - min) + min;			//問題を生成
+		//num2 = GetRand(max - min) + min;			//問題を生成
+
+		//CreateQuestion(gamemode, num1, num2);		//ゲームモード毎の問題を作成。
+
+	}
+
+	CreateQuestion(calc_value, calc_type);	//問題を生成
+
 	IsCreate = true;	//問題を作成した
+
+	//vectorの解放
+	vector<int> v;
+	calc_value.swap(v);
+	vector<int> v2;
+	calc_type.swap(v2);
 
 }
 
@@ -142,6 +167,57 @@ void Question::CreateQuestion(int gamemode,int num1, int num2)
 	}
 }
 
+//それぞれの問題を作成
+void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type)
+{
+
+	Anser = calc_value.front();	//先頭の値を格納
+	Q_Text = std::to_string(calc_value.front());	//先頭の値を格納
+
+	for (int i = 1; i < calc_value.size(); ++i)	//先頭の値はすでに格納してあるため、1からカウントをスタートする
+	{
+		switch (calc_type.at(i))	//計算の種類ごとに分岐
+		{
+
+		case CALC_SUM:	//足し算
+
+			Anser += calc_value.at(i);	//足し算
+			Q_Text += ("＋" + std::to_string(calc_value.at(i))) ;	//演算記号を問題文に追加
+
+			break; //足し算
+
+		case CALC_DIFFERENCE:	//引き算
+
+			Anser -= calc_value.at(i);	//引き算
+			Q_Text += ("－" + std::to_string(calc_value.at(i)));	//演算記号を問題文に追加
+
+
+			break; //引き算
+
+		case CALC_PRODUCT:	//掛け算
+
+			Anser *= calc_value.at(i);	//掛け算
+			Q_Text += ("×" + std::to_string(calc_value.at(i)));	//演算記号を問題文に追加
+
+			break; //掛け算
+
+		case CALC_DEALER:	//割り算
+
+			Anser /= calc_value.at(i);	//割り算
+			Q_Text += ("÷" + std::to_string(calc_value.at(i)));	//演算記号を問題文に追加
+
+			break; //割り算
+
+
+		default:
+			break;
+		}
+	}
+
+	Q_Text += "＝？";	//問題文追加
+
+}
+
 //計算に使用する情報を作成
 void Question::CreateInfo(int calctype)
 {
@@ -159,9 +235,9 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(2);	//簡単の数
-		value_num.push_back(2);	//普通の数
-		value_num.push_back(2);	//難しいの数
+		value_num.push_back(1);	//簡単の計算回数
+		value_num.push_back(1);	//普通の計算回数
+		value_num.push_back(1);	//難しいの計算回数
 
 		break; //足し算
 
@@ -175,9 +251,9 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(2);	//簡単の数
-		value_num.push_back(2);	//普通の数
-		value_num.push_back(2);	//難しいの数
+		value_num.push_back(1);	//簡単の計算回数
+		value_num.push_back(1);	//普通の計算回数
+		value_num.push_back(1);	//難しいの計算回数
 
 		break; //引き算
 
@@ -191,9 +267,9 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(2);	//簡単の数
-		value_num.push_back(2);	//普通の数
-		value_num.push_back(2);	//難しいの数
+		value_num.push_back(1);	//簡単の計算回数
+		value_num.push_back(1);	//普通の計算回数
+		value_num.push_back(1);	//難しいの計算回数
 
 		break; //掛け算
 
@@ -207,9 +283,9 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(2);	//簡単の数
-		value_num.push_back(2);	//普通の数
-		value_num.push_back(2);	//難しいの数
+		value_num.push_back(1);	//簡単の計算回数
+		value_num.push_back(1);	//普通の計算回数
+		value_num.push_back(1);	//難しいの計算回数
 
 		break; //割り算
 
@@ -218,6 +294,67 @@ void Question::CreateInfo(int calctype)
 	}
 
 	calc_info.push_back(new CalcInfo(min, max, value_num));	//情報を追加
+
+}
+
+//ゲームモード毎の値の数の情報を作成
+void Question::CreateValueNum(int gamemode)
+{
+	switch (gamemode)	//ゲームモード毎
+	{
+
+	case GAMEMODE_SUM:	//足し算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//足し算の時ここまで
+
+	case GAMEMODE_DIFFERENCE:	//引き算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//引き算の時ここまで
+
+	case GAMEMODE_PRODUCT:	//掛け算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//掛け算の時ここまで
+
+	case GAMEMODE_DEALER:		//割り算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//割り算の時ここまで
+
+	case GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//割り算の時ここまで
+
+	case GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
+
+		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
+		value_num.at(gamemode).push_back(2);	//普通の時の値の数
+		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+
+		break;			//割り算の時ここまで
+
+
+	default:
+		break;
+	}
 
 }
 
@@ -390,7 +527,7 @@ bool Question::GetIsCreate()
 //問題をリセット
 void Question::Reset()
 {
-	Anser = -1;			//答えリセット
+	Anser = 0;			//答えリセット
 	InputNum = 0;		//キー入力内容リセット
 	InputNumBuf = 0;	//貯めてある数字を初期化
 	Q_Text = "";		//問題文リセット

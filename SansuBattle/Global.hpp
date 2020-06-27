@@ -33,7 +33,8 @@ enum GAMEMODE_KIND
 	GAMEMODE_PRODUCT,				//モード、積（掛け算）
 	GAMEMODE_DEALER,				//モード、商（割り算）
 	GAMEMODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
-	GAMEMODE_PRODUCT_DEALER		//モード、積商（掛け算、割り算）
+	GAMEMODE_PRODUCT_DEALER,		//モード、積商（掛け算、割り算）
+	GAMEMODE_MAX					//ゲームモードの種類数
 };	//問題の種類
 
 enum GAME_LEVEL

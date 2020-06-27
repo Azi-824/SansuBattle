@@ -19,7 +19,7 @@ private:
 
 	vector<int>	Min;		//最小値
 	vector<int> Max;		//最大値
-	vector<int>	Value_Num;	//値の数
+	vector<int>	CalcNum;	//計算回数
 
 public:
 
@@ -28,6 +28,6 @@ public:
 
 	int GetMin(int);		//最小値取得
 	int GetMax(int);		//最大値取得
-	int GetValueNum(int);	//数取得
+	int GetCalcNum(int);	//計算回数取得
 
 };
