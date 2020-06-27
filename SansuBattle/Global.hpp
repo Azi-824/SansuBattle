@@ -33,8 +33,7 @@ enum GAMEMODE_KIND
 	GAMEMODE_PRODUCT,				//モード、積（掛け算）
 	GAMEMODE_DEALER,				//モード、商（割り算）
 	GAMEMODE_SUM_DIFFERENCE,		//モード、和差（足し算、引き算）
-	GAMEMODE_PRODUCT_DEALER,		//モード、積商（掛け算、割り算）
-	GAMEMODE_MAX					//ゲームモードの種類数
+	GAMEMODE_PRODUCT_DEALER		//モード、積商（掛け算、割り算）
 };	//問題の種類
 
 enum GAME_LEVEL
@@ -42,7 +41,7 @@ enum GAME_LEVEL
 	GAME_LEVEL_EASY,		//簡単
 	GAME_LEVEL_NORMAL,		//普通
 	GAME_LEVEL_HARD,		//難しい
-	GAMELEVEL_MAX			//ゲームレベルの種類数
+	GAME_LEVEL_MAX			//ゲームレベルの種類数
 };	//ステージのレベル
 
 extern int NowFontHandle;	//現在のフォントハンドル
