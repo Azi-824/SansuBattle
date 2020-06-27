@@ -10,11 +10,27 @@
 Score::Score()
 {
 	score = 0;	//score初期化
+	//ゲームモード毎のスコアを設定
+	mode_score.push_back(SCORE_ADD_ANSER);			//足し算の時のスコア
+	mode_score.push_back(SCORE_DIFFERENCE_ANSER);	//引き算の時のスコア
+	mode_score.push_back(SCORE_PRODUCT_ANSER);		//掛け算の時のスコア
+	mode_score.push_back(SCORE_DEALER_ANSER);		//割り算の時のスコア
+	//ゲームレベル毎のボーナスを設定
+	level_bonus.push_back(LEVEL_BONUS_EASY);		//簡単のときのボーナス
+	level_bonus.push_back(LEVEL_BONUS_NORMAL);		//普通のときのボーナス
+	level_bonus.push_back(LEVEL_BONUS_HARD);		//難しいのときのボーナス
 }
 
 //デストラクタ
 Score::~Score()
 {
+	//vectorの解放
+	vector<int> v;
+	mode_score.swap(v);
+
+	//vectorの解放
+	vector<int> v2;
+	level_bonus.swap(v2);
 
 }
 
@@ -30,40 +46,8 @@ void Score::DrawNowScore()
 //スコア計算
 void Score::CalcScore(int gamemode, int gamelevel, int time)
 {
-
-	int add_value = 0;	//加算されるスコア
-
-	//*************** 加算させるスコア量の設定 ***********************
-	switch (gamemode)	//ゲームモード毎
-	{
-
-	case Q_MODE_SUM:	//足し算の時
-
-		add_value = SCORE_ADD_ANSER;	//足し算のスコアを、加算される量に設定
-
-		break;			//足し算の時ここまで
-
-	case Q_MODE_DIFFERENCE:	//引き算の時
-
-		add_value = SCORE_DIFFERENCE_ANSER;	//引き算のスコアを、加算される量に設定
-
-		break;			//引き算の時ここまで
-
-	case Q_MODE_PRODUCT:	//掛け算の時
-
-		add_value = SCORE_PRODUCT_ANSER;	//掛け算のスコアを、加算される量に設定
-
-		break;			//掛け算の時ここまで
-
-	case Q_MODE_DEALER:	//割り算の時
-
-		add_value = SCORE_PRODUCT_ANSER;	//割り算のスコアを、加算される量に設定
-
-		break;			//割り算の時ここまで
-
-	default:
-		break;
-	}
+	//加算させるスコア量の設定
+	int add_value = mode_score.at(gamemode);	//ゲームモード毎のスコアを取得
 
 	const int time_excellent = 5;		//エクセレントの評価基準の時間(5秒以内)
 	const int time_great = 15;			//グレートの評価基準の時間(15秒以内)
@@ -77,30 +61,7 @@ void Score::CalcScore(int gamemode, int gamelevel, int time)
 		add_value *= TIME_BONUS_GREAT;		//グレートのボーナスを加えて計算
 	}
 
-	switch (gamelevel)	//ゲームレベル毎
-	{
-
-	case (int)STAGE_LEVEL_EASY:		//簡単のとき
-
-		add_value *= LEVEL_BONUS_EASY;	//簡単のレベルボーナスを乗算
-
-		break;	//簡単の時ここまで
-
-	case (int)STAGE_LEVEL_NORMAL:		//普通のとき
-
-		add_value *= LEVEL_BONUS_NORMAL;	//普通のレベルボーナスを乗算
-
-		break;	//普通の時ここまで
-
-	case (int)STAGE_LEVEL_HARD:		//難しいのとき
-
-		add_value *= LEVEL_BONUS_HARD;	//難しいのレベルボーナスを乗算
-
-		break;	//難しいの時ここまで
-
-	default:
-		break;
-	}
+	add_value *= level_bonus.at(gamelevel);	//レベル毎のボーナスを乗算
 
 	score += add_value;	//スコア加算
 

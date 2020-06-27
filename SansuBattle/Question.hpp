@@ -40,7 +40,7 @@ enum INPUT_NUM
 //################# クラス定義 #################
 class Question
 {
-protected:
+private:
 
 	static Image* img_kokuban;			//黒板の画像
 
@@ -50,9 +50,7 @@ protected:
 	int InputNumBuf;			//入力された数字を貯めておく
 	bool IsCreate;				//問題を作成したか
 
-private:
-
-	int GetInputNum(KeyDown*);	//入力された数字を取得
+	int GetInputNum(KeyDown*);				//入力された数字を取得
 	void SetMinMax(int, int, int*, int*);	//指定されたゲームモード、ゲームレベルの問題の最大値最小値を設定
 	void CreateQuestion(int, int, int);		//ゲームモード、ゲームレベル毎の問題を作成
 

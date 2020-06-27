@@ -6,6 +6,7 @@
 //################### ヘッダファイル読み込み ###################
 #include "Global.hpp"
 #include <string>
+#include <vector>
 
 //################### マクロ定義 ########################
 #define TIME_BONUS_EXCELLENT	2		//回答時間がエクセレントの時のボーナス倍率
@@ -17,14 +18,19 @@
 #define SCORE_ADD_ANSER	100				//足し算の回答をした時のスコア
 #define SCORE_DIFFERENCE_ANSER	150		//引き算の回答をした時のスコア
 #define SCORE_PRODUCT_ANSER	200			//掛け算の回答をした時のスコア
-#define SCORE_DEALER_ANSER	200			//割り算の回答をした時のスコア
+#define SCORE_DEALER_ANSER	250			//割り算の回答をした時のスコア
+
+using std::vector;
 
 //################### クラス定義 ########################
 class Score
 {
-protected:
+private:
 
 	int score;			//得点
+
+	vector<int> mode_score;	//ゲームモード毎のスコア
+	vector<int> level_bonus;//ゲームレベル毎のボーナス
 
 public:
 
