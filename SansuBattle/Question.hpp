@@ -5,6 +5,7 @@
 
 //################# ヘッダファイル読み込み ###############
 #include "Global.hpp"
+#include "CalcInfo.hpp"
 #include <string>
 #include <vector>
 #include "KeyDown.hpp"
@@ -55,9 +56,7 @@ class Question
 private:
 
 	static Image* img_kokuban;			//黒板の画像
-
-	static vector<vector<int>> min_list;	//問題の最小値のリスト
-	static vector<vector<int>> max_list;	//問題の最大値のリスト
+	static vector<CalcInfo*> calc_info;	//計算に使用する情報
 
 	string Q_Text;				//問題文
 	int Anser;					//答え
@@ -66,10 +65,9 @@ private:
 	bool IsCreate;				//問題を作成したか
 
 	int GetInputNum(KeyDown*);				//入力された数字を取得
-	void SetMinMax(int, int, int*, int*);	//指定されたゲームモード、ゲームレベルの問題の最大値最小値を設定
 	int SetCalcType(int);					//計算の種類を設定
-	void Create_Min_Max_List();				//最小値、最大値のリストを作成
 	void CreateQuestion(int, int, int);		//ゲームモード、ゲームレベル毎の問題を作成
+	void CreateInfo(int);					//計算に使用する情報を作成
 
 public:
 

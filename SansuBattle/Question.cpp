@@ -8,8 +8,7 @@
 
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
-vector<vector<int>> Question::min_list;	//最小値のリスト
-vector<vector<int>> Question::max_list;	//最大値のリスト
+vector<CalcInfo*> Question::calc_info;	//計算に使用する情報
 
 //コンストラクタ
 Question::Question()
@@ -21,9 +20,12 @@ Question::Question()
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
-	if (min_list.empty() || max_list.empty())	//リストが作成されていなければ
+	if (calc_info.empty())	//情報を作成していなければ
 	{
-		Create_Min_Max_List();	//問題の最小値と最大値のリストを作成
+		for (int i = CALC_SUM; i < CALC_MAX; ++i)	//計算種類分
+		{
+			CreateInfo(i);	//情報を作成
+		}
 	}
 
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
@@ -40,10 +42,9 @@ Question::~Question(){}
 void Question::Create(int gamemode, int gamelevel)
 {
 	int min = 0, max = 0;	//問題の最小値、最大値
-	//SetMinMax(gamemode, gamelevel, &min, &max);	//問題の最小値、最大値設定
 	int calc_type = SetCalcType(gamemode);		//計算の種類設定
-	min = min_list.at(calc_type).at(gamelevel);	//最小値設定
-	max = max_list.at(calc_type).at(gamelevel);	//最大値設定
+	min = calc_info.at(calc_type)->GetMin(gamelevel);	//最小値取得
+	max = calc_info.at(calc_type)->GetMax(gamelevel);	//最小値取得
 
 	int num1 = 0, num2 = 0;		//問題を入れる変数
 
@@ -52,146 +53,6 @@ void Question::Create(int gamemode, int gamelevel)
 
 	CreateQuestion(gamemode, num1, num2);		//ゲームモード毎の問題を作成。
 	IsCreate = true;	//問題を作成した
-
-}
-
-//指定されたゲームモード、ゲームレベルの問題の最大値最小値を設定
-void Question::SetMinMax(int gamemode, int gamelevel, int* min, int* max)
-{
-	switch (gamemode)	//ゲームモード毎
-	{
-
-	case GAMEMODE_SUM:	//足し算の時
-
-		switch (gamelevel)	//ゲームレベル毎
-		{
-
-		case GAME_LEVEL_EASY:	//簡単の時
-
-			*min = 1;					//最小値1
-			*max = Q_EASY_VALUE_MAX;	//最大値9
-
-			break;	//簡単の時
-
-		case GAME_LEVEL_NORMAL:	//普通の時
-
-			*min = 10;	//最小値10
-			*max = 20;	//最大値20
-
-			break;	//普通の時
-
-		case GAME_LEVEL_HARD:	//難しいの時
-
-			*min = 20;	//最小値20
-			*max = 30;	//最大値30
-
-			break;	//難しいの時
-
-		default:
-			break;
-		}
-
-		break;			//足し算の時ここまで
-
-	case GAMEMODE_DIFFERENCE:	//引き算の時
-
-		switch (gamelevel)	//ゲームレベル毎
-		{
-
-		case GAME_LEVEL_EASY:	//簡単の時
-
-			*min = 1;					//最小値1
-			*max = Q_EASY_VALUE_MAX;	//最大値9
-
-			break;	//簡単の時
-
-		case GAME_LEVEL_NORMAL:	//普通の時
-
-			*min = 5;	//最小値5
-			*max = 20;	//最大値20
-
-			break;	//普通の時
-
-		case GAME_LEVEL_HARD:	//難しいの時
-
-			*min = 10;	//最小値10
-			*max = 30;	//最大値30
-
-			break;	//難しいの時
-
-		default:
-			break;
-		}
-
-		break;			//引き算の時ここまで
-
-	case GAMEMODE_PRODUCT:	//掛け算の時
-
-		switch (gamelevel)	//ゲームレベル毎
-		{
-
-		case GAME_LEVEL_EASY:	//簡単の時
-
-			*min = 1;					//最小値1
-			*max = Q_EASY_VALUE_MAX;	//最大値9
-
-			break;	//簡単の時
-
-		case GAME_LEVEL_NORMAL:	//普通の時
-
-			*min = 5;	//最小値5
-			*max = 20;	//最大値20
-
-			break;	//普通の時
-
-		case GAME_LEVEL_HARD:	//難しいの時
-
-			*min = 10;	//最小値10
-			*max = 30;	//最大値30
-
-			break;	//難しいの時
-
-		default:
-			break;
-		}
-
-		break;			//掛け算の時ここまで
-
-	case GAMEMODE_DEALER:		//割り算の時
-
-		switch (gamelevel)	//ゲームレベル毎
-		{
-
-		case GAME_LEVEL_EASY:	//簡単の時
-
-			*min = 1;					//最小値1
-			*max = Q_EASY_VALUE_MAX;	//最大値9
-
-			break;	//簡単の時
-
-		case GAME_LEVEL_NORMAL:	//普通の時
-
-			*min = 5;	//最小値5
-			*max = 20;	//最大値20
-
-			break;	//普通の時
-
-		case GAME_LEVEL_HARD:	//難しいの時
-
-			*min = 10;	//最小値10
-			*max = 30;	//最大値30
-
-			break;	//難しいの時
-
-		default:
-			break;
-		}
-
-		break;		//割り算の時ここまで
-
-	default:
-		break;
-	}
 
 }
 
@@ -228,57 +89,6 @@ int Question::SetCalcType(int gamemode)
 	default:
 		break;
 	}
-
-}
-
-//最小値、最大値のリストを作成
-void Question::Create_Min_Max_List()
-{
-	//最小値
-	min_list.resize(CALC_MAX);	//計算の種類でサイズ変更
-	for (int i = 0; i < min_list.size(); ++i)
-	{
-		min_list.at(i).resize(GAME_LEVEL_MAX);	//ゲームレベルの種類でサイズ変更
-	}
-	//足し算
-	min_list.at(CALC_SUM).at(GAME_LEVEL_EASY) = 1;			//足し算（簡単）の最小値
-	min_list.at(CALC_SUM).at(GAME_LEVEL_NORMAL) = 10;		//足し算（普通）の最小値
-	min_list.at(CALC_SUM).at(GAME_LEVEL_HARD) = 20;			//足し算（難しい）の最小値
-	//引き算
-	min_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_EASY) = 1;	//引き算（簡単）の最小値
-	min_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_NORMAL) = 5;	//引き算（普通）の最小値
-	min_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_HARD) = 10;	//引き算（難しい）の最小値
-	//掛け算
-	min_list.at(CALC_PRODUCT).at(GAME_LEVEL_EASY) = 1;		//掛け算（簡単）の最小値
-	min_list.at(CALC_PRODUCT).at(GAME_LEVEL_NORMAL) = 5;	//掛け算（普通）の最小値
-	min_list.at(CALC_PRODUCT).at(GAME_LEVEL_HARD) = 10;		//掛け算（難しい）の最小値
-	//割り算
-	min_list.at(CALC_DEALER).at(GAME_LEVEL_EASY) = 1;		//割り算（簡単）の最小値
-	min_list.at(CALC_DEALER).at(GAME_LEVEL_NORMAL) = 5;		//割り算（普通）の最小値
-	min_list.at(CALC_DEALER).at(GAME_LEVEL_HARD) = 10;		//割り算（難しい）の最小値
-
-	//最大値
-	max_list.resize(CALC_MAX);	//計算の種類でサイズ変更
-	for (int i = 0; i < max_list.size(); ++i)
-	{
-		max_list.at(i).resize(GAME_LEVEL_MAX);	//ゲームレベルの種類でサイズ変更
-	}
-	//足し算
-	max_list.at(CALC_SUM).at(GAME_LEVEL_EASY) = 9;			//足し算（簡単）の最大値
-	max_list.at(CALC_SUM).at(GAME_LEVEL_NORMAL) = 20;		//足し算（普通）の最大値
-	max_list.at(CALC_SUM).at(GAME_LEVEL_HARD) = 30;			//足し算（難しい）の最大値
-	//引き算
-	max_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_EASY) = 9;	//引き算（簡単）の最大値
-	max_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_NORMAL) = 20;//引き算（普通）の最大値
-	max_list.at(CALC_DIFFERENCE).at(GAME_LEVEL_HARD) = 30;	//引き算（難しい）の最大値
-	//掛け算
-	max_list.at(CALC_PRODUCT).at(GAME_LEVEL_EASY) = 9;		//掛け算（簡単）の最大値
-	max_list.at(CALC_PRODUCT).at(GAME_LEVEL_NORMAL) = 20;	//掛け算（普通）の最大値
-	max_list.at(CALC_PRODUCT).at(GAME_LEVEL_HARD) = 30;		//掛け算（難しい）の最大値
-	//割り算
-	max_list.at(CALC_DEALER).at(GAME_LEVEL_EASY) = 9;		//割り算（簡単）の最大値
-	max_list.at(CALC_DEALER).at(GAME_LEVEL_NORMAL) = 20;	//割り算（普通）の最大値
-	max_list.at(CALC_DEALER).at(GAME_LEVEL_HARD) = 30;		//割り算（難しい）の最大値
 
 }
 
@@ -330,6 +140,85 @@ void Question::CreateQuestion(int gamemode,int num1, int num2)
 	default:
 		break;
 	}
+}
+
+//計算に使用する情報を作成
+void Question::CreateInfo(int calctype)
+{
+	vector<int> min, max, value_num;	//最小値、最大値、数
+	switch (calctype)	//計算の種類
+	{
+
+	case CALC_SUM:	//足し算
+
+		min.push_back(1);	//簡単の最小値
+		min.push_back(10);	//普通の最小値
+		min.push_back(20);	//難しいの最小値
+
+		max.push_back(9);	//簡単の最大値
+		max.push_back(20);	//普通の最大値
+		max.push_back(30);	//難しいの最大値
+
+		value_num.push_back(2);	//簡単の数
+		value_num.push_back(2);	//普通の数
+		value_num.push_back(2);	//難しいの数
+
+		break; //足し算
+
+	case CALC_DIFFERENCE:	//引き算
+
+		min.push_back(1);	//簡単の最小値
+		min.push_back(5);	//普通の最小値
+		min.push_back(10);	//難しいの最小値
+
+		max.push_back(9);	//簡単の最大値
+		max.push_back(20);	//普通の最大値
+		max.push_back(30);	//難しいの最大値
+
+		value_num.push_back(2);	//簡単の数
+		value_num.push_back(2);	//普通の数
+		value_num.push_back(2);	//難しいの数
+
+		break; //引き算
+
+	case CALC_PRODUCT:	//掛け算
+
+		min.push_back(1);	//簡単の最小値
+		min.push_back(5);	//普通の最小値
+		min.push_back(10);	//難しいの最小値
+
+		max.push_back(9);	//簡単の最大値
+		max.push_back(20);	//普通の最大値
+		max.push_back(30);	//難しいの最大値
+
+		value_num.push_back(2);	//簡単の数
+		value_num.push_back(2);	//普通の数
+		value_num.push_back(2);	//難しいの数
+
+		break; //掛け算
+
+	case CALC_DEALER:	//割り算
+
+		min.push_back(1);	//簡単の最小値
+		min.push_back(5);	//普通の最小値
+		min.push_back(10);	//難しいの最小値
+
+		max.push_back(9);	//簡単の最大値
+		max.push_back(20);	//普通の最大値
+		max.push_back(30);	//難しいの最大値
+
+		value_num.push_back(2);	//簡単の数
+		value_num.push_back(2);	//普通の数
+		value_num.push_back(2);	//難しいの数
+
+		break; //割り算
+
+	default:
+		break;
+	}
+
+	calc_info.push_back(new CalcInfo(min, max, value_num));	//情報を追加
+
 }
 
 //問題を描画する
