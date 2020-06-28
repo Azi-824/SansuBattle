@@ -58,18 +58,14 @@ void Question::Create(int gamemode, int gamelevel)
 		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//Å¬’læ“¾
 		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//Å¬’læ“¾
 
-		//int num1 = 0, num2 = 0;		//–â‘è‚ğ“ü‚ê‚é•Ï”
-
-		calc_value.push_back(GetRand(max - min) + min);	//’l‚ğ¶¬
-
-		//num1 = GetRand(max - min) + min;			//–â‘è‚ğ¶¬
-		//num2 = GetRand(max - min) + min;			//–â‘è‚ğ¶¬
-
-		//CreateQuestion(gamemode, num1, num2);		//ƒQ[ƒ€ƒ‚[ƒh–ˆ‚Ì–â‘è‚ğì¬B
+		calc_value.push_back(GetRand(max - min) + min);			//’l‚ğ¶¬
 
 	}
 
-	CreateQuestion(calc_value, calc_type);	//–â‘è‚ğ¶¬
+	vector<int> order;				//ŒvZ‚Ì‡”Ô
+	SetOrder(calc_type, &order);	//ŒvZ‚Ì‡”Ô‚ğİ’è
+
+	CreateQuestion(calc_value, calc_type,order);	//–â‘è‚ğ¶¬
 
 	IsCreate = true;	//–â‘è‚ğì¬‚µ‚½
 
@@ -78,6 +74,8 @@ void Question::Create(int gamemode, int gamelevel)
 	calc_value.swap(v);
 	vector<int> v2;
 	calc_type.swap(v2);
+	vector<int> v3;
+	order.swap(v3);
 
 }
 
@@ -117,94 +115,74 @@ int Question::SetCalcType(int gamemode)
 
 }
 
-//ƒQ[ƒ€ƒ‚[ƒh–ˆ‚Ì–â‘è‚ğì¬
-void Question::CreateQuestion(int gamemode,int num1, int num2)
+//ŒvZ‚Ì‡”Ô‚ğİ’è
+void Question::SetOrder(vector<int> calc_type, vector<int>* order)
 {
-	switch (gamemode)	//ƒQ[ƒ€ƒ‚[ƒh–ˆ
+	vector<bool> set_flg;	//İ’èÏ‚İ‚©
+
+	for (int i = 0; i < calc_type.size(); ++i)
+		set_flg.push_back(false);	//‰Šú‰»
+
+	for (int i = 0; i < calc_type.size(); ++i)
 	{
-
-	case GAMEMODE_SUM:	//‘«‚µZ‚Ì
-
-		Anser = num1 + num2;	//‘«‚µZ‚Ì“š‚¦‚ğİ’è
-		Q_Text = (std::to_string(num1) + "{" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
-
-		break;			//‘«‚µZ‚Ì‚±‚±‚Ü‚Å
-
-	case GAMEMODE_DIFFERENCE:	//ˆø‚«Z‚Ì
-
-		if (num1 < num2)		//num1‚Ì’l‚ªnum2‚æ‚è¬‚³‚¢‚Æ‚«
+		if (calc_type.at(i) == CALC_PRODUCT || calc_type.at(i) == CALC_DEALER)	//Š|‚¯Z‚©AŠ„‚èZ‚¾‚Á‚½‚ç
 		{
-			//’l‚ÌŒğŠ·
-			int w = num2;
-			num2 = num1;
-			num1 = w;
+			order->push_back(i);	//ŒvZ‚Ì‡”Ô‚ğİ’è
+			set_flg.at(i) = true;	//İ’èÏ‚İ
 		}
-		Anser = num1 - num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
-		Q_Text = (std::to_string(num1) + "|" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
 
-		break;			//ˆø‚«Z‚Ì‚±‚±‚Ü‚Å
-
-	case GAMEMODE_PRODUCT:	//Š|‚¯Z‚Ì
-
-		Anser = num1 * num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
-		Q_Text = (std::to_string(num1) + "~" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
-
-		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
-
-	case GAMEMODE_DEALER:		//Š„‚èZ‚Ì
-
-		if (num1 % num2 != 0)	//Š„‚èØ‚ê‚È‚¢
-		{
-			num1 -= num1 % num2;	//Š„‚èØ‚ê‚é‚æ‚¤‚É’²®
-		}
-		Anser = num1 / num2;	//–â‘è‚ÌŒvZŒ‹‰Ê‚ğ“š‚¦‚ÉŠi”[
-		Q_Text = (std::to_string(num1) + "€" + (std::to_string(num2) + "H"));		//–â‘è•¶‚ğİ’è
-
-		break;			//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
-
-	default:
-		break;
 	}
+
+	for (int i = 0; i < calc_type.size(); ++i)
+	{
+		if (!set_flg.at(i))	//İ’èÏ‚İ‚¶‚á‚È‚¯‚ê‚Î
+		{
+			order->push_back(i);	//ŒvZ‚Ì‡”Ô‚ğİ’è
+			set_flg.at(i) = true;	//İ’èÏ‚İ
+		}
+	}
+
+	//vector‚Ì‰ğ•ú
+	vector<bool> v;
+	set_flg.swap(v);
+
 }
 
 //‚»‚ê‚¼‚ê‚Ì–â‘è‚ğì¬
-void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type)
+void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vector<int> order)
 {
+	Q_Text = std::to_string(calc_value.at(order.front()));	//ˆê”ÔÅ‰‚ÉŒvZ‚³‚ê‚é’l‚ğ–â‘è•¶‚Éİ’è
 
-	Anser = calc_value.front();	//æ“ª‚Ì’l‚ğŠi”[
-	Q_Text = std::to_string(calc_value.front());	//æ“ª‚Ì’l‚ğŠi”[
-
-	for (int i = 1; i < calc_value.size(); ++i)	//æ“ª‚Ì’l‚Í‚·‚Å‚ÉŠi”[‚µ‚Ä‚ ‚é‚½‚ßA1‚©‚çƒJƒEƒ“ƒg‚ğƒXƒ^[ƒg‚·‚é
+	for (int i = 0; i < order.size() - 1; ++i)
 	{
-		switch (calc_type.at(i))	//ŒvZ‚Ìí—Ş‚²‚Æ‚É•ªŠò
+		switch (calc_type.at(order.at(i)))	//ŒvZ‚Ìí—Ş‚²‚Æ‚É•ªŠò
 		{
 
 		case CALC_SUM:	//‘«‚µZ
 
-			Anser += calc_value.at(i);	//‘«‚µZ
-			Q_Text += ("{" + std::to_string(calc_value.at(i))) ;	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("{" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) + calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //‘«‚µZ
 
 		case CALC_DIFFERENCE:	//ˆø‚«Z
 
-			Anser -= calc_value.at(i);	//ˆø‚«Z
-			Q_Text += ("|" + std::to_string(calc_value.at(i)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
-
+			Q_Text += ("|" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) - calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //ˆø‚«Z
 
 		case CALC_PRODUCT:	//Š|‚¯Z
 
-			Anser *= calc_value.at(i);	//Š|‚¯Z
-			Q_Text += ("~" + std::to_string(calc_value.at(i)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("~" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) * calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //Š|‚¯Z
 
 		case CALC_DEALER:	//Š„‚èZ
 
-			Anser /= calc_value.at(i);	//Š„‚èZ
-			Q_Text += ("€" + std::to_string(calc_value.at(i)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("€" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //Š„‚èZ
 
@@ -212,9 +190,22 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type)
 		default:
 			break;
 		}
+
+		//ŒvZÏ‚İ‚Ì—v‘f‚ğíœ
+		calc_value.erase(calc_value.begin() + order.at(i) + 1);	//ŒvZÏ‚İ‚Ì’l‚ğíœ
+		calc_type.erase(calc_type.begin() + order.at(i) + 1);	//ŒvZÏ‚İ‚ÌŒvZí—Ş‚ğíœ
+
+		//ŒvZÏ‚İ‚Ì—v‘f‚ğíœ‚µ‚½‚½‚ßAŒvZ‡”Ô‚ğˆê‚Â‚¸‚Â‘O‚ÉŒJ‚èã‚°‚é
+		for (auto itr = order.begin(); itr != order.end(); ++itr)
+		{
+			if (*itr != 0)	//æ“ª‚¶‚á‚È‚¯‚ê‚Î
+				--* itr;
+		}
+
 	}
 
-	Q_Text += "H";	//–â‘è•¶’Ç‰Á
+	Anser = calc_value.front();	//æ“ª‚É‘S‚Ä‚ÌŒvZŒ‹‰Ê‚ªŠi”[‚³‚ê‚Ä‚¢‚é‚½‚ßA‚»‚ê‚ğ“š‚¦‚Éİ’è
+	Q_Text += "H";			//–â‘è•¶’Ç‰Á
 
 }
 
