@@ -57,7 +57,7 @@ void Question::Create(int gamemode, int gamelevel)
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)		//計算回数分ループ
 	{
 		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//最小値取得
-		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最小値取得
+		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最大値取得
 
 		calc_value.push_back(GetRand(max - min) + min);			//値を生成
 
