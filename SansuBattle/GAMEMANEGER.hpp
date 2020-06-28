@@ -40,8 +40,8 @@ enum GAME_SCENE
 {
 	SCENE_LOAD,			//ロードシーン
 	SCENE_TITLE,		//タイトルシーン
-	SCENE_CHOISELEVEL,	//難易度選択シーン
-	SCENE_CHOISESTAGE,	//ステージ選択シーン
+	SCENE_SELECT_MODE,	//ゲームモード選択シーン
+	SCENE_SELECT_LEVEL,	//レベル選択シーン
 	SCENE_PLAY,			//プレイシーン
 	SCENE_DRAWSCORE,	//スコア表示シーン
 	SCENE_END			//エンドシーン

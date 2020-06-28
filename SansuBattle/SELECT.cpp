@@ -16,6 +16,7 @@ Select::Select(vector<Image*>image)
 	//メンバー変数初期化
 	Choise_SelectCode = CHOISE_NONE;	//選んだ選択肢のコードを初期化
 	IsChoise = false;					//選択したか初期化
+	IsBack = false;						//戻るか初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
 	DrawWidth_Range = 0;				//描画幅の範囲初期化
@@ -70,6 +71,12 @@ bool Select::GetIsChoise()
 	return IsChoise;
 }
 
+//戻るか取得
+bool Select::GetIsBack()
+{
+	return IsBack;
+}
+
 //選んだ選択肢のコード番号を取得
 int Select::GetChoiseSelectCode()
 {
@@ -118,6 +125,7 @@ void Select::Init()
 {
 	Choise_SelectCode = CHOISE_NONE;			//選んだ選択肢のコードを初期化
 	IsChoise = false;							//選択したか初期化
+	IsBack = false;								//戻るか初期化
 	NowSelectCode = SelectCode.begin();			//現在選んでいる選択肢初期化
 
 	return;
@@ -200,6 +208,10 @@ void Select::Operation(KeyDown* keydown)
 		Choise_SelectCode = *NowSelectCode;	//現在選択している選択肢を設定
 		IsChoise = true;							//選択した
 		Key_se.at((int)SE_KEY_KETTEI)->Play(false);		//決定の効果音を鳴らす
+	}
+	else if (keydown->IsKeyDownOne(KEY_INPUT_BACK))		//バックスペースキーを押されたら
+	{
+		IsBack = true;	//戻る
 	}
 
 	return;

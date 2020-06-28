@@ -58,6 +58,7 @@ private:
 	int Choise_SelectCode;						//選んだ選択肢のコード番号
 
 	bool IsChoise;								//選択したか
+	bool IsBack;								//戻るか
 
 	int DrawX;									//描画開始X位置
 	int DrawY;									//描画開始Y位置
@@ -77,6 +78,7 @@ public:
 	~Select();									//デストラクタ
 
 	bool GetIsChoise();							//選択したか取得
+	bool GetIsBack();							//戻るか取得
 	int GetChoiseSelectCode();					//選んだ選択肢のコード番号
 
 	void SetInit(int,int,int,int,int interval_vertical = 0);	//初期設定

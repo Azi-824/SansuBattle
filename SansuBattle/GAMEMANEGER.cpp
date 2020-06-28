@@ -268,7 +268,7 @@ void GameManeger::ProcesScene()
 
 		break;				//タイトル画面のときここまで
 
-	case (int)SCENE_CHOISELEVEL:	//難易度選択画面のとき
+	case (int)SCENE_SELECT_MODE:	//難易度選択画面のとき
 
 		Scene_ChoiseGameMode();		//処理
 
@@ -276,7 +276,7 @@ void GameManeger::ProcesScene()
 
 		break;				//難易度選択画面のときここまで
 
-	case (int)SCENE_CHOISESTAGE:	//ステージ選択画面のとき
+	case (int)SCENE_SELECT_LEVEL:	//ステージ選択画面のとき
 
 		Scene_ChoiseLevel();		//処理
 
@@ -395,7 +395,7 @@ void GameManeger::Scene_Title()
 	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
 		bgm.at((int)BGM_TYPE_TITLE)->Stop();//再生中の音楽を止める
-		NowScene = (int)SCENE_CHOISELEVEL;	//難易度選択画面へ
+		NowScene = (int)SCENE_SELECT_MODE;	//難易度選択画面へ
 	}
 
 	return;
@@ -427,7 +427,7 @@ void GameManeger::Scene_ChoiseGameMode()
 
 		select_gamemode->Init();	//ゲームモードの選択肢初期化
 
-		NowScene = (int)SCENE_CHOISESTAGE;						//ステージ選択画面へ
+		NowScene = (int)SCENE_SELECT_LEVEL;						//ステージ選択画面へ
 	}
 
 	return;
@@ -463,6 +463,11 @@ void GameManeger::Scene_ChoiseLevel()
 		select_level->Init();				//レベルの選択肢初期化
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
+	}
+	else if (select_level->GetIsBack())		//戻るとき
+	{
+		select_level->Init();				//レベルの選択肢初期化
+		NowScene = (int)SCENE_SELECT_MODE;	//ゲームモード選択画面へ
 	}
 
 	return;
