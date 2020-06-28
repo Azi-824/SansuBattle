@@ -35,6 +35,7 @@ enum INPUT_NUM
 	INPUT_NUM_8,		//入力値8
 	INPUT_NUM_9,		//入力値9
 	INPUT_ENTER = 100,	//決定キー
+	INPUT_BACK = 200,	//バックキー
 	INPUT_NOT_NUM = -1	//数値以外
 };		//入力値の値
 

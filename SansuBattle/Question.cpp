@@ -412,7 +412,7 @@ bool Question::CheckInputKey(KeyDown* keydown)
 	static int Weight = 10;					//桁の重み
 	int NewInputNum = GetInputNum(keydown);	//新たに入力された数字
 
-	if (!(NewInputNum == INPUT_ENTER || NewInputNum == INPUT_NOT_NUM))	//数値を入力した時
+	if (!(NewInputNum == INPUT_ENTER || NewInputNum == INPUT_NOT_NUM || NewInputNum == INPUT_BACK))	//数値を入力した時
 	{
 		if ((unsigned int)((InputNumBuf * Weight) + NewInputNum) < INT_MAX)		//int型の最大値を超えなければ
 		{
@@ -426,6 +426,11 @@ bool Question::CheckInputKey(KeyDown* keydown)
 		{
 			InputNumBuf = 0;	//初期化
 			return true;		//入力終了
+		}
+
+		if (NewInputNum == INPUT_BACK)	//バックスペースを押されたら
+		{
+			InputNumBuf /= Weight;		//一文字分消す
 		}
 	}
 
@@ -514,6 +519,12 @@ int Question::GetInputNum(KeyDown* keydown)
 	case KEY_INPUT_NUMPADENTER:	//テンキーでエンターキー（決定された）場合
 
 		return INPUT_ENTER;		//決定
+
+		break;
+
+	case KEY_INPUT_BACK:		//バックスペースキーを押された場合
+
+		return INPUT_BACK;		//バック
 
 		break;
 
