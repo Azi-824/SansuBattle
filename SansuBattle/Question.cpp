@@ -173,28 +173,28 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 
 		case CALC_SUM:	//足し算
 
-			Q_Text += ("＋" + std::to_string(calc_value.at(order.at(i) + 1)));							//演算記号を問題文に追加
+			Q_Text += "＋";																				//演算記号を問題文に追加
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) + calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //足し算
 
 		case CALC_DIFFERENCE:	//引き算
 
-			Q_Text += ("－" + std::to_string(calc_value.at(order.at(i) + 1)));							//演算記号を問題文に追加
+			Q_Text += "－";																				//演算記号を問題文に追加
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) - calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //引き算
 
 		case CALC_PRODUCT:	//掛け算
 
-			Q_Text += ("×" + std::to_string(calc_value.at(order.at(i) + 1)));							//演算記号を問題文に追加
+			Q_Text += "×";																				//演算記号を問題文に追加
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) * calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //掛け算
 
 		case CALC_DEALER:	//割り算
 
-			Q_Text += ("÷" + std::to_string(calc_value.at(order.at(i) + 1)));							//演算記号を問題文に追加
+			Q_Text += "÷";																				//演算記号を問題文に追加
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //割り算
@@ -203,6 +203,8 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 		default:
 			break;
 		}
+
+		Q_Text += std::to_string(calc_value.at(order.at(i) + 1));	//問題文追加
 
 		//計算済みの要素を削除
 		calc_value.erase(calc_value.begin() + order.at(i) + 1);	//計算済みの値を削除
