@@ -66,13 +66,12 @@ private:
 	int InputNumBuf;			//入力された数字を貯めておく
 	bool IsCreate;				//問題を作成したか
 
-	int GetInputNum(KeyDown*);				//入力された数字を取得
-	int SetCalcType(int);					//計算の種類を設定
-	void SetOrder(vector<int>, vector<int>*);	//計算の順番を設定
-	//void CreateQuestion(int, int, int);		//ゲームモード、ゲームレベル毎の問題を作成
+	int GetInputNum(KeyDown*);									//入力された数字を取得
+	void SetCalcType(int, int, vector<int>*);					//計算の種類を設定
+	void SetOrder(vector<int>, vector<int>*);					//計算の順番を設定
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
-	void CreateInfo(int);					//計算に使用する情報を作成
-	void CreateValueNum(int);				//ゲームモード毎の値の数の情報を作成
+	void CreateInfo(int);										//計算に使用する情報を作成
+	void CreateValueNum(int);									//ゲームモード毎の値の数の情報を作成
 
 public:
 

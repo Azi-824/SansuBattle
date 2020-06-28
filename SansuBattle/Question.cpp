@@ -49,12 +49,13 @@ Question::~Question(){}
 //–â‘èì¬
 void Question::Create(int gamemode, int gamelevel)
 {
-	int min = 0, max = 0;	//–â‘è‚ÌÅ¬’lAÅ‘å’l
+	int min = 0, max = 0;				//–â‘è‚ÌÅ¬’lAÅ‘å’l
 	vector<int> calc_value, calc_type;	//’lAŒvZ‚Ìí—Ş
+
+	SetCalcType(gamemode, gamelevel, &calc_type);	//ŒvZ‚Ìí—Ş‚ğİ’è
+
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)		//ŒvZ‰ñ”•ªƒ‹[ƒv
 	{
-		calc_type.push_back(SetCalcType(gamemode));				//ŒvZ‚Ìí—Ş‚ğæ“¾
-
 		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//Å¬’læ“¾
 		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//Å¬’læ“¾
 
@@ -80,32 +81,44 @@ void Question::Create(int gamemode, int gamelevel)
 }
 
 //ŒvZ‚Ìí—Ş‚ğİ’è
-int Question::SetCalcType(int gamemode)
+void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
 	switch (gamemode)	//ƒQ[ƒ€ƒ‚[ƒh–ˆ
 	{
 
 	case GAMEMODE_SUM:	//‘«‚µZ‚Ì
 
-		return CALC_SUM;
+		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+		{
+			calc_type->push_back(CALC_SUM);	//‘«‚µZ
+		}
 
 		break;			//‘«‚µZ‚Ì‚±‚±‚Ü‚Å
 
 	case GAMEMODE_DIFFERENCE:	//ˆø‚«Z‚Ì
 
-		return CALC_DIFFERENCE;
+		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+		{
+			calc_type->push_back(CALC_DIFFERENCE);	//ˆø‚«Z
+		}
 
 		break;			//ˆø‚«Z‚Ì‚±‚±‚Ü‚Å
 
 	case GAMEMODE_PRODUCT:	//Š|‚¯Z‚Ì
 
-		return CALC_PRODUCT;
+		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+		{
+			calc_type->push_back(CALC_PRODUCT);	//Š|‚¯Z
+		}
 
 		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
 
 	case GAMEMODE_DEALER:		//Š„‚èZ‚Ì
 
-		return CALC_DEALER;
+		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+		{
+			calc_type->push_back(CALC_DEALER);	//Š„‚èZ
+		}
 
 		break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
 
@@ -160,28 +173,28 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 
 		case CALC_SUM:	//‘«‚µZ
 
-			Q_Text += ("{" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("{" + std::to_string(calc_value.at(order.at(i) + 1)));							//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) + calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //‘«‚µZ
 
 		case CALC_DIFFERENCE:	//ˆø‚«Z
 
-			Q_Text += ("|" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("|" + std::to_string(calc_value.at(order.at(i) + 1)));							//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) - calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //ˆø‚«Z
 
 		case CALC_PRODUCT:	//Š|‚¯Z
 
-			Q_Text += ("~" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("~" + std::to_string(calc_value.at(order.at(i) + 1)));							//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) * calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //Š|‚¯Z
 
 		case CALC_DEALER:	//Š„‚èZ
 
-			Q_Text += ("€" + std::to_string(calc_value.at(order.at(i) + 1)));	//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
+			Q_Text += ("€" + std::to_string(calc_value.at(order.at(i) + 1)));							//‰‰Z‹L†‚ğ–â‘è•¶‚É’Ç‰Á
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//w’è‚³‚ê‚½’l‚ÆA‚»‚ÌŸ‚Ì’l‚ÅŒvZ
 
 			break; //Š„‚èZ
