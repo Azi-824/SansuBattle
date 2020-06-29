@@ -312,8 +312,8 @@ void Question::CreateValueNum(int gamemode)
 	case GAMEMODE_SUM:	//足し算の時
 
 		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(2);	//普通の時の値の数
-		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+		value_num.at(gamemode).push_back(3);	//普通の時の値の数
+		value_num.at(gamemode).push_back(3);	//難しいの時の値の数
 
 		break;			//足し算の時ここまで
 
