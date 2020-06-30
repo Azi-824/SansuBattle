@@ -14,7 +14,9 @@
 #define Q_IMG_DRAW_Y 490	//問題の画像（黒板）描画Y位置
 #define Q_DRAW_Y 500		//問題の描画Y位置
 
-#define Q_EASY_VALUE_MAX 9	//簡単モードの問題の最大値
+#define EASY_VALUE_MAX 15	//簡単レベルの問題の最大値
+#define NORMAL_VALUE_MAX 20	//普通レベルの問題の最大値
+#define HARD_VALUE_MAX	25	//難しいレベルの問題の最大値
 
 #define Q_IMAGE_DIR		R"(.\MY_IMG\Question)"		//問題関係の画像のディレクトリ
 

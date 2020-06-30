@@ -156,33 +156,15 @@ void Question::SetOrder(vector<int> calc_type, vector<int>* order)
 //最大値取得
 int Question::GetMax(int gamelevel, vector<int> value)
 {
+
+	//レベル毎の最大値
+	const int value_max[GAME_LEVEL_MAX] = { EASY_VALUE_MAX ,NORMAL_VALUE_MAX ,HARD_VALUE_MAX };
+
 	if (value.empty())	//最初の取得なら
 	{
 		//定数を返す
-		switch (gamelevel)	//ゲームレべル
-		{
+		return value_max[gamelevel];	//ゲームレベル毎の最大値を返す
 
-		case GAME_LEVEL_EASY:	//簡単
-
-			return 15;	
-
-			break;
-
-		case GAME_LEVEL_NORMAL:	//普通
-
-			return 20;
-
-			break;
-
-		case GAME_LEVEL_HARD:	//難しい
-
-			return 25;
-
-			break;
-
-		default:
-			break;
-		}
 	}
 	else	//最初じゃなければ
 	{
