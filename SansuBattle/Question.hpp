@@ -58,6 +58,7 @@ private:
 
 	static Image* img_kokuban;			//黒板の画像
 	static vector<CalcInfo*> calc_info;	//計算に使用する情報
+	static vector<CalcInfo*> calc_info_;//計算に使用する情報
 
 	static vector<vector<int>> value_num;	//値の数
 
