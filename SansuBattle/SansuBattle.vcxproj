@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CalcInfo.hpp" />
     <ClInclude Include="Charactor.hpp" />
     <ClInclude Include="Data.hpp" />
     <ClInclude Include="Effect.hpp" />
@@ -172,7 +171,6 @@
     <ClInclude Include="Time.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CalcInfo.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Effect.cpp" />

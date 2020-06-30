@@ -8,7 +8,6 @@
 
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
-vector<CalcInfo*> Question::calc_info;	//計算に使用する情報
 vector<vector<int>> Question::value_num;//値の数
 
 //コンストラクタ
@@ -21,13 +20,8 @@ Question::Question()
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
-	if (calc_info.empty())	//情報を作成していなければ
+	if (value_num.empty())	//情報を作成していなければ
 	{
-		for (int i = CALC_SUM; i < CALC_MAX; ++i)	//計算種類分
-		{
-			CreateInfo(i);	//情報を作成
-		}
-
 		value_num.resize(GAMEMODE_MAX);	//サイズ変更
 		for (int i = GAMEMODE_SUM; i < GAMEMODE_MAX; ++i)	//ゲームモードの種類分
 		{
@@ -49,38 +43,30 @@ Question::~Question(){}
 //問題作成
 void Question::Create(int gamemode, int gamelevel)
 {
-	int min = 0, max = 0;				//問題の最小値、最大値
-	vector<int> calc_value, calc_type;	//値、計算の種類
+	int min = 3, max = 0;				//問題の最小値、最大値
 
-	SetCalcType(gamemode, gamelevel, &calc_type);	//計算の種類を設定
+	vector<int> value, type;	//値、計算の種類
 
-	min = calc_info.at(gamemode)->GetMin(gamelevel);	//最小値取得
-	max = calc_info.at(gamemode)->GetMax(gamelevel);	//最大値取得
+	SetCalcType(gamemode, gamelevel, &type);	//計算の種類を設定
 
-	Anser = (GetRand(max - min) + min);	//答えを生成
-	max = Anser; //答えを最大値に設定
-
-	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)		//計算回数分ループ
+	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
 	{
-		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//最小値取得
-		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最大値取得
-
-		calc_value.push_back(GetRand(max - min) + min);			//値を生成
-
+		max = GetMax(gamelevel, value);				//最大値設定
+		value.push_back(GetRand(max - min) + min);	//値を生成
 	}
 
-	vector<int> order;				//計算の順番
-	SetOrder(calc_type, &order);	//計算の順番を設定
+	vector<int> order;		//計算の順番
+	SetOrder(type, &order);	//計算の順番を設定
 
-	CreateQuestion(calc_value, calc_type,order);	//問題を生成
+	CreateQuestion(value, type, order);	//問題を生成
 
 	IsCreate = true;	//問題を作成した
 
 	//vectorの解放
 	vector<int> v;
-	calc_value.swap(v);
+	value.swap(v);
 	vector<int> v2;
-	calc_type.swap(v2);
+	type.swap(v2);
 	vector<int> v3;
 	order.swap(v3);
 
@@ -167,6 +153,19 @@ void Question::SetOrder(vector<int> calc_type, vector<int>* order)
 
 }
 
+//最大値取得
+int Question::GetMax(int gamelevel, vector<int> value)
+{
+	if (value.empty())	//最初の取得なら
+	{
+		return 15;	//定数を返す
+	}
+	else	//最初じゃなければ
+	{
+		return GetRand(value.back());	//最後の値を最大値とした乱数を返す
+	}
+}
+
 //それぞれの問題を作成
 void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vector<int> order)
 {
@@ -227,69 +226,6 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 
 	Anser = calc_value.front();	//先頭に全ての計算結果が格納されているため、それを答えに設定
 	Q_Text += "＝？";			//問題文追加
-
-}
-
-//計算に使用する情報を作成
-void Question::CreateInfo(int calctype)
-{
-	vector<int> min, max;	//最小値、最大値
-	switch (calctype)		//計算の種類
-	{
-
-	case CALC_SUM:	//足し算
-
-		min.push_back(5);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(15);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //足し算
-
-	case CALC_DIFFERENCE:	//引き算
-
-		min.push_back(1);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(9);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //引き算
-
-	case CALC_PRODUCT:	//掛け算
-
-		min.push_back(1);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(9);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //掛け算
-
-	case CALC_DEALER:	//割り算
-
-		min.push_back(1);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(9);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //割り算
-
-	default:
-		break;
-	}
-
-	calc_info.push_back(new CalcInfo(min, max));	//情報を追加
 
 }
 
