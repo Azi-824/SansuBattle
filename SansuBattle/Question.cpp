@@ -158,7 +158,31 @@ int Question::GetMax(int gamelevel, vector<int> value)
 {
 	if (value.empty())	//Å‰‚Ìæ“¾‚È‚ç
 	{
-		return 15;	//’è”‚ğ•Ô‚·
+		//’è”‚ğ•Ô‚·
+		switch (gamelevel)	//ƒQ[ƒ€ƒŒ‚×ƒ‹
+		{
+
+		case GAME_LEVEL_EASY:	//ŠÈ’P
+
+			return 15;	
+
+			break;
+
+		case GAME_LEVEL_NORMAL:	//•’Ê
+
+			return 20;
+
+			break;
+
+		case GAME_LEVEL_HARD:	//“ï‚µ‚¢
+
+			return 25;
+
+			break;
+
+		default:
+			break;
+		}
 	}
 	else	//Å‰‚¶‚á‚È‚¯‚ê‚Î
 	{
