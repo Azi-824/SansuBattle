@@ -9,7 +9,6 @@
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
 vector<CalcInfo*> Question::calc_info;	//計算に使用する情報
-vector<CalcInfo*> Question::calc_info_;	//計算に使用する情報
 vector<vector<int>> Question::value_num;//値の数
 
 //コンストラクタ
@@ -22,17 +21,16 @@ Question::Question()
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
-	if (calc_info_.empty())	//情報を作成していなければ
+	if (calc_info.empty())	//情報を作成していなければ
 	{
-		//for (int i = CALC_SUM; i < CALC_MAX; ++i)	//計算種類分
-		//{
-		//	CreateInfo(i);	//情報を作成
-		//}
+		for (int i = CALC_SUM; i < CALC_MAX; ++i)	//計算種類分
+		{
+			CreateInfo(i);	//情報を作成
+		}
 
 		value_num.resize(GAMEMODE_MAX);	//サイズ変更
 		for (int i = GAMEMODE_SUM; i < GAMEMODE_MAX; ++i)	//ゲームモードの種類分
 		{
-			CreateInfo(i);		//情報を作成
 			CreateValueNum(i);	//値の数の情報を作成
 		}
 
@@ -56,28 +54,18 @@ void Question::Create(int gamemode, int gamelevel)
 
 	SetCalcType(gamemode, gamelevel, &calc_type);	//計算の種類を設定
 
-	min = calc_info_.at(gamemode)->GetMin(gamelevel);	//最小値取得
-	max = calc_info_.at(gamemode)->GetMax(gamelevel);	//最大値取得
+	min = calc_info.at(gamemode)->GetMin(gamelevel);	//最小値取得
+	max = calc_info.at(gamemode)->GetMax(gamelevel);	//最大値取得
 
 	Anser = (GetRand(max - min) + min);	//答えを生成
 	max = Anser; //答えを最大値に設定
 
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)		//計算回数分ループ
 	{
-		//min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//最小値取得
-		//max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最大値取得
+		min = calc_info.at(calc_type.at(i))->GetMin(gamelevel);	//最小値取得
+		max = calc_info.at(calc_type.at(i))->GetMax(gamelevel);	//最大値取得
 
-		//calc_value.push_back(GetRand(max - min) + min);			//値を生成
-
-		if (i == value_num.at(gamemode).at(gamelevel) - 1)	//最後の値だったら
-		{
-			calc_value.push_back(max);	//残りの最大値を値にする
-		}
-		else	//最後じゃなければ
-		{
-			calc_value.push_back(GetRand(max));	//値を追加
-			max -= calc_value.at(i);			//最大値から、追加した値を引いた値を最大値に設定
-		}
+		calc_value.push_back(GetRand(max - min) + min);			//値を生成
 
 	}
 
@@ -243,71 +231,13 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 }
 
 //計算に使用する情報を作成
-void Question::CreateInfo(int gamemode)
+void Question::CreateInfo(int calctype)
 {
-	//vector<int> min, max;	//最小値、最大値
-	//switch (calctype)		//計算の種類
-	//{
-
-	//case CALC_SUM:	//足し算
-
-	//	min.push_back(5);	//簡単の最小値
-	//	min.push_back(5);	//普通の最小値
-	//	min.push_back(10);	//難しいの最小値
-
-	//	max.push_back(15);	//簡単の最大値
-	//	max.push_back(20);	//普通の最大値
-	//	max.push_back(30);	//難しいの最大値
-
-	//	break; //足し算
-
-	//case CALC_DIFFERENCE:	//引き算
-
-	//	min.push_back(1);	//簡単の最小値
-	//	min.push_back(5);	//普通の最小値
-	//	min.push_back(10);	//難しいの最小値
-
-	//	max.push_back(9);	//簡単の最大値
-	//	max.push_back(20);	//普通の最大値
-	//	max.push_back(30);	//難しいの最大値
-
-	//	break; //引き算
-
-	//case CALC_PRODUCT:	//掛け算
-
-	//	min.push_back(1);	//簡単の最小値
-	//	min.push_back(5);	//普通の最小値
-	//	min.push_back(10);	//難しいの最小値
-
-	//	max.push_back(9);	//簡単の最大値
-	//	max.push_back(20);	//普通の最大値
-	//	max.push_back(30);	//難しいの最大値
-
-	//	break; //掛け算
-
-	//case CALC_DEALER:	//割り算
-
-	//	min.push_back(1);	//簡単の最小値
-	//	min.push_back(5);	//普通の最小値
-	//	min.push_back(10);	//難しいの最小値
-
-	//	max.push_back(9);	//簡単の最大値
-	//	max.push_back(20);	//普通の最大値
-	//	max.push_back(30);	//難しいの最大値
-
-	//	break; //割り算
-
-	//default:
-	//	break;
-	//}
-
-	//calc_info.push_back(new CalcInfo(min, max));	//情報を追加
-
 	vector<int> min, max;	//最小値、最大値
-	switch (gamemode)		//ゲームモード
+	switch (calctype)		//計算の種類
 	{
 
-	case GAMEMODE_SUM:	//足し算
+	case CALC_SUM:	//足し算
 
 		min.push_back(5);	//簡単の最小値
 		min.push_back(5);	//普通の最小値
@@ -319,7 +249,7 @@ void Question::CreateInfo(int gamemode)
 
 		break; //足し算
 
-	case GAMEMODE_DIFFERENCE:	//引き算
+	case CALC_DIFFERENCE:	//引き算
 
 		min.push_back(1);	//簡単の最小値
 		min.push_back(5);	//普通の最小値
@@ -331,7 +261,7 @@ void Question::CreateInfo(int gamemode)
 
 		break; //引き算
 
-	case GAMEMODE_PRODUCT:	//掛け算
+	case CALC_PRODUCT:	//掛け算
 
 		min.push_back(1);	//簡単の最小値
 		min.push_back(5);	//普通の最小値
@@ -343,7 +273,7 @@ void Question::CreateInfo(int gamemode)
 
 		break; //掛け算
 
-	case GAMEMODE_DEALER:	//割り算
+	case CALC_DEALER:	//割り算
 
 		min.push_back(1);	//簡単の最小値
 		min.push_back(5);	//普通の最小値
@@ -354,38 +284,12 @@ void Question::CreateInfo(int gamemode)
 		max.push_back(30);	//難しいの最大値
 
 		break; //割り算
-
-	case GAMEMODE_SUM_DIFFERENCE:	//足し算、引き算
-
-		min.push_back(1);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(9);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //割り算
-
-	case GAMEMODE_PRODUCT_DEALER:	//掛け算、割り算
-
-		min.push_back(1);	//簡単の最小値
-		min.push_back(5);	//普通の最小値
-		min.push_back(10);	//難しいの最小値
-
-		max.push_back(9);	//簡単の最大値
-		max.push_back(20);	//普通の最大値
-		max.push_back(30);	//難しいの最大値
-
-		break; //割り算
-
 
 	default:
 		break;
 	}
 
-	calc_info_.push_back(new CalcInfo(min, max));	//情報を追加
-
+	calc_info.push_back(new CalcInfo(min, max));	//情報を追加
 
 }
 
