@@ -9,7 +9,7 @@
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
 vector<CalcInfo*> Question::calc_info;	//計算に使用する情報
-vector<vector<int>> Question::value_num;	//値の数
+vector<vector<int>> Question::value_num;//値の数
 
 //コンストラクタ
 Question::Question()
@@ -227,8 +227,8 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 //計算に使用する情報を作成
 void Question::CreateInfo(int calctype)
 {
-	vector<int> min, max, value_num;	//最小値、最大値、数
-	switch (calctype)	//計算の種類
+	vector<int> min, max;	//最小値、最大値
+	switch (calctype)		//計算の種類
 	{
 
 	case CALC_SUM:	//足し算
@@ -283,7 +283,7 @@ void Question::CreateInfo(int calctype)
 		break;
 	}
 
-	calc_info.push_back(new CalcInfo(min, max, value_num));	//情報を追加
+	calc_info.push_back(new CalcInfo(min, max));	//情報を追加
 
 }
 

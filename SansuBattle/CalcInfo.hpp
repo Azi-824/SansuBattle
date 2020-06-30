@@ -7,9 +7,6 @@
 #include "Global.hpp"
 #include <vector>
 
-//############# マクロ定義 ###############
-
-
 using std::vector;
 
 //############# クラス定義 ###############
@@ -19,15 +16,13 @@ private:
 
 	vector<int>	Min;		//最小値
 	vector<int> Max;		//最大値
-	vector<int>	CalcNum;	//計算回数
 
 public:
 
-	CalcInfo(vector<int>, vector<int>, vector<int>);	//コンストラクタ
-	~CalcInfo();										//デストラクタ
+	CalcInfo(vector<int>, vector<int>);		//コンストラクタ
+	~CalcInfo();							//デストラクタ
 
 	int GetMin(int);		//最小値取得
 	int GetMax(int);		//最大値取得
-	int GetCalcNum(int);	//計算回数取得
 
 };
