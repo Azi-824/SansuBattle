@@ -241,10 +241,6 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(1);	//簡単の計算回数
-		value_num.push_back(1);	//普通の計算回数
-		value_num.push_back(1);	//難しいの計算回数
-
 		break; //足し算
 
 	case CALC_DIFFERENCE:	//引き算
@@ -256,10 +252,6 @@ void Question::CreateInfo(int calctype)
 		max.push_back(9);	//簡単の最大値
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
-
-		value_num.push_back(1);	//簡単の計算回数
-		value_num.push_back(1);	//普通の計算回数
-		value_num.push_back(1);	//難しいの計算回数
 
 		break; //引き算
 
@@ -273,10 +265,6 @@ void Question::CreateInfo(int calctype)
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
 
-		value_num.push_back(1);	//簡単の計算回数
-		value_num.push_back(1);	//普通の計算回数
-		value_num.push_back(1);	//難しいの計算回数
-
 		break; //掛け算
 
 	case CALC_DEALER:	//割り算
@@ -288,10 +276,6 @@ void Question::CreateInfo(int calctype)
 		max.push_back(9);	//簡単の最大値
 		max.push_back(20);	//普通の最大値
 		max.push_back(30);	//難しいの最大値
-
-		value_num.push_back(1);	//簡単の計算回数
-		value_num.push_back(1);	//普通の計算回数
-		value_num.push_back(1);	//難しいの計算回数
 
 		break; //割り算
 
