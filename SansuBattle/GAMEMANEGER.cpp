@@ -193,10 +193,11 @@ bool GameManeger::Load()
 		bgm->SetInit(DX_PLAYTYPE_LOOP, 30);					//初期設定
 	}
 	//プレイ画面のBGM
-	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ADD_BGM));			//BGM(プレイ画面)を管理するオブジェクトを生成
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_BGM));			//BGM(プレイ画面)を管理するオブジェクトを生成
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIFF_BGM));			//プレイ画面（引き算）のBGM追加
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_PRO_BGM));			//プレイ画面（掛け算）のBGM追加
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DEA_BGM));			//プレイ画面（割り算）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_BGM));		//プレイ画面（足し算、引き算）のBGM追加
 	for (auto bgm : bgm_play)
 	{
 		if (bgm->GetIsLoad() == false) { return false; }	//読み込み失敗

@@ -83,6 +83,9 @@ void Question::Create(int gamemode, int gamelevel)
 void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
 
+	vector<int> type;	//ŒvZ‚Ìí—Ş
+	int rand = 0;		//—”¶¬—p
+
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
 	{
 		switch (gamemode)	//ƒQ[ƒ€ƒ‚[ƒh–ˆ
@@ -112,11 +115,35 @@ void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 
 			break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
 
+		case GAMEMODE_SUM_DIFFERENCE:		//‘«‚µZAˆø‚«Z‚Ì
+
+			if (type.empty())	//‹ó‚È‚ç
+			{
+				type.push_back(CALC_SUM);			//‘«‚µZ
+				type.push_back(CALC_DIFFERENCE);	//ˆø‚«Z
+			}
+			rand = GetRand(type.size() - 1);	//—”¶¬
+
+			calc_type->push_back(type.at(rand));//ŒvZ‚Ìí—Şİ’è
+
+			break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
+
+		case GAMEMODE_PRODUCT_DEALER:		//Š|‚¯ZAŠ„‚èZ‚Ì
+
+			calc_type->push_back(CALC_DEALER);	//Š„‚èZ
+
+			break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
+
+
 		default:
 			break;
 		}
 
 	}
+
+	//vector‚Ì‰ğ•ú
+	vector<int> v;
+	type.swap(v);
 
 }
 
@@ -219,7 +246,7 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 
 		//ŒvZÏ‚İ‚Ì—v‘f‚ğíœ
 		calc_value.erase(calc_value.begin() + order.at(i) + 1);	//ŒvZÏ‚İ‚Ì’l‚ğíœ
-		calc_type.erase(calc_type.begin() + order.at(i) + 1);	//ŒvZÏ‚İ‚ÌŒvZí—Ş‚ğíœ
+		calc_type.erase(calc_type.begin() + order.at(i));		//ŒvZÏ‚İ‚ÌŒvZí—Ş‚ğíœ
 
 		//ŒvZÏ‚İ‚Ì—v‘f‚ğíœ‚µ‚½‚½‚ßAŒvZ‡”Ô‚ğˆê‚Â‚¸‚Â‘O‚ÉŒJ‚èã‚°‚é
 		for (auto itr = order.begin(); itr != order.end(); ++itr)
@@ -276,8 +303,8 @@ void Question::CreateValueNum(int gamemode)
 	case GAMEMODE_SUM_DIFFERENCE:		//‘«‚µZAˆø‚«Z‚Ì
 
 		value_num.at(gamemode).push_back(2);	//ŠÈ’P‚Ì‚Ì’l‚Ì”
-		value_num.at(gamemode).push_back(2);	//•’Ê‚Ì‚Ì’l‚Ì”
-		value_num.at(gamemode).push_back(2);	//“ï‚µ‚¢‚Ì‚Ì’l‚Ì”
+		value_num.at(gamemode).push_back(3);	//•’Ê‚Ì‚Ì’l‚Ì”
+		value_num.at(gamemode).push_back(3);	//“ï‚µ‚¢‚Ì‚Ì’l‚Ì”
 
 		break;			//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
 

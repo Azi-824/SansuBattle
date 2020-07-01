@@ -11,10 +11,11 @@ Score::Score()
 {
 	score = 0;	//score初期化
 	//ゲームモード毎のスコアを設定
-	mode_score.push_back(SCORE_ADD_ANSER);			//足し算の時のスコア
+	mode_score.push_back(SCORE_SUM_ANSER);			//足し算の時のスコア
 	mode_score.push_back(SCORE_DIFFERENCE_ANSER);	//引き算の時のスコア
 	mode_score.push_back(SCORE_PRODUCT_ANSER);		//掛け算の時のスコア
 	mode_score.push_back(SCORE_DEALER_ANSER);		//割り算の時のスコア
+	mode_score.push_back(SCORE_SUM_DIF_ANSER);		//足し算、引き算の時のスコア
 	//ゲームレベル毎のボーナスを設定
 	level_bonus.push_back(LEVEL_BONUS_EASY);		//簡単のときのボーナス
 	level_bonus.push_back(LEVEL_BONUS_NORMAL);		//普通のときのボーナス

@@ -15,10 +15,11 @@
 #define LEVEL_BONUS_NORMAL		2		//普通レベルのボーナス倍率
 #define LEVEL_BONUS_HARD		3		//難しいレベルのボーナス倍率
 
-#define SCORE_ADD_ANSER	100				//足し算の回答をした時のスコア
+#define SCORE_SUM_ANSER	100				//足し算の回答をした時のスコア
 #define SCORE_DIFFERENCE_ANSER	150		//引き算の回答をした時のスコア
 #define SCORE_PRODUCT_ANSER	200			//掛け算の回答をした時のスコア
 #define SCORE_DEALER_ANSER	250			//割り算の回答をした時のスコア
+#define SCORE_SUM_DIF_ANSER	300			//足し算、引き算の回答をした時のスコア
 
 using std::vector;
 
