@@ -50,11 +50,6 @@ enum BGM_TYPE
 	BGM_TYPE_END			//エンドBGM
 };
 
-enum BGM_TYPE_PLAY
-{
-	BGM_PLAY_ADD			//足し算のBGM
-};
-
 using std::string;
 
 //##################### クラス定義 ############################
