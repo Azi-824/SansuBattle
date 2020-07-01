@@ -33,8 +33,8 @@
 #define TEXT_GAMEMODE_PRO_DEA	"かけざん、わりざん"			//掛け算と割り算モードのテキスト
 
 #define DRAW_DATA_TEXT			"%2d:%dpoint(%d/%d/%d)"			//ランキング描画のテキスト
-#define DRAW_DATA_X		0	//ランキング描画開始X位置
-#define DRAW_DATA_Y		0	//ランキング描画開始Y位置
+#define DRAW_DATA_X		20	//ランキング描画開始X位置
+#define DRAW_DATA_Y		20	//ランキング描画開始Y位置
 #define DRAW_DATA_MAX	10	//描画するデータの数
 #define SAVE_MAX		15	//保存するデータの最大数
 

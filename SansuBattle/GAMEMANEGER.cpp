@@ -125,9 +125,10 @@ bool GameManeger::Load()
 	//画像関係
 	//背景画像
 	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_TITLE));	//背景（タイトル画面）を生成
-	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_PLAY));		//背景（タイトル画面）を生成
-	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_SELECT));	//背景（タイトル画面）を生成
-	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_END));		//背景（タイトル画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_PLAY));		//背景（プレイ画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_SELECT));	//背景（選択画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_SCORE));	//背景（選択画面）を生成
+	back.push_back(new Image(IMG_DIR_BACK, IMG_NAME_END));		//背景（エンド画面）を生成
 	for (auto img : back)
 	{
 		if (img->GetIsLoad() == false) { return false; }	//読み込み失敗
@@ -581,6 +582,9 @@ void GameManeger::Scene_DrawScore()
 //スコア表示画面の描画処理
 void GameManeger::Draw_SceneDrawScore()
 {
+
+	back.at(SCORE_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
+
 	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_MINISIZE)->GetHandle();	//使用するフォントハンドル変更
 	save->Draw(GameMode);														//データをランキング表示
 	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントハンドル変更
