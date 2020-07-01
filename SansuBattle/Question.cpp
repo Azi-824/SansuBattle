@@ -52,7 +52,14 @@ void Question::Create(int gamemode, int gamelevel)
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
 	{
 		max = GetMax(gamelevel, value);				//最大値設定
-		value.push_back(GetRand(max - min) + min);	//値を生成
+		int rand = GetRand(max - min) + min;		//値をランダムで生成
+
+		//割り算の時のみ、値の調整を行う
+		if (i > 0 && type.at(i - 1) == CALC_DEALER)	//割り算だったら
+		{
+			value.at(i - 1) -= value.at(i - 1) % rand;	//割り切れる値に調整
+		}
+		value.push_back(rand);	//値を追加
 	}
 
 	vector<int> order;		//計算の順番
