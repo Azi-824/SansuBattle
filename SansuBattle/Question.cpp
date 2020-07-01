@@ -82,47 +82,40 @@ void Question::Create(int gamemode, int gamelevel)
 //ŒvZ‚Ìí—Ş‚ğİ’è
 void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
-	switch (gamemode)	//ƒQ[ƒ€ƒ‚[ƒh–ˆ
+
+	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
 	{
-
-	case GAMEMODE_SUM:	//‘«‚µZ‚Ì
-
-		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+		switch (gamemode)	//ƒQ[ƒ€ƒ‚[ƒh–ˆ
 		{
+
+		case GAMEMODE_SUM:	//‘«‚µZ‚Ì
+
 			calc_type->push_back(CALC_SUM);	//‘«‚µZ
-		}
 
-		break;			//‘«‚µZ‚Ì‚±‚±‚Ü‚Å
+			break;			//‘«‚µZ‚Ì‚±‚±‚Ü‚Å
 
-	case GAMEMODE_DIFFERENCE:	//ˆø‚«Z‚Ì
+		case GAMEMODE_DIFFERENCE:	//ˆø‚«Z‚Ì
 
-		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
-		{
 			calc_type->push_back(CALC_DIFFERENCE);	//ˆø‚«Z
-		}
 
-		break;			//ˆø‚«Z‚Ì‚±‚±‚Ü‚Å
+			break;			//ˆø‚«Z‚Ì‚±‚±‚Ü‚Å
 
-	case GAMEMODE_PRODUCT:	//Š|‚¯Z‚Ì
+		case GAMEMODE_PRODUCT:	//Š|‚¯Z‚Ì
 
-		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
-		{
 			calc_type->push_back(CALC_PRODUCT);	//Š|‚¯Z
-		}
 
-		break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
+			break;			//Š|‚¯Z‚Ì‚±‚±‚Ü‚Å
 
-	case GAMEMODE_DEALER:		//Š„‚èZ‚Ì
+		case GAMEMODE_DEALER:		//Š„‚èZ‚Ì
 
-		for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
-		{
 			calc_type->push_back(CALC_DEALER);	//Š„‚èZ
+
+			break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
+
+		default:
+			break;
 		}
 
-		break;		//Š„‚èZ‚Ì‚±‚±‚Ü‚Å
-
-	default:
-		break;
 	}
 
 }
