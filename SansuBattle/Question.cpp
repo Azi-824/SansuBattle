@@ -54,11 +54,6 @@ void Question::Create(int gamemode, int gamelevel)
 		max = GetMax(gamelevel, value);				//最大値設定
 		int rand = GetRand(max - min) + min;		//値をランダムで生成
 
-		//割り算の時のみ、値の調整を行う
-		if (i > 0 && type.at(i - 1) == CALC_DEALER)	//割り算だったら
-		{
-			value.at(i - 1) -= value.at(i - 1) % rand;	//割り切れる値に調整
-		}
 		value.push_back(rand);	//値を追加
 	}
 
@@ -240,6 +235,12 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 		case CALC_DEALER:	//割り算
 
 			Q_Text += "÷";																				//演算記号を問題文に追加
+			//値の調整
+			while (calc_value.at(order.at(i)) % calc_value.at(order.at(i + 1)) != 0)	//割り切れない間
+			{
+				//割り切れる値になるまで、値を増やす
+				--calc_value.at(order.at(i + 1));
+			}
 			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //割り算
