@@ -612,8 +612,6 @@ void GameManeger::Draw_Scene_End()
 
 	back.at((int)END_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	DrawString(TEST_TEXT_X, TEST_TEXT_Y, END_TEXT, COLOR_WHITE);	//テスト用のテキストを描画
-
 	return;
 }
 
