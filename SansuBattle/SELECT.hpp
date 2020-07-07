@@ -31,12 +31,12 @@
 #define IMG_NAME_SELECTLEVEL_HARD	R"(\select_level_hard.png)"		//レベル選択肢（難しい）の画像
 
 #define SELECT_GAMEMODE_DRAW_X		40	//ゲームモードの選択肢の描画開始X位置
-#define SELECT_GAMEMODE_DRAW_Y		50	//ゲームモードの選択肢の描画開始Y位置
+#define SELECT_GAMEMODE_DRAW_Y		40	//ゲームモードの選択肢の描画開始Y位置
 #define SELECT_LEVEL_DRAW_X		0		//レベルの選択肢の描画開始X位置
 #define SELECT_LEVEL_DRAW_Y		250		//レベルの選択肢の描画開始Y位置
 
 #define SELECT_GAMEMODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
-#define SELECT_GAMEMODE_INTERVAL_VERTICAL	120		//ゲームモード選択肢の間隔(縦)
+#define SELECT_GAMEMODE_INTERVAL_VERTICAL	100		//ゲームモード選択肢の間隔(縦)
 #define SELECT_LEVEL_INTERVAL_SIDE			10		//レベル選択肢の間隔(縦)
 
 #define RECT_EXPANSION_VALUE	20	//領域の拡大量

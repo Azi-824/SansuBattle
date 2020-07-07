@@ -114,6 +114,7 @@ void Select::SetInit(int x, int y, int interval_side,int interval_vertical)
 		++RowNum;			//カウントアップ
 	}
 
+	//描画範囲の中で描画できる行の数を計算
 	while (true)	//無限ループ
 	{
 		y += SelectImage.front()->GetHeight() + Interval_Vertical;	//yの位置をずらす
@@ -151,15 +152,26 @@ void Select::Draw()
 
 	int NowDrawX = DrawX, NowDrawY = DrawY;		//現在の描画位置
 	int row_cnt = 0;							//列数のカウント
+	int line_cnt = 0;							//行数のカウント
+	int now_page = 0;							//ページカウント
 	int cnt = 0;
 
 	for (auto img : SelectImage)
 	{
 		if (row_cnt >= RowNum)		//列数が、描画できる範囲を超えたら
 		{
-			NowDrawX = DrawX;									//Xの描画位置を最初の位置へ
+			NowDrawX = DrawX + GAME_WIDTH * now_page;			//Xの描画位置を最初の位置へ
 			NowDrawY += img->GetHeight() + Interval_Vertical;	//Yの描画位置を、画像の高さ＋間隔分下へずらす
+			++line_cnt;											//カウントアップ
 			row_cnt = 0;										//カウントリセット
+		}
+
+		if (line_cnt >= LineNum)	//行数が、描画できる範囲を超えたら
+		{
+			NowDrawX = DrawX + GAME_WIDTH;		//Xの位置を1画面分ずらした位置へ
+			NowDrawY = DrawY;					//Yの位置を最初の位置へ
+			++now_page;							//カウントアップ
+			line_cnt = 0;						//カウントリセット
 		}
 
 		++row_cnt;	//カウントアップ
@@ -167,8 +179,8 @@ void Select::Draw()
 		if (cnt == *NowSelectCode)		//現在選択しているものだったら
 		{
 			//領域設定
-			rect.left = NowDrawX - RECT_EXPANSION_VALUE;								//左上X
-			rect.top = NowDrawY - RECT_EXPANSION_VALUE;									//左上Y
+			rect.left = NowDrawX - RECT_EXPANSION_VALUE;						//左上X
+			rect.top = NowDrawY - RECT_EXPANSION_VALUE;							//左上Y
 			rect.right = NowDrawX + img->GetWidth() + RECT_EXPANSION_VALUE;		//右下X
 			rect.bottom = NowDrawY + img->GetHeight() + RECT_EXPANSION_VALUE;	//右下Y
 
