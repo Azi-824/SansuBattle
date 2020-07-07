@@ -329,8 +329,8 @@ void GameManeger::ProcesScene()
 //初期設定
 void GameManeger::SetInit()
 {
-	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y, GAME_WIDTH, SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
-	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y, GAME_WIDTH, SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
+	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y,  SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
+	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y,  SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 
 	for (auto img : back)

@@ -19,8 +19,8 @@ Select::Select(vector<Image*>image)
 	IsBack = false;						//戻るか初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
-	DrawWidth_Range = 0;				//描画幅の範囲初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
+	LineNum = 0;						//描画範囲の中で描画できる行の数初期化
 	Interval_Side = 0;					//選択肢の間隔(横)初期化
 	Interval_Vertical = 0;				//選択肢の間隔(縦)初期化
 	//領域初期化
@@ -87,11 +87,10 @@ int Select::GetChoiseSelectCode()
 /*
 引数：int：描画開始X位置
 引数：int：描画開始Y位置
-引数：int：描画可能横幅
 引数：int：選択肢の間隔(横)
 引数：int：選択肢の間隔(縦)、デフォルトは0
 */
-void Select::SetInit(int x, int y, int width,int interval_side,int interval_vertical)
+void Select::SetInit(int x, int y, int interval_side,int interval_vertical)
 {
 	for (auto img : SelectImage)
 	{
@@ -100,7 +99,6 @@ void Select::SetInit(int x, int y, int width,int interval_side,int interval_vert
 
 	DrawX = x;				//描画開始X位置設定
 	DrawY = y;				//描画開始Y位置設定
-	DrawWidth_Range = width;//描画幅の範囲を設定
 	Interval_Side = interval_side;	//選択肢の間隔(横)を設定
 	Interval_Vertical = interval_vertical;	//選択肢の間隔(縦)を設定
 
@@ -108,16 +106,24 @@ void Select::SetInit(int x, int y, int width,int interval_side,int interval_vert
 	while (true)	//無限ループ
 	{
 
-		if (x + SelectImage.front()->GetWidth() + Interval_Side > width)	//描画可能横幅を超えたら
-		{
-			break;	//ループを抜ける
-		}
-
 		x += SelectImage.front()->GetWidth() + Interval_Side;			//Xの位置をずらす
-		++RowNum;														//カウントアップ
+
+		if (x > GAME_WIDTH)	//描画可能横幅を超えたら
+			break;			//ループ終了
+
+		++RowNum;			//カウントアップ
 	}
 
-	return;
+	while (true)	//無限ループ
+	{
+		y += SelectImage.front()->GetHeight() + Interval_Vertical;	//yの位置をずらす
+
+		if (y > GAME_HEIGHT)	//描画可能高さを超えたら
+			break;				//ループ終了
+
+		++LineNum;				//カウントアップ
+	}
+
 }
 
 //初期化

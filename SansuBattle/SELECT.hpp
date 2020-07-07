@@ -68,8 +68,8 @@ private:
 
 	int DrawX;									//描画開始X位置
 	int DrawY;									//描画開始Y位置
-	int DrawWidth_Range;						//描画幅の範囲
 	int RowNum;									//描画範囲の中で描画できる列の数
+	int LineNum;								//描画範囲の中で描画できる行の数
 	int Interval_Side;							//選択肢の間隔(横)
 	int Interval_Vertical;						//選択肢の間隔(縦)
 
@@ -87,7 +87,7 @@ public:
 	bool GetIsBack();							//戻るか取得
 	int GetChoiseSelectCode();					//選んだ選択肢のコード番号
 
-	void SetInit(int,int,int,int,int interval_vertical = 0);	//初期設定
+	void SetInit(int,int,int,int interval_vertical = 0);	//初期設定
 	void Init();								//初期化
 
 	void Add(Image*);							//選択肢を追加
