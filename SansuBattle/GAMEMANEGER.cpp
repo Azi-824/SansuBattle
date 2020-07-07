@@ -142,6 +142,13 @@ bool GameManeger::Load()
 	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_DEALER));		//ゲームモード選択肢の画像生成(割り算)
 	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIFF));	//ゲームモード選択肢の画像生成(足し算引き算)
 	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_PRO_DEA));		//ゲームモード選択肢の画像生成(掛け算割り算)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_PRO));		//ゲームモード選択肢の画像生成(+*)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DEA));		//ゲームモード選択肢の画像生成(+/)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_DIF_PRO));		//ゲームモード選択肢の画像生成(-*)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIF_PRO));	//ゲームモード選択肢の画像生成(+-*)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_SUM_DIF_DEA));	//ゲームモード選択肢の画像生成(+-/)
+	gamemode_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_ALL));			//ゲームモード選択肢の画像生成(+-*/)
+
 	for (auto img : gamemode_img)
 	{
 		if (!img->GetIsLoad()) { return false; }	//読み込み失敗

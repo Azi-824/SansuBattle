@@ -19,6 +19,12 @@
 #define IMG_NAME_SELECT_DEALER		R"(\select_dealer.png)"			//ゲームモード選択肢（割り算）の画像
 #define IMG_NAME_SELECT_SUM_DIFF	R"(\select_sum_diff.png)"		//ゲームモード選択肢（足し算、引き算）の画像
 #define IMG_NAME_SELECT_PRO_DEA		R"(\select_pro_dea.png)"		//ゲームモード選択肢（掛け算、割り算）の画像
+#define IMG_NAME_SELECT_SUM_PRO		R"(\select_sum_pro.png)"		//ゲームモード選択肢（足し算、掛け算）の画像
+#define IMG_NAME_SELECT_SUM_DEA		R"(\select_sum_dea.png)"		//ゲームモード選択肢（足し算、割り算）の画像
+#define IMG_NAME_SELECT_DIF_PRO		R"(\select_dif_pro.png)"		//ゲームモード選択肢（引き算、掛け算）の画像
+#define IMG_NAME_SELECT_SUM_DIF_PRO	R"(\select_sum_dif_pro.png)"	//ゲームモード選択肢（+-*）の画像
+#define IMG_NAME_SELECT_SUM_DIF_DEA	R"(\select_sum_dif_dea.png)"	//ゲームモード選択肢（+-/）の画像
+#define IMG_NAME_SELECT_ALL			R"(\select_all.png)"			//ゲームモード選択肢（四則演算）の画像
 
 #define IMG_NAME_SELECTLEVEL_EASY	R"(\select_level_easy.png)"		//レベル選択肢（簡単）の画像
 #define IMG_NAME_SELECTLEVEL_NORMAL	R"(\select_level_normal.png)"	//レベル選択肢（普通）の画像
