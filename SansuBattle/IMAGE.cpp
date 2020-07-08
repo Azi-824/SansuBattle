@@ -157,14 +157,138 @@ void Image::Draw(int x, int y)
 }
 
 //画像を描画（中央）
-//引数：int：画面の横幅：デフォルトはゲーム画面の横幅
-//引数：int：描画する高さ：デフォルトはゲーム画面の高さ
-void Image::DrawCenter(int width,int height)
+void Image::DrawCenter()
 {
 
 	int x = 0, y = 0;	//描画するX位置,Y位置
-	x = (width / 2) - (Width / 2);			//画面中央になるように計算
-	y = (height / 2) - (Height / 2);		//画面中央になるように計算
+	x = (GAME_WIDTH / 2) - (Width / 2);			//画面中央になるように計算
+	y = (GAME_HEIGHT / 2) - (Height / 2);		//画面中央になるように計算
+
+	static int cnt = FADE_MAX_CNT;				//カウント用
+
+	if (IsFade)	//フェードアウトするときは
+	{
+		if (!FadeEnd)	//フェードアウト終了していなければ
+		{
+
+			if (IsDraw)	//描画してよければ
+			{
+
+				//60フレーム分、待つ
+				if (cnt > 0)
+				{
+					--cnt;	//カウントアップ
+				}
+				else
+				{
+					FadeEnd = true;	//フェード終了
+				}
+
+				//フェードアウトの処理
+				double ToukaPercent = cnt / (double)FADE_MAX_CNT;						//透過%を計算
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);	//透過させる
+				DrawGraph(x, y, Handle, TRUE);					//画像を描画
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);								//透過をやめる
+
+
+			}
+
+
+		}
+		else 		//フェードアウト終了したら
+		{
+			IsDraw = false;	//描画しない
+			cnt = FADE_MAX_CNT;				//カウントリセット
+			IsFade = false;	//フェードアウトしない
+		}
+
+	}
+	else		//フェードアウトしない時は
+	{
+		cnt = FADE_MAX_CNT;		//カウントリセット
+
+		if (IsDraw)	//描画してよければ
+		{
+			DrawGraph(x, y, Handle, TRUE);	//画像を描画
+		}
+
+	}
+
+
+
+	return;
+}
+
+//画像を描画（上下中央）
+//引数：int：描画X位置
+void Image::DrawCenterY(int x)
+{
+
+	int y = 0;	//描画するY位置
+	y = (GAME_HEIGHT / 2) - (Height / 2);	//上下中央になるように計算
+
+	static int cnt = FADE_MAX_CNT;				//カウント用
+
+	if (IsFade)	//フェードアウトするときは
+	{
+		if (!FadeEnd)	//フェードアウト終了していなければ
+		{
+
+			if (IsDraw)	//描画してよければ
+			{
+
+				//60フレーム分、待つ
+				if (cnt > 0)
+				{
+					--cnt;	//カウントアップ
+				}
+				else
+				{
+					FadeEnd = true;	//フェード終了
+				}
+
+				//フェードアウトの処理
+				double ToukaPercent = cnt / (double)FADE_MAX_CNT;						//透過%を計算
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);	//透過させる
+				DrawGraph(x, y, Handle, TRUE);					//画像を描画
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);								//透過をやめる
+
+
+			}
+
+
+		}
+		else 		//フェードアウト終了したら
+		{
+			IsDraw = false;	//描画しない
+			cnt = FADE_MAX_CNT;				//カウントリセット
+			IsFade = false;	//フェードアウトしない
+		}
+
+	}
+	else		//フェードアウトしない時は
+	{
+		cnt = FADE_MAX_CNT;		//カウントリセット
+
+		if (IsDraw)	//描画してよければ
+		{
+			DrawGraph(x, y, Handle, TRUE);	//画像を描画
+		}
+
+	}
+
+
+
+	return;
+}
+
+//画像を描画（左右中央）
+//引数：int：描画Y位置
+void Image::DrawCenterX(int y)
+{
+
+	int x = 0;	//描画するY位置
+	x = (GAME_WIDTH / 2) - (Width / 2);	//左右中央になるように計算
 
 	static int cnt = FADE_MAX_CNT;				//カウント用
 

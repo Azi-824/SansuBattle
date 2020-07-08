@@ -8,6 +8,7 @@
 
 //インスタンスを生成
 vector<Music*> Select::Key_se;	//キーボードの効果音
+vector<Image*> Select::Arrow;	//矢印の画像
 
 //コンストラクタ
 Select::Select(vector<Image*>image)
@@ -36,6 +37,17 @@ Select::Select(vector<Image*>image)
 	{
 		Key_se.push_back(new Music(MUSIC_DIR_SE, SE_NAME_KETTEI));	//決定の効果音を追加
 		Key_se.at((int)SE_KEY_KETTEI)->SetInit(DX_PLAYTYPE_BACK, 30);	//初期設定
+	}
+
+	if (Arrow.empty())	//矢印の画像が生成されていなかったら
+	{
+		Arrow.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_ARROW_RIGHT));	//矢印（右）追加
+		Arrow.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_ARROW_LEFT));	//矢印（左）追加
+
+		for (auto img : Arrow)
+		{
+			img->SetInit();	//初期設定
+		}
 	}
 
 	SelectImage = image;				//選択肢の画像を生成
@@ -211,6 +223,30 @@ void Select::Draw()
 
 	}
 
+	enum ARROW_TYPE
+	{
+		ARROW_RIGHT,	//右
+		ARROW_LEFT		//左
+	};
+
+	//UIの描画
+	if (NowPage == PAGE_START)	//最初のページなら
+	{
+		//右矢印のみ描画
+		Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
+	}
+	else if (NowPage == PageMax)	//最後のページなら
+	{
+		//左矢印のみ描画
+		Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
+	}
+	else		//それ以外なら
+	{
+		//両方とも描画
+		Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
+		Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
+	}
+			
 }
 
 //キー操作

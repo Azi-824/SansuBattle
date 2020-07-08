@@ -30,10 +30,16 @@
 #define IMG_NAME_SELECTLEVEL_NORMAL	R"(\select_level_normal.png)"	//レベル選択肢（普通）の画像
 #define IMG_NAME_SELECTLEVEL_HARD	R"(\select_level_hard.png)"		//レベル選択肢（難しい）の画像
 
+#define IMG_NAME_ARROW_RIGHT		R"(\Arrow_Right.png)"			//矢印（右）の画像
+#define IMG_NAME_ARROW_LEFT			R"(\Arrow_Left.png)"			//矢印（左）の画像
+
 #define SELECT_GAMEMODE_DRAW_X		40	//ゲームモードの選択肢の描画開始X位置
 #define SELECT_GAMEMODE_DRAW_Y		40	//ゲームモードの選択肢の描画開始Y位置
 #define SELECT_LEVEL_DRAW_X		0		//レベルの選択肢の描画開始X位置
 #define SELECT_LEVEL_DRAW_Y		250		//レベルの選択肢の描画開始Y位置
+
+#define ARROW_RIGHT_DRAW_X		550		//矢印（右）の描画X位置
+#define ARROW_LEFT_DRAW_X		50		//矢印（左）の描画X位置
 
 #define SELECT_GAMEMODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
 #define SELECT_GAMEMODE_INTERVAL_VERTICAL	100		//ゲームモード選択肢の間隔(縦)
@@ -59,6 +65,7 @@ private:
 	vector<Image*> SelectImage;					//選択肢の画像
 	RECT rect;									//選択肢の領域
 	static vector<Music*> Key_se;				//キーボード操作の時の効果音
+	static vector<Image*> Arrow;				//矢印の画像
 
 	vector<int> SelectCode;						//選択肢のコード番号
 	vector<int>::iterator NowSelectCode;		//現在選んでいるコード番号
