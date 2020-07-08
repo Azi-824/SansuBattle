@@ -18,8 +18,8 @@ Select::Select(vector<Image*>image)
 	IsChoise = false;					//選択したか初期化
 	IsBack = false;						//戻るか初期化
 	IsNextPage = false;					//次のページへ行けるか初期化
-	PageEndFlg = false;					//最後のページか初期化
-	PageStartFlg = true;				//最初のページか初期化
+	PageMax = 0;						//ページ数初期化
+	NowPage = 0;						//現在のページ初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
@@ -127,6 +127,14 @@ void Select::SetInit(int x, int y, int interval_side,int interval_vertical)
 
 		++LineNum;				//カウントアップ
 	}
+
+	//選択肢をすべて描画するのに、何ページ必要か計算
+	int one_page = RowNum * LineNum;	//1ページに入る選択肢の数
+	do
+	{
+		++PageMax;	//ページ数増加
+	} while ((one_page * PageMax) < SelectCode.size());	
+	NowPage = PAGE_START;	//先頭のページを現在のページに設定
 
 }
 
@@ -258,7 +266,7 @@ bool Select::CheckIsNextPage()
 {
 	int distance = NowSelectCode - SelectCode.begin();	//距離を取得
 
-	if (!PageEndFlg && (distance + 1) % RowNum == 0)	//最後のページじゃなく、右端の選択肢を選んでいるとき
+	if (NowPage < PageMax && (distance + 1) % RowNum == 0)	//最後のページじゃなく、右端の選択肢を選んでいるとき
 	{
 		return true;		//次のページへ行ける
 	}
@@ -274,7 +282,7 @@ bool Select::CheckIsPrevPage()
 {
 	int distance = NowSelectCode - SelectCode.begin();	//距離を取得
 
-	if (!PageStartFlg && distance % RowNum == 0)	//最初のページじゃなく、左端の選択肢を選んでいるとき
+	if (NowPage > PAGE_START && distance % RowNum == 0)	//最初のページじゃなく、左端の選択肢を選んでいるとき
 	{
 		return true;		//前のページへ行ける
 	}
@@ -289,7 +297,7 @@ bool Select::CheckIsPrevPage()
 void Select::NextPage()
 {
 	Next(RowNum + 1);		//次のページの選択へ
-	PageStartFlg = false;	//最初のページじゃない
+	++NowPage;				//次のページへ
 	DrawX -= GAME_WIDTH;	//描画位置を1ページ分ずらす
 }
 
@@ -297,7 +305,7 @@ void Select::NextPage()
 void Select::PrevPage()
 {
 	Prev(RowNum + 1);		//前のページの選択へ
-	PageEndFlg = false;		//最後のページじゃない
+	--NowPage;				//前のページへ
 	DrawX += GAME_WIDTH;	//描画位置をを1ページ分ずらす
 }
 

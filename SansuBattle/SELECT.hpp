@@ -44,6 +44,8 @@
 
 #define CHOISE_NONE	-1				//選択していない状態
 
+#define PAGE_START	1				//先頭のページ
+
 //##################### 列挙型 #######################
 
 using std::vector;
@@ -65,9 +67,10 @@ private:
 
 	bool IsChoise;								//選択したか
 	bool IsBack;								//戻るか
+
+	int PageMax;								//ページ数
+	int NowPage;								//現在のページ
 	bool IsNextPage;							//次のページへ行けるか
-	bool PageEndFlg;							//最後のページ
-	bool PageStartFlg;							//最初のページ
 
 	int DrawX;									//描画開始X位置
 	int DrawY;									//描画開始Y位置
