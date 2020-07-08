@@ -65,6 +65,9 @@ private:
 
 	bool IsChoise;								//選択したか
 	bool IsBack;								//戻るか
+	bool IsNextPage;							//次のページへ行けるか
+	bool PageEndFlg;							//最後のページ
+	bool PageStartFlg;							//最初のページ
 
 	int DrawX;									//描画開始X位置
 	int DrawY;									//描画開始Y位置
@@ -72,6 +75,11 @@ private:
 	int LineNum;								//描画範囲の中で描画できる行の数
 	int Interval_Side;							//選択肢の間隔(横)
 	int Interval_Vertical;						//選択肢の間隔(縦)
+
+	bool CheckIsNextPage();						//次のページへ行けるか確認
+	bool CheckIsPrevPage();						//前のページへ行けるか確認
+	void NextPage();							//次のページへ
+	void PrevPage();							//前のページへ
 
 	void Next();								//次の選択肢へ
 	void Next(int);								//指定された数分、次の選択肢へ

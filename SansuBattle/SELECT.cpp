@@ -17,6 +17,9 @@ Select::Select(vector<Image*>image)
 	Choise_SelectCode = CHOISE_NONE;	//選んだ選択肢のコードを初期化
 	IsChoise = false;					//選択したか初期化
 	IsBack = false;						//戻るか初期化
+	IsNextPage = false;					//次のページへ行けるか初期化
+	PageEndFlg = false;					//最後のページか初期化
+	PageStartFlg = true;				//最初のページか初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
@@ -207,11 +210,25 @@ void Select::Operation(KeyDown* keydown)
 {
 	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
 	{
-		Prev();	//前の選択肢へ
+		if (CheckIsPrevPage())	//前のページへ行けるときは
+		{
+			PrevPage();	//前のページへ
+		}
+		else		//行けない時は
+		{
+			Prev();	//前の選択肢へ
+		}
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RIGHT))	//右矢印キーを押されたら
 	{
-		Next();	//次の選択肢へ
+		if (CheckIsNextPage())	//次のページへ行けるときは
+		{
+			NextPage();	//次のページへ
+		}
+		else		//行けない時は
+		{
+			Next();	//次の選択肢へ
+		}
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_UP))		//上矢印キーを押されたら
 	{
@@ -223,8 +240,8 @@ void Select::Operation(KeyDown* keydown)
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))	//エンターキーを押されたら
 	{
-		Choise_SelectCode = *NowSelectCode;	//現在選択している選択肢を設定
-		IsChoise = true;							//選択した
+		Choise_SelectCode = *NowSelectCode;				//現在選択している選択肢を設定
+		IsChoise = true;								//選択した
 		Key_se.at((int)SE_KEY_KETTEI)->Play(false);		//決定の効果音を鳴らす
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_BACK))		//バックスペースキーを押されたら
@@ -236,6 +253,54 @@ void Select::Operation(KeyDown* keydown)
 
 }
 
+//次のページへ行けるか確認
+bool Select::CheckIsNextPage()
+{
+	int distance = NowSelectCode - SelectCode.begin();	//距離を取得
+
+	if (!PageEndFlg && (distance + 1) % RowNum == 0)	//最後のページじゃなく、右端の選択肢を選んでいるとき
+	{
+		return true;		//次のページへ行ける
+	}
+	else		//それ以外の時は
+	{
+		return false;		//次のページへ行けない
+	}
+
+}
+
+//前のページへ行けるか確認
+bool Select::CheckIsPrevPage()
+{
+	int distance = NowSelectCode - SelectCode.begin();	//距離を取得
+
+	if (!PageStartFlg && distance % RowNum == 0)	//最初のページじゃなく、左端の選択肢を選んでいるとき
+	{
+		return true;		//前のページへ行ける
+	}
+	else		//それ以外の時は
+	{
+		return false;		//前のページへ行けない
+	}
+
+}
+
+//次のページへ
+void Select::NextPage()
+{
+	Next(RowNum + 1);		//次のページの選択へ
+	PageStartFlg = false;	//最初のページじゃない
+	DrawX -= GAME_WIDTH;	//描画位置を1ページ分ずらす
+}
+
+//前のページへ
+void Select::PrevPage()
+{
+	Prev(RowNum + 1);		//前のページの選択へ
+	PageEndFlg = false;		//最後のページじゃない
+	DrawX += GAME_WIDTH;	//描画位置をを1ページ分ずらす
+}
+
 //次の選択肢へ
 void Select::Next()
 {
@@ -244,7 +309,6 @@ void Select::Next()
 	{
 		++NowSelectCode;	//次の選択肢へ
 	}
-
 	return;
 }
 
