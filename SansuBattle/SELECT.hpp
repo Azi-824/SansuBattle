@@ -38,7 +38,7 @@
 #define SELECT_LEVEL_DRAW_X		0		//レベルの選択肢の描画開始X位置
 #define SELECT_LEVEL_DRAW_Y		250		//レベルの選択肢の描画開始Y位置
 
-#define ARROW_RIGHT_DRAW_X		550		//矢印（右）の描画X位置
+#define ARROW_RIGHT_DRAW_X		640		//矢印（右）の描画X位置
 #define ARROW_LEFT_DRAW_X		50		//矢印（左）の描画X位置
 
 #define SELECT_GAMEMODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
