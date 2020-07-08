@@ -75,7 +75,9 @@ public:
 	void SetIsDraw(bool);			//描画してよいか設定
 
 	void Draw(int, int);		//画像を描画
-	void DrawCenter(int width = GAME_WIDTH,int height = GAME_HEIGHT);	//画像を描画（中央）
+	void DrawCenter();			//画像を描画（中央）
+	void DrawCenterY(int);		//画像を描画（上下中央）
+	void DrawCenterX(int);		//画像を描画（左右中央）
 
 	void SetIsFade(bool);		//フェードアウトするか設定
 	bool GetFadeEnd();			//フェードエフェクトが終了しているか取得
