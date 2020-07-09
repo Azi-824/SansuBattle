@@ -9,6 +9,7 @@
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
 vector<vector<int>> Question::value_num;//値の数
+vector<vector<int>> Question::CalcType_Table;//各ゲームモードの計算の種類のテーブル
 
 //コンストラクタ
 Question::Question()
@@ -27,6 +28,9 @@ Question::Question()
 		{
 			CreateValueNum(i);	//値の数の情報を作成
 		}
+
+		//テーブル作成
+		CreateTable();
 
 	}
 
@@ -78,74 +82,11 @@ void Question::Create(int gamemode, int gamelevel)
 void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
 
-	vector<int> type;	//計算の種類
-	int rand = 0;		//乱数生成用
-
 	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
 	{
-		switch (gamemode)	//ゲームモード毎
-		{
-
-		case GAMEMODE_SUM:	//足し算の時
-
-			calc_type->push_back(CALC_SUM);	//足し算
-
-			break;			//足し算の時ここまで
-
-		case GAMEMODE_DIFFERENCE:	//引き算の時
-
-			calc_type->push_back(CALC_DIFFERENCE);	//引き算
-
-			break;			//引き算の時ここまで
-
-		case GAMEMODE_PRODUCT:	//掛け算の時
-
-			calc_type->push_back(CALC_PRODUCT);	//掛け算
-
-			break;			//掛け算の時ここまで
-
-		case GAMEMODE_DEALER:		//割り算の時
-
-			calc_type->push_back(CALC_DEALER);	//割り算
-
-			break;		//割り算の時ここまで
-
-		case GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
-
-			if (type.empty())	//空なら
-			{
-				type.push_back(CALC_SUM);			//足し算
-				type.push_back(CALC_DIFFERENCE);	//引き算
-			}
-			rand = GetRand(type.size() - 1);		//乱数生成
-
-			calc_type->push_back(type.at(rand));	//計算の種類設定
-
-			break;		//割り算の時ここまで
-
-		case GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
-
-			if (type.empty())	//空なら
-			{
-				type.push_back(CALC_PRODUCT);	//掛け算
-				type.push_back(CALC_DEALER);	//割り算
-			}
-			rand = GetRand(type.size() - 1);	//乱数生成
-
-			calc_type->push_back(type.at(rand));//計算の種類設定
-
-			break;		//割り算の時ここまで
-
-
-		default:
-			break;
-		}
-
+		int rand = GetRand(CalcType_Table.at(gamemode).size() - 1);		//乱数生成
+		calc_type->push_back(CalcType_Table.at(gamemode).at(rand));		//計算の種類を設定
 	}
-
-	//vectorの解放
-	vector<int> v;
-	type.swap(v);
 
 }
 
@@ -328,6 +269,50 @@ void Question::CreateValueNum(int gamemode)
 	default:
 		break;
 	}
+
+}
+
+//各ゲームモードの計算の種類のテーブル
+void Question::CreateTable()
+{
+	vector<int> type;
+
+	//足し算モード
+	type.push_back(CALC_SUM);		//足し算
+	CalcType_Table.push_back(type);	//足し算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//引き算モード
+	type.push_back(CALC_DIFFERENCE);//引き算
+	CalcType_Table.push_back(type);	//引き算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//掛け算モード
+	type.push_back(CALC_PRODUCT);	//掛け算
+	CalcType_Table.push_back(type);	//掛け算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//割り算モード
+	type.push_back(CALC_DEALER);	//割り算
+	CalcType_Table.push_back(type);	//割り算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//足し算、引き算モード
+	type.push_back(CALC_SUM);		//足し算
+	type.push_back(CALC_DIFFERENCE);//引き算
+	CalcType_Table.push_back(type);	//足し算、引き算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//掛け算、割り算モード
+	type.push_back(CALC_PRODUCT);	//掛け算
+	type.push_back(CALC_DEALER);	//割り算
+	CalcType_Table.push_back(type);	//掛け算、割り算モードの計算の種類の選択肢を追加
+	type.clear();					//中身をクリア
+
+	//vectorの解放
+	vector<int> v;
+	type.swap(v);
+
 
 }
 
