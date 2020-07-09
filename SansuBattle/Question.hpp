@@ -58,7 +58,7 @@ class Question
 private:
 
 	static Image* img_kokuban;			//黒板の画像
-	static vector<vector<int>> value_num;	//値の数
+	static vector<vector<int>> ValueNum_Table;	//値の数
 	static vector<vector<int>> CalcType_Table;	//各ゲームモードの計算の種類のテーブル
 
 	string Q_Text;				//問題文
@@ -72,7 +72,7 @@ private:
 	void SetOrder(vector<int>, vector<int>*);					//計算の順番を設定
 	int GetMax(int, vector<int>);								//最大値取得
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
-	void CreateValueNum(int);									//ゲームモード毎の値の数の情報を作成
+	void CreateValueNum();										//ゲームモード毎の値の数の情報を作成
 	void CreateTable();											//各ゲームモードの計算の種類のテーブルを作成
 
 public:

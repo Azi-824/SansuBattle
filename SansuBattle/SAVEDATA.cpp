@@ -59,13 +59,13 @@ const char* SaveData::GetFileName(int gamemode)
 
 		break;	//割り算の時ここまで
 
-	case (int)GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
+	case (int)GAMEMODE_SUM_DIF:		//足し算、引き算の時
 
 		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイル
 
 		break;	//足し算、引き算の時ここまで
 
-	case (int)GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
+	case (int)GAMEMODE_PRO_DEA:		//掛け算、割り算の時
 
 		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイル
 
@@ -107,13 +107,13 @@ const char* SaveData::GetTextGameMode(int gamemode)
 
 		break;	//割り算の時ここまで
 
-	case (int)GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
+	case (int)GAMEMODE_SUM_DIF:		//足し算、引き算の時
 
 		return  TEXT_GAMEMODE_SUM_DIF;	//足し算、引き算用のテキスト
 
 		break;	//足し算、引き算の時ここまで
 
-	case (int)GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
+	case (int)GAMEMODE_PRO_DEA:		//掛け算、割り算の時
 
 		return TEXT_GAMEMODE_PRO_DEA;	//掛け算、割り算用のテキスト
 

@@ -8,7 +8,7 @@
 
 //インスタンスを生成
 Image* Question::img_kokuban;			//黒板の画像
-vector<vector<int>> Question::value_num;//値の数
+vector<vector<int>> Question::ValueNum_Table;//値の数
 vector<vector<int>> Question::CalcType_Table;//各ゲームモードの計算の種類のテーブル
 
 //コンストラクタ
@@ -21,18 +21,14 @@ Question::Question()
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
-	if (value_num.empty())	//情報を作成していなければ
+	if (ValueNum_Table.empty())	//情報を作成していなければ
 	{
-		value_num.resize(GAMEMODE_MAX);	//サイズ変更
-		for (int i = GAMEMODE_SUM; i < GAMEMODE_MAX; ++i)	//ゲームモードの種類分
-		{
-			CreateValueNum(i);	//値の数の情報を作成
-		}
-
 		//テーブル作成
-		CreateTable();
+		CreateValueNum();	//値の数
+		CreateTable();		//計算の種類
 
 	}
+
 
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
 	{
@@ -53,13 +49,14 @@ void Question::Create(int gamemode, int gamelevel)
 
 	SetCalcType(gamemode, gamelevel, &type);	//計算の種類を設定
 
-	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
 	{
 		max = GetMax(gamelevel, value);				//最大値設定
 		int rand = GetRand(max - min) + min;		//値をランダムで生成
 
 		value.push_back(rand);	//値を追加
 	}
+
 
 	vector<int> order;		//計算の順番
 	SetOrder(type, &order);	//計算の順番を設定
@@ -82,7 +79,7 @@ void Question::Create(int gamemode, int gamelevel)
 void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
 
-	for (int i = 0; i < value_num.at(gamemode).at(gamelevel); ++i)
+	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
 	{
 		int rand = GetRand(CalcType_Table.at(gamemode).size() - 1);		//乱数生成
 		calc_type->push_back(CalcType_Table.at(gamemode).at(rand));		//計算の種類を設定
@@ -212,63 +209,56 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 }
 
 //ゲームモード毎の値の数の情報を作成
-void Question::CreateValueNum(int gamemode)
+void Question::CreateValueNum()
 {
-	switch (gamemode)	//ゲームモード毎
-	{
 
-	case GAMEMODE_SUM:	//足し算の時
+	vector<int> num;	//値の数
+	
+	//足し算モード
+	num.push_back(2);		//簡単
+	num.push_back(3);		//普通
+	num.push_back(3);		//難しい
+	ValueNum_Table.push_back(num);	//足し算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(3);	//普通の時の値の数
-		value_num.at(gamemode).push_back(3);	//難しいの時の値の数
+	//引き算モード
+	num.push_back(2);		//簡単
+	num.push_back(2);		//普通
+	num.push_back(2);		//難しい
+	ValueNum_Table.push_back(num);	//引き算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-		break;			//足し算の時ここまで
+	//掛け算モード
+	num.push_back(2);		//簡単
+	num.push_back(2);		//普通
+	num.push_back(2);		//難しい
+	ValueNum_Table.push_back(num);	//掛け算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-	case GAMEMODE_DIFFERENCE:	//引き算の時
+	//割り算モード
+	num.push_back(2);		//簡単
+	num.push_back(2);		//普通
+	num.push_back(2);		//難しい
+	ValueNum_Table.push_back(num);	//割り算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(2);	//普通の時の値の数
-		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
+	//足し算、引き算モード
+	num.push_back(2);		//簡単
+	num.push_back(3);		//普通
+	num.push_back(3);		//難しい
+	ValueNum_Table.push_back(num);	//足し算、引き算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-		break;			//引き算の時ここまで
+	//掛け算、割り算モード
+	num.push_back(2);		//簡単
+	num.push_back(3);		//普通
+	num.push_back(3);		//難しい
+	ValueNum_Table.push_back(num);	//掛け算、割り算モードの計算の種類の選択肢を追加
+	num.clear();					//中身をクリア
 
-	case GAMEMODE_PRODUCT:	//掛け算の時
-
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(2);	//普通の時の値の数
-		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
-
-		break;			//掛け算の時ここまで
-
-	case GAMEMODE_DEALER:		//割り算の時
-
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(2);	//普通の時の値の数
-		value_num.at(gamemode).push_back(2);	//難しいの時の値の数
-
-		break;			//割り算の時ここまで
-
-	case GAMEMODE_SUM_DIFFERENCE:		//足し算、引き算の時
-
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(3);	//普通の時の値の数
-		value_num.at(gamemode).push_back(3);	//難しいの時の値の数
-
-		break;			//割り算の時ここまで
-
-	case GAMEMODE_PRODUCT_DEALER:		//掛け算、割り算の時
-
-		value_num.at(gamemode).push_back(2);	//簡単の時の値の数
-		value_num.at(gamemode).push_back(3);	//普通の時の値の数
-		value_num.at(gamemode).push_back(3);	//難しいの時の値の数
-
-		break;			//割り算の時ここまで
-
-
-	default:
-		break;
-	}
+	//vectorの解放
+	vector<int> v;
+	num.swap(v);
 
 }
 
@@ -308,6 +298,12 @@ void Question::CreateTable()
 	type.push_back(CALC_DEALER);	//割り算
 	CalcType_Table.push_back(type);	//掛け算、割り算モードの計算の種類の選択肢を追加
 	type.clear();					//中身をクリア
+
+	////足し算、掛け算モード
+	//type.push_back(CALC_SUM);		//足し算
+	//type.push_back(CALC_PRODUCT);	//掛け算
+	//CalcType_Table.push_back(type);	//足し算、掛け算モードの計算の種類の選択肢を追加
+	//type.clear();					//中身をクリア
 
 	//vectorの解放
 	vector<int> v;
