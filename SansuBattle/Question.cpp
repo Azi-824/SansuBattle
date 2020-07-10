@@ -256,6 +256,48 @@ void Question::CreateTable()
 	ValueNum_Table.push_back(work);	//掛け算、割り算モードの値の数を追加
 	work.clear();					//中身をクリア
 
+	//+*モード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//+*モードの値の数を追加
+	work.clear();					//中身をクリア
+
+	//+/モード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//+/モードの値の数を追加
+	work.clear();					//中身をクリア
+
+	//-*モード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//-*モードの値の数を追加
+	work.clear();					//中身をクリア
+
+	//+-*モード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//+-*モードの値の数を追加
+	work.clear();					//中身をクリア
+
+	//+-/モード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//+-/モードの値の数を追加
+	work.clear();					//中身をクリア
+
+	//allモード
+	work.push_back(2);		//簡単
+	work.push_back(3);		//普通
+	work.push_back(3);		//難しい
+	ValueNum_Table.push_back(work);	//allモードの値の数を追加
+	work.clear();					//中身をクリア
+
 
 	//**************************** 各ゲームモードの計算の種類のテーブル **************************
 	//足し算モード
@@ -290,11 +332,45 @@ void Question::CreateTable()
 	CalcType_Table.push_back(work);	//掛け算、割り算モードの計算の種類の選択肢を追加
 	work.clear();					//中身をクリア
 
-	////足し算、掛け算モード
-	//work.push_back(CALC_SUM);		//足し算
-	//work.push_back(CALC_PRODUCT);	//掛け算
-	//CalcType_Table.push_back(work);	//足し算、掛け算モードの計算の種類の選択肢を追加
-	//work.clear();					//中身をクリア
+	//足し算、掛け算モード
+	work.push_back(CALC_SUM);		//足し算
+	work.push_back(CALC_PRODUCT);	//掛け算
+	CalcType_Table.push_back(work);	//足し算、掛け算モードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
+
+	//+/モード
+	work.push_back(CALC_SUM);		//+
+	work.push_back(CALC_DEALER);	// /
+	CalcType_Table.push_back(work);	//+/モードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
+
+	//-*モード
+	work.push_back(CALC_DIFFERENCE);//-
+	work.push_back(CALC_PRODUCT);	//*
+	CalcType_Table.push_back(work);	//-*モードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
+
+	//+-*モード
+	work.push_back(CALC_SUM);		//+
+	work.push_back(CALC_DIFFERENCE);//-
+	work.push_back(CALC_PRODUCT);	//*
+	CalcType_Table.push_back(work);	//+-*モードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
+
+	//+-/モード
+	work.push_back(CALC_SUM);		//+
+	work.push_back(CALC_DIFFERENCE);//-
+	work.push_back(CALC_DEALER);	///
+	CalcType_Table.push_back(work);	//+-/モードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
+
+	//allモード
+	work.push_back(CALC_SUM);		//+
+	work.push_back(CALC_DIFFERENCE);//-
+	work.push_back(CALC_PRODUCT);	//*
+	work.push_back(CALC_DEALER);	///
+	CalcType_Table.push_back(work);	//allモードの計算の種類の選択肢を追加
+	work.clear();					//中身をクリア
 
 	//vectorの解放
 	vector<int> v;

@@ -35,6 +35,7 @@ enum GAMEMODE_KIND
 	GAMEMODE_SUM_DIF,				//モード、和差（足し算、引き算）
 	GAMEMODE_PRO_DEA,				//モード、積商（掛け算、割り算）
 	GAMEMODE_SUM_PRO,				//MODE(+*)
+	GAMEMODE_SUM_DEA,				//MODE(+/)
 	GAMEMODE_DIF_PRO,				//MODE(-*)
 	GAMEMODE_SUM_DIF_PRO,			//MODE(+-*)
 	GAMEMODE_SUM_DIF_DEA,			//MODE(+-/)

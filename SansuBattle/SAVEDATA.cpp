@@ -6,9 +6,17 @@
 
 //#################### クラス定義 #######################
 
+vector<string> SaveData::FileNameTable;	//ファイル名のテーブル
+vector<string> SaveData::TextTable;		//テキストのテーブル
+
 //コンストラクタ
 SaveData::SaveData()
 {
+	if (FileNameTable.empty())	//テーブルが作成されていなければ
+	{
+		//テーブルの作成を行う
+		CreateTable();
+	}
 	return;
 }
 
@@ -22,106 +30,45 @@ SaveData::~SaveData()
 	}
 
 	//vectorのメモリ解放を行う
-	std::vector<Data*> v;			//空のvectorを作成する
+	vector<Data*> v;			//空のvectorを作成する
 	DataCode.swap(v);			//空と中身を入れ替える
 
 
 	return;
 }
 
-//どのファイルを使用するか取得
-const char* SaveData::GetFileName(int gamemode)
+//テーブルの作成
+void SaveData::CreateTable()
 {
-	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
-	{
+	//ファイル名のテーブルを作成
+	FileNameTable = { SAVE_NAME_SUM ,	//足し算
+		SAVE_NAME_DIF,			//引き算
+		SAVE_NAME_PRO,			//掛け算
+		SAVE_NAME_DEA,			//割り算
+		SAVE_NAME_SUM_DIF,		//+-
+		SAVE_NAME_PRO_DEA,		//*/
+		SAVE_NAME_SUM_PRO,		//+*
+		SAVE_NAME_SUM_DEA,		//+/
+		SAVE_NAME_DIF_PRO,		// /*
+		SAVE_NAME_SUM_DIF_PRO,	//+-*
+		SAVE_NAME_SUM_DIF_DEA,	//+-/
+		SAVE_NAME_ALL			//+-*/
+	};
 
-	case (int)GAMEMODE_SUM:		//足し算の時
-
-		return SAVE_NAME_ADD;	//足し算用のファイル
-
-		break;	//足し算の時ここまで
-
-	case (int)GAMEMODE_DIFFERENCE:		//引き算の時
-
-		return SAVE_NAME_DIF;	//引き算用のファイル
-
-		break;	//引き算の時ここまで
-
-	case (int)GAMEMODE_PRODUCT:		//掛け算の時
-
-		return SAVE_NAME_PRO;	//掛け算用のファイル
-
-		break;	//掛け算の時ここまで
-
-	case (int)GAMEMODE_DEALER:		//割り算の時
-
-		return SAVE_NAME_DEA;	//割り算用のファイル
-
-		break;	//割り算の時ここまで
-
-	case (int)GAMEMODE_SUM_DIF:		//足し算、引き算の時
-
-		return  SAVE_NAME_SUM_DIF;	//足し算、引き算用のファイル
-
-		break;	//足し算、引き算の時ここまで
-
-	case (int)GAMEMODE_PRO_DEA:		//掛け算、割り算の時
-
-		return SAVE_NAME_PRO_DEA;	//掛け算、割り算用のファイル
-
-		break;	//掛け算、割り算の時ここまで
-
-	default:
-		break;
-	}
-
-}
-
-//ゲームモード毎のテキストを取得
-const char* SaveData::GetTextGameMode(int gamemode)
-{
-	switch (gamemode)	//ゲームレベルごとにセーブするファイルを分ける
-	{
-
-	case (int)GAMEMODE_SUM:		//足し算の時
-
-		return TEXT_GAMEMODE_ADD;	//足し算用のテキスト
-
-		break;	//足し算の時ここまで
-
-	case (int)GAMEMODE_DIFFERENCE:		//引き算の時
-
-		return TEXT_GAMEMODE_DIF;	//引き算用のテキスト
-
-		break;	//引き算の時ここまで
-
-	case (int)GAMEMODE_PRODUCT:		//掛け算の時
-
-		return TEXT_GAMEMODE_PRO;	//掛け算用のテキスト
-
-		break;	//掛け算の時ここまで
-
-	case (int)GAMEMODE_DEALER:		//割り算の時
-
-		return TEXT_GAMEMODE_DEA;	//割り算用のテキスト
-
-		break;	//割り算の時ここまで
-
-	case (int)GAMEMODE_SUM_DIF:		//足し算、引き算の時
-
-		return  TEXT_GAMEMODE_SUM_DIF;	//足し算、引き算用のテキスト
-
-		break;	//足し算、引き算の時ここまで
-
-	case (int)GAMEMODE_PRO_DEA:		//掛け算、割り算の時
-
-		return TEXT_GAMEMODE_PRO_DEA;	//掛け算、割り算用のテキスト
-
-		break;	//掛け算、割り算の時ここまで
-
-	default:
-		break;
-	}
+	//テキストのテーブルを作成
+	TextTable = { TEXT_GAMEMODE_SUM,	//+
+		TEXT_GAMEMODE_DIF,				//-
+		TEXT_GAMEMODE_PRO,				//*
+		TEXT_GAMEMODE_DEA,				// /
+		TEXT_GAMEMODE_SUM_DIF,			//+-
+		TEXT_GAMEMODE_PRO_DEA,			//*/
+		TEXT_GAMEMODE_SUM_PRO,			//+*
+		TEXT_GAMEMODE_SUM_DEA,			//+/
+		TEXT_GAMEMODE_DIF_PRO,			//-*
+		TEXT_GAMEMODE_SUM_DIF_PRO,		//+-*
+		TEXT_GAMEMODE_SUM_DIF_DEA,		//+-/
+		TEXT_GAMEMODE_ALL				//+-*/
+	};
 
 }
 
@@ -160,8 +107,7 @@ bool SaveData::Save(int gamemode)
 	{
 		_mkdir(SAVEDATA_DIR);	//セーブデータを格納するフォルダを作成
 	}
-	LoadFile += GetFileName(gamemode);
-
+	LoadFile += FileNameTable.at(gamemode);
 
 	std::ofstream ofs(LoadFile.c_str(), std::ios_base::ate);	//ファイルオープン
 
@@ -213,7 +159,7 @@ bool SaveData::Load(int gamemode)
 {
 	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
-	LoadFile += GetFileName(gamemode);
+	LoadFile += FileNameTable.at(gamemode);
 
 	if (CheckCreateFile(LoadFile))	//読み込むファイルが存在する場合
 	{
@@ -290,7 +236,7 @@ void SaveData::Draw(int gamemode)
 	int Height = GetFontSizeToHandle(NowFontHandle);		//高さ取得
 
 	string text_gamemode = TEXT_GAMEMODE;	//ゲームモードのテキスト
-	text_gamemode += GetTextGameMode(gamemode);	//ゲームモード毎のテキストを取得
+	text_gamemode += TextTable.at(gamemode);	//ゲームモード毎のテキストを取得
 
 	DrawStringToHandle(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE, NowFontHandle);		//ランキングタイトル描画
 
