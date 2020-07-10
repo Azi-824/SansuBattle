@@ -17,6 +17,7 @@ Score::Score()
 	mode_score.push_back(SCORE_DEALER_ANSER);		//割り算の時のスコア
 	mode_score.push_back(SCORE_SUM_DIF_ANSER);		//足し算、引き算の時のスコア
 	mode_score.push_back(SCORE_PRO_DEA_ANSER);		//掛け算、割り算の時のスコア
+	mode_score.push_back(SCORE_SUM_PRO_ANSER);		//+*の時のスコア
 	//ゲームレベル毎のボーナスを設定
 	level_bonus.push_back(LEVEL_BONUS_EASY);		//簡単のときのボーナス
 	level_bonus.push_back(LEVEL_BONUS_NORMAL);		//普通のときのボーナス

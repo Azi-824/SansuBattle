@@ -21,6 +21,7 @@
 #define SCORE_DEALER_ANSER	250			//割り算の回答をした時のスコア
 #define SCORE_SUM_DIF_ANSER	300			//足し算、引き算の回答をした時のスコア
 #define SCORE_PRO_DEA_ANSER	350			//掛け算、割り算の回答をした時のスコア
+#define SCORE_SUM_PRO_ANSER	400			//+*の回答をした時のスコア
 
 using std::vector;
 
