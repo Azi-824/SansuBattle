@@ -73,6 +73,7 @@ private:
 	int GetMax(int, vector<int>);								//最大値取得
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
 	void CreateTable();											//各ゲームモードの計算の種類のテーブルを作成
+	void SetText(vector<int>, vector<int>, vector<int>);		//問題文のテキストを設定
 
 public:
 

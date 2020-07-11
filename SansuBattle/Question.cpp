@@ -7,9 +7,9 @@
 //############### クラス定義 ####################
 
 //インスタンスを生成
-Image* Question::img_kokuban;			//黒板の画像
-vector<vector<int>> Question::ValueNum_Table;//値の数
-vector<vector<int>> Question::CalcType_Table;//各ゲームモードの計算の種類のテーブル
+Image* Question::img_kokuban;					//黒板の画像
+vector<vector<int>> Question::ValueNum_Table;	//値の数
+vector<vector<int>> Question::CalcType_Table;	//各ゲームモードの計算の種類のテーブル
 
 //コンストラクタ
 Question::Question()
@@ -78,7 +78,7 @@ void Question::Create(int gamemode, int gamelevel)
 void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
 {
 
-	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
+	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel) - 1; ++i)
 	{
 		int rand = GetRand(CalcType_Table.at(gamemode).size() - 1);		//乱数生成
 		calc_type->push_back(CalcType_Table.at(gamemode).at(rand));		//計算の種類を設定
@@ -141,44 +141,44 @@ int Question::GetMax(int gamelevel, vector<int> value)
 //それぞれの問題を作成
 void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vector<int> order)
 {
-	Q_Text = std::to_string(calc_value.at(order.front()));	//一番最初に計算される値を問題文に設定
 
-	for (int i = 0; i < order.size() - 1; ++i)
+	auto type_cp = calc_type;	//種類のコピー
+	auto value_cp = calc_value;	//値のコピー
+	auto order_cp = order;		//順番のコピー
+
+	for (int i = 0; i < order.size(); ++i)
 	{
 		switch (calc_type.at(order.at(i)))	//計算の種類ごとに分岐
 		{
 
 		case CALC_SUM:	//足し算
 
-			Q_Text += "＋";																				//演算記号を問題文に追加
-			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) + calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
+			calc_value.at(order.at(i) + 1) = calc_value.at(order.at(i)) + calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //足し算
 
 		case CALC_DIFFERENCE:	//引き算
 
-			Q_Text += "－";																				//演算記号を問題文に追加
-			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) - calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
+			calc_value.at(order.at(i) + 1) = calc_value.at(order.at(i)) - calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //引き算
 
 		case CALC_PRODUCT:	//掛け算
 
-			Q_Text += "×";																				//演算記号を問題文に追加
-			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) * calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
+			calc_value.at(order.at(i) + 1) = calc_value.at(order.at(i)) * calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //掛け算
 
 		case CALC_DEALER:	//割り算
 
-			Q_Text += "÷";																				//演算記号を問題文に追加
 			//値の調整
-			while (calc_value.at(order.at(i)) % calc_value.at(order.at(i + 1)) != 0)	//割り切れない間
+			while (calc_value.at(order.at(i)) % calc_value.at(order.at(i) + 1) != 0)	//割り切れない間
 			{
-				//割り切れる値になるまで、値を増やす
-				--calc_value.at(order.at(i + 1));
+				//割り切れる値になるまで、値を減らす
+				--calc_value.at(order.at(i) + 1);
 			}
-			calc_value.at(order.at(i)) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
+			value_cp.at(order.at(i) + 1) = calc_value.at(order.at(i) + 1);	//値を変化させたため、コピーの方を更新する
+			calc_value.at(order.at(i) + 1) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //割り算
 
@@ -187,10 +187,8 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 			break;
 		}
 
-		Q_Text += std::to_string(calc_value.at(order.at(i) + 1));	//問題文追加
-
 		//計算済みの要素を削除
-		calc_value.erase(calc_value.begin() + order.at(i) + 1);	//計算済みの値を削除
+		calc_value.erase(calc_value.begin() + order.at(i));		//計算済みの値を削除
 		calc_type.erase(calc_type.begin() + order.at(i));		//計算済みの計算種類を削除
 
 		//計算済みの要素を削除したため、計算順番を一つずつ前に繰り上げる
@@ -202,8 +200,9 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 
 	}
 
+	SetText(value_cp, type_cp, order_cp);	//問題文のテキストを設定
+
 	Anser = calc_value.front();	//先頭に全ての計算結果が格納されているため、それを答えに設定
-	Q_Text += "＝？";			//問題文追加
 
 }
 
@@ -376,6 +375,25 @@ void Question::CreateTable()
 	vector<int> v;
 	work.swap(v);
 
+
+}
+
+//問題文のテキストを設定
+void Question::SetText(vector<int> value, vector<int> type, vector<int> order)
+{
+
+	//記号のテーブル作成
+	static vector<string> SymbolTable = { "＋","－","×","÷" };
+
+	Q_Text = std::to_string(value.front());	//先頭の値を問題文に設定
+
+	for (int i = 0; i < type.size(); ++i)
+	{
+		Q_Text += SymbolTable.at(type.at(i));		//記号を問題文に追加
+		Q_Text += std::to_string(value.at(i + 1));	//値を問題文に追加(最初の値は既に追加されているため、+1した要素の値を設定)
+	}
+
+	Q_Text += "＝？";			//問題文追加
 
 }
 
