@@ -207,6 +207,11 @@ bool GameManeger::Load()
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_BGM));		//プレイ画面（足し算、引き算）のBGM追加
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_PRO_DEA_BGM));		//プレイ画面（掛け算、割り算）のBGM追加
 	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_PRO_BGM));		//プレイ画面（+*）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DEA_BGM));		//プレイ画面（+/）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIF_PRO_BGM));		//プレイ画面（-*）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_PRO_BGM));	//プレイ画面（+-*）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_DEA_BGM));	//プレイ画面（+-/）のBGM追加
+	bgm_play.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ALL_BGM));			//プレイ画面（+-*/）のBGM追加
 	for (auto bgm : bgm_play)
 	{
 		if (bgm->GetIsLoad() == false) { return false; }	//読み込み失敗
