@@ -157,6 +157,9 @@ bool SaveData::Save(int gamemode)
 //読み込み
 bool SaveData::Load(int gamemode)
 {
+
+	DataCode.clear();	//データをリセット
+
 	string LoadFile;
 	LoadFile += SAVEDATA_DIR;
 	LoadFile += FileNameTable.at(gamemode);

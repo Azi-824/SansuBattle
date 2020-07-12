@@ -112,6 +112,4 @@ public:
 	void Scene_End();				//エンド画面の処理
 	void Draw_Scene_End();			//エンド画面の描画処理
 
-	bool Save();					//セーブ
-
 };

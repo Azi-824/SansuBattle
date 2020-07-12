@@ -17,6 +17,7 @@
 
 #define BGM_NAME_TITLE_BGM			R"(\title_bgm.mp3)"		//タイトルのBGMの名前
 #define BGM_NAME_SELECT_BGM			R"(\select_bgm.mp3)"	//選択画面のBGMの名前
+//プレイ画面
 #define BGM_NAME_PLAY_SUM_BGM		R"(\play_add_bgm.mp3)"	//プレイ画面（足し算）のBGMの名前
 #define BGM_NAME_PLAY_DIFF_BGM		R"(\play_diff_bgm.mp3)"	//プレイ画面（引き算）のBGMの名前
 #define BGM_NAME_PLAY_PRO_BGM		R"(\play_pro_bgm.mp3)"	//プレイ画面（掛け算）のBGMの名前
@@ -24,6 +25,7 @@
 #define BGM_NAME_PLAY_SUM_DIF_BGM	R"(\play_sum_dif_bgm.mp3)"//プレイ画面（足し算、引き算）のBGMの名前
 #define BGM_NAME_PLAY_PRO_DEA_BGM	R"(\play_pro_dea_bgm.mp3)"//プレイ画面（掛け算、割り算）のBGMの名前
 #define BGM_NAME_PLAY_SUM_PRO_BGM	R"(\play_sum_pro_bgm.mp3)"//プレイ画面（+*）のBGMの名前
+
 #define BGM_NAME_END_BGM			R"(\end_bgm.mp3)"		//エンド画面のBGMの名前
 
 #define SE_NAME_KETTEI			R"(\kettei.mp3)"		//決定の効果音SE

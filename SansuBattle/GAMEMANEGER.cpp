@@ -544,6 +544,7 @@ void GameManeger::Scene_Play()
 	{
 		save->Add(score->GetScore());		//スコアを追加
 		save->Sort();						//ソート処理
+		save->Save(GameMode);				//結果をセーブ
 		bgm_play.at(GameMode)->Stop();		//再生中のBGMを止める
 		NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
@@ -621,10 +622,4 @@ void GameManeger::Draw_Scene_End()
 	back.at((int)END_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	return;
-}
-
-//セーブ
-bool GameManeger::Save()
-{
-	return save->Save(GameMode);	
 }
