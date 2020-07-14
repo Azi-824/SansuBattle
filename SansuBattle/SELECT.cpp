@@ -20,7 +20,7 @@ Select::Select(vector<Image*>image)
 	IsBack = false;						//戻るか初期化
 	IsNextPage = false;					//次のページへ行けるか初期化
 	PageMax = 0;						//ページ数初期化
-	NowPage = 0;						//現在のページ初期化
+	NowPage = PAGE_START;				//現在のページ初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
@@ -157,6 +157,8 @@ void Select::Init()
 	IsChoise = false;							//選択したか初期化
 	IsBack = false;								//戻るか初期化
 	NowSelectCode = SelectCode.begin();			//現在選んでいる選択肢初期化
+	DrawX += (GAME_WIDTH * (NowPage - 1));		//描画位置を戻す
+	NowPage = PAGE_START;						//ページを戻す
 
 	return;
 }
