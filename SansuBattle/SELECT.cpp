@@ -259,42 +259,40 @@ void Select::Operation(KeyDown* keydown)
 	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
 	{
 
-		Prev();		//前の選択肢へ
 
-		if (NowRow > 0)		//最小値より多ければ
+		if (NowRow >= 0)	//最小値より多ければ
 		{
-			--NowRow;		//列番号減少
+			Prev();			//前の選択肢へ
 		}
 
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RIGHT))	//右矢印キーを押されたら
 	{
 
-		Next();	//次の選択肢へ
 
-		if (NowRow < RowNum)	//現在の列番号が、最大数より少なければ
+		if (NowRow < RowNum)//現在の列番号が、最大数より少なければ
 		{
-			++NowRow;		//列番号増加
+			Next();			//次の選択肢へ
 		}
 
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_UP))		//上矢印キーを押されたら
 	{
-		Prev(RowNum);		//列の数分、前の選択肢へ
 
 		if (NowLine > 0)	//先頭のラインじゃなければ
 		{
+			Prev(RowNum);	//列の数分、前の選択肢へ
 			--NowLine;		//行番号減少
 		}
 
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_DOWN))		//下矢印キーを押されたら
 	{
-		Next(RowNum);		//列の数分、次の選択肢へ
 
-		if (NowLine < LineNum)	//最後の行じゃなければ
+		if (NowLine < LineNum - 1)	//最後の行じゃなければ
 		{
-			++NowLine;		//行番号増加
+			Next(RowNum);		//列の数分、次の選択肢へ
+			++NowLine;			//行番号増加
 		}
 
 	}
@@ -312,7 +310,7 @@ void Select::Operation(KeyDown* keydown)
 	if (IsChengePage)	//ページを変えたとき
 	{
 		//列番号の設定
-		if (NowRow >= RowNum)	//次のページへ移動したとき
+		if (NowRow >= RowNum - 1)	//次のページへ移動したとき
 			NowRow = 0;			//列番号を、先頭へ
 		else					//前のページへ移動したとき
 			NowRow = RowNum - 1;//列番号を、最後尾へ
@@ -384,11 +382,11 @@ void Select::Next()
 	}
 	else	//行けない時
 	{
-		if (NowRow < RowNum - 1)	//列の最後じゃなければ
+		if (NowRow < RowNum - 1)//最後の列じゃない時
 		{
 			++NowSelectCode;	//次の選択肢へ
+			++NowRow;			//列番号増加
 		}
-
 	}
 }
 
@@ -400,10 +398,7 @@ void Select::Next(int value)
 	int distance_max = std::distance(SelectCode.begin(), SelectCode.end());	//選択肢の最大の距離を取得
 	if (distance < distance_max)	//選択肢の範囲内なら
 	{
-		if (NowLine < LineNum)	//ラインの最大数を超えていなければ
-		{
-			NowSelectCode += value;	//指定された分、次の選択肢へ
-		}
+		NowSelectCode += value;	//指定された分、次の選択肢へ
 	}
 
 }
@@ -417,9 +412,10 @@ void Select::Prev()
 	}
 	else		//行けない時
 	{
-		if (NowRow > 0)		//列の最初じゃないければ
+		if (NowRow > 0)			//列の最初じゃない時
 		{
 			--NowSelectCode;	//前の選択肢へ
+			--NowRow;			//列番号減少
 		}
 	}
 }
