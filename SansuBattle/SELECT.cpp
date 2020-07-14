@@ -361,12 +361,14 @@ void Select::Next()
 //指定された分、次の選択肢へ
 void Select::Next(int value)
 {
-	if (*NowSelectCode + value <= SelectCode.back())	//最後の選択肢じゃなければ
+	int distance = std::distance(SelectCode.begin(), NowSelectCode);		//現在選択している要素までの距離を取得
+	distance += value;														//指定された分距離を加算
+	int distance_max = std::distance(SelectCode.begin(), SelectCode.end());	//選択肢の最大の距離を取得
+	if (distance < distance_max)	//選択肢の範囲内なら
 	{
 		NowSelectCode += value;	//指定された分、次の選択肢へ
 	}
 
-	return;
 }
 
 //前の選択肢へ
@@ -383,11 +385,13 @@ void Select::Prev()
 //指定された分、前の選択肢へ
 void Select::Prev(int value)
 {
-	if (*NowSelectCode - value >= SelectCode.front())		//最初の選択肢じゃなければ
+	int distance = std::distance(SelectCode.begin(), NowSelectCode);			//現在選択している要素までの距離を取得
+	distance -= value;															//指定された分距離を減算
+	int distance_min = std::distance(SelectCode.begin(), SelectCode.begin());	//選択肢の最小の距離を取得
+
+	if (distance > distance_min)	//選択肢の範囲内なら
 	{
 		NowSelectCode -= value;	//指定された分、前の選択肢へ
 	}
-
-	return;
 
 }
