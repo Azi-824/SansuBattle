@@ -18,13 +18,15 @@ Select::Select(vector<Image*>image)
 	Choise_SelectCode = CHOISE_NONE;	//選んだ選択肢のコードを初期化
 	IsChoise = false;					//選択したか初期化
 	IsBack = false;						//戻るか初期化
-	IsNextPage = false;					//次のページへ行けるか初期化
+	IsChengePage = false;					//次のページへ行けるか初期化
 	PageMax = 0;						//ページ数初期化
 	NowPage = PAGE_START;				//現在のページ初期化
 	DrawX = 0;							//描画開始X位置初期化
 	DrawY = 0;							//描画開始Y位置初期化
 	RowNum = 0;							//描画範囲の中で描画できる列の数初期化
 	LineNum = 0;						//描画範囲の中で描画できる行の数初期化
+	NowRow = 0;							//現在の列番号初期化
+	NowLine = 0;						//現在の行番号初期化
 	Interval_Side = 0;					//選択肢の間隔(横)初期化
 	Interval_Vertical = 0;				//選択肢の間隔(縦)初期化
 	//領域初期化
@@ -256,33 +258,45 @@ void Select::Operation(KeyDown* keydown)
 {
 	if (keydown->IsKeyDownOne(KEY_INPUT_LEFT))	//左矢印キーを押されたら
 	{
-		if (CheckIsPrevPage())	//前のページへ行けるときは
+
+		Prev();		//前の選択肢へ
+
+		if (NowRow > 0)		//最小値より多ければ
 		{
-			PrevPage();	//前のページへ
+			--NowRow;		//列番号減少
 		}
-		else		//行けない時は
-		{
-			Prev();	//前の選択肢へ
-		}
+
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RIGHT))	//右矢印キーを押されたら
 	{
-		if (CheckIsNextPage())	//次のページへ行けるときは
+
+		Next();	//次の選択肢へ
+
+		if (NowRow < RowNum)	//現在の列番号が、最大数より少なければ
 		{
-			NextPage();	//次のページへ
+			++NowRow;		//列番号増加
 		}
-		else		//行けない時は
-		{
-			Next();	//次の選択肢へ
-		}
+
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_UP))		//上矢印キーを押されたら
 	{
 		Prev(RowNum);		//列の数分、前の選択肢へ
+
+		if (NowLine > 0)	//先頭のラインじゃなければ
+		{
+			--NowLine;		//行番号減少
+		}
+
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_DOWN))		//下矢印キーを押されたら
 	{
 		Next(RowNum);		//列の数分、次の選択肢へ
+
+		if (NowLine < LineNum)	//最後の行じゃなければ
+		{
+			++NowLine;		//行番号増加
+		}
+
 	}
 	else if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))	//エンターキーを押されたら
 	{
@@ -293,6 +307,17 @@ void Select::Operation(KeyDown* keydown)
 	else if (keydown->IsKeyDownOne(KEY_INPUT_BACK))		//バックスペースキーを押されたら
 	{
 		IsBack = true;	//戻る
+	}
+
+	if (IsChengePage)	//ページを変えたとき
+	{
+		//列番号の設定
+		if (NowRow >= RowNum)	//次のページへ移動したとき
+			NowRow = 0;			//列番号を、先頭へ
+		else					//前のページへ移動したとき
+			NowRow = RowNum - 1;//列番号を、最後尾へ
+
+		IsChengePage = false;	//ページの変えたかをリセット
 	}
 
 	return;
@@ -337,6 +362,7 @@ void Select::NextPage()
 	Next(RowNum + 1);		//次のページの選択へ
 	++NowPage;				//次のページへ
 	DrawX -= GAME_WIDTH;	//描画位置を1ページ分ずらす
+	IsChengePage = true;	//ページを変えた
 }
 
 //前のページへ
@@ -345,17 +371,25 @@ void Select::PrevPage()
 	Prev(RowNum + 1);		//前のページの選択へ
 	--NowPage;				//前のページへ
 	DrawX += GAME_WIDTH;	//描画位置をを1ページ分ずらす
+	IsChengePage = true;	//ページを変えた
 }
 
 //次の選択肢へ
 void Select::Next()
 {
 
-	if (*NowSelectCode < SelectCode.back())	//最後の選択肢じゃなければ
+	if (CheckIsNextPage())	//次のページへ行けるとき
 	{
-		++NowSelectCode;	//次の選択肢へ
+		NextPage();	//次のページへ
 	}
-	return;
+	else	//行けない時
+	{
+		if (NowRow < RowNum - 1)	//列の最後じゃなければ
+		{
+			++NowSelectCode;	//次の選択肢へ
+		}
+
+	}
 }
 
 //指定された分、次の選択肢へ
@@ -366,7 +400,10 @@ void Select::Next(int value)
 	int distance_max = std::distance(SelectCode.begin(), SelectCode.end());	//選択肢の最大の距離を取得
 	if (distance < distance_max)	//選択肢の範囲内なら
 	{
-		NowSelectCode += value;	//指定された分、次の選択肢へ
+		if (NowLine < LineNum)	//ラインの最大数を超えていなければ
+		{
+			NowSelectCode += value;	//指定された分、次の選択肢へ
+		}
 	}
 
 }
@@ -374,12 +411,17 @@ void Select::Next(int value)
 //前の選択肢へ
 void Select::Prev()
 {
-	if (*NowSelectCode > SelectCode.front())		//最初の選択肢じゃなければ
+	if (CheckIsPrevPage())	//前のページへ行けるとき
 	{
-		--NowSelectCode;	//前の選択肢へ
+		PrevPage();		//前のページへ
 	}
-
-	return;
+	else		//行けない時
+	{
+		if (NowRow > 0)		//列の最初じゃないければ
+		{
+			--NowSelectCode;	//前の選択肢へ
+		}
+	}
 }
 
 //指定された分、前の選択肢へ
@@ -389,9 +431,8 @@ void Select::Prev(int value)
 	distance -= value;															//指定された分距離を減算
 	int distance_min = std::distance(SelectCode.begin(), SelectCode.begin());	//選択肢の最小の距離を取得
 
-	if (distance > distance_min)	//選択肢の範囲内なら
+	if (distance >= distance_min)	//選択肢の範囲内なら
 	{
 		NowSelectCode -= value;	//指定された分、前の選択肢へ
 	}
-
 }
