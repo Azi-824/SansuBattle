@@ -451,9 +451,20 @@ bool Question::CheckInputKey(KeyDown* keydown)
 
 	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
 	{
-		if ((unsigned int)((InputNumBuf * Weight) + NewInputKey) < INT_MAX)		//int型の最大値を超えなければ
+		unsigned int check = 0;	//確認用
+
+		//マイナスの値の場合、正の値に変換する
+		InputNumBuf < 0 ? check = InputNumBuf * -1 : check = InputNumBuf;
+
+		check *= Weight;
+		check += NewInputKey;
+
+		if (check < INT_MAX)		//int型の範囲内なら
 		{
-			InputNumBuf = (InputNumBuf * Weight) + NewInputKey;	//入力値に桁の重みを付けて計算
+			//入力値に桁の重みを付けて計算
+			//負の値の時は、マイナス、正の値の時は、プラスで、計算する
+			InputNumBuf < 0 ? InputNumBuf = (InputNumBuf * Weight) - NewInputKey : InputNumBuf = (InputNumBuf * Weight) + NewInputKey;
+
 		}
 
 	}
@@ -468,6 +479,11 @@ bool Question::CheckInputKey(KeyDown* keydown)
 		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
 		{
 			InputNumBuf /= Weight;		//一文字分消す
+		}
+		
+		if (NewInputKey == INPUT_MINUS)	//マイナスキーを押されたら
+		{
+			InputNumBuf *= -1;			//マイナスの値に変換
 		}
 	}
 
