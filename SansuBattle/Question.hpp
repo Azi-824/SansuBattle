@@ -37,6 +37,7 @@ enum INPUT_NUM
 	INPUT_NUM_9,		//入力値9
 	INPUT_ENTER = 100,	//決定キー
 	INPUT_BACK = 200,	//バックキー
+	INPUT_MINUS = 300,	//マイナスキー
 	INPUT_NOT_NUM = -1	//数値以外
 };		//入力値の値
 
@@ -67,7 +68,7 @@ private:
 	int InputNumBuf;			//入力された数字を貯めておく
 	bool IsCreate;				//問題を作成したか
 
-	int GetInputNum(KeyDown*);									//入力された数字を取得
+	int GetInputKey(KeyDown*);									//入力されたキーを取得
 	void SetCalcType(int, int, vector<int>*);					//計算の種類を設定
 	void SetOrder(vector<int>, vector<int>*);					//計算の順番を設定
 	int GetMax(int, vector<int>);								//最大値取得

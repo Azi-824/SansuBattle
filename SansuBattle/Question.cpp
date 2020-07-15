@@ -216,84 +216,84 @@ void Question::CreateTable()
 	//足し算モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//足し算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//引き算モード
 	work.push_back(2);		//簡単
-	work.push_back(2);		//普通
-	work.push_back(2);		//難しい
+	work.push_back(3);		//普通
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//引き算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//掛け算モード
 	work.push_back(2);		//簡単
-	work.push_back(2);		//普通
-	work.push_back(2);		//難しい
+	work.push_back(3);		//普通
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//掛け算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//割り算モード
 	work.push_back(2);		//簡単
-	work.push_back(2);		//普通
-	work.push_back(2);		//難しい
+	work.push_back(3);		//普通
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//割り算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//足し算、引き算モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//足し算、引き算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//掛け算、割り算モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//掛け算、割り算モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//+*モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//+*モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//+/モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//+/モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//-*モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//-*モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//+-*モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//+-*モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//+-/モード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//+-/モードの値の数を追加
 	work.clear();					//中身をクリア
 
 	//allモード
 	work.push_back(2);		//簡単
 	work.push_back(3);		//普通
-	work.push_back(3);		//難しい
+	work.push_back(4);		//難しい
 	ValueNum_Table.push_back(work);	//allモードの値の数を追加
 	work.clear();					//中身をクリア
 
@@ -443,25 +443,25 @@ bool Question::JudgAnser()
 bool Question::CheckInputKey(KeyDown* keydown)
 {
 	static int Weight = 10;					//桁の重み
-	int NewInputNum = GetInputNum(keydown);	//新たに入力された数字
+	int NewInputKey = GetInputKey(keydown);	//新たに入力されたキー
 
-	if (!(NewInputNum == INPUT_ENTER || NewInputNum == INPUT_NOT_NUM || NewInputNum == INPUT_BACK))	//数値を入力した時
+	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
 	{
-		if ((unsigned int)((InputNumBuf * Weight) + NewInputNum) < INT_MAX)		//int型の最大値を超えなければ
+		if ((unsigned int)((InputNumBuf * Weight) + NewInputKey) < INT_MAX)		//int型の最大値を超えなければ
 		{
-			InputNumBuf = (InputNumBuf * Weight) + NewInputNum;	//入力値に桁の重みを付けて計算
+			InputNumBuf = (InputNumBuf * Weight) + NewInputKey;	//入力値に桁の重みを付けて計算
 		}
 
 	}
 	else	//数値以外を入力した時
 	{
-		if (NewInputNum == INPUT_ENTER)	//決定された場合
+		if (NewInputKey == INPUT_ENTER)	//決定された場合
 		{
 			InputNumBuf = 0;	//初期化
 			return true;		//入力終了
 		}
 
-		if (NewInputNum == INPUT_BACK)	//バックスペースを押されたら
+		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
 		{
 			InputNumBuf /= Weight;		//一文字分消す
 		}
@@ -472,8 +472,8 @@ bool Question::CheckInputKey(KeyDown* keydown)
 	return false;
 }
 
-//入力された数字を取得
-int Question::GetInputNum(KeyDown* keydown)
+//入力されたキーを取得
+int Question::GetInputKey(KeyDown* keydown)
 {
 	switch (keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
 	{
@@ -558,6 +558,13 @@ int Question::GetInputNum(KeyDown* keydown)
 	case KEY_INPUT_BACK:		//バックスペースキーを押された場合
 
 		return INPUT_BACK;		//バック
+
+		break;
+
+	case KEY_INPUT_MINUS:		//マイナスキー
+	case KEY_INPUT_SUBTRACT:	//テンキーのマイナスキー
+
+		return INPUT_MINUS;		//マイナス
 
 		break;
 
