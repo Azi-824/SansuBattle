@@ -64,8 +64,7 @@ private:
 
 	string Q_Text;				//問題文
 	int Anser;					//答え
-	int InputNum;				//入力された数字
-	int InputNumBuf;			//入力された数字を貯めておく
+	string InputNum;			//入力された数字
 	bool IsCreate;				//問題を作成したか
 
 	int GetInputKey(KeyDown*);									//入力されたキーを取得
@@ -75,6 +74,7 @@ private:
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
 	void CreateTable();											//各ゲームモードの計算の種類のテーブルを作成
 	void SetText(vector<int>, vector<int>, vector<int>);		//問題文のテキストを設定
+	void Reset();												//問題をリセット
 
 public:
 
@@ -91,8 +91,6 @@ public:
 	bool CheckInputKey(KeyDown*);//キー入力中か取得
 
 	bool GetIsCreate();			//問題を作成したか取得
-
-	void Reset();				//問題をリセット
 
 
 };

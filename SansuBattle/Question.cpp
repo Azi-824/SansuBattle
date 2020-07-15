@@ -16,8 +16,7 @@ Question::Question()
 {
 	//メンバー初期化
 	Anser = 0;				//答え初期化
-	InputNum = 0;			//入力された数字初期化
-	InputNumBuf = 0;		//貯めてある数字を初期化
+	InputNum = "0";			//入力された数字初期化
 	Q_Text = "";			//問題文初期化
 	IsCreate = false;		//問題を作成したか初期化
 
@@ -42,6 +41,9 @@ Question::~Question(){}
 //問題作成
 void Question::Create(int gamemode, int gamelevel)
 {
+
+	Reset();	//前の問題をリセット
+
 	int min = 3, max = 0;				//問題の最小値、最大値
 
 	vector<int> value, type;	//値、計算の種類
@@ -414,11 +416,12 @@ void Question::DrawQuestion()
 //入力中の数字を描画する
 void Question::DrawInputNum()
 {
-	int Strlen = strlen(std::to_string(InputNum).c_str());						//文字列の長さを取得
-	int Width = GetDrawStringWidthToHandle(std::to_string(InputNum).c_str(), Strlen, NowFontHandle);	//横幅取得
-	int Height = GetFontSizeToHandle(NowFontHandle);							//高さ取得
 
-	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%d", InputNum);	//入力中の数字を描画
+	int Strlen = strlen(InputNum.c_str());											//文字列の長さを取得
+	int Width = GetDrawStringWidthToHandle(InputNum.c_str(), Strlen, NowFontHandle);//横幅取得
+	int Height = GetFontSizeToHandle(NowFontHandle);								//高さ取得
+
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%s", InputNum.c_str());	//入力中の数字を描画
 
 }
 
@@ -429,7 +432,7 @@ void Question::DrawInputNum()
 */
 bool Question::JudgAnser()
 {
-	if (Anser == InputNum)				//プレイヤーの回答が、答えと一緒だったら
+	if (Anser == atoi(InputNum.c_str()))				//プレイヤーの回答が、答えと一緒だったら
 	{
 		Question::IsCreate = false;		//問題を作成したか、リセット
 		return true;					//正解
@@ -442,8 +445,9 @@ bool Question::JudgAnser()
 //戻り値：bool：true 入力終了：false 入力中
 bool Question::CheckInputKey(KeyDown* keydown)
 {
-	static int Weight = 10;					//桁の重み
-	int NewInputKey = GetInputKey(keydown);	//新たに入力されたキー
+	int InputNumBuf = atoi(InputNum.c_str());	//現在の入力されている値を取得
+	static int Weight = 10;						//桁の重み
+	int NewInputKey = GetInputKey(keydown);		//新たに入力されたキー
 
 	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
 	{
@@ -467,7 +471,7 @@ bool Question::CheckInputKey(KeyDown* keydown)
 		}
 	}
 
-	InputNum = InputNumBuf;	//入力された数字を設定
+	InputNum = std::to_string(InputNumBuf);	//入力された数字を設定
 
 	return false;
 }
@@ -585,8 +589,7 @@ bool Question::GetIsCreate()
 void Question::Reset()
 {
 	Anser = 0;			//答えリセット
-	InputNum = 0;		//キー入力内容リセット
-	InputNumBuf = 0;	//貯めてある数字を初期化
+	InputNum = "0";		//キー入力内容リセット
 	Q_Text = "";		//問題文リセット
 	IsCreate = false;	//問題を作成したかリセット
 }

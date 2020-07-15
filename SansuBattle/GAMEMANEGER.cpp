@@ -478,7 +478,6 @@ void GameManeger::Scene_ChoiseLevel()
 		}
 		player->Init();						//プレイヤー初期化
 		score->ResetScore();				//スコアリセット
-		question->Reset();					//問題関係リセット
 		select_level->Init();				//レベルの選択肢初期化
 		gamelimittime->SetTime();			//制限時間の計測開始
 		NowScene = (int)SCENE_PLAY;			//プレイ画面へ
