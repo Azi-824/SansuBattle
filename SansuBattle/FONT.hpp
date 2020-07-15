@@ -26,7 +26,7 @@
 
 //*********** フォントサイズ **************
 #define DEFAULT_FONTSIZE	128						//デフォルトのフォントサイズ
-#define FONTSIZE_MINI		48						//フォントサイズ（ミニ）
+#define FONTSIZE_MINI		90						//フォントサイズ（ミニ）
 #define FONTSIZE_DRAW_RANKING	54					//ランキング描画の時のフォントサイズ
 
 //************* フォントの太さ *****************
@@ -44,8 +44,9 @@ enum LOAD_FONT_NAME
 
 enum FONT_HANDLE_TYPE
 {
-	HANDLE_TYPE_KOKUBAN_NORMALSIZE,		//こくばんフォントのノーマルサイズのハンドル
-	HANDLE_TYPE_KOKUBAN_MINISIZE		//こくばんフォントのミニサイズのハンドル
+	HANDLE_NR_SIZE,		//こくばんフォントのノーマルサイズのハンドル
+	HANDLE_MINI_SIZE,	//ミニサイズのハンドル
+	HANDLE_RANK_SIZE	//こくばんフォントのランキング描画サイズのハンドル
 };
 
 using std::vector;

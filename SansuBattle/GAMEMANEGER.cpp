@@ -113,11 +113,14 @@ bool GameManeger::Load()
 
 	//フォント関係
 	if (Font::LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME) == false) { return false; }	//フォントを読み込み
-	font.push_back(new Font((int)FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
-	font.push_back(new Font((int)FONT_NAME_KOKUBAN, FONTSIZE_DRAW_RANKING, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ミニサイズ）作成
-	for(int i = 0; i < font.size(); ++i)								//フォントハンドルの種類分
-	if (font.at(i)->GetIsCreate() == false) { return false; }			//読み込み失敗
-	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
+	font.push_back(new Font(FONT_NAME_KOKUBAN, DEFAULT_FONTSIZE, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
+	font.push_back(new Font(FONT_NAME_KOKUBAN, FONTSIZE_MINI, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));		//こくばんフォント（ミニサイズ）作成
+	font.push_back(new Font(FONT_NAME_KOKUBAN, FONTSIZE_DRAW_RANKING, FONT_BOLD_DEFAULT, DX_FONTTYPE_ANTIALIASING));//こくばんフォント（ランキングサイズ）作成
+	for (auto f : font)
+	{
+		if (!f->GetIsCreate()) { return false; }	//読み込み失敗
+	}
+	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
 
 	//時間関係
 	gamelimittime = new Time();		//ゲームの制限時間を管理するオブジェクトを生成
@@ -392,11 +395,11 @@ void GameManeger::Draw_Scene_Load()
 
 	if (IsLoad)	//読み込みが完了したら
 	{
-		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
+		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE, font.at((int)HANDLE_NR_SIZE)->GetHandle());
 	}
 	else		//完了していなければ
 	{
-		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE, font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle());
+		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE, font.at((int)HANDLE_NR_SIZE)->GetHandle());
 	}
 
 	return;
@@ -571,7 +574,10 @@ void GameManeger::Draw_Scene_Play()
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP描画
 	}
 
-	question->DrawQuestion();		//問題文描画
+	//問題関係
+	NowFontHandle = font.at(HANDLE_MINI_SIZE)->GetHandle();//使用するフォントハンドル変更
+	question->DrawQuestion();								//問題文描画
+	NowFontHandle = font.at(HANDLE_NR_SIZE)->GetHandle();	//使用するフォントハンドル変更
 	question->DrawInputNum();		//入力中の数字を描画
 
 	score->DrawNowScore();	//現在のスコア描画
@@ -601,9 +607,9 @@ void GameManeger::Draw_SceneDrawScore()
 
 	back.at(SCORE_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_MINISIZE)->GetHandle();	//使用するフォントハンドル変更
+	NowFontHandle = font.at((int)HANDLE_RANK_SIZE)->GetHandle();	//使用するフォントハンドル変更
 	save->Draw(GameMode);														//データをランキング表示
-	NowFontHandle = font.at((int)HANDLE_TYPE_KOKUBAN_NORMALSIZE)->GetHandle();	//使用するフォントハンドル変更
+	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントハンドル変更
 
 	return;
 }
