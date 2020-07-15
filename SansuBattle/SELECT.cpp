@@ -159,6 +159,8 @@ void Select::Init()
 	IsChoise = false;							//選択したか初期化
 	IsBack = false;								//戻るか初期化
 	NowSelectCode = SelectCode.begin();			//現在選んでいる選択肢初期化
+	NowRow = 0;									//現在の列番号初期化
+	NowLine = 0;								//現在の行番号初期化
 	DrawX += (GAME_WIDTH * (NowPage - 1));		//描画位置を戻す
 	NowPage = PAGE_START;						//ページを戻す
 
