@@ -35,6 +35,9 @@
 
 #define SE_NAME_KETTEI			R"(\kettei.mp3)"		//決定の効果音SE
 
+#define SE_NAME_FALSE			R"(\false.mp3)"			//不正解の効果音SE
+#define SE_NAME_DAMEGE			R"(\damege.wav)"		//ダメージを受けたときの効果音SE
+
 //##################### マクロ定義：エラーメッセージ ######################
 #define MUSIC_ERROR_TITLE "MUSIC_ERROR"					//エラータイトル
 #define MUSIC_ERROR_MSG	"音が読み込めませんでした"		//エラーメッセージ
@@ -51,6 +54,12 @@ enum SE_EFFECT
 enum SE_KEY
 {
 	SE_KEY_KETTEI			//キー操作（決定）の効果音
+};
+
+enum SE_PLAY
+{
+	SE_PLAY_FALSE,		//不正解の時の効果音
+	SE_PLAY_DAMEGE		//ダメージを受けたときの効果音
 };
 
 enum BGM_TYPE

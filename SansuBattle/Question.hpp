@@ -88,6 +88,7 @@ public:
 	bool JudgAnser();			//正解か判定する
 
 	bool CheckInputKey(KeyDown*);//キー入力中か取得
+	void InpReset();			//入力文字リセット
 
 	bool GetIsCreate();			//問題を作成したか取得
 	void Reset();				//問題をリセット

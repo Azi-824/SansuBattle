@@ -492,6 +492,12 @@ bool Question::CheckInputKey(KeyDown* keydown)
 	return false;
 }
 
+//入力リセット
+void Question::InpReset()
+{
+	InputNum = "0";	//入力内容リセット
+}
+
 //入力されたキーを取得
 int Question::GetInputKey(KeyDown* keydown)
 {

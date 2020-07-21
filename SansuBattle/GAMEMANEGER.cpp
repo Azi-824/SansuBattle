@@ -71,35 +71,43 @@ GameManeger::~GameManeger()
 	vector<Music*> v6;		//空のvectorを作成する
 	bgm_play.swap(v6);		//空と中身を入れ替える
 
+	//プレイ画面のSE
+	for (auto s : play_se)
+	{
+		delete s;	//play_se破棄
+	}
+	vector<Music*> v7;
+	play_se.swap(v7);
+
 	//エフェクト関係
 	for (auto effect : effect_atk)
 	{
 		delete effect;	//effect_atk破棄
 	}
-	vector<Effect*> v7;		//空のvectorを作成する
-	effect_atk.swap(v7);	//空と中身を入れ替える
+	vector<Effect*> v8;		//空のvectorを作成する
+	effect_atk.swap(v8);	//空と中身を入れ替える
 
 	//エフェクトSE
 	//オブジェクトの破棄は、エフェクトクラスを破棄した時に同時に破棄されるので、
 	//vectorの解放だけ行う
-	vector<Music*> v8;		//空のvectorを作成する
-	effect_se.swap(v8);		//空と中身を入れ替える
+	vector<Music*> v9;		//空のvectorを作成する
+	effect_se.swap(v9);		//空と中身を入れ替える
 
 	//背景画像
 	for (auto img : back)
 	{
 		delete img;
 	}
-	vector<Image*> v9;		//空のvector
-	back.swap(v9);			//空と交換
+	vector<Image*> v10;		//空のvector
+	back.swap(v10);			//空と交換
 
 	//選択肢画像
 	//オブジェクトの破棄は、選択肢クラスを破棄した時に同時に破棄されるので、
 	//vectorの解放だけ行う
-	vector<Image*> v10;			//空のvector
-	gamemode_img.swap(v10);		//空と交換
 	vector<Image*> v11;			//空のvector
-	gamelevel_img.swap(v11);	//空と交換
+	gamemode_img.swap(v11);		//空と交換
+	vector<Image*> v12;			//空のvector
+	gamelevel_img.swap(v12);	//空と交換
 
 }
 
@@ -219,6 +227,15 @@ bool GameManeger::Load()
 	{
 		if (bgm->GetIsLoad() == false) { return false; }	//読み込み失敗
 		bgm->SetInit(DX_PLAYTYPE_LOOP, 30);					//初期設定
+	}
+
+	//効果音（プレイ画面）
+	play_se.push_back(new Music(MUSIC_DIR_SE, SE_NAME_FALSE));	//不正解の効果音追加
+	play_se.push_back(new Music(MUSIC_DIR_SE, SE_NAME_DAMEGE));	//ダメージの効果音追加
+	for (auto s : play_se)
+	{
+		if (!s->GetIsLoad()) { return false; }	//読み込み失敗
+		s->SetInit(DX_PLAYTYPE_BACK, 30);		//初期設定
 	}
 
 	//問題関係
@@ -517,18 +534,20 @@ void GameManeger::Scene_Play()
 
 	if (question->CheckInputKey(keydown))	//キー入力が完了したら
 	{
-		if (question->JudgAnser())				//プレイヤーの回答が正解だったら
+		if (question->JudgAnser())			//プレイヤーの回答が正解だったら
 		{
 			effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(true);			//アニメーションの描画を開始する
 		}
 		else		//不正解だったら
 		{
-			player->SendDamege();	//プレイヤーにダメージを与える
+			play_se.at(SE_PLAY_FALSE)->Play();				//不正解の効果音
+			gamelimittime->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
+			question->InpReset();							//入力情報リセット
 		}
 
 	}
 
-	if (effect_atk.at((int)EFFECT_ATACK)->GetIsDrawEnd())							//アニメーション描画が終わったら
+	if (effect_atk.at((int)EFFECT_ATACK)->GetIsDrawEnd())					//アニメーション描画が終わったら
 	{
 		effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(false);					//アニメーションを描画しない
 		effect_atk.at((int)EFFECT_ATACK)->ResetIsAnime();					//アニメーション状態をリセット
@@ -537,11 +556,12 @@ void GameManeger::Scene_Play()
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
-	if (gamelimittime->GetIsLimit())	//制限時間を超えたら
+	if (gamelimittime->GetIsLimit())		//制限時間を超えたら
 	{
-		player->SendDamege();		//プレイヤーにダメージ
-		question->Reset();			//問題をリセット
-		gamelimittime->SetTime();	//制限時間の再計測
+		play_se.at(SE_PLAY_DAMEGE)->Play();	//ダメージの効果音
+		player->SendDamege();				//プレイヤーにダメージ
+		question->Reset();					//問題をリセット
+		gamelimittime->SetTime();			//制限時間の再計測
 	}
 
 	if (enemy.at(Enemy::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら

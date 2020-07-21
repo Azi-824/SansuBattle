@@ -13,6 +13,7 @@ Time::Time()
 	StartTime = 0;		//計測開始時間初期化
 	ElapsedTime = 0;	//経過時間初期化
 	LimitTime = 0;		//制限時間初期化
+	LimitInit = 0;		//制限時間初期値
 	NowLimitTime = 0;	//残りの制限時間初期化
 }
 
@@ -25,6 +26,7 @@ Time::Time(int limit)
 	ElapsedTime = 0;	//経過時間初期化
 	NowLimitTime = 0;	//残りの制限時間初期化
 	LimitTime = limit;	//制限時間を設定
+	LimitInit = LimitTime;	//制限時間の初期値を設定
 }
 
 //デストラクタ
@@ -35,6 +37,7 @@ void Time::SetTime()
 {
 	//ミリ秒単位で取得するため、1/1000倍して、秒単位に変換する
 	StartTime = GetNowCount() / 1000;	//計測開始時間設定
+	LimitTime = LimitInit;				//制限時間を初期値にする
 }
 
 //経過時間更新
@@ -81,4 +84,11 @@ bool Time::GetIsLimit()
 {
 	UpdateLimitTime();	//制限時間更新
 	return NowLimitTime <= 0 ? true : false;
+}
+
+//残りの制限時間をマイナスする
+//引数：int：減らす時間（秒）
+void Time::MinusLimitTime(int value)
+{
+	LimitTime -= value;	//制限時間を減らす
 }

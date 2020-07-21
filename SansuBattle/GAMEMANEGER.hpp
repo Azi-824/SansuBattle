@@ -69,6 +69,7 @@ private:
 	vector<Music*> bgm;			//BGM
 	vector<Music*> bgm_play;	//プレイ画面のBGM
 	vector<Music*> effect_se;	//エフェクトの効果音
+	vector<Music*> play_se;		//プレイ画面の効果音
 	Score* score;				//スコア
 	SaveData* save;				//セーブデータ
 	
