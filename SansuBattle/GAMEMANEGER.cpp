@@ -123,7 +123,7 @@ bool GameManeger::Load()
 	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
 
 	//時間関係
-	gamelimittime = new Time();		//ゲームの制限時間を管理するオブジェクトを生成
+	gamelimittime = new Time(GAME_LIMIT_TIME);		//ゲームの制限時間を管理するオブジェクトを生成
 
 	//画像関係
 	//背景画像
@@ -508,7 +508,7 @@ void GameManeger::Scene_Play()
 
 	bgm_play.at(GameMode)->Play();			//プレイ画面のBGMを再生
 
-	gamelimittime->UpdateLimitTime(GAME_LIMIT_TIME);	//制限時間の更新
+	gamelimittime->UpdateLimitTime();		//制限時間の更新
 
 	if (!question->GetIsCreate())	//問題を作成していなければ
 	{
@@ -537,6 +537,13 @@ void GameManeger::Scene_Play()
 		gamelimittime->SetTime();											//制限時間の再計測
 	}
 
+	if (gamelimittime->GetIsLimit())	//制限時間を超えたら
+	{
+		player->SendDamege();		//プレイヤーにダメージ
+		question->Reset();			//問題をリセット
+		gamelimittime->SetTime();	//制限時間の再計測
+	}
+
 	if (enemy.at(Enemy::GetNowEnemyNum())->GetHp() <= 0)		//敵のHPが0になったら
 	{
 		enemy.at(Enemy::GetNowEnemyNum())->SetIsArive(false);	//敵死亡
@@ -556,7 +563,6 @@ void GameManeger::Scene_Play()
 		NowScene = (int)SCENE_DRAWSCORE;	//スコア表示画面へ
 	}
 
-	return;
 }
 
 //プレイ画面の描画処理
@@ -581,7 +587,7 @@ void GameManeger::Draw_Scene_Play()
 
 	score->DrawNowScore();	//現在のスコア描画
 
-	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y, GAME_LIMIT_TIME);			//制限時間の描画
+	gamelimittime->DrawLimitTime(GAME_LIMITTIME_DRAW_X, GAME_LIMITTIME_DRAW_Y);			//制限時間の描画
 
 	effect_atk.at((int)EFFECT_ATACK)->DrawCenter();	//攻撃エフェクト描画
 

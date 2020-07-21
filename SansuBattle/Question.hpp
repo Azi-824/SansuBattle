@@ -74,7 +74,6 @@ private:
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
 	void CreateTable();											//各ゲームモードの計算の種類のテーブルを作成
 	void SetText(vector<int>, vector<int>, vector<int>);		//問題文のテキストを設定
-	void Reset();												//問題をリセット
 
 public:
 
@@ -91,6 +90,7 @@ public:
 	bool CheckInputKey(KeyDown*);//キー入力中か取得
 
 	bool GetIsCreate();			//問題を作成したか取得
+	void Reset();				//問題をリセット
 
 
 };

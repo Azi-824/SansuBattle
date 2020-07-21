@@ -434,11 +434,11 @@ bool Question::JudgAnser()
 {
 	if (Anser == atoi(InputNum.c_str()))				//プレイヤーの回答が、答えと一緒だったら
 	{
-		Question::IsCreate = false;		//問題を作成したか、リセット
-		return true;					//正解
+		IsCreate = false;		//問題を作成したか、リセット
+		return true;			//正解
 	}
-	else								//一緒じゃなかったら
-		return false;					//不正解
+	else						//一緒じゃなかったら
+		return false;			//不正解
 }
 
 //キー入力中か確認

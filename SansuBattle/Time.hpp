@@ -19,19 +19,22 @@ private:
 
 	int StartTime;						//計測開始時間
 	int ElapsedTime;					//経過時間
+	int LimitTime;						//制限時間
 	int NowLimitTime;					//残りの制限時間
 
 public:
 
 	Time();								//コンストラクタ
+	Time(int);							//コンストラクタ（制限時間の設定付き）
 	~Time();							//デストラクタ
 
 	void SetTime();						//計測開始
 	void UpdateElpasedTime();			//経過時間更新
-	void UpdateLimitTime(int);			//制限時間更新
+	void UpdateLimitTime();				//制限時間更新
 	void DrawElapsedTime(int, int);		//経過時間描画
-	void DrawLimitTime(int, int,int);	//制限時間描画
+	void DrawLimitTime(int, int);		//制限時間描画
 
 	int GetElapsedTime();				//経過時間取得
+	bool GetIsLimit();					//経過時間が過ぎたか
 
 };
