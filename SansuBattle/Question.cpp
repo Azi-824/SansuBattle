@@ -179,7 +179,7 @@ void Question::CreateQuestion(vector<int>calc_value, vector<int>calc_type, vecto
 				//割り切れる値になるまで、値を減らす
 				--calc_value.at(order.at(i) + 1);
 			}
-			value_cp.at(order.at(i) + 1) = calc_value.at(order.at(i) + 1);	//値を変化させたため、コピーの方を更新する
+			value_cp.at(order_cp.at(i) + 1) = calc_value.at(order.at(i) + 1);	//値を変化させたため、コピーの方を更新する
 			calc_value.at(order.at(i) + 1) = calc_value.at(order.at(i)) / calc_value.at(order.at(i) + 1);	//指定された値と、その次の値で計算
 
 			break; //割り算
