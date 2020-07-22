@@ -347,14 +347,6 @@ void GameManeger::ProcesScene()
 
 		break;				//スコア表示画面のときここまで
 
-	case (int)SCENE_END:	//エンド画面のとき
-
-		Scene_End();		//処理
-
-		Draw_Scene_End();	//描画
-
-		break;				//エンド画面のときここまで
-
 	default:
 		break;
 	}
@@ -451,6 +443,7 @@ void GameManeger::Scene_Title()
 		if (select_start->GetChoiseSelectCode() == SELECT_START)	//スタートだったら
 		{
 			bgm.at(BGM_TYPE_TITLE)->Stop();//再生中の音楽を止める
+			select_start->Init();			//初期化
 			NowScene = SCENE_SELECT_MODE;	//難易度選択画面へ
 		}
 		else	//エンドだったら
@@ -645,7 +638,7 @@ void GameManeger::Scene_DrawScore()
 
 	if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
 	{
-		NowScene = (int)SCENE_END;	//エンド画面へ
+		NowScene = (int)SCENE_TITLE;	//タイトル画面へ
 	}
 
 	return;
@@ -660,27 +653,6 @@ void GameManeger::Draw_SceneDrawScore()
 	NowFontHandle = font.at((int)HANDLE_RANK_SIZE)->GetHandle();	//使用するフォントハンドル変更
 	save->Draw(GameMode);														//データをランキング表示
 	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントハンドル変更
-
-	return;
-}
-
-//エンド画面の処理
-void GameManeger::Scene_End()
-{
-
-	if (keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
-	{
-		NowScene = (int)SCENE_TITLE;	//タイトル画面へ
-	}
-
-	return;
-}
-
-//エンド画面の描画処理
-void GameManeger::Draw_Scene_End()
-{
-
-	back.at((int)END_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	return;
 }

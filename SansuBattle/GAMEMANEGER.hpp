@@ -43,8 +43,8 @@ enum GAME_SCENE
 	SCENE_SELECT_MODE,	//ゲームモード選択シーン
 	SCENE_SELECT_LEVEL,	//レベル選択シーン
 	SCENE_PLAY,			//プレイシーン
-	SCENE_DRAWSCORE,	//スコア表示シーン
-	SCENE_END			//エンドシーン
+	SCENE_DRAWSCORE		//スコア表示シーン
+	//SCENE_END			//エンドシーン
 };
 
 //############### クラス定義 ################
@@ -112,7 +112,7 @@ public:
 	void Scene_DrawScore();			//スコア表示画面の処理
 	void Draw_SceneDrawScore();		//スコア表示画面の描画処理
 		
-	void Scene_End();				//エンド画面の処理
-	void Draw_Scene_End();			//エンド画面の描画処理
+	//void Scene_End();				//エンド画面の処理
+	//void Draw_Scene_End();			//エンド画面の描画処理
 
 };
