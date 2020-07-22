@@ -131,7 +131,6 @@ bool GameManeger::Load()
 	{
 		if (!f->GetIsCreate()) { return false; }	//読み込み失敗
 	}
-	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
 
 	//時間関係
 	gamelimittime = new Time(GAME_LIMIT_TIME);		//ゲームの制限時間を管理するオブジェクトを生成
@@ -367,6 +366,8 @@ void GameManeger::ProcesScene()
 //初期設定
 void GameManeger::SetInit()
 {
+	NowFontHandle = font.at((int)HANDLE_NR_SIZE)->GetHandle();	//使用するフォントをこくばんフォントに変更
+
 	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y,  SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
 	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y,  SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
 	select_start->SetInit(START_DRAW_X, START_DRAW_Y, SELECT_START_INTERVAL_SIDE);	//スタートの選択肢の初期設定
@@ -423,13 +424,15 @@ void GameManeger::Scene_Load()
 void GameManeger::Draw_Scene_Load()
 {
 
+	SetFontSize(DEFAULT_FONTSIZE);	//フォントサイズを大きくする
+
 	if (IsLoad)	//読み込みが完了したら
 	{
-		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE, font.at((int)HANDLE_NR_SIZE)->GetHandle());
+		DrawString(TEST_TEXT_X, TEST_TEXT_Y, PUSH_TEXT, COLOR_WHITE);
 	}
 	else		//完了していなければ
 	{
-		DrawStringToHandle(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE, font.at((int)HANDLE_NR_SIZE)->GetHandle());
+		DrawString(TEST_TEXT_X, TEST_TEXT_Y, LOAD_TEXT, COLOR_WHITE);
 	}
 
 	return;
