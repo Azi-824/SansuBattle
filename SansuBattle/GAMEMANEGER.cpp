@@ -36,6 +36,7 @@ GameManeger::~GameManeger()
 	delete save;			//save破棄
 	delete question;		//question破棄
 	delete score;			//score破棄
+	delete select_start;	//select_start破棄
 
 	//敵関係
 	for (auto e : enemy)
@@ -108,6 +109,8 @@ GameManeger::~GameManeger()
 	gamemode_img.swap(v11);		//空と交換
 	vector<Image*> v12;			//空のvector
 	gamelevel_img.swap(v12);	//空と交換
+	vector<Image*> v13;			//空のvector
+	start_img.swap(v13);		//空と交換
 
 }
 
@@ -175,6 +178,15 @@ bool GameManeger::Load()
 		if (!img->GetIsLoad()) { return false; }	//読み込み失敗
 	}
 	select_level = new Select(gamelevel_img);	//ゲームレベルの選択肢生成
+
+	//スタートの選択肢
+	start_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_START));		//スタートの画像
+	start_img.push_back(new Image(SELECT_IMG_DIR, IMG_NAME_SELECT_END));		//エンドの画像
+	for (auto img : start_img)
+	{
+		if (!img->GetIsLoad()) { return false; }	//読み込み失敗
+	}
+	select_start = new Select(start_img);			//スタートの選択肢生成
 
 	//プレイヤー関係
 	player = new Player();		//プレイヤーを管理するオブジェクトを生成
@@ -357,6 +369,7 @@ void GameManeger::SetInit()
 {
 	select_gamemode->SetInit(SELECT_GAMEMODE_DRAW_X, SELECT_GAMEMODE_DRAW_Y,  SELECT_GAMEMODE_INTERVAL_SIDE, SELECT_GAMEMODE_INTERVAL_VERTICAL);	//ゲームモードの選択肢初期設定
 	select_level->SetInit(SELECT_LEVEL_DRAW_X, SELECT_LEVEL_DRAW_Y,  SELECT_LEVEL_INTERVAL_SIDE);				//レベルの選択肢初期設定
+	select_start->SetInit(START_DRAW_X, START_DRAW_Y, SELECT_START_INTERVAL_SIDE);	//スタートの選択肢の初期設定
 	player->SetInit(PLAYER_HP_DRAW_X, PLAYER_HP_DRAW_Y);							//プレイヤー初期設定
 
 	for (auto img : back)
@@ -428,13 +441,21 @@ void GameManeger::Scene_Title()
 
 	bgm.at((int)BGM_TYPE_TITLE)->Play();		//BGMを再生
 
-	if (this->keydown->IsKeyDownOne(KEY_INPUT_RETURN))		//エンターキーを押されたら
-	{
-		bgm.at((int)BGM_TYPE_TITLE)->Stop();//再生中の音楽を止める
-		NowScene = (int)SCENE_SELECT_MODE;	//難易度選択画面へ
-	}
+	select_start->Operation(keydown);			//選択肢のキー操作
 
-	return;
+	if (select_start->GetIsChoise())	//選択されたら
+	{
+		if (select_start->GetChoiseSelectCode() == SELECT_START)	//スタートだったら
+		{
+			bgm.at(BGM_TYPE_TITLE)->Stop();//再生中の音楽を止める
+			NowScene = SCENE_SELECT_MODE;	//難易度選択画面へ
+		}
+		else	//エンドだったら
+		{
+			GameEndFlg = true;	//ゲーム終了
+		}
+
+	}
 }
 
 //タイトル画面の描画処理
@@ -443,7 +464,8 @@ void GameManeger::Draw_Scene_Title()
 
 	back.at((int)TITLE_BACK)->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	return;
+	select_start->Draw();	//スタートの選択肢描画
+
 }
 
 //ゲームモード選択画面の処理

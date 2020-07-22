@@ -56,9 +56,9 @@ private:
 	Fps *fps;					//fps
 	KeyDown *keydown;			//キーボード関係
 	vector<Image*> back;		//背景画像
-	vector<Image*> gamemode_img;//背景画像
+	vector<Image*> gamemode_img;//ゲームモードの画像
 	Select* select_gamemode;	//ゲームモード選択肢
-	vector<Image*> gamelevel_img;//背景画像
+	vector<Image*> gamelevel_img;//レベルの画像
 	Select* select_level;		//レベル選択肢
 	Player* player;				//プレイヤー
 	vector<Enemy*> enemy;		//敵キャラ
@@ -72,6 +72,8 @@ private:
 	vector<Music*> play_se;		//プレイ画面の効果音
 	Score* score;				//スコア
 	SaveData* save;				//セーブデータ
+	Select* select_start;		//スタートの選択肢
+	vector<Image*> start_img;	//スタートの画像
 	
 	int NowScene;				//現在のシーン
 	int GameMode;				//ゲームのモード

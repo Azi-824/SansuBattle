@@ -236,21 +236,24 @@ void Select::Draw()
 	};
 
 	//UIの描画
-	if (NowPage == PAGE_START)	//最初のページなら
+	if (PageMax > PAGE_START)	//ページが二枚以上なら
 	{
-		//右矢印のみ描画
-		Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
-	}
-	else if (NowPage == PageMax)	//最後のページなら
-	{
-		//左矢印のみ描画
-		Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
-	}
-	else		//それ以外なら
-	{
-		//両方とも描画
-		Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
-		Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
+		if (NowPage == PAGE_START)	//最初のページなら
+		{
+			//右矢印のみ描画
+			Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
+		}
+		else if (NowPage == PageMax)	//最後のページなら
+		{
+			//左矢印のみ描画
+			Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
+		}
+		else		//それ以外なら
+		{
+			//両方とも描画
+			Arrow.at(ARROW_RIGHT)->DrawCenterY(ARROW_RIGHT_DRAW_X);
+			Arrow.at(ARROW_LEFT)->DrawCenterY(ARROW_LEFT_DRAW_X);
+		}
 	}
 			
 }
