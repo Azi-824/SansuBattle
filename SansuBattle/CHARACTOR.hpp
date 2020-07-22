@@ -19,10 +19,10 @@
 #define HP_INIT_VALUE	5	//HPの初期値
 
 #define PLAYER_HP_DRAW_X		20	//HPの描画開始X位置
-#define PLAYER_HP_DRAW_Y		50	//HPの描画開始Y位置
+#define PLAYER_HP_DRAW_Y		400	//HPの描画開始Y位置
 
 #define ENEMY_HP_DRAW_X		20		//HPの描画開始X位置
-#define ENEMY_HP_DRAW_Y		150		//HPの描画開始Y位置
+#define ENEMY_HP_DRAW_Y		20		//HPの描画開始Y位置
 
 //###################### 列挙型 #################
 enum HP_IMG_KIND

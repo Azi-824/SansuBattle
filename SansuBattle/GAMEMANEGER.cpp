@@ -384,7 +384,7 @@ void GameManeger::SetInit()
 
 	for (int i = 0; i < enemy.size(); ++i)
 	{
-		enemy.at(i)->SetInit();								//“G‚Ì‰Šúİ’è
+		enemy.at(i)->SetInit(ENEMY_HP_DRAW_X, ENEMY_HP_DRAW_Y);	//“G‚Ì‰Šúİ’è
 	}
 
 	return;
@@ -613,13 +613,13 @@ void GameManeger::Draw_Scene_Play()
 
 	back.at((int)PLAY_BACK)->Draw(GAME_LEFT, GAME_TOP);	//”wŒi•`‰æ
 
-	player->DrawHp();				//ƒvƒŒƒCƒ„[HP•`‰æ
-
 	if (Enemy::GetNowEnemyNum() < enemy.size())	//Œ»İ‚Ì“G‚ªA“G‚ÌÅ‘å”ˆÊ“à‚¾‚Á‚½‚ç
 	{
 		enemy.at(Enemy::GetNowEnemyNum())->DrawCenter();	//“GƒLƒƒƒ‰•`‰æ
 		enemy.at(Enemy::GetNowEnemyNum())->DrawHp();		//HP•`‰æ
 	}
+
+	player->DrawHp();				//ƒvƒŒƒCƒ„[HP•`‰æ
 
 	//–â‘èŠÖŒW
 	NowFontHandle = font.at(HANDLE_MINI_SIZE)->GetHandle();//g—p‚·‚éƒtƒHƒ“ƒgƒnƒ“ƒhƒ‹•ÏX

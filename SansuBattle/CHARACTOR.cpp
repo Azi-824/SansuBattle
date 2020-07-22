@@ -58,7 +58,7 @@ bool Charactor::GetIsLoad()
 	return IsLoad;
 }
 
-//初期化設定
+//初期設定
 void Charactor::SetInit(int x,int y)
 {
 	for (auto img : image_hp)
@@ -91,23 +91,9 @@ int Charactor::GetHp()
 //HP描画
 void Charactor::DrawHp()
 {
-	int draw_x = 0, draw_y = 0;	//描画X,Y位置
-	if (DrawHp_type == HP_PLAYER)	//プレイヤーHPの場合
-	{
-		//プレイヤーのHP描画位置に設定
-		draw_x = PLAYER_HP_DRAW_X;
-		draw_y = PLAYER_HP_DRAW_X;
-	}
-	else if (DrawHp_type == HP_ENEMY)//敵HPの場合
-	{
-		//敵のHP描画位置に設定
-		draw_x = ENEMY_HP_DRAW_X;
-		draw_y = ENEMY_HP_DRAW_Y;
-
-	}
 	for (int i = 0; i < HP; ++i)	//HPの分ループ
 	{
-		image_hp.at(DrawHp_type)->Draw(draw_x + i * image_hp.at(DrawHp_type)->GetWidth(), draw_y);	//HP画像描画
+		image_hp.at(DrawHp_type)->Draw(DrawX + i * image_hp.at(DrawHp_type)->GetWidth(), DrawY);	//HP画像描画
 	}
 
 }
