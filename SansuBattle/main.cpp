@@ -20,6 +20,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetWindowIconID(GAME_ICON_ID);								//アイコン変更
 
+	SetUseASyncLoadFlag(TRUE);									//同期読み込みに設定
+
 	SetAlwaysRunFlag(TRUE);										//非アクティブに設定
 
 	if (DxLib_Init() == -1) { return -1; }						//ＤＸライブラリ初期化処理
