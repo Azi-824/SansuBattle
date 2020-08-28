@@ -9,6 +9,7 @@
 #include "Scene.hpp"
 #include "Load.hpp"
 #include "Title.hpp"
+#include "Select.hpp"
 #include "Play.hpp"
 #include "Ranking.hpp"
 

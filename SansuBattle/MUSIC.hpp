@@ -19,6 +19,7 @@
 
 //BGM
 #define BGM_NAME_TITLE				R"(\title.mp3)"			//タイトルのBGM
+#define BGM_NAME_SELECT				R"(\select.mp3)"		//セレクトのBGM
 #define BGM_NAME_PLAY				R"(\play.mp3)"			//プレイのBGM
 #define BGM_NAME_RANKING			R"(\ranking.mp3)"		//ランキングのBGM
 

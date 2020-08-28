@@ -13,6 +13,10 @@
 
 #define BT_START_IMG_NAME	R"(\start.png)"		//ボタンの画像(start)
 #define BT_END_IMG_NAME		R"(\end.png)"		//ボタンの画像(end)
+#define BT_SUM_IMG_NAME		R"(\mode_sum.png)"		//ボタンの画像(+)
+
+#define BT_EASY_IMG_NAME	R"(\level_easy.png)"	//ボタンの画像(簡単)
+
 
 #define BT_START_X	150		//スタートボタンX位置
 #define BT_START_Y	500		//スタートボタンY位置

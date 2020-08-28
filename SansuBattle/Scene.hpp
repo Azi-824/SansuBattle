@@ -16,6 +16,7 @@ enum GAME_SCENE
 {
 	SCENE_LOAD,			//ロードシーン
 	SCENE_TITLE,		//タイトルシーン
+	SCENE_SELECT,		//選択シーン
 	SCENE_PLAY,			//プレイシーン
 	SCENE_RANKING		//ランキングシーン
 };

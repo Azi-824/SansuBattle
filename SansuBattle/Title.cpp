@@ -69,7 +69,7 @@ void Title::Run()
 				b->Event([this]
 					{
 						bgm->Stop();			//BGM‚ðŽ~‚ß‚é
-						NowScene = SCENE_PLAY;	//ƒvƒŒƒC‰æ–Ê‚Ö
+						NowScene = SCENE_SELECT;	//‘I‘ð‰æ–Ê‚Ö
 					});
 
 				break;	//start
