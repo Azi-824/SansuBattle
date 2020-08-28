@@ -2,27 +2,17 @@
 /* Image.cpp     																				　 */
 /* 画像クラス 																					　 */
 
-/*
-追加方法
-・フォルダ名とファイル名をマクロ定義する
-・Add処理を使用して、画像を読み込む
-*/
-
 #pragma once
 
 //########## ヘッダーファイル読み込み ##########
 #include "Global.hpp"
-#include <string>
-#include <vector>
 
 //########## マクロ定義：画像のファイルパスと名前 ##########
-#define IMG_DIR_BACK		R"(.\MY_IMG\Back)"				//背景画像のファイルの場所
+#define IMG_DIR_BACK		R"(.\Image\Back)"				//背景画像のファイルの場所
 
 #define IMG_NAME_TITLE		R"(\title.jpg)"					//タイトル画面の背景画像の名前
 #define IMG_NAME_PLAY		R"(\play.jpg)"					//プレイ画面の背景画像の名前
-#define IMG_NAME_SELECT		R"(\select.jpg)"				//選択画面の背景画像の名前
-#define IMG_NAME_SCORE		R"(\score.jpg)"					//スコア画面の背景画像の名前
-#define IMG_NAME_END		R"(\end.jpg)"					//エンド画面の画像の名前
+#define IMG_NAME_RANKING	R"(\ranking.jpg)"				//ランキング画面の背景画像の名前
 
 #define FADE_MAX_CNT	60	//フェード処理のカウント最大値
 #define TOUKA_MAX_VALUE	255	//透過の最大値
@@ -36,9 +26,7 @@ enum BACK_IMAGE
 {
 	TITLE_BACK,		//タイトル画面の背景画像
 	PLAY_BACK,		//プレイ画面の背景画像
-	SELECT_BACK,	//選択画面の背景画像
-	SCORE_BACK,		//スコア画面の背景画像
-	END_BACK		//エンド画面の画像
+	RANKING_BACK	//ランキング画面
 };
 
 using std::string;
@@ -62,9 +50,12 @@ private:
 
 public:
 	Image(const char *,const char *);	//コンストラクタ
+	Image();							//コンストラクタ
 	virtual ~Image();					//デストラクタ
 
-	std::string GetFileName(void);	//名前を取得
+	bool Load(const char*, const char*);//読み込み
+
+	string GetFileName(void);	//名前を取得
 
 	void SetInit(void);				//サイズをセット
 
@@ -72,6 +63,7 @@ public:
 	int GetHeight();	//高さを取得
 
 	bool GetIsLoad(void);			//読み込めた？
+	bool GetIsDraw();				//描画してよいか取得
 	void SetIsDraw(bool);			//描画してよいか設定
 
 	void Draw(int, int);		//画像を描画
