@@ -16,21 +16,23 @@
 #include <vector>
 
 //################ マクロ定義 ファイルパスと名前 ###############
-#define FONT_DIR			R"(.\MY_FONT)"				//フォントファイルの場所
+#define FONT_DIR			R"(.\Font)"				//フォントファイルの場所
 
-#define FONT_FILE_NAME		R"(\kokubanB.ttf)"			//フォントの名前
+#define FONT_FILE_NAME		R"(\HGRGY003.ttf)"			//フォントの名前
 //############### マクロ定義 ##################
 
 //*********** フォント名 **************
-#define FONT_NAME		"こくばん"					//フォントの正式名称
+#define FONT_NAME		"HGS行書体"					//フォントの正式名称
 
 //*********** フォントサイズ **************
-#define DEFAULT_FONTSIZE	128						//デフォルトのフォントサイズ
-#define FONTSIZE_MINI		90						//フォントサイズ（ミニ）
-#define FONTSIZE_DRAW_RANKING	54					//ランキング描画の時のフォントサイズ
+#define F_SIZE_NORMAL	128			//通常のフォントサイズ
+#define F_SIZE_MINI		36			//フォントサイズ（ミニ）
+#define F_SIZE_RANKING	42			//ランキング描画の時のフォントサイズ
 
 //************* フォントの太さ *****************
-#define FONT_BOLD_DEFAULT	5		//デフォルトのフォントの太さ
+#define F_BOLD_NORMAL	5			//通常のフォントの太さ
+
+#define F_EDGE_SIZE		3			//縁取りの太さ
 
 //################ マクロ定義 エラーメッセージ #################
 #define FONT_ERROR_TITLE "FONT_ERROR"						//エラータイトル
@@ -39,14 +41,14 @@
 //################ 列挙型 #####################
 enum LOAD_FONT_NAME
 {
-	FONT_NAME_KOKUBAN	//こくばんフォント
+	F_NAME_HGS	//HGS行書体
 };	//読み込んだフォントの種類
 
 enum FONT_HANDLE_TYPE
 {
-	HANDLE_NR_SIZE,		//こくばんフォントのノーマルサイズのハンドル
-	HANDLE_MINI_SIZE,	//ミニサイズのハンドル
-	HANDLE_RANK_SIZE	//こくばんフォントのランキング描画サイズのハンドル
+	FH_NORMAL,	//HGS行書体のノーマルサイズのハンドル
+	FH_MINI,	//ミニサイズのハンドル
+	FH_RANKING	//こくばんフォントのランキング描画サイズのハンドル
 };
 
 using std::vector;
@@ -60,17 +62,23 @@ private:
 	static vector<string> LoadFontName;		//読み込んだフォントの名前
 
 	int Handle;								//フォントハンドル
-	bool IsCreate;							//フォントハンドルを作成できたか
+	bool IsCreate;							//作成できたか
+
+	static int NowFont;						//現在のフォントハンドル
+
+	static bool LoadFont(const char*, const char*, const char*);	//フォントを読み込み
 
 public:
 
-	Font(int, int, int, int);		//コンストラクタ
-	~Font();						//デストラクタ
+	Font(int, int, int, int, 
+		int charset = -1,
+		int edgesize = -1,
+		int ltalic = 0,
+		int handle = -1);		//コンストラクタ
+	~Font();	//デストラクタ
 
-	static bool LoadFont(const char*, const char*, const char*);	//フォントを読み込み
-	static bool ReleaseFont();										//読み込んだフォントを開放
-
-	int GetHandle();		//フォントハンドル取得
-	bool GetIsCreate();		//フォントハンドルを作成できたか取得
-
+	static bool ReleaseFont();		//読み込んだフォントを開放
+	bool GetIsCreate();				//作成できたか取得
+	void Chenge();					//フォントハンドルを変更
+	static int GetNowHandle();		//現在のハンドルを取得
 };

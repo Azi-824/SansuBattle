@@ -9,34 +9,42 @@
 //インスタンス背性
 vector<string> Font::LoadFontName;	//読み込んだフォントの名前
 vector<string> Font::FilePath;		//読み込んだフォントのパス
+int Font::NowFont;					//現在のフォントハンドル
 
 //コンストラクタ
+//引数は、DxLibのCreateFontToHandle()の引数と同じ
 //引　数：int：読み込むフォントの名前
 //引　数：int：フォントのサイズ
 //引　数：int：フォントの太さ
 //引　数：int：フォントのタイプ
-Font::Font(int fontname, int size, int bold, int fonttype)
+//残りの引数は、デフォルト引数
+Font::Font(int fontname, int size, int bold, int fonttype, int charset,
+	int edgesize,
+	int ltalic,
+	int handle)
 {
-								
-	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype);	//フォントハンドルを作成
+	//メンバー初期化
+	Handle = -1;		//ハンドル初期化
+	IsCreate = false;	//作成できたか
 
-	if (Handle == -1)		//ハンドル作成失敗
-		IsCreate = false;	//作成失敗
-	else					//ハンドル作成成功
-		IsCreate = true;	//作成成功
+	if (LoadFontName.empty())	//フォントを読み込んでいなければ
+	{
+		//フォントの読み込みを行う
+		IsCreate = LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME);
+		if (!IsCreate)		//読み込めていなければ
+			return;			//読み込み失敗
+	}
 
-	return;
+	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype,charset,edgesize,ltalic,handle);	//フォントハンドルを作成
+
+	//ハンドルの作成に成功したかどうか
+	Handle == -1 ? IsCreate = false : IsCreate = true;
+
 
 }
 
 //デストラクタ	
-Font::~Font()
-{
-	//vectorのメモリ解放を行う
-	//std::vector<std::string> v;			//空のvectorを作成する
-	//this->FilePath.swap(v);				//空と中身を入れ替える
-
-}
+Font::~Font(){}
 
 //フォントを読み込み
 bool Font::LoadFont(const char* dir, const char* name, const char* fontname)
@@ -83,14 +91,20 @@ bool Font::ReleaseFont()
 	return true;
 }
 
-//フォントハンドル作成
-int Font::GetHandle()
-{
-	return Handle;
-}
-
-//フォントハンドルを作成できたか取得
+//作成できたか取得
 bool Font::GetIsCreate()
 {
 	return IsCreate;
+}
+
+//フォントハンドルを変更
+void Font::Chenge()
+{
+	NowFont = Handle;
+}
+
+//現在のハンドルを取得
+int Font::GetNowHandle()
+{
+	return NowFont;
 }

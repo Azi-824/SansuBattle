@@ -9,7 +9,6 @@
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
 //引　数：const char *：画像の名前
-//引　数：int：音素材の種類数
 Music::Music(const char *dir, const char *name)
 {
 	//メンバ変数を初期化
@@ -49,7 +48,22 @@ Music::Music(const char *dir, const char *name)
 
 	IsPlayed = false;		//再生済みではない
 
-	return;
+}
+
+//コンストラクタ
+Music::Music()
+{
+	//メンバ変数を初期化
+	FilePath = "";	//パス
+	FileName = "";	//名前
+
+	IsLoad = false;	//読み込めたか？
+
+	Handle = -1;
+
+	PlayType = DX_PLAYTYPE_BACK;	//最初は再生方法をバックグラウンド再生にする
+
+	IsPlayed = false;		//再生済みではない
 
 }
 
@@ -57,6 +71,45 @@ Music::Music(const char *dir, const char *name)
 Music::~Music()
 {
 	DeleteMusicMem(Handle);		//音のハンドルの削除
+}
+
+//読み込み 
+//引　数：const char *：画像のディレクトリ
+//引　数：const char *：画像の名前
+bool Music::Load(const char* dir, const char* name)
+{
+
+	//音を読み込み
+	string LoadfilePath;	//音のファイルパスを作成
+	LoadfilePath += dir;
+	LoadfilePath += name;
+
+	Handle = LoadSoundMem(LoadfilePath.c_str());	//音の読み込み
+
+	if (Handle == -1)	//音が読み込めなかったとき
+	{
+		string ErroeMsg(MUSIC_ERROR_MSG);	//エラーメッセージ作成
+		ErroeMsg += TEXT('\n');					//改行
+		ErroeMsg += LoadfilePath;				//音のパス
+
+		MessageBox(
+			NULL,
+			ErroeMsg.c_str(),	//char * を返す
+			TEXT(MUSIC_ERROR_TITLE),
+			MB_OK);
+
+		return false;	//読み込み失敗
+	}
+
+	FilePath = LoadfilePath;		//音のパスを設定
+	FileName = name;				//音の名前を設定
+
+	PlayType = DX_PLAYTYPE_BACK;	//最初は再生方法をバックグラウンド再生にする
+
+	IsPlayed = false;		//再生済みではない
+
+	return true;	//読み込み成功
+
 }
 
 //読み込めたかどうかを取得
@@ -72,19 +125,17 @@ bool Music::GetIsPlay()
 	return CheckSoundMem(Handle);
 }
 
-
 //初期設定
 void Music::SetInit(int type, double volume)
 {
-	PlayType = type;	//再生方法設定
-	ChengeVolume(volume);
+	PlayType = type;		//再生方法設定
+	ChengeVolume(volume);	//音量を設定
 }
 
 //再生方法を変更する
 void Music::ChengePlayType(int type)
 {
 	PlayType = type;	
-	return;
 }
 
 //音量を変更する
@@ -92,7 +143,6 @@ void Music::ChengePlayType(int type)
 void Music::ChengeVolume(double volume)
 {
 	ChangeVolumeSoundMem(VOLUME_MAX * (volume / 100), Handle);
-	return;
 }
 
 //音を再生する
@@ -110,7 +160,6 @@ void Music::Play(bool check)
 		PlaySoundMem(Handle, PlayType);	//音の再生
 	}
 
-	return;
 }
 
 //音を再生する(1回だけ)
@@ -138,17 +187,14 @@ void Music::PlayOne(bool check)
 	}
 }
 
-
 //再生済みかどうかをリセットする
-void Music::PlayReset()
+void Music::Reset()
 {
 	IsPlayed = false;	//再生済みじゃない
-	return;
 }
 
 //音を止める
 void Music::Stop(void)
 {
 	StopSoundMem(Handle);		//音を止める
-
 }

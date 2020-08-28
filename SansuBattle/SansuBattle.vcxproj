@@ -151,43 +151,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Charactor.hpp" />
-    <ClInclude Include="Data.hpp" />
-    <ClInclude Include="Effect.hpp" />
-    <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="Button.hpp" />
+    <ClInclude Include="End.hpp" />
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="Fps.hpp" />
-    <ClInclude Include="GameManeger.hpp" />
     <ClInclude Include="Global.hpp" />
     <ClInclude Include="Image.hpp" />
     <ClInclude Include="KeyDown.hpp" />
+    <ClInclude Include="Load.hpp" />
     <ClInclude Include="main.hpp" />
+    <ClInclude Include="Mouse.hpp" />
     <ClInclude Include="Music.hpp" />
-    <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Question.hpp" />
-    <ClInclude Include="SaveData.hpp" />
-    <ClInclude Include="Score.hpp" />
-    <ClInclude Include="Select.hpp" />
-    <ClInclude Include="Time.hpp" />
+    <ClInclude Include="Play.hpp" />
+    <ClInclude Include="Ranking.hpp" />
+    <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="Title.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Charactor.cpp" />
-    <ClCompile Include="Data.cpp" />
-    <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Fps.cpp" />
-    <ClCompile Include="GameManeger.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="KeyDown.cpp" />
+    <ClCompile Include="Load.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Music.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Question.cpp" />
-    <ClCompile Include="SaveData.cpp" />
-    <ClCompile Include="Score.cpp" />
-    <ClCompile Include="Select.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Play.cpp" />
+    <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

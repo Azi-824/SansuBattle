@@ -49,14 +49,69 @@ Image::Image(const char *dir,const char *name)
 
 	IsFade = false;	//フェードアウトしない
 	FadeEnd = false;//フェードエフェクトが終わっていない
+}
 
-	return;
+//コンストラクタ
+Image::Image()
+{
+	//メンバ変数を初期化
+	FilePath = "";	//パス
+	FileName = "";	//名前
+	IsLoad = false;	//読み込めたか？
+	Handle = 0;
+	IsDraw = true;	//描画してよい
+	IsFade = false;	//フェードアウトしない
+	FadeEnd = false;//フェードエフェクトが終わっていない
+
 }
 
 //デストラクタ
 Image::~Image()
 {
 	DeleteGraph(Handle);	//読み込んだ画像を削除
+}
+
+//読み込み
+bool Image::Load(const char* dir, const char* name)
+{
+	//メンバ変数を初期化
+	FilePath = "";	//パス
+	FileName = "";	//名前
+
+	IsLoad = false;	//読み込めたか？
+
+	//画像を読み込み
+	string LoadfilePath;	//画像のファイルパスを作成
+	LoadfilePath += dir;
+	LoadfilePath += name;
+
+	Handle = LoadGraph(LoadfilePath.c_str());//画像を読み込み
+
+	if (Handle == -1)	//画像が読み込めなかったとき
+	{
+		string ErroeMsg(IMAGE_ERROR_MSG);	//エラーメッセージ作成
+		ErroeMsg += TEXT('\n');				//改行
+		ErroeMsg += LoadfilePath;			//画像のパス
+
+		MessageBox(
+			NULL,
+			ErroeMsg.c_str(),	//char * を返す
+			TEXT(IMAGE_ERROR_TITLE),
+			MB_OK);
+
+		return false;
+	}
+
+	FilePath = LoadfilePath;		//画像のパスを設定
+	FileName = name;				//画像の名前を設定
+
+	IsDraw = true;	//描画してよい
+
+	IsFade = false;	//フェードアウトしない
+	FadeEnd = false;//フェードエフェクトが終わっていない
+
+	return true;	//読み込めた
+
 }
 
 //ファイルの名前を取得
@@ -88,6 +143,12 @@ int Image::GetHeight()
 bool Image::GetIsLoad(void)
 {
 	return IsLoad;
+}
+
+//描画してよいか取得
+bool Image::GetIsDraw()
+{
+	return IsDraw;
 }
 
 //描画してよいか設定

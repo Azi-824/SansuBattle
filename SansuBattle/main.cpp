@@ -2,11 +2,11 @@
 
 //#################### ヘッダファイル読み込み #######################
 #include "main.hpp"
-#include "GameManeger.hpp"
 
+using std::vector;
 //########## グローバルオブジェクト ##########
-GameManeger *gamemaneger = new GameManeger();	//gamemaneger生成
-int NowFontHandle;	//現在のフォントハンドル
+Fps* fps = new Fps(GAME_FPS_SPEED);				//fps生成
+vector<Scene*> scene;	//シーン
 
 //########## プログラムで最初に実行される関数 ##########
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -20,25 +20,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetWindowIconID(GAME_ICON_ID);								//アイコン変更
 
-	SetUseASyncLoadFlag(TRUE);									//同期読み込みに設定
-
 	SetAlwaysRunFlag(TRUE);										//非アクティブに設定
 
 	if (DxLib_Init() == -1) { return -1; }						//ＤＸライブラリ初期化処理
 
 	SetDrawScreen(DX_SCREEN_BACK);								//Draw系関数は裏画面に描画
 
-	//ゲームデータの読み込み開始
-	if (gamemaneger->Load() == false) { return -1; }			//ゲームデータ読み込み失敗
+	AddScene();	//シーンを追加
 
 	//ゲームのメインループ
-	while (gamemaneger->GameMainLoop())
+	while (GameLoop())
 	{
 		/*
 		ループ内で異常が発生するまで無限ループ
 		ゲーム終了やエラー等が発生したらループ終了
 		*/
 	}
+
 
 	Delete_Class();			//使用したクラスを破棄
 
@@ -47,11 +45,65 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	return 0;
 }
 
+//ゲームのループ
+bool GameLoop()
+{
+	if (ProcessMessage() != 0) { return false; }	//メッセージ処理の結果がエラーのとき、強制終了
+
+	if (ClearDrawScreen() != 0) { return false; }	//画面を消去できなかったとき、強制終了
+
+	Mouse::ClickUpDate();	//マウスの入力情報を更新する
+
+	fps->Update();		//FPSの処理[更新]
+
+	if (Scene::IsGameEnd()) { return false; }	//ゲーム終了
+
+	//▼▼▼▼▼ゲームのシーンここから▼▼▼▼▼
+
+	static bool IsInit = false;	//初期設定をしたか
+	if (!IsInit)	//初期設定をしていなかったら
+	{
+		for (auto s : scene)
+		{
+			s->SetInit();	//初期設定
+		}
+		IsInit = true;		//初期設定終了
+	}
+
+	scene.at(Scene::GetNowScene())->Run();	//各シーンの処理
+
+	//▲▲▲▲▲ゲームのシーンここまで▲▲▲▲▲
+
+	ScreenFlip();			//モニタのリフレッシュレートの速さで裏画面を再描画
+
+	fps->Wait();			//FPSの処理[待つ]
+
+	return true;			//正常
+
+}
+
+//シーン追加
+void AddScene()
+{
+	scene.push_back(new Load());	//ロード画面追加
+	scene.push_back(new Title());	//タイトル画面追加
+	scene.push_back(new Play());	//プレイ画面追加
+	scene.push_back(new Ranking());	//ランキング画面追加
+}
+
 //ゲーム内で使用したクラスを削除する処理
 void Delete_Class()
 {
 
-	delete gamemaneger;		//gamemaneger破棄
+	delete fps;				//fps破棄
+
+	//scene関係
+	for (auto s : scene)
+	{
+		delete s;			//scene破棄
+	}
+
+	Font::ReleaseFont();	//読み込んだフォントを開放
 
 	return;
 }
