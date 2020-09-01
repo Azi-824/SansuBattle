@@ -156,6 +156,7 @@
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="Fps.hpp" />
     <ClInclude Include="Global.hpp" />
+    <ClInclude Include="Group.hpp" />
     <ClInclude Include="Image.hpp" />
     <ClInclude Include="KeyDown.hpp" />
     <ClInclude Include="Load.hpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="End.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Fps.cpp" />
+    <ClCompile Include="Group.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="KeyDown.cpp" />
     <ClCompile Include="Load.cpp" />

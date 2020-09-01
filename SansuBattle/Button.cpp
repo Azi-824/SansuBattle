@@ -67,11 +67,53 @@ bool Button::OnClick()
 //描画
 void Button::Draw()
 {
+	//マウスがボタンの領域の中にあるか
+	if (Mouse::HoverRect(rect))	//領域内の時
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
+		DrawBox(rect.left, rect.top, rect.right, rect.bottom, COLOR_GRAY, TRUE);	//薄い四角形を描画
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
+	}
 	img->Draw(rect.left, rect.top);
+}
+
+//描画（位置指定）
+void Button::Draw(int x, int y)
+{
+	SetRect(x, y);	//領域再設定
+	//マウスがボタンの領域の中にあるか
+	if (Mouse::HoverRect(rect))	//領域内の時
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
+		DrawBox(x, y, x + img->GetWidth(), y + img->GetHeight(), COLOR_GRAY, TRUE);	//薄い四角形を描画
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
+	}
+	img->Draw(x,y);
 }
 
 //要素番号取得
 int Button::GetElement()
 {
 	return Element;
+}
+
+//横幅取得
+int Button::GetWidth()
+{
+	return img->GetWidth();
+}
+
+//高さ取得
+int Button::GetHeight()
+{
+	return img->GetHeight();
+}
+
+//領域を設定
+void Button::SetRect(int x, int y)
+{
+	rect.left = x;
+	rect.top = y;
+	rect.right = x + img->GetWidth();
+	rect.bottom = y + img->GetHeight();
 }

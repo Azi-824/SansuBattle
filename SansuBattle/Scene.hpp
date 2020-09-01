@@ -21,6 +21,31 @@ enum GAME_SCENE
 	SCENE_RANKING		//ランキングシーン
 };
 
+enum GAMEMODE_KIND
+{
+	GAMEMODE_SUM,					//モード、和（足し算）
+	GAMEMODE_DIFFERENCE,			//モード、差（引き算）
+	GAMEMODE_PRODUCT,				//モード、積（掛け算）
+	GAMEMODE_DEALER,				//モード、商（割り算）
+	GAMEMODE_SUM_DIF,				//モード、和差（足し算、引き算）
+	GAMEMODE_PRO_DEA,				//モード、積商（掛け算、割り算）
+	GAMEMODE_SUM_PRO,				//MODE(+*)
+	GAMEMODE_SUM_DEA,				//MODE(+/)
+	GAMEMODE_DIF_PRO,				//MODE(-*)
+	GAMEMODE_SUM_DIF_PRO,			//MODE(+-*)
+	GAMEMODE_SUM_DIF_DEA,			//MODE(+-/)
+	GAMEMODE_ALL,					//MODE(+-*/)
+	GAMEMODE_MAX					//ゲームモードの種類数
+};	//問題の種類
+
+enum GAME_LEVEL
+{
+	GAME_LEVEL_EASY,		//簡単
+	GAME_LEVEL_NORMAL,		//普通
+	GAME_LEVEL_HARD,		//難しい
+	GAME_LEVEL_MAX			//ゲームレベルの種類数
+};	//ステージのレベル
+
 using std::vector;
 
 //################### クラス定義 #########################
@@ -30,6 +55,8 @@ protected:
 
 	//クラス共通
 	static int NowScene;		//現在のシーン
+	static int GameMode;		//ゲームモード
+	static int GameLevel;		//ゲームレベル
 	static bool GameEnd;		//ゲーム終了フラグ
 	static vector<Font*> font;	//フォント
 

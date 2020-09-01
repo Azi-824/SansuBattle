@@ -18,7 +18,19 @@ Select::Select()
 	//**************************** ボタン ***************************
 	//ボタンの画像を読み込み
 	//モード
-	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_IMG_NAME));
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_IMG_NAME));//+
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_DIF_IMG_NAME));//-
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_PRO_IMG_NAME));//*
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_DEA_IMG_NAME));// /
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_DIF_IMG_NAME));//+-
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_PRO_DEA_IMG_NAME));//*/
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_PRO_IMG_NAME));//+*
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_DEA_IMG_NAME));//+/
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_DIF_PRO_IMG_NAME));//-*
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_DIF_PRO_IMG_NAME));//+-*
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_SUM_DIF_DEA_IMG_NAME));//+-/
+	mode_img.push_back(new Image(BT_IMG_DIR, BT_ALL_IMG_NAME));//all
+
 	for (auto i : mode_img) { 
 		if (!i->GetIsLoad())
 		{
@@ -28,7 +40,10 @@ Select::Select()
 	}	//読み込み成功したか
 
 	//レベル
-	mode_img.push_back(new Image(BT_IMG_DIR, BT_EASY_IMG_NAME));
+	level_img.push_back(new Image(BT_IMG_DIR, BT_EASY_IMG_NAME));//簡単
+	level_img.push_back(new Image(BT_IMG_DIR, BT_NORMAL_IMG_NAME));//普通
+	level_img.push_back(new Image(BT_IMG_DIR, BT_HARD_IMG_NAME));//難しい
+
 	for (auto i : level_img) {
 		if (!i->GetIsLoad())
 		{
@@ -76,6 +91,10 @@ void Select::SetInit()
 	//**************** ボタン ******************
 	for (auto b : mode) { b->SetInit(20, 20); }
 	for (auto b : level) { b->SetInit(20, 20); }
+
+	//ボタンをグループに登録
+	mode_group = new Group(mode, BT_MODE_DRAW_X, BT_MODE_DRAW_Y, BT_MODE_INTERVAL_SIDE, BT_MODE_INTERVAL_VERTICAL);
+
 }
 
 
@@ -86,15 +105,17 @@ void Select::Run()
 	bgm->Play();	//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
-	for (auto b : mode)
-	{
-		b->Draw();
-	}
+	//for (auto b : mode)
+	//{
+	//	b->Draw();
+	//}
 
-	for (auto b : level)
-	{
-		b->Draw();
-	}
+	//for (auto b : level)
+	//{
+	//	b->Draw();
+	//}
+
+	mode_group->Draw();
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
