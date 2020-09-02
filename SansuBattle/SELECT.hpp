@@ -26,7 +26,7 @@ private:
 	vector<Image*> level_img;	//ゲームレベル画像
 
 	Group* mode_group;			//ゲームモードのグループ
-
+	Group* level_group;			//ゲームレベルのグループ
 
 public:
 

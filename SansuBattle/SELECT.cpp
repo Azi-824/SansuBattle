@@ -94,6 +94,7 @@ void Select::SetInit()
 
 	//ボタンをグループに登録
 	mode_group = new Group(mode, BT_MODE_DRAW_X, BT_MODE_DRAW_Y, BT_MODE_INTERVAL_SIDE, BT_MODE_INTERVAL_VERTICAL);
+	level_group = new Group(level, BT_LEVEL_DRAW_X, BT_LEVEL_DRAW_Y, BT_LEVEL_INTERVAL_SIDE, BT_LEVEL_INTERVAL_VERTICAL);
 
 }
 
@@ -115,13 +116,27 @@ void Select::Run()
 	//	b->Draw();
 	//}
 
-	mode_group->Draw();
-	mode_group->Clik();
+	if (mode_group->GetIsSelect())	//モードの選択をしたら
+	{
+		level_group->Draw();	//レベル描画
+		level_group->Clik();	//レベルのクリック処理
+	}
+	else		//モードの選択をしていなければ
+	{
+		mode_group->Draw();	//モード描画
+		mode_group->Clik();	//モードクリック処理
+	}
+
+	if (level_group->GetIsSelect())//レベルの選択をしたら
+	{
+		bgm->Stop();			//BGMを止める
+		NowScene = SCENE_PLAY;	//プレイ画面へ
+	}
 
 	//if (Mouse::OnLeftClick())	//左クリックされたら
 	//{
-	//	bgm->Stop();			//BGMを止める
-	//	NowScene = SCENE_PLAY;	//プレイ画面へ
+		//bgm->Stop();			//BGMを止める
+		//NowScene = SCENE_PLAY;	//プレイ画面へ
 	//}
 
 

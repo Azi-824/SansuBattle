@@ -90,25 +90,37 @@ void Group::SetInit(int x, int y, int side, int vertical)
 	while (true)	//無限ループ
 	{
 
-		//x += SelectImage.front()->GetWidth() + Interval_Side;			//Xの位置をずらす
-		x += bt.at(RowNum)->GetWidth() + side;	//Xの位置をずらす
+		if (x + bt.at(RowNum)->GetWidth() + side <= GAME_WIDTH)	//画面内なら
+		{
+			x += bt.at(RowNum)->GetWidth() + side;	//Xの位置をずらす
+			++RowNum;	//カウントアップ
+		}
+		else	//画面外なら
+		{
+			break;	//ループ終了
+		}
 
-		if (x > GAME_WIDTH)	//描画可能横幅を超えたら
-			break;			//ループ終了
-
-		++RowNum;			//カウントアップ
+		if (RowNum > bt.size() - 1)	//ボタンの数分、処理が終わったら
+			break;						//ループ終了
 	}
 
 	//描画範囲の中で描画できる行の数を計算
 	while (true)	//無限ループ
-	{
-		//y += SelectImage.front()->GetHeight() + Interval_Vertical;	//yの位置をずらす
-		y += bt.at(LineNum)->GetHeight() + vertical;	//yの位置をずらす
+	{		
 
-		if (y > GAME_HEIGHT)	//描画可能高さを超えたら
-			break;				//ループ終了
+		if (y + bt.at(LineNum)->GetHeight() + vertical <= GAME_HEIGHT)	//画面内なら
+		{
+			y += bt.at(LineNum)->GetHeight() + vertical;	//yの位置をずらす
+			++LineNum;	//カウントアップ
+		}
+		else	//画面外なら
+		{
+			break;	//ループ終了
+		}
 
-		++LineNum;				//カウントアップ
+		if (LineNum > bt.size() - 1)	//ボタンの数分、処理が終わったら
+			break;						//ループ終了
+
 	}
 
 	//選択肢をすべて描画するのに、何ページ必要か計算

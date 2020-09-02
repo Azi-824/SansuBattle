@@ -48,6 +48,7 @@
 #define BT_MODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
 #define BT_MODE_INTERVAL_VERTICAL	100		//ゲームモード選択肢の間隔(縦)
 #define BT_LEVEL_INTERVAL_SIDE		10		//レベル選択肢の間隔(縦)
+#define BT_LEVEL_INTERVAL_VERTICAL	0		//レベル選択肢の間隔(横)
 #define BT_START_INTERVAL_SIDE		80		//スタートの選択肢の間隔（横）
 
 #define RECT_EXPANSION_VALUE	20	//領域の拡大量
