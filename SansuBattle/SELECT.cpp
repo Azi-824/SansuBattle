@@ -106,16 +106,6 @@ void Select::Run()
 	bgm->Play();	//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
-	//for (auto b : mode)
-	//{
-	//	b->Draw();
-	//}
-
-	//for (auto b : level)
-	//{
-	//	b->Draw();
-	//}
-
 	if (mode_group->GetIsSelect())	//モードの選択をしたら
 	{
 		level_group->Draw();	//レベル描画
@@ -129,15 +119,10 @@ void Select::Run()
 
 	if (level_group->GetIsSelect())//レベルの選択をしたら
 	{
-		bgm->Stop();			//BGMを止める
-		NowScene = SCENE_PLAY;	//プレイ画面へ
+		GameMode = mode_group->GetSelctNum();	//選択したモードを設定
+		GameLevel = level_group->GetSelctNum();	//選択したレベルを設定
+		bgm->Stop();							//BGMを止める
+		NowScene = SCENE_PLAY;					//プレイ画面へ
 	}
-
-	//if (Mouse::OnLeftClick())	//左クリックされたら
-	//{
-		//bgm->Stop();			//BGMを止める
-		//NowScene = SCENE_PLAY;	//プレイ画面へ
-	//}
-
 
 }

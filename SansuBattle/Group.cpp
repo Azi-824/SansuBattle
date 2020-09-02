@@ -69,7 +69,6 @@ Group::Group(vector<Button*> bt, int x, int y, int side, int vertical)
 
 }
 
-
 //初期設定
 /*
 引数：int：x位置
@@ -164,7 +163,6 @@ void Group::Draw()
 	int row_cnt = 0;							//列数のカウント
 	int line_cnt = 0;							//行数のカウント
 	int now_page = 0;							//ページカウント
-	//int cnt = 0;
 
 	for (auto b : bt)
 	{
@@ -199,7 +197,6 @@ void Group::Clik()
 	{
 		if (bt.at(i)->OnClick())	//ボタンを押されたとき
 		{
-
 			SelectNum = i;	//選択したボタンを保存
 			return;			//処理終了
 		}
@@ -216,6 +213,9 @@ bool Group::GetIsSelect()
 }
 
 //選択したボタンの要素番号を取得
+/*
+戻り値：int：選択したボタンの要素番号を取得
+*/
 int Group::GetSelctNum()
 {
 	return SelectNum;
