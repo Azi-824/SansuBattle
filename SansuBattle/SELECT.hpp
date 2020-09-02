@@ -9,11 +9,16 @@
 #include "Group.hpp"
 
 //############# マクロ定義 ##############
-#define ARROW_RIGHT_DRAW_X		620		//矢印（右）の描画X位置
-#define ARROW_LEFT_DRAW_X		50		//矢印（左）の描画X位置
+#define BT_MODE_DRAW_X		40	//ゲームモードの選択肢の描画開始X位置
+#define BT_MODE_DRAW_Y		40	//ゲームモードの選択肢の描画開始Y位置
+#define BT_LEVEL_DRAW_X		0	//レベルの選択肢の描画開始X位置
+#define BT_LEVEL_DRAW_Y		250	//レベルの選択肢の描画開始Y位置
 
-#define START_DRAW_X			70		//スタートの描画X位置
-#define START_DRAW_Y			400		//スタートの描画Y位置
+#define BT_MODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
+#define BT_MODE_INTERVAL_VERTICAL	100		//ゲームモード選択肢の間隔(縦)
+#define BT_LEVEL_INTERVAL_SIDE		10		//レベル選択肢の間隔(縦)
+#define BT_LEVEL_INTERVAL_VERTICAL	0		//レベル選択肢の間隔(横)
+#define BT_START_INTERVAL_SIDE		80		//スタートの選択肢の間隔（横）
 
 //############# クラス定義 ##############
 class Select : public Scene	//Sceneを継承

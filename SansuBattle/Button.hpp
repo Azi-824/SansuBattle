@@ -35,22 +35,6 @@
 #define IMG_NAME_ARROW_RIGHT	R"(\Arrow_Right.png)"		//矢印（右）の画像
 #define IMG_NAME_ARROW_LEFT		R"(\Arrow_Left.png)"		//矢印（左）の画像
 
-#define BT_START_X	150		//スタートボタンX位置
-#define BT_START_Y	500		//スタートボタンY位置
-#define BT_END_X	500		//スタートボタンX位置
-#define BT_END_Y	500		//スタートボタンY位置
-
-#define BT_MODE_DRAW_X		40	//ゲームモードの選択肢の描画開始X位置
-#define BT_MODE_DRAW_Y		40	//ゲームモードの選択肢の描画開始Y位置
-#define BT_LEVEL_DRAW_X		0	//レベルの選択肢の描画開始X位置
-#define BT_LEVEL_DRAW_Y		250	//レベルの選択肢の描画開始Y位置
-
-#define BT_MODE_INTERVAL_SIDE		30		//ゲームモード選択肢の間隔(横)
-#define BT_MODE_INTERVAL_VERTICAL	100		//ゲームモード選択肢の間隔(縦)
-#define BT_LEVEL_INTERVAL_SIDE		10		//レベル選択肢の間隔(縦)
-#define BT_LEVEL_INTERVAL_VERTICAL	0		//レベル選択肢の間隔(横)
-#define BT_START_INTERVAL_SIDE		80		//スタートの選択肢の間隔（横）
-
 #define RECT_EXPANSION_VALUE	20	//領域の拡大量
 #define RECT_TOUKA_VALUE		0.8	//領域の透過率
 
