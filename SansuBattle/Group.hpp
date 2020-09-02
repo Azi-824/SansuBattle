@@ -8,6 +8,9 @@
 #include "Button.hpp"
 
 //################ マクロ定義 ###################
+#define CHOISE_NONE	-1				//選択していない状態
+
+#define PAGE_START	1				//先頭のページ
 
 using std::vector;
 
@@ -22,6 +25,7 @@ private:
 
 	bool IsChoise;								//選択したか
 	bool IsBack;								//戻るか
+	int SelectNum;								//選択したボタン
 
 	int PageMax;								//ページ数
 	int NowPage;								//現在のページ
@@ -52,5 +56,8 @@ public:
 	void Add(Button*);		//追加
 	void Draw();			//描画
 	void Clik();			//クリックしたときの処理
+
+	bool GetIsSelect();		//選択したか
+	int GetSelctNum();		//選択したボタンを取得
 
 };

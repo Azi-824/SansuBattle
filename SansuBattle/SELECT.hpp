@@ -15,11 +15,6 @@
 #define START_DRAW_X			70		//スタートの描画X位置
 #define START_DRAW_Y			400		//スタートの描画Y位置
 
-
-#define CHOISE_NONE	-1				//選択していない状態
-
-#define PAGE_START	1				//先頭のページ
-
 //############# クラス定義 ##############
 class Select : public Scene	//Sceneを継承
 {

@@ -28,6 +28,7 @@ Group::Group(Button* bt,int x, int y, int side,int vertical)
 	NowLine = 0;			//現在の行番号
 	Interval_Side = 0;		//選択肢の間隔(横)
 	Interval_Vertical = 0;	//選択肢の間隔(縦)
+	SelectNum = -1;			//選択したボタン
 
 	this->bt.push_back(bt);	//ボタン追加
 
@@ -59,6 +60,7 @@ Group::Group(vector<Button*> bt, int x, int y, int side, int vertical)
 	NowLine = 0;			//現在の行番号
 	Interval_Side = 0;		//選択肢の間隔(横)
 	Interval_Vertical = 0;	//選択肢の間隔(縦)
+	SelectNum = -1;			//選択したボタン
 
 	this->bt = bt;			//ボタン追加
 	ElementMax = this->bt.size();	//要素数設定
@@ -181,5 +183,28 @@ void Group::Draw()
 //クリックされた時の処理
 void Group::Clik()
 {
+	for (int i = 0; i < bt.size(); ++i)	//ボタンの数
+	{
+		if (bt.at(i)->OnClick())	//ボタンを押されたとき
+		{
 
+			SelectNum = i;	//選択したボタンを保存
+			return;			//処理終了
+		}
+	}
+}
+
+//選択したかどうか取得
+/*
+戻り値：bool：true 選択した： false 選択していない
+*/
+bool Group::GetIsSelect()
+{
+	return SelectNum != CHOISE_NONE;
+}
+
+//選択したボタンの要素番号を取得
+int Group::GetSelctNum()
+{
+	return SelectNum;
 }

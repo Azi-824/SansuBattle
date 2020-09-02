@@ -116,12 +116,13 @@ void Select::Run()
 	//}
 
 	mode_group->Draw();
+	mode_group->Clik();
 
-	if (Mouse::OnLeftClick())	//左クリックされたら
-	{
-		bgm->Stop();			//BGMを止める
-		NowScene = SCENE_PLAY;	//プレイ画面へ
-	}
+	//if (Mouse::OnLeftClick())	//左クリックされたら
+	//{
+	//	bgm->Stop();			//BGMを止める
+	//	NowScene = SCENE_PLAY;	//プレイ画面へ
+	//}
 
 
 }
