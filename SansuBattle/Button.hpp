@@ -31,9 +31,8 @@
 #define BT_NORMAL_IMG_NAME		R"(\level_normal.png)"		//ボタンの画像(普通)
 #define BT_HARD_IMG_NAME		R"(\level_hard.png)"		//ボタンの画像(難しい)
 
-
-#define IMG_NAME_ARROW_RIGHT	R"(\Arrow_Right.png)"		//矢印（右）の画像
-#define IMG_NAME_ARROW_LEFT		R"(\Arrow_Left.png)"		//矢印（左）の画像
+#define BT_NEXT_IMG_NAME		R"(\Arrow_Right.png)"		//矢印（右）の画像
+#define BT_PREV_IMG_NAME		R"(\Arrow_Left.png)"		//矢印（左）の画像
 
 #define RECT_EXPANSION_VALUE	20	//領域の拡大量
 #define RECT_TOUKA_VALUE		0.8	//領域の透過率
@@ -68,8 +67,7 @@ public:
 	~Button();		//デストラクタ
 
 	void SetInit(int,int);	//初期設定
-
-	void UpDate();	//更新処理
+	void SetInit();			//初期設定
 
 	bool OnClick();	//クリックされたか
 	void Draw();	//描画

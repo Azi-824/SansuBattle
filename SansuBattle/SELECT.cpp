@@ -56,6 +56,10 @@ Select::Select()
 	for (auto i : mode_img){ mode.push_back(new Button(i)); }		//モード
 	for (auto i : level_img) { level.push_back(new Button(i)); }	//レベル
 
+	next = new Button(new Image(BT_IMG_DIR, BT_NEXT_IMG_NAME));	//次のページへ移動するボタン
+	prev = new Button(new Image(BT_IMG_DIR, BT_PREV_IMG_NAME));	//前のページへ移動するボタン
+
+
 }
 
 //デストラクタ
@@ -79,6 +83,9 @@ Select::~Select()
 	vector<Image*> v4;
 	v4.swap(level_img);
 
+	delete next;	//nextボタン破棄
+	delete prev;	//prevボタン破棄
+
 
 }
 
@@ -91,6 +98,10 @@ void Select::SetInit()
 	//**************** ボタン ******************
 	for (auto b : mode) { b->SetInit(20, 20); }
 	for (auto b : level) { b->SetInit(20, 20); }
+	next->SetInit();	//初期設定
+	next->SetRect(BT_NEXT_DRAW_X, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
+	prev->SetInit();	//初期設定
+	prev->SetRect(BT_PREV_DRAW_X, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
 
 	//ボタンをグループに登録
 	mode_group = new Group(mode, BT_MODE_DRAW_X, BT_MODE_DRAW_Y, BT_MODE_INTERVAL_SIDE, BT_MODE_INTERVAL_VERTICAL);
@@ -115,7 +126,34 @@ void Select::Run()
 	{
 		mode_group->Draw();	//モード描画
 		mode_group->Clik();	//モードクリック処理
+		//前後のページへ移動するためのボタン
+		if (mode_group->CheckIsNextPage())	//次のページがあるとき
+		{
+			next->Draw();	//次のページへ移動するためのボタンを描画
+			if (next->OnClick())	//クリックされたら
+			{
+				//イベントを登録し、実行
+				next->Event([this]
+					{
+						mode_group->NextPage();	//次のページへ
+					});
+			}
+		}
+		if (mode_group->CheckIsPrevPage())	//前のページがあるとき
+		{
+			prev->Draw();	//前のページへ移動するためのボタンを描画
+			if (prev->OnClick())	//クリックされたら
+			{
+				//イベントを登録し、実行
+				prev->Event([this]
+					{
+						mode_group->PrevPage();	//前のページへ
+					});
+			}
+		}
 	}
+
+
 
 	if (level_group->GetIsSelect())//レベルの選択をしたら
 	{

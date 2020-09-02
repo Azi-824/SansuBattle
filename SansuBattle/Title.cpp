@@ -56,7 +56,6 @@ void Title::Run()
 	//ボタン処理
 	for (auto b : button)
 	{
-		b->UpDate();//更新
 		b->Draw();	//ボタン描画
 		if (b->OnClick())	//ボタンをクリックされたら
 		{

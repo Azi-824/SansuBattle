@@ -32,25 +32,16 @@ Button::~Button()
 void Button::SetInit(int x,int y)
 {
 	img->SetInit();	//画像初期設定
-	//領域設定
-	rect.left = x;						//左上X
-	rect.top = y;						//左上Y
-	rect.right = x + img->GetWidth();	//右下X
-	rect.bottom = y + img->GetHeight();	//右下Y
+	SetRect(x, y);	//領域設定
 	se->SetInit(DX_PLAYTYPE_BACK, 60);	//効果音
 
 }
 
-//更新処理
-void Button::UpDate()
+//初期設定
+void Button::SetInit()
 {
-	//マウスがボタンの領域の中にあるか
-	if (Mouse::HoverRect(rect))	//領域内の時
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, RECT_TOUKA_VALUE * TOUKA_MAX_VALUE);	//透過させる
-		DrawBox(rect.left, rect.top, rect.right, rect.bottom, COLOR_GRAY, TRUE);	//薄い四角形を描画
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
-	}
+	img->SetInit();	//画像初期設定
+	se->SetInit(DX_PLAYTYPE_BACK, 60);	//効果音
 }
 
 //ボタンをクリックされたか

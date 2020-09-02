@@ -41,10 +41,6 @@ private:
 
 	void SetInit(int, int, int, int);			//初期設定
 
-	//bool CheckIsNextPage();						//次のページへ行けるか確認
-	//bool CheckIsPrevPage();						//前のページへ行けるか確認
-	//void NextPage();							//次のページへ
-	//void PrevPage();							//前のページへ
 
 public:
 
@@ -59,5 +55,10 @@ public:
 
 	bool GetIsSelect();		//選択したか
 	int GetSelctNum();		//選択したボタンを取得
+
+	bool CheckIsNextPage();						//次のページへ行けるか確認
+	bool CheckIsPrevPage();						//前のページへ行けるか確認
+	void NextPage();							//次のページへ
+	void PrevPage();							//前のページへ
 
 };

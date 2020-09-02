@@ -220,3 +220,32 @@ int Group::GetSelctNum()
 {
 	return SelectNum;
 }
+
+//次のページへ行けるか確認
+bool Group::CheckIsNextPage()
+{
+	//現在のページが、ページの最大数より前だったらtrue
+	return NowPage < PageMax;
+
+}
+
+//前のページへ行けるか確認
+bool Group::CheckIsPrevPage()
+{
+	//現在のページが、最初のページより後だったらtrue
+	return NowPage > PAGE_START;
+}
+
+//次のページへ
+void Group::NextPage()
+{
+	++NowPage;				//次のページへ
+	DrawX -= GAME_WIDTH;	//描画位置を1ページ分ずらす
+}
+
+//前のページへ
+void Group::PrevPage()
+{
+	--NowPage;				//前のページへ
+	DrawX += GAME_WIDTH;	//描画位置をを1ページ分ずらす
+}
