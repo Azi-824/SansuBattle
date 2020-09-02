@@ -66,12 +66,14 @@ Select::Select()
 Select::~Select()
 {
 	
-	for (auto b : mode) { delete b; }
+	//ボタンをグループ毎破棄
+	delete mode_group;	
 	//vectorの開放
 	vector<Button*> v;
 	v.swap(mode);
 
-	for (auto b : level) { delete b; }
+	//ボタンをグループ毎破棄
+	delete level_group;	
 	//vectorの開放
 	vector<Button*> v2;
 	v2.swap(level);
