@@ -8,7 +8,7 @@
 #include "Button.hpp"
 
 //################### マクロ定義 #####################
-#define BT_START_X	150		//スタートボタンX位置
+#define BT_START_X	70		//スタートボタンX位置
 #define BT_START_Y	500		//スタートボタンY位置
 #define BT_END_X	500		//スタートボタンX位置
 #define BT_END_Y	500		//スタートボタンY位置
