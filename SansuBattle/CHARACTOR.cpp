@@ -6,32 +6,25 @@
 
 //################ クラス定義 ########################
 
-//インスタンス生成
-vector<Image*> Charactor::image_hp;	//HP画像
-
 //コンストラクタ
 Charactor::Charactor()
 {
 	//メンバー変数初期化
-	DrawX = 0;			//X位置初期化
-	DrawY = 0;			//Y位置初期化
+	HP_X = 0;			//HP描画X位置
+	HP_Y = 0;			//HP描画Y位置
+	reverse = false;	//反転描画するか
 	IsArive = true;		//生きているか初期化
-	IsKeyOperation = true;//キー操作可能か初期化
 	HP = HP_INIT_VALUE;	//HP初期化
-	DrawHp_type = -1;	//描画するHPの種類
-	IsLoad = false;		//読み込めたか初期化
 
-	if (image_hp.empty())	//HP画像が作成されていなければ
-	{
-		image_hp.push_back(new Image(IMG_DIR_CHARA, IMG_NAME_PLAYER_HP));//プレイヤーのHP画像
-		image_hp.push_back(new Image(IMG_DIR_CHARA, IMG_NAME_ENEMY_HP));//プ敵のHP画像
-	}
+	hp_img = new Image();	//画像のインスタンス生成
 
-	return;
 }
 
 //デストラクタ
-Charactor::~Charactor(){}
+Charactor::~Charactor()
+{
+	delete hp_img;	//hp_img破棄
+}
 
 //初期化
 void Charactor::Init()
@@ -40,36 +33,17 @@ void Charactor::Init()
 	IsArive = true;		//生きている
 }
 
-//生きているか設定
-void Charactor::SetIsArive(bool Isarive)
+//初期設定
+bool Charactor::SetInit()
 {
-	IsArive = Isarive;
+	if (!hp_img->GetIsLoad()) { return false; }	//読み込み失敗
+	hp_img->SetInit();		//画像
 }
 
 //生きているか取得
 bool Charactor::GetIsArive()
 {
 	return IsArive;
-}
-
-//読み込めたか取得
-bool Charactor::GetIsLoad()
-{
-	return IsLoad;
-}
-
-//初期設定
-void Charactor::SetInit(int x,int y)
-{
-	for (auto img : image_hp)
-	{
-		img->SetInit();	//初期設定
-	}
-	DrawX = x;				//描画X位置
-	DrawY = y;				//描画Y位置
-	IsArive = true;			//生きている
-	IsKeyOperation = true;	//キーボード操作できる
-
 }
 
 //ダメージを与える
@@ -82,18 +56,30 @@ void Charactor::SendDamege()
 
 }
 
+//キャラを殺す
+void Charactor::Kill()
+{
+	IsArive = true;
+}
+
 //HP取得
 int Charactor::GetHp()
 {
 	return HP;
 }
 
-//HP描画
-void Charactor::DrawHp()
+//描画
+void Charactor::Draw()
 {
-	for (int i = 0; i < HP; ++i)	//HPの分ループ
+	for (int i = 0; i < HP; ++i)
 	{
-		image_hp.at(DrawHp_type)->Draw(DrawX + i * image_hp.at(DrawHp_type)->GetWidth(), DrawY);	//HP画像描画
+		if (reverse)	//反転描画するとき
+		{
+			hp_img->Draw(HP_X - i * hp_img->GetWidth(), HP_Y);	//反転描画
+		}
+		else	//通常描画のとき
+		{
+			hp_img->Draw(HP_X + i * hp_img->GetWidth(), HP_Y);	//HP描画
+		}
 	}
-
 }

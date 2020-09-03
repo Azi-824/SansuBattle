@@ -5,6 +5,8 @@
 
 //############### ヘッダファイル読み込み ##############
 #include "Scene.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 //############### マクロ定義 #################
 #define GAME_LIMIT_DRAW_X	680		//ゲームの制限時間描画X位置
@@ -17,6 +19,9 @@ using std::vector;
 class Play : public Scene	//Sceneクラスを継承
 {
 private:
+
+	Player* player;			//プレイヤー
+	vector<Enemy*> enemy;	//敵
 
 public:
 

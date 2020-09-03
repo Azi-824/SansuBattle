@@ -152,7 +152,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Charactor.hpp" />
     <ClInclude Include="End.hpp" />
+    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="Fps.hpp" />
     <ClInclude Include="Global.hpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="Mouse.hpp" />
     <ClInclude Include="Music.hpp" />
     <ClInclude Include="Play.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="Ranking.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Select.hpp" />
@@ -171,7 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="End.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Fps.cpp" />
     <ClCompile Include="Group.cpp" />
@@ -182,6 +187,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Play.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Select.cpp" />

@@ -15,34 +15,27 @@ int Enemy::NowEnemyNum = 0;
 Enemy::Enemy(const char* dir, const char* name)
 {
 	//‰æ‘œ¶¬
-	image = new Image(dir, name);	//‰æ‘œ¶¬
-	IsLoad = image->GetIsLoad();	//“Ç‚Ýž‚ß‚½‚©
+	img = new Image(dir, name);	//‰æ‘œ¶¬
+	hp_img->Load(IMG_DIR_ENEMY, IMG_NAME_ENEMY_HP);	//HP‰æ‘œ¶¬
 
-	DrawHp_type = HP_ENEMY;			//HP‚Ìƒ^ƒCƒv‚Í“G
+	HP_X = ENEMY_HP_DRAW_X;//HP•`‰æXˆÊ’u
+	HP_Y = ENEMY_HP_DRAW_Y;//HP•`‰æYˆÊ’u
 
-	return;
 }
 
 //ƒfƒXƒgƒ‰ƒNƒ^
 Enemy::~Enemy()
 {
-	delete image;	//image”jŠü
-	return;
+	delete img;	//img”jŠü
 }
 
 //‰ŠúÝ’è
-void Enemy::SetInit(int x, int y)
+bool Enemy::SetInit()
 {
-	image->SetInit();		//“GƒLƒƒƒ‰‰æ‘œ‰ŠúÝ’è
-	for (auto img : image_hp)
-	{
-		img->SetInit();		//‰ŠúÝ’è
-	}
-	DrawX = x;				//•`‰æXˆÊ’u
-	DrawY = y;				//•`‰æYˆÊ’u
-	IsArive = true;			//¶‚«‚Ä‚¢‚é
-	IsKeyOperation = true;	//ƒL[ƒ{[ƒh‘€ì‚Å‚«‚é
-
+	if (!hp_img->GetIsLoad()) { return false; }	//“Ç‚Ýž‚ÝŽ¸”s
+	if (!img->GetIsLoad()) { return false; }	//“Ç‚Ýž‚ÝŽ¸”s
+	img->SetInit();		//“GƒLƒƒƒ‰‰æ‘œ‰ŠúÝ’è
+	hp_img->SetInit();		//HP
 }
 
 //‰Šú‰»
@@ -51,7 +44,7 @@ void Enemy::Init()
 	NowEnemyNum = 0;	//Œ»Ý‚Ì“G‚Ì”‚ð‰Šú‰»
 	HP = HP_INIT_VALUE;	//HP‰Šú‰»
 	IsArive = true;		//¶‚«‚Ä‚¢‚é
-	image->SetIsFade(false);	//ƒtƒF[ƒhƒAƒEƒg‚µ‚È‚¢B
+	img->SetIsFade(false);	//ƒtƒF[ƒhƒAƒEƒg‚µ‚È‚¢B
 }
 
 //ŽŸ‚Ì“G‚Ö
@@ -72,25 +65,34 @@ int Enemy::GetNowEnemyNum()
 //•`‰æ
 void Enemy::Draw()
 {
-	image->Draw(DrawX, DrawY);	//•`‰æ
-}
 
-//’†‰›‚É•`‰æ
-void Enemy::DrawCenter()
-{
+	//HP•`‰æ
+	for (int i = 0; i < HP; ++i)
+	{
+		if (reverse)	//”½“]•`‰æ‚·‚é‚Æ‚«
+		{
+			hp_img->Draw(HP_X - i * hp_img->GetWidth(), HP_Y);	//”½“]•`‰æ
+		}
+		else	//’Êí•`‰æ‚Ì‚Æ‚«
+		{
+			hp_img->Draw(HP_X + i * hp_img->GetWidth(), HP_Y);	//HP•`‰æ
+		}
+	}
+
+	//“G•`‰æ
 	if (IsArive)	//¶‚«‚Ä‚¢‚ê‚Î
 	{
-		image->DrawCenter();		//’†‰›‚É•`‰æ
+		img->DrawCenter();		//’†‰›‚É•`‰æ
 	}
 	else			//Ž€‚ñ‚Å‚¢‚ê‚Î
 	{
-		image->SetIsFade(true);	//ƒtƒF[ƒhƒAƒEƒgŠJŽn
-		image->DrawCenter();	//’†‰›‚É•`‰æ
+		img->SetIsFade(true);	//ƒtƒF[ƒhƒAƒEƒgŠJŽn
+		img->DrawCenter();		//’†‰›‚É•`‰æ
 	}
 }
 
 //ƒtƒF[ƒhƒAƒEƒgI—¹‚µ‚½‚©Žæ“¾
 bool Enemy::GetFadeEnd()
 {
-	return image->GetFadeEnd();
+	return img->GetFadeEnd();
 }

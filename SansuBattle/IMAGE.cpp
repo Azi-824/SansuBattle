@@ -110,6 +110,7 @@ bool Image::Load(const char* dir, const char* name)
 	IsFade = false;	//フェードアウトしない
 	FadeEnd = false;//フェードエフェクトが終わっていない
 
+	IsLoad = true;	//読み込めた
 	return true;	//読み込めた
 
 }
