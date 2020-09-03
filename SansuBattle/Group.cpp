@@ -107,7 +107,7 @@ void Group::SetInit(int x, int y, int side, int vertical)
 	while (true)	//無限ループ
 	{		
 
-		if (y + bt.at(LineNum)->GetHeight() + vertical <= GAME_HEIGHT)	//画面内なら
+		if (y + bt.at(LineNum)->GetHeight() <= GAME_HEIGHT)	//画面内なら
 		{
 			y += bt.at(LineNum)->GetHeight() + vertical;	//yの位置をずらす
 			++LineNum;	//カウントアップ

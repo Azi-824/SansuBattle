@@ -101,9 +101,9 @@ void Select::SetInit()
 	for (auto b : mode) { b->SetInit(20, 20); }
 	for (auto b : level) { b->SetInit(20, 20); }
 	next->SetInit();	//初期設定
-	next->SetRect(BT_NEXT_DRAW_X, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
+	next->SetRect(GAME_WIDTH - next->GetWidth(), GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
 	prev->SetInit();	//初期設定
-	prev->SetRect(BT_PREV_DRAW_X, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
+	prev->SetRect(GAME_LEFT, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
 
 	//ボタンをグループに登録
 	mode_group = new Group(mode, BT_MODE_DRAW_X, BT_MODE_DRAW_Y, BT_MODE_INTERVAL_SIDE, BT_MODE_INTERVAL_VERTICAL);
