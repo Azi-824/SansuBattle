@@ -32,6 +32,12 @@ Play::Play()
 //デストラクタ
 Play::~Play()
 {
+	delete player;		//player破棄
+	
+	//敵
+	for (auto e : enemy) { delete e; }	//enemy破棄
+	vector<Enemy*> v;
+	v.swap(enemy);	
 }
 
 //初期設定
