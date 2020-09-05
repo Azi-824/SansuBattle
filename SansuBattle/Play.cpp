@@ -61,7 +61,6 @@ void Play::SetInit()
 //プレイ画面の処理
 void Play::Run()
 {
-
 	static bool start = false;
 	if (!start)
 	{
@@ -76,6 +75,23 @@ void Play::Run()
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
 
 	quesiton.back()->DrawQuestion();	//問題描画
+
+	player->DrawInputNum();		//入力中の値を描画
+
+	if (player->CheckInputKey())	//キー入力が完了したら
+	{
+		if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
+		{
+			//effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(true);			//アニメーションの描画を開始する
+		}
+		else		//不正解だったら
+		{
+			//play_se.at(SE_PLAY_FALSE)->Play();				//不正解の効果音
+			//gamelimittime->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
+			player->InpReset();							//入力情報リセット
+		}
+
+	}
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{

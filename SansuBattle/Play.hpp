@@ -21,16 +21,16 @@ class Play : public Scene	//Sceneクラスを継承
 {
 private:
 
-	Player* player;			//プレイヤー
-	vector<Enemy*> enemy;	//敵
+	Player* player;				//プレイヤー
+	vector<Enemy*> enemy;		//敵
 	vector<Question*> quesiton;	//問題
 
 public:
 
-	Play();		//コンストラクタ
-	~Play();			//デストラクタ
+	Play();						//コンストラクタ
+	~Play();					//デストラクタ
 
 	void SetInit() override;	//初期設定
-	void Run() override;	//プレイ画面の処理
+	void Run() override;		//プレイ画面の処理
 
 };
