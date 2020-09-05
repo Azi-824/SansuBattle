@@ -167,6 +167,7 @@
     <ClInclude Include="Music.hpp" />
     <ClInclude Include="Play.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Question.hpp" />
     <ClInclude Include="Ranking.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Select.hpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Play.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Question.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Select.cpp" />

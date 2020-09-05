@@ -18,21 +18,19 @@
 //################ マクロ定義 ファイルパスと名前 ###############
 #define FONT_DIR			R"(.\Font)"				//フォントファイルの場所
 
-#define FONT_FILE_NAME		R"(\HGRGY003.ttf)"			//フォントの名前
+#define FONT_FILE_NAME		R"(\kokubanB.ttf)"			//フォントの名前
 //############### マクロ定義 ##################
 
 //*********** フォント名 **************
-#define FONT_NAME		"HGS行書体"					//フォントの正式名称
+#define FONT_NAME		"こくばん"					//フォントの正式名称
 
 //*********** フォントサイズ **************
 #define F_SIZE_NORMAL	128			//通常のフォントサイズ
-#define F_SIZE_MINI		36			//フォントサイズ（ミニ）
-#define F_SIZE_RANKING	42			//ランキング描画の時のフォントサイズ
+#define F_SIZE_MINI		90			//フォントサイズ（ミニ）
+#define F_SIZE_RANKING	54			//ランキング描画の時のフォントサイズ
 
 //************* フォントの太さ *****************
 #define F_BOLD_NORMAL	5			//通常のフォントの太さ
-
-#define F_EDGE_SIZE		3			//縁取りの太さ
 
 //################ マクロ定義 エラーメッセージ #################
 #define FONT_ERROR_TITLE "FONT_ERROR"						//エラータイトル
@@ -41,14 +39,14 @@
 //################ 列挙型 #####################
 enum LOAD_FONT_NAME
 {
-	F_NAME_HGS	//HGS行書体
+	FONT_NAME_KOKUBAN	//こくばんフォント
 };	//読み込んだフォントの種類
 
 enum FONT_HANDLE_TYPE
 {
-	FH_NORMAL,	//HGS行書体のノーマルサイズのハンドル
-	FH_MINI,	//ミニサイズのハンドル
-	FH_RANKING	//こくばんフォントのランキング描画サイズのハンドル
+	HANDLE_NR,		//こくばんフォントのノーマルサイズのハンドル
+	HANDLE_MINI,	//ミニサイズのハンドル
+	HANDLE_RANK		//こくばんフォントのランキング描画サイズのハンドル
 };
 
 using std::vector;

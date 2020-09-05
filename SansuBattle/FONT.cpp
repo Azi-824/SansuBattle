@@ -79,14 +79,19 @@ bool Font::LoadFont(const char* dir, const char* name, const char* fontname)
 //読み込んだフォントを開放
 bool Font::ReleaseFont()
 {
-	for (int i = 0; i < LoadFontName.size(); ++i)
+	static bool release = false;	//開放したか
+	if (!release)	//開放していない場合
 	{
-		if (RemoveFontResourceEx(FilePath.at(i).c_str(), FR_PRIVATE, NULL) == 0)	//失敗時
+		for (int i = 0; i < LoadFontName.size(); ++i)
 		{
-			MessageBox(NULL, "remove failure", "", MB_OK);				//エラーメッセージ
-			return false;
-		}
+			if (RemoveFontResourceEx(FilePath.at(i).c_str(), FR_PRIVATE, NULL) == 0)	//失敗時
+			{
+				MessageBox(NULL, "remove failure", "", MB_OK);				//エラーメッセージ
+				return false;
+			}
+			release = true;	//開放した
 
+		}
 	}
 	return true;
 }

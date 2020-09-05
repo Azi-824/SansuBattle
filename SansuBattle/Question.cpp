@@ -8,52 +8,79 @@
 
 //インスタンスを生成
 Image* Question::img_kokuban;					//黒板の画像
-vector<vector<int>> Question::ValueNum_Table;	//値の数
+//vector<vector<int>> Question::ValueNum_Table;	//値の数
 vector<vector<int>> Question::CalcType_Table;	//各ゲームモードの計算の種類のテーブル
 
+////コンストラクタ
+//Question::Question()
+//{
+//	//メンバー初期化
+//	Anser = 0;				//答え初期化
+//	InputNum = "0";			//入力された数字初期化
+//	Q_Text = "";			//問題文初期化
+//	IsCreate = false;		//問題を作成したか初期化
+//
+//	if (CalcType_Table.empty())	//情報を作成していなければ
+//	{
+//		//テーブル作成
+//		CreateTable();		//テーブル作成
+//
+//	}
+//
+//
+//	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
+//	{
+//		img_kokuban = new Image(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
+//	}
+//	
+//}
+
 //コンストラクタ
-Question::Question()
+Question::Question(int mode, int level)
 {
 	//メンバー初期化
-	Anser = 0;				//答え初期化
-	InputNum = "0";			//入力された数字初期化
-	Q_Text = "";			//問題文初期化
-	IsCreate = false;		//問題を作成したか初期化
+	Anser = 0;				//答え
+	Q_Text = "";			//問題文
+	IsCreate = false;		//問題を作成したか
+	IsAnswerd = false;		//回答済みか
 
-	if (ValueNum_Table.empty())	//情報を作成していなければ
+	if (CalcType_Table.empty())	//情報を作成していなければ
 	{
 		//テーブル作成
 		CreateTable();		//テーブル作成
 
 	}
 
-
 	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
 	{
 		img_kokuban = new Image(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
 	}
-	
+
+	Create(mode, level);	//問題の作成
+
+	IsCreate = true;		//問題を作成した
+
 }
+
 
 //デストラクタ
 Question::~Question(){}
 
 //問題作成
-void Question::Create(int gamemode, int gamelevel)
+void Question::Create(int mode, int level)
 {
-
-	Reset();	//前の問題をリセット
 
 	int min = 3, max = 0;				//問題の最小値、最大値
 
 	vector<int> value, type;	//値、計算の種類
+	const vector<int> value_num = { 2,3,4 };	//値の数
 
-	SetCalcType(gamemode, gamelevel, &type);	//計算の種類を設定
+	SetCalcType(mode, level, &type);	//計算の種類を設定
 
-	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
+	for (int i = 0; i < value_num.at(level); ++i)
 	{
-		max = GetMax(gamelevel, value);				//最大値設定
-		int rand = GetRand(max - min) + min;		//値をランダムで生成
+		max = GetMax(level, value);				//最大値設定
+		int rand = GetRand(max - min) + min;	//値をランダムで生成
 
 		value.push_back(rand);	//値を追加
 	}
@@ -74,16 +101,51 @@ void Question::Create(int gamemode, int gamelevel)
 	vector<int> v3;
 	order.swap(v3);
 
+
+	//Reset();	//前の問題をリセット
+
+	//int min = 3, max = 0;				//問題の最小値、最大値
+
+	//vector<int> value, type;	//値、計算の種類
+
+	//SetCalcType(gamemode, gamelevel, &type);	//計算の種類を設定
+
+	//for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
+	//{
+	//	max = GetMax(gamelevel, value);				//最大値設定
+	//	int rand = GetRand(max - min) + min;		//値をランダムで生成
+
+	//	value.push_back(rand);	//値を追加
+	//}
+
+
+	//vector<int> order;		//計算の順番
+	//SetOrder(type, &order);	//計算の順番を設定
+
+	//CreateQuestion(value, type, order);	//問題を生成
+
+	//IsCreate = true;	//問題を作成した
+
+	////vectorの解放
+	//vector<int> v;
+	//value.swap(v);
+	//vector<int> v2;
+	//type.swap(v2);
+	//vector<int> v3;
+	//order.swap(v3);
+
 }
 
 //計算の種類を設定
-void Question::SetCalcType(int gamemode, int gamelevel, vector<int>* calc_type)
+void Question::SetCalcType(int mode, int level, vector<int>* calc_type)
 {
 
-	for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel) - 1; ++i)
+	const vector<int> value_num = { 2,3,4 };	//値の数
+
+	for (int i = 0; i < value_num.at(level) - 1; ++i)
 	{
-		int rand = GetRand(CalcType_Table.at(gamemode).size() - 1);		//乱数生成
-		calc_type->push_back(CalcType_Table.at(gamemode).at(rand));		//計算の種類を設定
+		int rand = GetRand(CalcType_Table.at(mode).size() - 1);		//乱数生成
+		calc_type->push_back(CalcType_Table.at(mode).at(rand));		//計算の種類を設定
 	}
 
 }
@@ -122,16 +184,17 @@ void Question::SetOrder(vector<int> calc_type, vector<int>* order)
 }
 
 //最大値取得
-int Question::GetMax(int gamelevel, vector<int> value)
+int Question::GetMax(int level, vector<int> value)
 {
 
 	//レベル毎の最大値
-	const int value_max[GAME_LEVEL_MAX] = { EASY_VALUE_MAX ,NORMAL_VALUE_MAX ,HARD_VALUE_MAX };
+	//const int value_max[GAME_LEVEL_MAX] = { EASY_VALUE_MAX ,NORMAL_VALUE_MAX ,HARD_VALUE_MAX };
+	const vector<int> val_max = { EASY_VALUE_MAX ,NORMAL_VALUE_MAX ,HARD_VALUE_MAX };
 
 	if (value.empty())	//最初の取得なら
 	{
 		//定数を返す
-		return value_max[gamelevel];	//ゲームレベル毎の最大値を返す
+		return val_max[level];	//ゲームレベル毎の最大値を返す
 
 	}
 	else	//最初じゃなければ
@@ -214,90 +277,90 @@ void Question::CreateTable()
 
 	vector<int> work;	//作業用
 
-	//**************************** 各ゲームモードの値の数のテーブル **************************
-	//足し算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//足し算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////**************************** 各ゲームモードの値の数のテーブル **************************
+	////足し算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//足し算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//引き算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//引き算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////引き算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//引き算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//掛け算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//掛け算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////掛け算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//掛け算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//割り算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//割り算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////割り算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//割り算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//足し算、引き算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//足し算、引き算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////足し算、引き算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//足し算、引き算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//掛け算、割り算モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//掛け算、割り算モードの値の数を追加
-	work.clear();					//中身をクリア
+	////掛け算、割り算モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//掛け算、割り算モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//+*モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//+*モードの値の数を追加
-	work.clear();					//中身をクリア
+	////+*モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//+*モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//+/モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//+/モードの値の数を追加
-	work.clear();					//中身をクリア
+	////+/モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//+/モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//-*モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//-*モードの値の数を追加
-	work.clear();					//中身をクリア
+	////-*モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//-*モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//+-*モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//+-*モードの値の数を追加
-	work.clear();					//中身をクリア
+	////+-*モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//+-*モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//+-/モード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//+-/モードの値の数を追加
-	work.clear();					//中身をクリア
+	////+-/モード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//+-/モードの値の数を追加
+	//work.clear();					//中身をクリア
 
-	//allモード
-	work.push_back(2);		//簡単
-	work.push_back(3);		//普通
-	work.push_back(4);		//難しい
-	ValueNum_Table.push_back(work);	//allモードの値の数を追加
-	work.clear();					//中身をクリア
+	////allモード
+	//work.push_back(2);		//簡単
+	//work.push_back(3);		//普通
+	//work.push_back(4);		//難しい
+	//ValueNum_Table.push_back(work);	//allモードの値の数を追加
+	//work.clear();					//中身をクリア
 
 
 	//**************************** 各ゲームモードの計算の種類のテーブル **************************
@@ -406,24 +469,24 @@ void Question::DrawQuestion()
 	img_kokuban->Draw(GAME_LEFT, Q_IMG_DRAW_Y);		//黒板の画像を描画
 
 	int Strlen = strlen(Q_Text.c_str());					//文字列長さを取得
-	int Width = GetDrawStringWidthToHandle(Q_Text.c_str(), Strlen, NowFontHandle);	//横幅取得
+	int Width = GetDrawStringWidthToHandle(Q_Text.c_str(), Strlen, Font::GetNowHandle());	//横幅取得
 
-	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, NowFontHandle, "%s", Q_Text.c_str());	//問題文を描画
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, Font::GetNowHandle(), "%s", Q_Text.c_str());	//問題文を描画
 
 	return;
 }
 
-//入力中の数字を描画する
-void Question::DrawInputNum()
-{
-
-	int Strlen = strlen(InputNum.c_str());											//文字列の長さを取得
-	int Width = GetDrawStringWidthToHandle(InputNum.c_str(), Strlen, NowFontHandle);//横幅取得
-	int Height = GetFontSizeToHandle(NowFontHandle);								//高さ取得
-
-	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%s", InputNum.c_str());	//入力中の数字を描画
-
-}
+////入力中の数字を描画する
+//void Question::DrawInputNum()
+//{
+//
+//	int Strlen = strlen(InputNum.c_str());											//文字列の長さを取得
+//	//int Width = GetDrawStringWidthToHandle(InputNum.c_str(), Strlen, NowFontHandle);//横幅取得
+//	//int Height = GetFontSizeToHandle(NowFontHandle);								//高さ取得
+//
+//	//DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), (GAME_HEIGHT / 2) - (Height / 2), COLOR_WHITE, NowFontHandle, "%s", InputNum.c_str());	//入力中の数字を描画
+//
+//}
 
 //正解か判定する
 /*
@@ -443,163 +506,163 @@ bool Question::JudgAnser()
 
 //キー入力中か確認
 //戻り値：bool：true 入力終了：false 入力中
-bool Question::CheckInputKey(KeyDown* keydown)
-{
-	int InputNumBuf = atoi(InputNum.c_str());	//現在の入力されている値を取得
-	static int Weight = 10;						//桁の重み
-	int NewInputKey = GetInputKey(keydown);		//新たに入力されたキー
+//bool Question::CheckInputKey(KeyDown* keydown)
+//{
+//	int InputNumBuf = atoi(InputNum.c_str());	//現在の入力されている値を取得
+//	static int Weight = 10;						//桁の重み
+//	int NewInputKey = GetInputKey(keydown);		//新たに入力されたキー
+//
+//	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
+//	{
+//		unsigned int check = 0;	//確認用
+//
+//		//マイナスの値の場合、正の値に変換する
+//		InputNumBuf < 0 ? check = InputNumBuf * -1 : check = InputNumBuf;
+//
+//		check *= Weight;
+//		check += NewInputKey;
+//
+//		if (check < INT_MAX)		//int型の範囲内なら
+//		{
+//			//入力値に桁の重みを付けて計算
+//			//負の値の時は、マイナス、正の値の時は、プラスで、計算する
+//			InputNumBuf < 0 ? InputNumBuf = (InputNumBuf * Weight) - NewInputKey : InputNumBuf = (InputNumBuf * Weight) + NewInputKey;
+//
+//		}
+//
+//	}
+//	else	//数値以外を入力した時
+//	{
+//		if (NewInputKey == INPUT_ENTER)	//決定された場合
+//		{
+//			InputNumBuf = 0;	//初期化
+//			return true;		//入力終了
+//		}
+//
+//		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
+//		{
+//			InputNumBuf /= Weight;		//一文字分消す
+//		}
+//		
+//		if (NewInputKey == INPUT_MINUS)	//マイナスキーを押されたら
+//		{
+//			InputNumBuf *= -1;			//マイナスの値に変換
+//		}
+//	}
+//
+//	InputNum = std::to_string(InputNumBuf);	//入力された数字を設定
+//
+//	return false;
+//}
 
-	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
-	{
-		unsigned int check = 0;	//確認用
-
-		//マイナスの値の場合、正の値に変換する
-		InputNumBuf < 0 ? check = InputNumBuf * -1 : check = InputNumBuf;
-
-		check *= Weight;
-		check += NewInputKey;
-
-		if (check < INT_MAX)		//int型の範囲内なら
-		{
-			//入力値に桁の重みを付けて計算
-			//負の値の時は、マイナス、正の値の時は、プラスで、計算する
-			InputNumBuf < 0 ? InputNumBuf = (InputNumBuf * Weight) - NewInputKey : InputNumBuf = (InputNumBuf * Weight) + NewInputKey;
-
-		}
-
-	}
-	else	//数値以外を入力した時
-	{
-		if (NewInputKey == INPUT_ENTER)	//決定された場合
-		{
-			InputNumBuf = 0;	//初期化
-			return true;		//入力終了
-		}
-
-		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
-		{
-			InputNumBuf /= Weight;		//一文字分消す
-		}
-		
-		if (NewInputKey == INPUT_MINUS)	//マイナスキーを押されたら
-		{
-			InputNumBuf *= -1;			//マイナスの値に変換
-		}
-	}
-
-	InputNum = std::to_string(InputNumBuf);	//入力された数字を設定
-
-	return false;
-}
-
-//入力リセット
-void Question::InpReset()
-{
-	InputNum = "0";	//入力内容リセット
-}
+////入力リセット
+//void Question::InpReset()
+//{
+//	InputNum = "0";	//入力内容リセット
+//}
 
 //入力されたキーを取得
-int Question::GetInputKey(KeyDown* keydown)
-{
-	switch (keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
-	{
-
-	case KEY_INPUT_0:		//0を入力された場合
-	case KEY_INPUT_NUMPAD0:	//テンキーで0を入力された場合
-
-		return INPUT_NUM_0;	//入力値0
-
-		break;
-
-	case KEY_INPUT_1:		//1を入力された場合
-	case KEY_INPUT_NUMPAD1:	//テンキーで1を入力された場合
-
-		return INPUT_NUM_1;	//入力値1
-
-		break;
-
-	case KEY_INPUT_2:		//2を入力された場合
-	case KEY_INPUT_NUMPAD2:	//テンキーで2を入力された場合
-
-		return INPUT_NUM_2;	//入力値2
-
-		break;
-
-	case KEY_INPUT_3:		//3を入力された場合
-	case KEY_INPUT_NUMPAD3:	//テンキーで3を入力された場合
-
-		return INPUT_NUM_3;	//入力値3
-
-		break;
-
-	case KEY_INPUT_4:		//4を入力された場合
-	case KEY_INPUT_NUMPAD4:	//テンキーで4を入力された場合
-
-		return INPUT_NUM_4;	//入力値4
-
-		break;
-
-	case KEY_INPUT_5:		//5を入力された場合
-	case KEY_INPUT_NUMPAD5:	//テンキーで5を入力された場合
-
-		return INPUT_NUM_5;	//入力値5
-
-		break;
-
-	case KEY_INPUT_6:		//6を入力された場合
-	case KEY_INPUT_NUMPAD6:	//テンキーで6を入力された場合
-
-		return INPUT_NUM_6;	//入力値6
-
-		break;
-
-	case KEY_INPUT_7:		//7を入力された場合
-	case KEY_INPUT_NUMPAD7:	//テンキーで7を入力された場合
-
-		return INPUT_NUM_7;	//入力値7
-
-		break;
-
-	case KEY_INPUT_8:		//8を入力された場合
-	case KEY_INPUT_NUMPAD8:	//テンキーで8を入力された場合
-
-		return INPUT_NUM_8;	//入力値8
-
-		break;
-
-	case KEY_INPUT_9:		//9を入力された場合
-	case KEY_INPUT_NUMPAD9:	//テンキーで9を入力された場合
-
-		return INPUT_NUM_9;	//入力値9
-
-		break;
-
-	case KEY_INPUT_RETURN:		//エンターキー（決定された）場合
-	case KEY_INPUT_NUMPADENTER:	//テンキーでエンターキー（決定された）場合
-
-		return INPUT_ENTER;		//決定
-
-		break;
-
-	case KEY_INPUT_BACK:		//バックスペースキーを押された場合
-
-		return INPUT_BACK;		//バック
-
-		break;
-
-	case KEY_INPUT_MINUS:		//マイナスキー
-	case KEY_INPUT_SUBTRACT:	//テンキーのマイナスキー
-
-		return INPUT_MINUS;		//マイナス
-
-		break;
-
-	default:					//それ以外の場合（数字以外の入力の場合）
-
-		return INPUT_NOT_NUM;	//数字以外の入力
-		break;
-	}
-}
+//int Question::GetInputKey(KeyDown* keydown)
+//{
+//	switch (keydown->GetInputKeyCode())		//入力されたキーコードごとに処理を分岐
+//	{
+//
+//	case KEY_INPUT_0:		//0を入力された場合
+//	case KEY_INPUT_NUMPAD0:	//テンキーで0を入力された場合
+//
+//		return INPUT_NUM_0;	//入力値0
+//
+//		break;
+//
+//	case KEY_INPUT_1:		//1を入力された場合
+//	case KEY_INPUT_NUMPAD1:	//テンキーで1を入力された場合
+//
+//		return INPUT_NUM_1;	//入力値1
+//
+//		break;
+//
+//	case KEY_INPUT_2:		//2を入力された場合
+//	case KEY_INPUT_NUMPAD2:	//テンキーで2を入力された場合
+//
+//		return INPUT_NUM_2;	//入力値2
+//
+//		break;
+//
+//	case KEY_INPUT_3:		//3を入力された場合
+//	case KEY_INPUT_NUMPAD3:	//テンキーで3を入力された場合
+//
+//		return INPUT_NUM_3;	//入力値3
+//
+//		break;
+//
+//	case KEY_INPUT_4:		//4を入力された場合
+//	case KEY_INPUT_NUMPAD4:	//テンキーで4を入力された場合
+//
+//		return INPUT_NUM_4;	//入力値4
+//
+//		break;
+//
+//	case KEY_INPUT_5:		//5を入力された場合
+//	case KEY_INPUT_NUMPAD5:	//テンキーで5を入力された場合
+//
+//		return INPUT_NUM_5;	//入力値5
+//
+//		break;
+//
+//	case KEY_INPUT_6:		//6を入力された場合
+//	case KEY_INPUT_NUMPAD6:	//テンキーで6を入力された場合
+//
+//		return INPUT_NUM_6;	//入力値6
+//
+//		break;
+//
+//	case KEY_INPUT_7:		//7を入力された場合
+//	case KEY_INPUT_NUMPAD7:	//テンキーで7を入力された場合
+//
+//		return INPUT_NUM_7;	//入力値7
+//
+//		break;
+//
+//	case KEY_INPUT_8:		//8を入力された場合
+//	case KEY_INPUT_NUMPAD8:	//テンキーで8を入力された場合
+//
+//		return INPUT_NUM_8;	//入力値8
+//
+//		break;
+//
+//	case KEY_INPUT_9:		//9を入力された場合
+//	case KEY_INPUT_NUMPAD9:	//テンキーで9を入力された場合
+//
+//		return INPUT_NUM_9;	//入力値9
+//
+//		break;
+//
+//	case KEY_INPUT_RETURN:		//エンターキー（決定された）場合
+//	case KEY_INPUT_NUMPADENTER:	//テンキーでエンターキー（決定された）場合
+//
+//		return INPUT_ENTER;		//決定
+//
+//		break;
+//
+//	case KEY_INPUT_BACK:		//バックスペースキーを押された場合
+//
+//		return INPUT_BACK;		//バック
+//
+//		break;
+//
+//	case KEY_INPUT_MINUS:		//マイナスキー
+//	case KEY_INPUT_SUBTRACT:	//テンキーのマイナスキー
+//
+//		return INPUT_MINUS;		//マイナス
+//
+//		break;
+//
+//	default:					//それ以外の場合（数字以外の入力の場合）
+//
+//		return INPUT_NOT_NUM;	//数字以外の入力
+//		break;
+//	}
+//}
 
 //問題を作成したか取得
 bool Question::GetIsCreate()
@@ -608,10 +671,10 @@ bool Question::GetIsCreate()
 }
 
 //問題をリセット
-void Question::Reset()
-{
-	Anser = 0;			//答えリセット
-	InputNum = "0";		//キー入力内容リセット
-	Q_Text = "";		//問題文リセット
-	IsCreate = false;	//問題を作成したかリセット
-}
+//void Question::Reset()
+//{
+//	Anser = 0;			//答えリセット
+//	InputNum = "0";		//キー入力内容リセット
+//	Q_Text = "";		//問題文リセット
+//	IsCreate = false;	//問題を作成したかリセット
+//}

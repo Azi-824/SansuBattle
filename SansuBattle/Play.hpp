@@ -7,6 +7,7 @@
 #include "Scene.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "Question.hpp"
 
 //############### マクロ定義 #################
 #define GAME_LIMIT_DRAW_X	680		//ゲームの制限時間描画X位置
@@ -22,6 +23,7 @@ private:
 
 	Player* player;			//プレイヤー
 	vector<Enemy*> enemy;	//敵
+	vector<Question*> quesiton;	//問題
 
 public:
 

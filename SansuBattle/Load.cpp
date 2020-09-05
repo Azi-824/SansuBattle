@@ -12,14 +12,6 @@ Load::Load()
 	//メンバー初期化
 	IsGameStart = false;	//ゲームスタートできるか
 
-	font.push_back(new Font(F_NAME_HGS, F_SIZE_NORMAL, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));	//フォント(通常サイズ生成)
-	font.push_back(new Font(F_NAME_HGS, F_SIZE_MINI, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//フォント(ミニサイズ生成)
-	font.push_back(new Font(F_NAME_HGS, F_SIZE_RANKING, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, F_EDGE_SIZE));	//フォント(ランキング用サイズ生成)
-	for (auto f : font)
-	{
-		if (!f->GetIsCreate()) { IsLoad = false; return; }	//読み込み失敗
-	}
-	font.at(FH_NORMAL)->Chenge();	//通常サイズのフォントに変更
 	IsLoad = true;
 
 }
@@ -33,7 +25,6 @@ void Load::SetInit(){}
 //読み込み画面の処理
 void Load::Run()
 {
-	//***************************** 処理系 ************************************
 	if (IsGameStart)	//ゲームスタートできるなら
 	{
 		if (Mouse::OnLeftClick())	//左クリックされたら
@@ -51,9 +42,6 @@ void Load::Run()
 		IsGameStart = true;		//ゲームスタートできる
 	}
 
-	//********************************* 描画系 ************************************
-	font.at(FH_MINI)->Chenge();	//フォント変更
 	DrawStringToHandle(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_DISCRIPTION, GetColor(255, 255, 255), Font::GetNowHandle());
-	font.at(FH_NORMAL)->Chenge();	//フォント変更
 
 }

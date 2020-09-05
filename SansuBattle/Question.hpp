@@ -5,8 +5,6 @@
 
 //################# ヘッダファイル読み込み ###############
 #include "Global.hpp"
-#include <string>
-#include <vector>
 #include "KeyDown.hpp"
 #include "Image.hpp"
 
@@ -59,7 +57,7 @@ class Question
 private:
 
 	static Image* img_kokuban;			//黒板の画像
-	static vector<vector<int>> ValueNum_Table;	//値の数
+	//static vector<vector<int>> ValueNum_Table;	//値の数
 	static vector<vector<int>> CalcType_Table;	//各ゲームモードの計算の種類のテーブル
 
 	string Q_Text;				//問題文
@@ -67,31 +65,34 @@ private:
 	string InputNum;			//入力された数字
 	bool IsCreate;				//問題を作成したか
 
-	int GetInputKey(KeyDown*);									//入力されたキーを取得
+	bool IsAnswerd;				//回答済みか
+
+	//int GetInputKey(KeyDown*);									//入力されたキーを取得
 	void SetCalcType(int, int, vector<int>*);					//計算の種類を設定
 	void SetOrder(vector<int>, vector<int>*);					//計算の順番を設定
 	int GetMax(int, vector<int>);								//最大値取得
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
 	void CreateTable();											//各ゲームモードの計算の種類のテーブルを作成
 	void SetText(vector<int>, vector<int>, vector<int>);		//問題文のテキストを設定
+	void Create(int, int);										//問題作成
 
 public:
 
-	Question();							//コンストラクタ
+	//Question();							//コンストラクタ
+	Question(int, int);					//コンストラクタ
 	~Question();						//デストラクタ
 
-	void Create(int, int);			//問題作成
 
 	void DrawQuestion();			//問題を描画する
-	void DrawInputNum();			//入力中の数字を描画する
+	//void DrawInputNum();			//入力中の数字を描画する
 
 	bool JudgAnser();			//正解か判定する
 
-	bool CheckInputKey(KeyDown*);//キー入力中か取得
-	void InpReset();			//入力文字リセット
+	//bool CheckInputKey(KeyDown*);//キー入力中か取得
+	//void InpReset();			//入力文字リセット
 
 	bool GetIsCreate();			//問題を作成したか取得
-	void Reset();				//問題をリセット
+	//void Reset();				//問題をリセット
 
 
 };

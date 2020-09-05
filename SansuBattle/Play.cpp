@@ -22,8 +22,8 @@ Play::Play()
 
 	//敵
 	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY01));	//敵1体目生成
-	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY01));	//敵2体目生成
-	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY01));	//敵3体目生成
+	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY02));	//敵2体目生成
+	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY03));	//敵3体目生成
 
 	IsLoad = true;	//読み込み成功
 
@@ -43,6 +43,9 @@ Play::~Play()
 //初期設定
 void Play::SetInit()
 {
+
+	font.at(HANDLE_NR)->Chenge();	//フォントハンドルをノーマルに変更
+
 	back->SetInit();	//背景画像初期設定
 	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);		//BGM初期設定
 
@@ -59,11 +62,20 @@ void Play::SetInit()
 void Play::Run()
 {
 
+	static bool start = false;
+	if (!start)
+	{
+		quesiton.push_back(new Question(GameLevel, GameMode));	//問題を作成
+		start = true;
+	}
+
 	bgm->Play();	//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	player->Draw();	//プレイヤー（HP）描画
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
+
+	quesiton.back()->DrawQuestion();	//問題描画
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
