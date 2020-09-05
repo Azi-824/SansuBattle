@@ -8,32 +8,7 @@
 
 //インスタンスを生成
 Image* Question::img_kokuban;					//黒板の画像
-//vector<vector<int>> Question::ValueNum_Table;	//値の数
 vector<vector<int>> Question::CalcType_Table;	//各ゲームモードの計算の種類のテーブル
-
-////コンストラクタ
-//Question::Question()
-//{
-//	//メンバー初期化
-//	Anser = 0;				//答え初期化
-//	InputNum = "0";			//入力された数字初期化
-//	Q_Text = "";			//問題文初期化
-//	IsCreate = false;		//問題を作成したか初期化
-//
-//	if (CalcType_Table.empty())	//情報を作成していなければ
-//	{
-//		//テーブル作成
-//		CreateTable();		//テーブル作成
-//
-//	}
-//
-//
-//	if (img_kokuban == NULL)	//黒板の画像を生成していなければ
-//	{
-//		img_kokuban = new Image(Q_IMAGE_DIR, Q_IMAGE_KOKUBAN_NAME);	//黒板の画像を生成
-//	}
-//	
-//}
 
 //コンストラクタ
 Question::Question(int mode, int level)
@@ -70,12 +45,12 @@ Question::~Question(){}
 void Question::Create(int mode, int level)
 {
 
-	int min = 3, max = 0;				//問題の最小値、最大値
+	int min = VALUE_MIN, max = 0;		//問題の最小値、最大値
 
 	vector<int> value, type;	//値、計算の種類
-	const vector<int> value_num = { 2,3,4 };	//値の数
+	const vector<int> value_num = { EASY_NUM,NR_NUM,HARD_NUM };	//値の数
 
-	SetCalcType(mode, level, &type);	//計算の種類を設定
+	SetCalcType(mode, level, value_num.at(level), &type);	//計算の種類を設定
 
 	for (int i = 0; i < value_num.at(level); ++i)
 	{
@@ -101,48 +76,13 @@ void Question::Create(int mode, int level)
 	vector<int> v3;
 	order.swap(v3);
 
-
-	//Reset();	//前の問題をリセット
-
-	//int min = 3, max = 0;				//問題の最小値、最大値
-
-	//vector<int> value, type;	//値、計算の種類
-
-	//SetCalcType(gamemode, gamelevel, &type);	//計算の種類を設定
-
-	//for (int i = 0; i < ValueNum_Table.at(gamemode).at(gamelevel); ++i)
-	//{
-	//	max = GetMax(gamelevel, value);				//最大値設定
-	//	int rand = GetRand(max - min) + min;		//値をランダムで生成
-
-	//	value.push_back(rand);	//値を追加
-	//}
-
-
-	//vector<int> order;		//計算の順番
-	//SetOrder(type, &order);	//計算の順番を設定
-
-	//CreateQuestion(value, type, order);	//問題を生成
-
-	//IsCreate = true;	//問題を作成した
-
-	////vectorの解放
-	//vector<int> v;
-	//value.swap(v);
-	//vector<int> v2;
-	//type.swap(v2);
-	//vector<int> v3;
-	//order.swap(v3);
-
 }
 
 //計算の種類を設定
-void Question::SetCalcType(int mode, int level, vector<int>* calc_type)
+void Question::SetCalcType(int mode, int level, int num, vector<int>* calc_type)
 {
 
-	const vector<int> value_num = { 2,3,4 };	//値の数
-
-	for (int i = 0; i < value_num.at(level) - 1; ++i)
+	for (int i = 0; i < num - 1; ++i)
 	{
 		int rand = GetRand(CalcType_Table.at(mode).size() - 1);		//乱数生成
 		calc_type->push_back(CalcType_Table.at(mode).at(rand));		//計算の種類を設定
@@ -276,92 +216,6 @@ void Question::CreateTable()
 {
 
 	vector<int> work;	//作業用
-
-	////**************************** 各ゲームモードの値の数のテーブル **************************
-	////足し算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//足し算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////引き算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//引き算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////掛け算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//掛け算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////割り算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//割り算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////足し算、引き算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//足し算、引き算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////掛け算、割り算モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//掛け算、割り算モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////+*モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//+*モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////+/モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//+/モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////-*モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//-*モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////+-*モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//+-*モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////+-/モード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//+-/モードの値の数を追加
-	//work.clear();					//中身をクリア
-
-	////allモード
-	//work.push_back(2);		//簡単
-	//work.push_back(3);		//普通
-	//work.push_back(4);		//難しい
-	//ValueNum_Table.push_back(work);	//allモードの値の数を追加
-	//work.clear();					//中身をクリア
-
 
 	//**************************** 各ゲームモードの計算の種類のテーブル **************************
 	//足し算モード
@@ -669,12 +523,3 @@ bool Question::GetIsCreate()
 {
 	return IsCreate;
 }
-
-//問題をリセット
-//void Question::Reset()
-//{
-//	Anser = 0;			//答えリセット
-//	InputNum = "0";		//キー入力内容リセット
-//	Q_Text = "";		//問題文リセット
-//	IsCreate = false;	//問題を作成したかリセット
-//}

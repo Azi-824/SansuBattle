@@ -65,7 +65,7 @@ void Play::Run()
 	static bool start = false;
 	if (!start)
 	{
-		quesiton.push_back(new Question(GameLevel, GameMode));	//–â‘è‚ğì¬
+		quesiton.push_back(new Question(GameMode, GameLevel));	//–â‘è‚ğì¬
 		start = true;
 	}
 

@@ -15,6 +15,11 @@
 #define EASY_VALUE_MAX 15	//簡単レベルの問題の最大値
 #define NORMAL_VALUE_MAX 20	//普通レベルの問題の最大値
 #define HARD_VALUE_MAX	25	//難しいレベルの問題の最大値
+#define EASY_NUM	2		//簡単レベルの数字の数
+#define NR_NUM		3		//普通レベルの数字の数
+#define HARD_NUM	4		//難しいレベルの数字の数
+
+#define VALUE_MIN	3		//値の最小値
 
 #define Q_IMAGE_DIR		R"(.\MY_IMG\Question)"		//問題関係の画像のディレクトリ
 
@@ -57,7 +62,6 @@ class Question
 private:
 
 	static Image* img_kokuban;			//黒板の画像
-	//static vector<vector<int>> ValueNum_Table;	//値の数
 	static vector<vector<int>> CalcType_Table;	//各ゲームモードの計算の種類のテーブル
 
 	string Q_Text;				//問題文
@@ -68,7 +72,7 @@ private:
 	bool IsAnswerd;				//回答済みか
 
 	//int GetInputKey(KeyDown*);									//入力されたキーを取得
-	void SetCalcType(int, int, vector<int>*);					//計算の種類を設定
+	void SetCalcType(int, int,int, vector<int>*);				//計算の種類を設定
 	void SetOrder(vector<int>, vector<int>*);					//計算の順番を設定
 	int GetMax(int, vector<int>);								//最大値取得
 	void CreateQuestion(vector<int>, vector<int>, vector<int>);	//問題を作成
