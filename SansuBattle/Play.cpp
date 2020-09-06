@@ -14,7 +14,19 @@ Play::Play()
 	if (!back->Load(IMG_DIR_BACK, IMG_NAME_PLAY)) { IsLoad = false; return; }	//背景画像読み込み
 
 	//BGM
-	if (!bgm->Load(MUSIC_DIR_BGM, BGM_NAME_PLAY)) { IsLoad = false; return; }	//BGM読み込み
+	bgm.front()->Load(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM);				//BGM追加（+）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIF));			//BGM追加（-）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_PRO));			//BGM追加（*）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DEA));			//BGM追加（/）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF));		//BGM追加（+-）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_PRO_DEA));		//BGM追加（*/）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_PRO));		//BGM追加（+*）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DEA));		//BGM追加（+/）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_DIF_PRO));		//BGM追加（-*）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_PRO));	//BGM追加（+-*）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM_DIF_DEA));	//BGM追加（+-/）
+	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ALL));			//BGM追加（ + -*/ ）
+	for (auto b : bgm) { if (!b->GetIsLoad()) { IsLoad = false; return; } }	//読み込み失敗
 
 	//********************* キャラクター ******************************
 	//プレイヤー
@@ -47,7 +59,7 @@ void Play::SetInit()
 	font.at(HANDLE_NR)->Chenge();	//フォントハンドルをノーマルに変更
 
 	back->SetInit();	//背景画像初期設定
-	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);		//BGM初期設定
+	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
 
 	//プレイヤー
 	if (!player->SetInit()) { IsLoad = false; return; }	//初期設定
@@ -68,7 +80,7 @@ void Play::Run()
 		start = true;
 	}
 
-	bgm->Play();	//BGMを流す
+	bgm.at(GameMode)->Play();	//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
 	player->Draw();	//プレイヤー（HP）描画
@@ -102,7 +114,7 @@ void Play::Run()
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
-		bgm->Stop();				//BGMを止める
+		bgm.at(GameMode)->Stop();	//BGMを止める
 		NowScene = SCENE_RANKING;	//ランキング画面へ
 	}
 

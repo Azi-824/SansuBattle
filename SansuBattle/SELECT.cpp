@@ -13,7 +13,7 @@ Select::Select()
 	if (!back->Load(IMG_DIR_BACK, IMG_NAME_SELECT)) { IsLoad = false; return; }	//背景画像読み込み
 
 	//BGM
-	if (!bgm->Load(MUSIC_DIR_BGM, BGM_NAME_SELECT)) { IsLoad = false; return; }	//BGM読み込み
+	if (!bgm.front()->Load(MUSIC_DIR_BGM, BGM_NAME_SELECT)) { IsLoad = false; return; }	//BGM読み込み
 
 	//**************************** ボタン ***************************
 	//ボタンの画像を読み込み
@@ -95,7 +95,7 @@ Select::~Select()
 void Select::SetInit()
 {
 	back->SetInit();	//背景画像初期設定
-	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);		//BGM初期設定
+	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
 
 	//**************** ボタン ******************
 	for (auto b : mode) { b->SetInit(20, 20); }
@@ -111,12 +111,11 @@ void Select::SetInit()
 
 }
 
-
 //選択画面の処理
 void Select::Run()
 {
 
-	bgm->Play();	//BGMを流す
+	bgm.front()->Play();		//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
 	if (mode_group->GetIsSelect())	//モードの選択をしたら
@@ -161,7 +160,7 @@ void Select::Run()
 	{
 		GameMode = mode_group->GetSelctNum();	//選択したモードを設定
 		GameLevel = level_group->GetSelctNum();	//選択したレベルを設定
-		bgm->Stop();							//BGMを止める
+		bgm.front()->Stop();					//BGMを止める
 		NowScene = SCENE_PLAY;					//プレイ画面へ
 	}
 

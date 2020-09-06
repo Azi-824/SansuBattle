@@ -107,6 +107,7 @@ bool Music::Load(const char* dir, const char* name)
 	PlayType = DX_PLAYTYPE_BACK;	//最初は再生方法をバックグラウンド再生にする
 
 	IsPlayed = false;		//再生済みではない
+	IsLoad = true;	//読み込み成功
 
 	return true;	//読み込み成功
 

@@ -14,8 +14,8 @@ int Scene::GameMode = -1;	//ゲームモード
 //コンストラクタ
 Scene::Scene()
 {
-	back = new Image();	//インスタンス生成
-	bgm = new Music();	//インスタンス生成
+	back = new Image();			//インスタンス生成
+	bgm.push_back(new Music());	//インスタンス生成
 
 	//フォント関係
 	if (font.empty())	//フォントを作成していなかったら
@@ -36,7 +36,11 @@ Scene::Scene()
 Scene::~Scene()
 {
 	delete back;	//back破棄
-	delete bgm;		//bgm破棄
+	
+	for (auto b : bgm) { delete b; }	//bgm破棄
+	vector<Music*> v;
+	v.swap(bgm);
+
 	Font::ReleaseFont();	//読み込んだフォントを開放
 }
 

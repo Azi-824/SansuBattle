@@ -61,9 +61,9 @@ protected:
 	static vector<Font*> font;	//フォント
 
 	//インスタンス毎
-	Image* back;	//背景画像
-	Music* bgm;		//BGM
-	bool IsLoad;	//読み込めたか
+	Image* back;			//背景画像
+	vector<Music*> bgm;		//BGM
+	bool IsLoad;			//読み込めたか
 
 public:
 

@@ -12,7 +12,7 @@ Ranking::Ranking()
 	//‰æ‘œŠÖŒW
 	if (!back->Load(IMG_DIR_BACK, IMG_NAME_RANKING)) { IsLoad = false; return; }	//”wŒi‰æ‘œ“Ç‚Ýž‚Ý
 
-	if (!bgm->Load(MUSIC_DIR_BGM, BGM_NAME_RANKING)) { IsLoad = false; return; }	//BGM“Ç‚Ýž‚Ý
+	if (!bgm.front()->Load(MUSIC_DIR_BGM, BGM_NAME_RANKING)) { IsLoad = false; return; }	//BGM“Ç‚Ýž‚Ý
 	IsLoad = true;
 
 }
@@ -27,7 +27,7 @@ Ranking::~Ranking()
 void Ranking::SetInit()
 {
 	back->SetInit();	//”wŒi‰æ‘œ‰ŠúÝ’è
-	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);		//BGM‰ŠúÝ’è
+	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM‰ŠúÝ’è
 
 }
 
@@ -36,10 +36,10 @@ void Ranking::SetInit()
 void Ranking::Run()
 {
 
-	bgm->Play();	//BGM‚ð—¬‚·
+	bgm.front()->Play();		//BGM‚ð—¬‚·
 	if (Mouse::OnLeftClick())	//¶ƒNƒŠƒbƒN‚³‚ê‚½‚ç
 	{
-		bgm->Stop();			//BGM‚ðŽ~‚ß‚é
+		bgm.front()->Stop();	//BGM‚ðŽ~‚ß‚é
 		NowScene = SCENE_TITLE;	//ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö
 	}
 

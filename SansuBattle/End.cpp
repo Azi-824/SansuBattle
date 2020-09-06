@@ -22,7 +22,7 @@ End::~End()
 void End::SetInit()
 {
 	back->SetInit();	//背景画像初期設定
-	bgm->SetInit(DX_PLAYTYPE_LOOP, 30);		//BGM初期設定
+	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
 }
 
 
@@ -30,11 +30,11 @@ void End::SetInit()
 void End::Run()
 {
 
-	bgm->Play();	//BGMを流す
+	bgm.front()->Play();		//BGMを流す
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
-		bgm->Stop();			//BGMを止める
+		bgm.front()->Stop();	//BGMを止める
 		NowScene = SCENE_TITLE;	//タイトル画面へ
 	}
 

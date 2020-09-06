@@ -17,8 +17,20 @@
 //BGM
 #define BGM_NAME_TITLE				R"(\title.mp3)"			//タイトルのBGM
 #define BGM_NAME_SELECT				R"(\select.mp3)"		//セレクトのBGM
-#define BGM_NAME_PLAY				R"(\play.mp3)"			//プレイのBGM
 #define BGM_NAME_RANKING			R"(\ranking.mp3)"		//ランキングのBGM
+//********** プレイ画面 **************
+#define BGM_NAME_PLAY_SUM			R"(\play_add_bgm.mp3)"			//プレイ画面（+）のBGMの名前
+#define BGM_NAME_PLAY_DIF			R"(\play_diff_bgm.mp3)"			//プレイ画面（-）のBGMの名前
+#define BGM_NAME_PLAY_PRO			R"(\play_pro_bgm.mp3)"			//プレイ画面（*）のBGMの名前
+#define BGM_NAME_PLAY_DEA			R"(\play_dealer_bgm.mp3)"		//プレイ画面（/）のBGMの名前
+#define BGM_NAME_PLAY_SUM_DIF		R"(\play_sum_dif_bgm.mp3)"		//プレイ画面（+-）のBGMの名前
+#define BGM_NAME_PLAY_PRO_DEA		R"(\play_pro_dea_bgm.mp3)"		//プレイ画面（*/）のBGMの名前
+#define BGM_NAME_PLAY_SUM_PRO		R"(\play_sum_pro_bgm.mp3)"		//プレイ画面（+*）のBGMの名前
+#define BGM_NAME_PLAY_SUM_DEA		R"(\play_sum_dea_bgm.mp3)"		//プレイ画面（+/）のBGMの名前
+#define BGM_NAME_PLAY_DIF_PRO		R"(\play_dif_pro_bgm.mp3)"		//プレイ画面（-*）のBGMの名前
+#define BGM_NAME_PLAY_SUM_DIF_PRO	R"(\play_sum_dif_pro_bgm.mp3)"	//プレイ画面（+-*）のBGMの名前
+#define BGM_NAME_PLAY_SUM_DIF_DEA	R"(\play_sum_dif_dea_bgm.mp3)"	//プレイ画面（+-/）のBGMの名前
+#define BGM_NAME_PLAY_ALL			R"(\play_all_bgm.mp3)"			//プレイ画面（+-*/）のBGMの名前
 
 //SE
 #define SE_NAME_KETTEI				R"(\kettei.mp3)"		//決定の効果音
@@ -29,6 +41,7 @@
 
 //##################### マクロ定義 ##########################
 #define VOLUME_MAX		255	//音量の最大値
+#define VOL_DEF			30	//デフォルトの音量(30%)
 
 //##################### 列挙型 #########################
 enum EF_SE_NAME
