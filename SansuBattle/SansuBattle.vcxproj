@@ -151,8 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Charactor.hpp" />
+    <ClInclude Include="Effect.hpp" />
     <ClInclude Include="End.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Font.hpp" />
@@ -174,8 +176,10 @@
     <ClInclude Include="Title.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Charactor.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />

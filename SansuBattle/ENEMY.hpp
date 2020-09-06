@@ -5,6 +5,7 @@
 
 //############### ヘッダファイル読み込み ####################
 #include "Charactor.hpp"
+#include "Effect.hpp"
 
 //############### マクロ定義 ####################
 #define IMG_DIR_ENEMY	R"(.\Image\Enemy)"			//敵の画像のディレクトリ
@@ -26,6 +27,9 @@ class Enemy :public Charactor		//CHARACTORクラスを継承
 private:
 
 	Image* img;				//画像
+	Effect* damege;			//ダメージエフェクト
+	RECT rect;				//描画範囲
+	bool dmgFlg;			//ダメージフラグ
 
 	static int NowEnemyNum;	//現在何体目の敵か
 
@@ -41,7 +45,8 @@ public:
 	static int GetNowEnemyNum();		//現在何体目の敵か取得
 
 	void Draw() override;				//敵キャラ描画
-
 	bool GetFadeEnd();					//フェードアウト終了したか
+	void SetDamegeFlg(bool);			//ダメージフラグ設定
+	bool GetIsEffectEnd();				//エフェクト終了したか
 
 };

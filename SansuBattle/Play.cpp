@@ -82,7 +82,7 @@ void Play::Run()
 	{
 		if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
 		{
-			//effect_atk.at((int)EFFECT_ATACK)->SetIsDraw(true);			//アニメーションの描画を開始する
+			enemy.at(Enemy::GetNowEnemyNum())->SetDamegeFlg(true);		//敵にダメージフラグを立てる
 		}
 		else		//不正解だったら
 		{
@@ -91,6 +91,13 @@ void Play::Run()
 			player->InpReset();							//入力情報リセット
 		}
 
+	}
+
+	if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())	//エフェクト終了したら
+	{
+		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();		//敵にダメージを与える
+		player->InpReset();										//入力情報リセット
+		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を生成
 	}
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
