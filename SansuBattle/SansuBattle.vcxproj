@@ -173,6 +173,7 @@
     <ClInclude Include="Ranking.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Select.hpp" />
+    <ClInclude Include="Time.hpp" />
     <ClInclude Include="Title.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Select.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>

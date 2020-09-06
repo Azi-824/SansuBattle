@@ -7,11 +7,6 @@
 #include "Global.hpp"
 
 //################## マクロ定義 ###################
-#define GAME_LIMITTIME_DRAW_X	740		//ゲームの制限時間描画X位置
-#define GAME_LIMITTIME_DRAW_Y	0		//ゲームの制限時間描画Y位置
-
-#define GAME_LIMIT_TIME		30			//ゲームの制限時間
-#define MISS_MINUS_TIME		5			//間違えたときの減る時間
 
 //################## クラス定義 ###################
 class Time

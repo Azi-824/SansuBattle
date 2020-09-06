@@ -37,6 +37,9 @@ Play::Play()
 	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY02));	//敵2体目生成
 	enemy.push_back(new Enemy(IMG_DIR_ENEMY, IMG_NAME_ENEMY03));	//敵3体目生成
 
+	//時間
+	limit = new Time(LIMIT_TIME);		//制限時間
+
 	IsLoad = true;	//読み込み成功
 
 }
@@ -45,6 +48,7 @@ Play::Play()
 Play::~Play()
 {
 	delete player;		//player破棄
+	delete limit;		//limit破棄
 	
 	//敵
 	for (auto e : enemy) { delete e; }	//enemy破棄
@@ -77,18 +81,22 @@ void Play::Run()
 	if (!start)
 	{
 		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
+		limit->SetTime();		//制限時間の計測開始
 		start = true;
 	}
 
-	bgm.at(GameMode)->Play();	//BGMを流す
+	bgm.at(GameMode)->Play();			//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
-	player->Draw();	//プレイヤー（HP）描画
+	player->Draw();								//プレイヤー（HP）描画
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
 
 	quesiton.back()->DrawQuestion();	//問題描画
 
-	player->DrawInputNum();		//入力中の値を描画
+	player->DrawInputNum();			//入力中の値を描画
+
+	limit->UpdateLimitTime();			//制限時間の更新
+	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画
 
 	if (player->CheckInputKey())	//キー入力が完了したら
 	{
@@ -99,7 +107,7 @@ void Play::Run()
 		else		//不正解だったら
 		{
 			//play_se.at(SE_PLAY_FALSE)->Play();				//不正解の効果音
-			//gamelimittime->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
+			limit->MinusLimitTime(MISS_MINUS_TIME);		//制限時間を減らす
 			player->InpReset();							//入力情報リセット
 		}
 
@@ -110,6 +118,14 @@ void Play::Run()
 		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();		//敵にダメージを与える
 		player->InpReset();										//入力情報リセット
 		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を生成
+		limit->SetTime();		//制限時間の再計測開始
+	}
+
+	if (limit->GetIsLimit())	//制限時間を超えたら
+	{
+		player->SendDamege();	//プレイヤーにダメージを与える
+		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を作成
+		limit->SetTime();		//制限時間の再計測開始
 	}
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
