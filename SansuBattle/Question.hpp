@@ -5,7 +5,6 @@
 
 //################# ヘッダファイル読み込み ###############
 #include "Global.hpp"
-#include "KeyDown.hpp"
 #include "Image.hpp"
 
 //################# マクロ定義 #################
@@ -21,7 +20,7 @@
 
 #define VALUE_MIN	3		//値の最小値
 
-#define Q_IMAGE_DIR		R"(.\MY_IMG\Question)"		//問題関係の画像のディレクトリ
+#define Q_IMAGE_DIR		R"(.\Image\Question)"		//問題関係の画像のディレクトリ
 
 #define	Q_IMAGE_KOKUBAN_NAME	R"(\kokuban.png)"	//黒板の画像の名前
 
