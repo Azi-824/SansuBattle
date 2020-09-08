@@ -34,8 +34,8 @@ private:
 	int DrawY;									//描画開始Y位置
 	int RowNum;									//描画範囲の中で描画できる列の数
 	int LineNum;								//描画範囲の中で描画できる行の数
-	int NowRow;									//現在の列番号
-	int NowLine;								//現在の行番号
+	//int NowRow;									//現在の列番号
+	//int NowLine;								//現在の行番号
 	int Interval_Side;							//選択肢の間隔(横)
 	int Interval_Vertical;						//選択肢の間隔(縦)
 
@@ -56,9 +56,10 @@ public:
 	bool GetIsSelect();		//選択したか
 	int GetSelctNum();		//選択したボタンを取得
 
-	bool CheckIsNextPage();						//次のページへ行けるか確認
-	bool CheckIsPrevPage();						//前のページへ行けるか確認
-	void NextPage();							//次のページへ
-	void PrevPage();							//前のページへ
+	bool CheckIsNextPage();	//次のページへ行けるか確認
+	bool CheckIsPrevPage();	//前のページへ行けるか確認
+	void NextPage();		//次のページへ
+	void PrevPage();		//前のページへ
+	void Reset();			//リセット
 
 };

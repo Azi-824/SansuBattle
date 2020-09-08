@@ -40,8 +40,6 @@ Play::Play()
 	//ŠÔ
 	limit = new Time(LIMIT_TIME);		//§ŒÀŠÔ
 
-	start = false;	//Startˆ—‚ğs‚Á‚½‚©
-
 	IsLoad = true;	//“Ç‚İ‚İ¬Œ÷
 
 }

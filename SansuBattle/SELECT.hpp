@@ -37,6 +37,8 @@ private:
 	Group* mode_group;			//ゲームモードのグループ
 	Group* level_group;			//ゲームレベルのグループ
 
+	void Start() override;		//シーンが変わるごとに1回だけ行う処理
+
 public:
 
 	Select();			//コンストラクタ

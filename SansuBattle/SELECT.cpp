@@ -115,6 +115,8 @@ void Select::SetInit()
 void Select::Run()
 {
 
+	Start();	//シーンが変わるごとに1回だけ行う処理
+
 	bgm.front()->Play();		//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
@@ -161,7 +163,25 @@ void Select::Run()
 		GameMode = mode_group->GetSelctNum();	//選択したモードを設定
 		GameLevel = level_group->GetSelctNum();	//選択したレベルを設定
 		bgm.front()->Stop();					//BGMを止める
+		start = false;							//startフラグリセット
 		NowScene = SCENE_PLAY;					//プレイ画面へ
 	}
+
+}
+
+//シーンが変わるごとに1回だけ行う処理
+void Select::Start()
+{
+
+	if (!start)	//処理を行っていなければ
+	{
+		GameMode = -1;			//ゲームモードリセット
+		GameLevel = -1;			//ゲームレベルリセット
+		mode_group->Reset();	//ゲームモードの選択状態リセット
+		level_group->Reset();	//ゲームレベルの選択状態リセット
+		start = true;	//処理を行った
+
+	}
+
 
 }

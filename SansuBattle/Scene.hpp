@@ -67,6 +67,7 @@ protected:
 	Image* back;			//”wŒi‰æ‘œ
 	vector<Music*> bgm;		//BGM
 	bool IsLoad;			//“Ç‚İ‚ß‚½‚©
+	bool start;				//Startˆ—‚ğs‚Á‚½‚©
 
 public:
 

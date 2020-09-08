@@ -29,6 +29,8 @@ Scene::Scene()
 		}
 	}
 
+	start = false;		//Startˆ—‚ğs‚Á‚½‚©
+
 	IsLoad = false;		//“Ç‚İ‚ß‚½‚©
 }
 
