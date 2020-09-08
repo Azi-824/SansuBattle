@@ -49,17 +49,18 @@ bool Charactor::GetIsArive()
 //ダメージを与える
 void Charactor::SendDamege()
 {
-	if (HP > 0)		//HPが0じゃなければ
+	--HP;	//ダメージを与える
+	if (HP <= 0)	//HPが0以下になったら
 	{
-		--HP;			//ダメージを与える
+		HP = 0;	//HPは0
+		Kill();	//キャラを殺す
 	}
-
 }
 
 //キャラを殺す
 void Charactor::Kill()
 {
-	IsArive = true;
+	IsArive = false;
 }
 
 //HP取得

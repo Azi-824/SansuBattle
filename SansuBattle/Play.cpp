@@ -107,7 +107,8 @@ void Play::Run()
 		else		//不正解だったら
 		{
 			//play_se.at(SE_PLAY_FALSE)->Play();				//不正解の効果音
-			limit->MinusLimitTime(MISS_MINUS_TIME);		//制限時間を減らす
+			//limit->MinusLimitTime(MISS_MINUS_TIME);		//制限時間を減らす
+			player->SendDamege();//プレイヤーにダメージを与える
 			player->InpReset();							//入力情報リセット
 		}
 
@@ -126,6 +127,32 @@ void Play::Run()
 		player->SendDamege();	//プレイヤーにダメージを与える
 		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を作成
 		limit->SetTime();		//制限時間の再計測開始
+	}
+
+	if (!player->GetIsArive())	//キャラが死んだ場合
+	{
+		//フェードアウト処理
+		static int cnt = 0;	//カウント用
+
+		//60フレーム分、待つ
+		if (cnt < FADE_MAX_CNT)
+		{
+			++cnt;	//カウントアップ
+		}
+		else	//60フレーム経過したら
+		{
+			cnt = 0;	//カウントリセット
+			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
+			bgm.at(GameMode)->Stop();	//BGMを止める
+			NowScene = SCENE_RANKING;	//ランキング画面へ
+		}
+
+		//フェードアウトの処理
+		double ToukaPercent = cnt / (double)FADE_MAX_CNT;							//透過%を計算
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);		//透過させる
+		DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
+
 	}
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
