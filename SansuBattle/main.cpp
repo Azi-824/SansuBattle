@@ -105,6 +105,4 @@ void Delete_Class()
 	}
 
 	Font::ReleaseFont();	//読み込んだフォントを開放
-
-	return;
 }
