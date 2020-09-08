@@ -28,6 +28,10 @@ Play::Play()
 	bgm.push_back(new Music(MUSIC_DIR_BGM, BGM_NAME_PLAY_ALL));			//BGM追加（ + -*/ ）
 	for (auto b : bgm) { if (!b->GetIsLoad()) { IsLoad = false; return; } }	//読み込み失敗
 
+	se.push_back(new Music(MUSIC_DIR_SE, SE_NAME_FALSE));				//不正解のSE追加
+	se.push_back(new Music(MUSIC_DIR_SE, SE_NAME_PL_DAMEGE));			//プレイヤーがダメージを受けたときのSE追加
+	for (auto s : se) { if (!s->GetIsLoad()) { IsLoad = false; return; } }	//読み込み失敗
+
 	//********************* キャラクター ******************************
 	//プレイヤー
 	player = new Player();	//プレイヤー生成
@@ -54,6 +58,11 @@ Play::~Play()
 	for (auto e : enemy) { delete e; }	//enemy破棄
 	vector<Enemy*> v;
 	v.swap(enemy);	
+
+	//SE
+	for (auto s : se) { delete s; }		//se破棄
+	vector<Music*> v2;
+	v2.swap(se);
 }
 
 //初期設定
@@ -64,6 +73,7 @@ void Play::SetInit()
 
 	back->SetInit();	//背景画像初期設定
 	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
+	for (auto s : se) { s->SetInit(DX_PLAYTYPE_BACK, VOL_DEF); }	//SE初期設定
 
 	//プレイヤー
 	if (!player->SetInit()) { IsLoad = false; return; }	//初期設定
@@ -103,10 +113,9 @@ void Play::Run()
 		}
 		else		//不正解だったら
 		{
-			//play_se.at(SE_PLAY_FALSE)->Play();				//不正解の効果音
-			//limit->MinusLimitTime(MISS_MINUS_TIME);		//制限時間を減らす
-			player->SendDamege();//プレイヤーにダメージを与える
-			player->InpReset();							//入力情報リセット
+			limit->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
+			se.at(SE_FALSE)->Play();				//不正解の音を再生
+			player->InpReset();						//入力情報リセット
 		}
 
 	}
@@ -121,6 +130,7 @@ void Play::Run()
 
 	if (limit->GetIsLimit())	//制限時間を超えたら
 	{
+		se.at(SE_DAMEGE)->Play();	//ダメージの効果音を再生
 		player->SendDamege();	//プレイヤーにダメージを与える
 		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を作成
 		limit->SetTime();		//制限時間の再計測開始

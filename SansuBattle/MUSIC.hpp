@@ -34,6 +34,8 @@
 
 //SE
 #define SE_NAME_KETTEI				R"(\kettei.mp3)"		//決定の効果音
+#define SE_NAME_FALSE				R"(\false.mp3)"			//不正解の効果音
+#define SE_NAME_PL_DAMEGE			R"(\damege.wav)"		//プレイヤーがダメージを受けたときの効果音
 
 //##################### マクロ定義：エラーメッセージ ######################
 #define MUSIC_ERROR_TITLE	"MUSIC_ERROR"					//エラータイトル

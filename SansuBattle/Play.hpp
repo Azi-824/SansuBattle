@@ -18,6 +18,13 @@
 
 using std::vector;
 
+//############### 列挙型 ##################
+enum SE_KIND
+{
+	SE_FALSE,		//不正解の時の効果音
+	SE_DAMEGE		//ダメージを受けたときの効果音
+};
+
 //############### クラス定義 #################
 class Play : public Scene	//Sceneクラスを継承
 {
@@ -27,6 +34,7 @@ private:
 	vector<Enemy*> enemy;		//敵
 	vector<Question*> quesiton;	//問題
 	Time* limit;				//制限時間
+	vector<Music*> se;			//効果音
 
 	void Start() override;		//シーンが変わるごとに1回だけ行う処理
 
