@@ -63,6 +63,10 @@ Play::~Play()
 	for (auto s : se) { delete s; }		//se破棄
 	vector<Music*> v2;
 	v2.swap(se);
+
+	for (auto d : data) { delete d; }	//data破棄
+	vector<Data*> v3;
+	v3.swap(data);
 }
 
 //初期設定
@@ -105,6 +109,8 @@ void Play::Run()
 	limit->UpdateLimitTime();			//制限時間の更新
 	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画
 
+	Score::Draw();	//現在のスコア描画
+
 	if (player->CheckInputKey())	//キー入力が完了したら
 	{
 		if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
@@ -120,12 +126,13 @@ void Play::Run()
 
 	}
 
-	if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())	//エフェクト終了したら
+	if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())			//エフェクト終了したら
 	{
-		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();		//敵にダメージを与える
-		player->InpReset();										//入力情報リセット
-		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を生成
-		limit->SetTime();										//制限時間の再計測開始
+		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();				//敵にダメージを与える
+		player->InpReset();												//入力情報リセット
+		quesiton.push_back(new Question(GameMode, GameLevel));			//次の問題を生成
+		Score::AddScore(GameMode, GameLevel, limit->GetElapsedTime());	//スコア加算
+		limit->SetTime();												//制限時間の再計測開始
 	}
 
 	if (limit->GetIsLimit())	//制限時間を超えたら
@@ -144,8 +151,11 @@ void Play::Run()
 		{
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
 			start = false;				//次に備えてstartフラグをリセット
-			bgm.at(GameMode)->Stop();	//BGMを止める
-			NowScene = SCENE_RANKING;	//ランキング画面へ
+			data.push_back(new Data(Score::GetScore()));	//データを追加
+			Save::Sort(&data);					//ソート
+			Save::DataSave(data,GameMode);		//セーブ
+			bgm.at(GameMode)->Stop();			//BGMを止める
+			NowScene = SCENE_RANKING;			//ランキング画面へ
 		}
 	}
 
@@ -162,11 +172,13 @@ void Play::Start()
 {
 	if (!start)	//処理を行っていなければ
 	{
+		Score::Reset();											//スコアリセット
 		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
-		limit->SetTime();		//制限時間の計測開始
-		player->Init();			//プレイヤー初期化
-		for (auto e : enemy) { e->Init(); }	//敵初期化
-		start = true;			//処理を行った
+		player->Init();											//プレイヤー初期化
+		for (auto e : enemy) { e->Init(); }						//敵初期化
+		Save::Load(&data,GameMode);								//データ読み込み
+		limit->SetTime();										//制限時間の計測開始
+		start = true;											//処理を行った
 
 	}
 }

@@ -8,6 +8,7 @@
 int Scene::NowScene = 0;	//現在のシーン
 bool Scene::GameEnd = false;//ゲームエンドフラグ
 vector<Font*> Scene::font;	//フォント
+vector<Data*> Scene::data;	//データ
 int Scene::GameLevel = -1;	//ゲームレベル
 int Scene::GameMode = -1;	//ゲームモード
 

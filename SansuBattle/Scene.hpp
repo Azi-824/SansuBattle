@@ -8,6 +8,9 @@
 #include "Image.hpp"
 #include "Music.hpp"
 #include "Font.hpp"
+#include "Data.hpp"
+#include "Save.hpp"
+#include "Score.hpp"
 
 //################### マクロ定義 #########################
 
@@ -59,6 +62,7 @@ protected:
 	static int GameLevel;		//ゲームレベル
 	static bool GameEnd;		//ゲーム終了フラグ
 	static vector<Font*> font;	//フォント
+	static vector<Data*> data;	//データ
 
 	static bool FadeOut();		//フェードアウト処理
 	virtual void Start();		//シーンが変わるごとに1回だけ行う処理

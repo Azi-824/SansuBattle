@@ -1,15 +1,14 @@
 //Score.hpp
-//スコアを管理するクラス
+//スコア関係の基になるクラス
 
 #pragma once
 
-//############ ヘッダファイル読み込み #############
+//################### ヘッダファイル読み込み ###################
 #include "Global.hpp"
+#include <string>
+#include <vector>
 
-//############ マクロ定義 #################
-#define SCORE_DRAW_X	10	//スコア描画X位置
-#define SCORE_DRAW_Y	10	//スコア描画Y位置
-
+//################### マクロ定義 ########################
 #define TIME_BONUS_EXCELLENT	2		//回答時間がエクセレントの時のボーナス倍率
 #define TIME_BONUS_GREAT		1.5		//回答時間がグレートの時のボーナス倍率
 #define LEVEL_BONUS_EASY		1		//簡単レベルのボーナス倍率
@@ -29,24 +28,27 @@
 #define SCORE_SUM_DIF_DEA_ANSER	600		//+-/の回答をした時のスコア
 #define SCORE_ALL_ANSER			650		//+-*/の回答をした時のスコア
 
-//############ クラス定義 #############
+using std::vector;
+
+//################### クラス定義 ########################
 class Score
 {
 private:
 
-	static int score;		//スコア
+	int score;			//得点
 
-	static vector<int> ScoreTable;	//ゲームモード毎のスコア
-	static vector<int> LevBonus;	//ゲームレベル毎のボーナス
+	vector<int> mode_score;	//ゲームモード毎のスコア
+	vector<int> level_bonus;//ゲームレベル毎のボーナス
 
 public:
 
-	Score();		//コンストラクタ
-	~Score();		//デストラクタ
+	Score();							//コンストラクタ
+	~Score();							//デストラクタ
 
-	static int GetScore();				//スコア取得
-	static void AddScore(int,int,int);	//スコア加算
-	static void Draw();					//スコア描画
-	static void Reset();				//リセット
+	void CalcScore(int,int,int);		//スコア計算処理
+	void DrawNowScore();				//現在のスコア表示
+	void ResetScore();					//スコアリセット
+
+	int GetScore();						//スコア取得
 
 };

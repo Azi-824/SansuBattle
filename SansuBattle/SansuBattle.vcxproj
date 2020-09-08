@@ -154,6 +154,7 @@
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Charactor.hpp" />
+    <ClInclude Include="Data.hpp" />
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="End.hpp" />
     <ClInclude Include="Enemy.hpp" />
@@ -171,7 +172,9 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Question.hpp" />
     <ClInclude Include="Ranking.hpp" />
+    <ClInclude Include="Save.hpp" />
     <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="Score.hpp" />
     <ClInclude Include="Select.hpp" />
     <ClInclude Include="Time.hpp" />
     <ClInclude Include="Title.hpp" />
@@ -180,6 +183,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Charactor.cpp" />
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -196,7 +200,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Save.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Select.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Title.cpp" />
