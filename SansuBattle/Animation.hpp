@@ -68,7 +68,7 @@ public:
 	static void DeleteHandle();		//リストのハンドルを削除
 
 	Animation(int, double, bool);	//コンストラクタ
-	~Animation();																	//デストラクタ
+	~Animation();					//デストラクタ
 
 	void SetInit();			//初期設定
 
