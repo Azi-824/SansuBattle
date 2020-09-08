@@ -324,6 +324,7 @@ void Question::DrawQuestion()
 	int Strlen = strlen(Q_Text.c_str());					//•¶š—ñ’·‚³‚ğæ“¾
 	int Width = GetDrawStringWidthToHandle(Q_Text.c_str(), Strlen, Font::GetNowHandle());	//‰¡•æ“¾
 
+	
 	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), Q_DRAW_Y, COLOR_WHITE, Font::GetNowHandle(), "%s", Q_Text.c_str());	//–â‘è•¶‚ğ•`‰æ
 
 	return;

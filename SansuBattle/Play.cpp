@@ -40,6 +40,8 @@ Play::Play()
 	//時間
 	limit = new Time(LIMIT_TIME);		//制限時間
 
+	start = false;	//Start処理を行ったか
+
 	IsLoad = true;	//読み込み成功
 
 }
@@ -77,13 +79,8 @@ void Play::SetInit()
 //プレイ画面の処理
 void Play::Run()
 {
-	static bool start = false;
-	if (!start)
-	{
-		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
-		limit->SetTime();		//制限時間の計測開始
-		start = true;
-	}
+
+	Start();	//シーンが変わるごとに1回だけ行う処理
 
 	bgm.at(GameMode)->Play();			//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
@@ -91,7 +88,9 @@ void Play::Run()
 	player->Draw();								//プレイヤー（HP）描画
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
 
+	font.at(HANDLE_MINI)->Chenge();		//フォントを変更
 	quesiton.back()->DrawQuestion();	//問題描画
+	font.at(HANDLE_NR)->Chenge();		//フォントを変更
 
 	player->DrawInputNum();			//入力中の値を描画
 
@@ -119,7 +118,7 @@ void Play::Run()
 		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();		//敵にダメージを与える
 		player->InpReset();										//入力情報リセット
 		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を生成
-		limit->SetTime();		//制限時間の再計測開始
+		limit->SetTime();										//制限時間の再計測開始
 	}
 
 	if (limit->GetIsLimit())	//制限時間を超えたら
@@ -136,6 +135,7 @@ void Play::Run()
 		if (FadeOut())	//フェードアウトが終了したら
 		{
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
+			start = false;				//次に備えてstartフラグをリセット
 			bgm.at(GameMode)->Stop();	//BGMを止める
 			NowScene = SCENE_RANKING;	//ランキング画面へ
 		}
@@ -147,4 +147,18 @@ void Play::Run()
 		NowScene = SCENE_RANKING;	//ランキング画面へ
 	}
 
+}
+
+//シーンが変わるごとに1回だけ行う処理
+void Play::Start()
+{
+	if (!start)	//処理を行っていなければ
+	{
+		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
+		limit->SetTime();		//制限時間の計測開始
+		player->Init();			//プレイヤー初期化
+		for (auto e : enemy) { e->Init(); }	//敵初期化
+		start = true;			//処理を行った
+
+	}
 }

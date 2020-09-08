@@ -27,6 +27,9 @@ private:
 	vector<Enemy*> enemy;		//敵
 	vector<Question*> quesiton;	//問題
 	Time* limit;				//制限時間
+	bool start;					//Start処理を行ったか
+
+	void Start();				//シーンが変わるごとに1回だけ行う処理
 
 public:
 
