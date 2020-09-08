@@ -27,6 +27,7 @@ private:
 	RECT rect;				//描画範囲
 	bool dmgFlg;			//ダメージフラグ
 
+	static bool AllKill;	//全ての敵を倒したか
 	static int NowEnemyNum;	//現在何体目の敵か
 
 public:
@@ -44,5 +45,6 @@ public:
 	bool GetFadeEnd();					//フェードアウト終了したか
 	void SetDamegeFlg(bool);			//ダメージフラグ設定
 	bool GetIsEffectEnd();				//エフェクト終了したか
+	static bool GetAllEnemyKilled();	//すべての敵を倒したか
 
 };

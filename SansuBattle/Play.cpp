@@ -129,7 +129,9 @@ void Play::Run()
 		limit->SetTime();		//制限時間の再計測開始
 	}
 
-	if (!player->GetIsArive())	//キャラが死んだ場合
+	//****************** キャラが死んだときの処理 ******************************
+	if (!player->GetIsArive() ||	//プレイヤーが死んだ場合
+		Enemy::GetAllEnemyKilled())	//全ての敵を倒した場合	
 	{
 		if (FadeOut())	//フェードアウトが終了したら
 		{

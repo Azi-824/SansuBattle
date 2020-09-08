@@ -8,6 +8,7 @@
 
 //インスタンスを生成
 int Enemy::NowEnemyNum = 0;
+bool Enemy::AllKill = false;	//全ての敵を倒したか
 
 //コンストラクタ
 //引　数：const char *：画像のディレクトリ
@@ -20,7 +21,7 @@ Enemy::Enemy(const char* dir, const char* name)
 
 	//ダメージエフェクト生成
 	damege = new Effect(new Animation(ANIM_DAMEGE, ANIM_DAMEGE_SPEED, false), new Music(MUSIC_DIR_EFFECT, SE_NAME_EF_DAMEGE));
-	dmgFlg = false;	//ダメージフラグ
+	dmgFlg = false;		//ダメージフラグ
 
 	HP_X = GAME_LEFT;	//HP描画X位置
 	HP_Y = GAME_TOP;	//HP描画Y位置
@@ -60,12 +61,14 @@ void Enemy::Init()
 	HP = HP_INIT_VALUE;	//HP初期化
 	IsArive = true;		//生きている
 	img->SetIsFade(false);	//フェードアウトしない。
+	AllKill = false;	//全ての敵を倒したか
+
 }
 
 //次の敵へ
 void Enemy::NextEnemy()
 {
-	if (NowEnemyNum < ENEMY_MAX)	//現在の敵が、敵の最大数より少なければ
+	if (NowEnemyNum < ENEMY_MAX - 1)	//現在の敵が、敵の最大数より少なければ
 	{
 		++NowEnemyNum;				//次の敵へ
 	}
@@ -107,6 +110,15 @@ void Enemy::Draw()
 	{
 		img->SetIsFade(true);	//フェードアウト開始
 		img->DrawCenter();		//中央に描画
+
+		if (GetFadeEnd())		//フェードアウト終了したら
+		{
+			if (NowEnemyNum == ENEMY_MAX - 1)	//最後の敵を倒したら
+			{
+				AllKill = true;	//全ての敵を倒した
+			}
+			NextEnemy();		//次の敵へ
+		}
 	}
 }
 
@@ -135,4 +147,10 @@ bool Enemy::GetIsEffectEnd()
 	{
 		return false;	//終了していない
 	}
+}
+
+//すべての敵を倒したか取得
+bool Enemy::GetAllEnemyKilled()
+{
+	return AllKill;
 }

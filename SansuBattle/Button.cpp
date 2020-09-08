@@ -33,7 +33,7 @@ void Button::SetInit(int x,int y)
 {
 	img->SetInit();	//画像初期設定
 	SetRect(x, y);	//領域設定
-	se->SetInit(DX_PLAYTYPE_BACK, 60);	//効果音
+	se->SetInit(DX_PLAYTYPE_BACK, VOL_DEF);	//効果音
 
 }
 
@@ -41,7 +41,7 @@ void Button::SetInit(int x,int y)
 void Button::SetInit()
 {
 	img->SetInit();	//画像初期設定
-	se->SetInit(DX_PLAYTYPE_BACK, 60);	//効果音
+	se->SetInit(DX_PLAYTYPE_BACK, VOL_DEF);	//効果音
 }
 
 //ボタンをクリックされたか
