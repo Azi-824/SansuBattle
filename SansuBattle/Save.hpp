@@ -43,7 +43,6 @@ private:
 
 	static vector<string> NameTable;	//ファイル名のテーブル
 
-	static bool CheckCreateFile(string);//指定されたファイル名が存在するか取得
 	static void CreateTable();			//テーブルの作成
 
 public:

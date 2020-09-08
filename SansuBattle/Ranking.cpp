@@ -1,5 +1,5 @@
-//End.cpp
-//エンド画面の処理
+//Ranking.cpp
+//ランキング画面の処理
 
 //############# ヘッダファイル読み込み ###############
 #include "Ranking.hpp"
@@ -32,17 +32,22 @@ void Ranking::SetInit()
 }
 
 
-//エンド画面の処理
+//ランキング画面の処理
 void Ranking::Run()
 {
 
-	bgm.front()->Play();		//BGMを流す
+	bgm.front()->Play();			//BGMを流す
+	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
+
+	//***************** スコアの描画 ********************
+	font.at(HANDLE_RANK)->Chenge();				//フォント変更
+	for (auto d : data) { d->Draw(GameMode); }	//スコア描画
+	font.at(HANDLE_NR)->Chenge();				//フォント変更
+
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
 		bgm.front()->Stop();	//BGMを止める
 		NowScene = SCENE_TITLE;	//タイトル画面へ
 	}
-
-	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
 }

@@ -7,6 +7,19 @@
 //################# クラス定義 ###################
 
 int Data::ElementCnt = 0;	//要素数
+//テキストテーブル
+vector<string> Data::TxtTable = { TXT_MD_SUM,			//足し算モードのテキスト
+								  TXT_MD_DIF,			//引き算モードのテキスト
+								  TXT_MD_PRO,			//掛け算モードのテキスト
+								  TXT_MD_DEA,			//割り算モードのテキスト
+								  TXT_MD_SUM_DIF,		//足し算と引き算モードのテキスト
+								  TXT_MD_PRO_DEA,		//掛け算と割り算モードのテキスト
+								  TXT_MD_SUM_PRO,		//+*モードのテキスト
+								  TXT_MD_SUM_DEA,		//+/モードのテキスト
+								  TXT_MD_DIF_PRO,		//-*モードのテキスト
+								  TXT_MD_SUM_DIF_PRO,	//+-*モードのテキスト
+								  TXT_MD_SUM_DIF_DEA,	//+-/モードのテキスト
+								  TXT_MD_ALL };			//allモードのテキスト
 
 //コンストラクタ
 Data::Data(DATEDATA date, int score)
@@ -21,9 +34,10 @@ Data::Data(DATEDATA date, int score)
 Data::Data(int score)
 {
 	//メンバー初期化
-	date = { 0 };		//データ
-	GetDateTime(&date);	//データ取得
-	Score = score;		//スコア
+	date = { 0 };			//データ
+	GetDateTime(&date);		//データ取得
+	Score = score;			//スコア
+	Element = ElementCnt++;	//要素番号
 }
 
 //デストラクタ
@@ -54,36 +68,24 @@ int Data::GetScore()
 }
 
 //スコア描画
-void Data::Draw()
+void Data::Draw(int mode)
 {
 	if (Element >= RANKING_DRAW_MAX)	//描画する最大数より多ければ
 		return;	//描画せず終了
 
-	string str;	//描画文字列
-	str = std::to_string(date.Year) + "年";	//年
-	str += std::to_string(date.Mon) + "月";	//月
-	str += std::to_string(date.Day) + "日";	//日
-	str += std::to_string(Score) + "点";	//点
-
-	int x = 0, y = 0;	//描画位置
-	int Strlen = 0;		//文字列の長さ
-	int width = 0;		//横幅
-
-	if (Element == 0)	//先頭の時は
-	{
-		Strlen = strlen(RANK_INDEX_TEXT);	//長さ取得
-		width = GetDrawStringWidthToHandle(RANK_INDEX_TEXT, Strlen, Font::GetNowHandle());	//横幅取得
-		x = (GAME_WIDTH / 2) - (width / 2);				//X設定
-		DrawStringToHandle(x, RANKING_DRAW_Y, RANK_INDEX_TEXT, COLOR_WHITE, Font::GetNowHandle(), COLOR_BLACK);	//表題描画
-	}
-
-	Strlen = strlen(str.c_str());	//長さ取得
-	width = GetDrawStringWidthToHandle(str.c_str(), Strlen, Font::GetNowHandle());	//横幅取得
 	int height = GetFontSizeToHandle(Font::GetNowHandle());	//高さ取得
-	x = (GAME_WIDTH / 2) - (width / 2);				//X設定
-	y = (RANKING_DRAW_Y + height) * (Element + 1);	//Y設定
 
-	DrawStringToHandle(x, y, str.c_str(), COLOR_WHITE, Font::GetNowHandle(), COLOR_BLACK);
+	string text_gamemode = TXT_MD;		//ゲームモードのテキスト
+	text_gamemode += TxtTable.at(mode);	//ゲームモード毎のテキストを取得
+
+	DrawStringToHandle(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE, Font::GetNowHandle());		//ランキングタイトル描画
+
+	DrawFormatStringToHandle(DRAW_DATA_X, DRAW_DATA_Y + (Element + 1) * height, COLOR_WHITE, Font::GetNowHandle(), DRAW_DATA_TEXT,
+		Element + 1,//何位か
+		Score,		//スコア
+		date.Year,	//年
+		date.Mon,	//月
+		date.Day);	//日
 
 }
 
@@ -97,4 +99,10 @@ void Data::SetElement(int element)
 int Data::GetElement()
 {
 	return Element;
+}
+
+//カウントをクリアする
+void Data::CntClear()
+{
+	ElementCnt = 0;
 }

@@ -22,7 +22,8 @@ bool Save::Load(vector<Data*> *data, int mode)
 
 	if (!data->empty())	//空じゃなければ
 	{
-		data->clear();	//データリセット
+		data->clear();		//データリセット
+		Data::CntClear();	//カウントをクリア
 	}
 
 	struct stat statbuf;			//ファイルの存在確認に使用
