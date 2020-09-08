@@ -55,3 +55,30 @@ bool Scene::IsGameEnd()
 {
 	return GameEnd;
 }
+
+//フェードアウト処理
+bool Scene::FadeOut()
+{
+	//フェードアウト処理
+	static int cnt = 0;	//カウント用
+
+	//60フレーム分、待つ
+	if (cnt < FADE_MAX_CNT)
+	{
+		++cnt;	//カウントアップ
+	}
+	else	//60フレーム経過したら
+	{
+		cnt = 0;		//カウントリセット
+		return true;	//フェードアウト終了
+	}
+
+	//フェードアウトの処理
+	double ToukaPercent = cnt / (double)FADE_MAX_CNT;							//透過%を計算
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);		//透過させる
+	DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
+
+	return false;	//フェードアウト中
+
+}

@@ -131,28 +131,12 @@ void Play::Run()
 
 	if (!player->GetIsArive())	//キャラが死んだ場合
 	{
-		//フェードアウト処理
-		static int cnt = 0;	//カウント用
-
-		//60フレーム分、待つ
-		if (cnt < FADE_MAX_CNT)
+		if (FadeOut())	//フェードアウトが終了したら
 		{
-			++cnt;	//カウントアップ
-		}
-		else	//60フレーム経過したら
-		{
-			cnt = 0;	//カウントリセット
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
 			bgm.at(GameMode)->Stop();	//BGMを止める
 			NowScene = SCENE_RANKING;	//ランキング画面へ
 		}
-
-		//フェードアウトの処理
-		double ToukaPercent = cnt / (double)FADE_MAX_CNT;							//透過%を計算
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, ToukaPercent * TOUKA_MAX_VALUE);		//透過させる
-		DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);									//透過をやめる
-
 	}
 
 	if (Mouse::OnLeftClick())	//左クリックされたら

@@ -60,6 +60,8 @@ protected:
 	static bool GameEnd;		//ゲーム終了フラグ
 	static vector<Font*> font;	//フォント
 
+	static bool FadeOut();		//フェードアウト処理
+
 	//インスタンス毎
 	Image* back;			//背景画像
 	vector<Music*> bgm;		//BGM
