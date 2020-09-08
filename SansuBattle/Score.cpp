@@ -66,7 +66,11 @@ void Score::AddScore(int mode, int lev, int time)
 //スコア描画
 void Score::Draw()
 {
-	DrawFormatStringToHandle(SCORE_DRAW_X, SCORE_DRAW_Y, COLOR_BLACK, Font::GetNowHandle(), "%d", score);
+
+	int Strlen = strlen(std::to_string(score).c_str());														//文字列の長さを取得
+	int Width = GetDrawStringWidthToHandle(std::to_string(score).c_str(), Strlen, Font::GetNowHandle());	//横幅取得
+
+	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), GAME_TOP, COLOR_WHITE, Font::GetNowHandle(), "%d", score);		//スコア表示
 }
 
 //リセット
