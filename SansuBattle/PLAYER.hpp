@@ -12,8 +12,7 @@
 
 #define IMG_NAME_HP		R"(\hp.png)"				//HP画像の名前
 
-#define PLAYER_HP_DRAW_X		20	//HPの描画開始X位置
-#define PLAYER_HP_DRAW_Y		500	//HPの描画開始Y位置
+#define PLAYER_HP_DRAW_Y		420	//HPの描画開始Y位置
 
 //##################### 列挙型 ##########################
 enum INPUT_NUM

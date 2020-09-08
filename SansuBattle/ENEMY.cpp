@@ -22,8 +22,8 @@ Enemy::Enemy(const char* dir, const char* name)
 	damege = new Effect(new Animation(ANIM_DAMEGE, ANIM_DAMEGE_SPEED, false), new Music(MUSIC_DIR_EFFECT, SE_NAME_EF_DAMEGE));
 	dmgFlg = false;	//ダメージフラグ
 
-	HP_X = ENEMY_HP_DRAW_X;//HP描画X位置
-	HP_Y = ENEMY_HP_DRAW_Y;//HP描画Y位置
+	HP_X = GAME_LEFT;	//HP描画X位置
+	HP_Y = GAME_TOP;	//HP描画Y位置
 
 	rect = { 0 };	//描画範囲
 

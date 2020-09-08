@@ -17,10 +17,6 @@
 
 #define ENEMY_MAX		3			//敵の最大数
 
-#define ENEMY_HP_DRAW_X		20		//HPの描画開始X位置
-#define ENEMY_HP_DRAW_Y		20		//HPの描画開始Y位置
-
-
 //############### クラス定義 ####################
 class Enemy :public Charactor		//CHARACTORクラスを継承
 {
