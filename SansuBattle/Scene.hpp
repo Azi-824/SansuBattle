@@ -61,6 +61,7 @@ protected:
 	static vector<Font*> font;	//フォント
 
 	static bool FadeOut();		//フェードアウト処理
+	virtual void Start();		//シーンが変わるごとに1回だけ行う処理
 
 	//インスタンス毎
 	Image* back;			//背景画像
@@ -75,7 +76,7 @@ public:
 	static int GetNowScene();	//現在のシーンを取得
 	static bool IsGameEnd();	//ゲームエンドフラグを取得
 
-	virtual void SetInit() = 0;		//初期設定
-	virtual void Run() = 0;			//シーン毎の処理
+	virtual void SetInit() = 0;	//初期設定
+	virtual void Run() = 0;		//シーン毎の処理
 
 };

@@ -44,6 +44,12 @@ Scene::~Scene()
 	Font::ReleaseFont();	//読み込んだフォントを開放
 }
 
+//シーンが変わるごとに1回だけ行う処理
+void Scene::Start()
+{
+
+}
+
 //現在のシーンを取得
 int Scene::GetNowScene()
 {

@@ -29,7 +29,7 @@ private:
 	Time* limit;				//制限時間
 	bool start;					//Start処理を行ったか
 
-	void Start();				//シーンが変わるごとに1回だけ行う処理
+	void Start() override;		//シーンが変わるごとに1回だけ行う処理
 
 public:
 
