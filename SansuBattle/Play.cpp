@@ -122,7 +122,10 @@ void Play::Run()
 	font.at(HDL_NR)->Chenge();			//フォントを変更
 
 	bord->Draw(GAME_LEFT, SCORE_Y);		//黒板の画像を描画
-	Score::Draw();	//現在のスコア描画
+	RECT rect = { GAME_LEFT,SCORE_Y,GAME_LEFT + bord->GetWidth(), SCORE_Y + bord->GetHeight() };	//黒板の領域を取得
+	font.at(HDL_MINI)->Chenge();		//フォント変更
+	Score::DrawCenter(rect);			//現在のスコア描画
+	font.at(HDL_NR)->Chenge();			//フォント変更
 
 	if (player->CheckInputKey())	//キー入力が完了したら
 	{
@@ -163,10 +166,10 @@ void Play::Run()
 		if (FadeOut())	//フェードアウトが終了したら
 		{
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
-			start = false;				//次に備えてstartフラグをリセット
 			data.push_back(new Data(Score::GetScore()));	//データを追加
 			Save::Sort(&data);					//ソート
 			Save::DataSave(data,GameMode);		//セーブ
+			start = false;						//次に備えてstartフラグをリセット
 			bgm.at(GameMode)->Stop();			//BGMを止める
 			NowScene = SCENE_RANKING;			//ランキング画面へ
 		}
@@ -175,6 +178,7 @@ void Play::Run()
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{
 		bgm.at(GameMode)->Stop();	//BGMを止める
+		start = false;				//次に備えてstartフラグをリセット
 		NowScene = SCENE_RANKING;	//ランキング画面へ
 	}
 

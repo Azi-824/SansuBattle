@@ -72,6 +72,22 @@ void Score::Draw()
 	DrawFormatStringToHandle((GAME_WIDTH / 2) - (Width / 2), GAME_TOP, COLOR_WHITE, Font::GetNowHandle(), "%d", score);		//スコア表示
 }
 
+//指定された領域内の中央に描画
+void Score::DrawCenter(RECT rect)
+{
+	int Strlen = strlen(std::to_string(score).c_str());														//文字列の長さを取得
+	int Width = GetDrawStringWidthToHandle(std::to_string(score).c_str(), Strlen, Font::GetNowHandle());	//横幅取得
+	int Height = GetFontSizeToHandle(Font::GetNowHandle());	//高さ取得
+	
+
+	int rect_center_x = rect.left + ((rect.right - rect.left) / 2);	//領域の中央X位置を計算
+	int rect_center_y = rect.top + ((rect.bottom - rect.top) / 2);	//領域の中央Y位置を計算
+	int x = rect_center_x - (Width / 2);							//描画位置Xを計算
+	int y = rect_center_y - (Height / 2);							//描画位置Yを計算
+
+	DrawFormatStringToHandle(x, y, COLOR_WHITE, Font::GetNowHandle(), "%d", score);		//スコア表示
+}
+
 //リセット
 void Score::Reset()
 {

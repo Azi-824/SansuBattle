@@ -44,6 +44,7 @@ public:
 	static int GetScore();				//スコア取得
 	static void AddScore(int,int,int);	//スコア加算
 	static void Draw();					//スコア描画
+	static void DrawCenter(RECT);		//指定された領域内の中央に描画
 	static void Reset();				//リセット
 
 };
