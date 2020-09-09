@@ -7,9 +7,6 @@
 #include "Global.hpp"
 
 //############ マクロ定義 #################
-#define SCORE_DRAW_X	10	//スコア描画X位置
-#define SCORE_DRAW_Y	10	//スコア描画Y位置
-
 #define TIME_BONUS_EXCELLENT	2		//回答時間がエクセレントの時のボーナス倍率
 #define TIME_BONUS_GREAT		1.5		//回答時間がグレートの時のボーナス倍率
 #define LEVEL_BONUS_EASY		1		//簡単レベルのボーナス倍率

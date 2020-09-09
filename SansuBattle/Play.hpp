@@ -18,8 +18,12 @@
 
 #define CIRCLE_X		720		//円の描画X位置
 #define CIRCLE_Y		0		//円の描画Y位置
-#define IMG_UI_DIR		R"(.\Image\Ui)"		//UI画像のディレクトリ
-#define IMG_CIRCLE_NAME	R"(\circle.png)"	//円の画像の名前
+#define SCORE_Y			335		//スコアの描画Y位置
+
+#define IMG_UI_DIR			R"(.\Image\Ui)"		//UI画像のディレクトリ
+
+#define IMG_CIRCLE_NAME		R"(\circle.png)"	//円の画像の名前
+#define IMG_KOKUBAN_NAME	 R"(\kokuban.png)"	//黒板の画像の名前
 
 using std::vector;
 
@@ -41,6 +45,7 @@ private:
 	Time* limit;				//制限時間
 	vector<Music*> se;			//効果音
 	Image* circle;				//円
+	Image* bord;				//黒板
 
 	void Start() override;		//シーンが変わるごとに1回だけ行う処理
 

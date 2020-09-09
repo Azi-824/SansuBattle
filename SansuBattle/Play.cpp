@@ -14,6 +14,8 @@ Play::Play()
 	if (!back->Load(IMG_DIR_BACK, IMG_NAME_PLAY)) { IsLoad = false; return; }	//”wŒi‰æ‘œ“Ç‚İ‚İ
 	circle = new Image(IMG_UI_DIR, IMG_CIRCLE_NAME);		//‰~‚Ì‰æ‘œ“Ç‚İ‚İ
 	if (!circle->GetIsLoad()) { IsLoad = false; return; }	//“Ç‚İ‚İ¸”s
+	bord = new Image(IMG_UI_DIR, IMG_KOKUBAN_NAME);			//•”Â‚Ì‰æ‘œ“Ç‚İ‚İ
+	if (!bord->GetIsLoad()) { IsLoad = false; return; }		//“Ç‚İ‚İ¸”s
 
 	//BGM
 	bgm.front()->Load(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM);				//BGM’Ç‰Ái+j
@@ -56,6 +58,7 @@ Play::~Play()
 	delete player;		//player”jŠü
 	delete limit;		//limit”jŠü
 	delete circle;		//circle”jŠü
+	delete bord;		//bord”jŠü
 	
 	//“G
 	for (auto e : enemy) { delete e; }	//enemy”jŠü
@@ -81,6 +84,7 @@ void Play::SetInit()
 
 	back->SetInit();	//”wŒi‰æ‘œ‰Šúİ’è
 	circle->SetInit();	//‰~‚Ì‰æ‘œ
+	bord->SetInit();	//•”Â‚Ì‰æ‘œ
 	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM‰Šúİ’è
 	for (auto s : se) { s->SetInit(DX_PLAYTYPE_BACK, VOL_DEF); }	//SE‰Šúİ’è
 
@@ -117,6 +121,7 @@ void Play::Run()
 	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//§ŒÀŠÔ•`‰æ
 	font.at(HDL_NR)->Chenge();			//ƒtƒHƒ“ƒg‚ğ•ÏX
 
+	bord->Draw(GAME_LEFT, SCORE_Y);		//•”Â‚Ì‰æ‘œ‚ğ•`‰æ
 	Score::Draw();	//Œ»İ‚ÌƒXƒRƒA•`‰æ
 
 	if (player->CheckInputKey())	//ƒL[“ü—Í‚ªŠ®—¹‚µ‚½‚ç

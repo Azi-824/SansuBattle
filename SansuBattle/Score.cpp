@@ -7,7 +7,6 @@
 //############ クラス定義 ################
 
 int Score::score = 0;	//スコア
-
 //スコアテーブル
 vector<int> Score::ScoreTable = { SCORE_SUM_ANSER ,			//足し算の時のスコア
 								  SCORE_DIFFERENCE_ANSER,	//引き算の時のスコア
