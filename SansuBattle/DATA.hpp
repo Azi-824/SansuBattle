@@ -26,7 +26,7 @@
 #define TXT_MD_SUM_DIF_DEA	"たしざん、ひきざん、わりざん"	//+-/モードのテキスト
 #define TXT_MD_ALL			"まとめ"						//allモードのテキスト
 
-#define DRAW_DATA_TEXT	"%2d:%dpoint(%d/%d/%d)"			//ランキング描画のテキスト
+#define DRAW_DATA_TEXT	"%2d:%dpt(%d/%d/%d)"				//ランキング描画のテキスト
 #define DRAW_DATA_X		20	//ランキング描画開始X位置
 #define DRAW_DATA_Y		20	//ランキング描画開始Y位置
 

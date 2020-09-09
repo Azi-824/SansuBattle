@@ -79,8 +79,8 @@ void Effect::DrawCenter(RECT rect)
 //初期設定
 void Effect::SetInit(void)
 {
-	anim->SetInit();	//アニメーション初期設定
-	se->SetInit(DX_PLAYTYPE_BACK, 60);		//初期設定
+	anim->SetInit();						//アニメーション
+	se->SetInit(DX_PLAYTYPE_BACK, VOL_DEF);	//効果音
 }
 
 //エフェクト終了したか取得
