@@ -64,6 +64,7 @@ Play::~Play()
 	vector<Music*> v2;
 	v2.swap(se);
 
+	//ƒf[ƒ^
 	for (auto d : data) { delete d; }	//data”jŠü
 	vector<Data*> v3;
 	v3.swap(data);
