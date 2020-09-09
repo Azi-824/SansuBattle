@@ -47,6 +47,8 @@ private:
 	Image* circle;				//‰~
 	Image* bord;				//•”Â
 
+	bool IsOperation;			//‘€ì‚Å‚«‚é‚©
+
 	void Start() override;		//ƒV[ƒ“‚ª•Ï‚í‚é‚²‚Æ‚É1‰ñ‚¾‚¯s‚¤ˆ—
 
 public:

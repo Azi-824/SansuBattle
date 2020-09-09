@@ -48,6 +48,8 @@ Play::Play()
 	//時間
 	limit = new Time(LIMIT_TIME);		//制限時間
 
+	IsOperation = true;	//キー操作できる
+
 	IsLoad = true;	//読み込み成功
 
 }
@@ -111,9 +113,9 @@ void Play::Run()
 
 	font.at(HDL_MINI)->Chenge();		//フォントを変更
 	quesiton.back()->DrawQuestion();	//問題描画
-	font.at(HDL_NR)->Chenge();		//フォントを変更
+	font.at(HDL_NR)->Chenge();			//フォントを変更
 
-	player->DrawInputNum();			//入力中の値を描画
+	player->DrawInputNum();				//入力中の値を描画
 
 	circle->Draw(CIRCLE_X, CIRCLE_Y);	//円の画像描画
 	limit->UpdateLimitTime();			//制限時間の更新
@@ -127,20 +129,26 @@ void Play::Run()
 	Score::DrawCenter(rect);			//現在のスコア描画
 	font.at(HDL_NR)->Chenge();			//フォント変更
 
-	if (player->CheckInputKey())	//キー入力が完了したら
-	{
-		if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
-		{
-			enemy.at(Enemy::GetNowEnemyNum())->SetDamegeFlg(true);		//敵にダメージフラグを立てる
-		}
-		else		//不正解だったら
-		{
-			limit->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
-			se.at(SE_FALSE)->Play();				//不正解の音を再生
-			player->InpReset();						//入力情報リセット
-		}
 
+	if (IsOperation)	//操作できるとき
+	{
+		if (player->CheckInputKey())	//キー入力が完了したら
+		{
+			if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
+			{
+				enemy.at(Enemy::GetNowEnemyNum())->SetDamegeFlg(true);		//敵にダメージフラグを立てる
+				IsOperation = false;	//操作不可に
+			}
+			else		//不正解だったら
+			{
+				limit->MinusLimitTime(MISS_MINUS_TIME);	//制限時間を減らす
+				se.at(SE_FALSE)->Play();				//不正解の音を再生
+				player->InpReset();						//入力情報リセット
+			}
+
+		}
 	}
+
 
 	if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())			//エフェクト終了したら
 	{
@@ -148,8 +156,19 @@ void Play::Run()
 		player->InpReset();												//入力情報リセット
 		quesiton.push_back(new Question(GameMode, GameLevel));			//次の問題を生成
 		Score::AddScore(GameMode, GameLevel, limit->GetElapsedTime());	//スコア加算
+		IsOperation = true;												//操作可能に
 		limit->SetTime();												//制限時間の再計測開始
 	}
+
+	if (!enemy.at(Enemy::GetNowEnemyNum())->GetIsArive())	//敵が死んでいるときは
+	{
+		IsOperation = false;	//操作不可
+	}
+	else	//敵が生きているときは
+	{
+		IsOperation = true;		//操作可能
+	}
+
 
 	if (limit->GetIsLimit())	//制限時間を超えたら
 	{
@@ -163,6 +182,7 @@ void Play::Run()
 	if (!player->GetIsArive() ||	//プレイヤーが死んだ場合
 		Enemy::GetAllEnemyKilled())	//全ての敵を倒した場合	
 	{
+		IsOperation = false;	//操作不可に
 		if (FadeOut())	//フェードアウトが終了したら
 		{
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
