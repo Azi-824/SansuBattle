@@ -30,7 +30,7 @@ Font::Font(int fontname, int size, int bold, int fonttype, int charset,
 	if (LoadFontName.empty())	//フォントを読み込んでいなければ
 	{
 		//フォントの読み込みを行う
-		IsCreate = LoadFont(FONT_DIR, FONT_FILE_NAME, FONT_NAME);
+		IsCreate = LoadFont(FONT_DIR, FONT_FNAME_KOKUBAN, FONT_NAME_KOKUBAN);
 		if (!IsCreate)		//読み込めていなければ
 			return;			//読み込み失敗
 	}

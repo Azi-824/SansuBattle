@@ -18,11 +18,11 @@
 //################ マクロ定義 ファイルパスと名前 ###############
 #define FONT_DIR			R"(.\Font)"				//フォントファイルの場所
 
-#define FONT_FILE_NAME		R"(\kokubanB.ttf)"			//フォントの名前
+#define FONT_FNAME_KOKUBAN	R"(\kokubanB.ttf)"			//フォントの名前
 //############### マクロ定義 ##################
 
 //*********** フォント名 **************
-#define FONT_NAME		"こくばん"					//フォントの正式名称
+#define FONT_NAME_KOKUBAN	"こくばん"					//フォントの正式名称
 
 //*********** フォントサイズ **************
 #define F_SIZE_NORMAL	128			//通常のフォントサイズ
@@ -39,7 +39,7 @@
 //################ 列挙型 #####################
 enum LOAD_FONT_NAME
 {
-	FONT_NAME_KOKUBAN	//こくばんフォント
+	FNAME_KOKUBAN,	//こくばんフォント
 };	//読み込んだフォントの種類
 
 enum FONT_HANDLE_TYPE

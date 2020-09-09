@@ -21,9 +21,9 @@ Scene::Scene()
 	//フォント関係
 	if (font.empty())	//フォントを作成していなかったら
 	{
-		font.push_back(new Font(FONT_NAME_KOKUBAN, F_SIZE_NORMAL, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//フォントを管理するオブジェクトを生成
-		font.push_back(new Font(FONT_NAME_KOKUBAN, F_SIZE_MINI, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//こくばんフォント（ミニサイズ）作成
-		font.push_back(new Font(FONT_NAME_KOKUBAN, F_SIZE_RANKING, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));//こくばんフォント（ランキングサイズ）作成
+		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_NORMAL, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));	//フォントを管理するオブジェクトを生成
+		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_MINI, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//こくばんフォント（ミニサイズ）作成
+		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_RANKING, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ランキングサイズ）作成
 		for (auto f : font)
 		{
 			if (!f->GetIsCreate()) { IsLoad = false; return; }	//読み込み失敗
