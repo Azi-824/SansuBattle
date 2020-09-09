@@ -69,7 +69,15 @@ void Time::DrawElapsedTime(int x, int y)
 void Time::DrawLimitTime(int x, int y)
 {
 	UpdateLimitTime();	//残りの制限時間更新
-	DrawFormatStringToHandle(x, y, COLOR_WHITE, Font::GetNowHandle(),"%d", NowLimitTime);	//制限時間を描画
+	if (NowLimitTime <= CHENGE_TIME)	//基準時間より少なくなったら
+	{
+		//描画色赤
+		DrawFormatStringToHandle(x, y, COLOR_RED, Font::GetNowHandle(), "%2d", NowLimitTime);	//制限時間を描画
+	}
+	else
+	{
+		DrawFormatStringToHandle(x, y, COLOR_GREEN, Font::GetNowHandle(), "%2d", NowLimitTime);	//制限時間を描画
+	}
 }
 
 //経過時間取得

@@ -24,7 +24,7 @@ Scene::Scene()
 		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_NORMAL, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（通常サイズ）作成
 		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_MINI, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//こくばんフォント（ミニサイズ）作成
 		font.push_back(new Font(FNAME_KOKUBAN, F_SIZE_RANKING, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));	//こくばんフォント（ランキングサイズ）作成
-		font.push_back(new Font(FNAME_POP, F_SIZE_NORMAL, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));		//ポップフォント（通常サイズ）作成
+		font.push_back(new Font(FNAME_POP, F_SIZE_TIME, F_BOLD_NORMAL, DX_FONTTYPE_ANTIALIASING));			//ポップフォント（通常サイズ）作成
 		for (auto f : font)
 		{
 			if (!f->GetIsCreate()) { IsLoad = false; return; }	//読み込み失敗

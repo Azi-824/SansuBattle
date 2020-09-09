@@ -12,6 +12,8 @@ Play::Play()
 
 	//画像関係
 	if (!back->Load(IMG_DIR_BACK, IMG_NAME_PLAY)) { IsLoad = false; return; }	//背景画像読み込み
+	circle = new Image(IMG_UI_DIR, IMG_CIRCLE_NAME);		//円の画像読み込み
+	if (!circle->GetIsLoad()) { IsLoad = false; return; }	//読み込み失敗
 
 	//BGM
 	bgm.front()->Load(MUSIC_DIR_BGM, BGM_NAME_PLAY_SUM);				//BGM追加（+）
@@ -53,6 +55,7 @@ Play::~Play()
 {
 	delete player;		//player破棄
 	delete limit;		//limit破棄
+	delete circle;		//circle破棄
 	
 	//敵
 	for (auto e : enemy) { delete e; }	//enemy破棄
@@ -77,6 +80,7 @@ void Play::SetInit()
 	font.at(HDL_NR)->Chenge();	//フォントハンドルをノーマルに変更
 
 	back->SetInit();	//背景画像初期設定
+	circle->SetInit();	//円の画像
 	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
 	for (auto s : se) { s->SetInit(DX_PLAYTYPE_BACK, VOL_DEF); }	//SE初期設定
 
@@ -107,6 +111,7 @@ void Play::Run()
 
 	player->DrawInputNum();			//入力中の値を描画
 
+	circle->Draw(CIRCLE_X, CIRCLE_Y);	//円の画像描画
 	limit->UpdateLimitTime();			//制限時間の更新
 	font.at(HDL_NR_POP)->Chenge();		//フォント変更
 	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画

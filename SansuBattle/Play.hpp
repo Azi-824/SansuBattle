@@ -12,9 +12,14 @@
 
 //############### マクロ定義 #################
 #define LIMIT_DRAW_X	740		//ゲームの制限時間描画X位置
-#define LIMIT_DRAW_Y	10		//ゲームの制限時間描画Y位置
+#define LIMIT_DRAW_Y	20		//ゲームの制限時間描画Y位置
 #define LIMIT_TIME		30		//ゲームの制限時間
 #define MISS_MINUS_TIME	5		//間違えたときの減る時間
+
+#define CIRCLE_X		720		//円の描画X位置
+#define CIRCLE_Y		0		//円の描画Y位置
+#define IMG_UI_DIR		R"(.\Image\Ui)"		//UI画像のディレクトリ
+#define IMG_CIRCLE_NAME	R"(\circle.png)"	//円の画像の名前
 
 using std::vector;
 
@@ -35,6 +40,7 @@ private:
 	vector<Question*> quesiton;	//問題
 	Time* limit;				//制限時間
 	vector<Music*> se;			//効果音
+	Image* circle;				//円
 
 	void Start() override;		//シーンが変わるごとに1回だけ行う処理
 

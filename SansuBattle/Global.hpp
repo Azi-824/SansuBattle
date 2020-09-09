@@ -19,7 +19,8 @@
 
 //色関係
 #define COLOR_RED	GetColor(255,0,0)		//赤色
-#define COLOR_GREEN	GetColor(0,255,0)		//緑色
+#define COLOR_LIGHTGREEN	GetColor(0,255,0)		//緑色(明るい)
+#define COLOR_GREEN	GetColor(0,136,51)		//緑色(暗い)
 #define COLOR_BLUE	GetColor(0,0,255)		//青色
 #define COLOR_WHITE GetColor(255,255,255)	//白色
 #define COLOR_BLACK GetColor(0,0,0)			//黒色
