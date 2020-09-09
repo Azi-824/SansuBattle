@@ -22,6 +22,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetAlwaysRunFlag(TRUE);										//非アクティブに設定
 
+	SetUseASyncLoadFlag(TRUE);									//非同期読み込みに設定
+
 	if (DxLib_Init() == -1) { return -1; }						//ＤＸライブラリ初期化処理
 
 	SetDrawScreen(DX_SCREEN_BACK);								//Draw系関数は裏画面に描画
@@ -59,15 +61,17 @@ bool GameLoop()
 	if (Scene::IsGameEnd()) { return false; }	//ゲーム終了
 
 	//▼▼▼▼▼ゲームのシーンここから▼▼▼▼▼
-
-	static bool IsInit = false;	//初期設定をしたか
-	if (!IsInit)	//初期設定をしていなかったら
+	if (Load::IsLoadEnd())	//読み込みが全て終わったら
 	{
-		for (auto s : scene)
+		static bool IsInit = false;	//初期設定をしたか
+		if (!IsInit)	//初期設定をしていなかったら
 		{
-			s->SetInit();	//初期設定
+			for (auto s : scene)
+			{
+				s->SetInit();	//初期設定
+			}
+			IsInit = true;		//初期設定終了
 		}
-		IsInit = true;		//初期設定終了
 	}
 
 	scene.at(Scene::GetNowScene())->Run();	//各シーンの処理

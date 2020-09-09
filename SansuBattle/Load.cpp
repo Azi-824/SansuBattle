@@ -6,6 +6,8 @@
 
 //############## クラス定義 ################
 
+bool Load::LoadEnd = false;	//読み込みが終わったか
+
 //コンストラクタ
 Load::Load()
 {
@@ -38,10 +40,26 @@ void Load::Run()
 	{
 
 		SetUseASyncLoadFlag(FALSE);	//同期読み込みに設定
+		LoadEnd = true;				//読み込み終了
+		IsGameStart = true;			//ゲームスタートできる
 
-		IsGameStart = true;		//ゲームスタートできる
+		//説明メッセージを描画
+		//DrawStringToHandle(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_DISCRIPTION, COLOR_WHITE, Font::GetNowHandle());
+		DrawString(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_DISCRIPTION, COLOR_WHITE);
+	}
+	else		//読み込み中は
+	{
+		//読み込みメッセージを描画
+		//DrawStringToHandle(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_LOAD_MSG, COLOR_WHITE, Font::GetNowHandle());
+		DrawString(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_LOAD_MSG, COLOR_WHITE);
+
 	}
 
-	DrawStringToHandle(TEXT_DISCRIPTION_X, TEXT_DISCRIPTION_Y, TEXT_DISCRIPTION, GetColor(255, 255, 255), Font::GetNowHandle());
 
+}
+
+//読み込みが終わったか取得
+bool Load::IsLoadEnd()
+{
+	return LoadEnd;
 }
