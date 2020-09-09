@@ -29,10 +29,20 @@ Font::Font(int fontname, int size, int bold, int fonttype, int charset,
 
 	if (LoadFontName.empty())	//フォントを読み込んでいなければ
 	{
+		bool load[F_MAX] = { false };	//読み込めたか
 		//フォントの読み込みを行う
-		IsCreate = LoadFont(FONT_DIR, FONT_FNAME_KOKUBAN, FONT_NAME_KOKUBAN);
-		if (!IsCreate)		//読み込めていなければ
-			return;			//読み込み失敗
+		load[FNAME_KOKUBAN] = LoadFont(FONT_DIR, FONT_FNAME_KOKUBAN, FONT_NAME_KOKUBAN);	//黒板フォント読み込み
+		load[FNAME_POP] = LoadFont(FONT_DIR, FONT_FNAME_POP, FONT_NAME_POP);				//ﾎﾟｯﾌﾟフォント読み込み
+
+		//読み込めたか確認
+		for (int i = 0; i < F_MAX; ++i)
+		{
+			if (!load[i])	//読み込めていない場合
+			{
+				IsCreate = false;
+				return;	//読み込み失敗
+			}
+		}
 	}
 
 	Handle = CreateFontToHandle(LoadFontName.at(fontname).c_str(), size, bold, fonttype,charset,edgesize,ltalic,handle);	//フォントハンドルを作成

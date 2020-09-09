@@ -108,7 +108,9 @@ void Play::Run()
 	player->DrawInputNum();			//入力中の値を描画
 
 	limit->UpdateLimitTime();			//制限時間の更新
+	font.at(HDL_NR_POP)->Chenge();		//フォント変更
 	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画
+	font.at(HDL_NR)->Chenge();			//フォントを変更
 
 	Score::Draw();	//現在のスコア描画
 

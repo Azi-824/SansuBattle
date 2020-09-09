@@ -42,14 +42,16 @@
 enum LOAD_FONT_NAME
 {
 	FNAME_KOKUBAN,	//こくばんフォント
-	FNAME_POP		//ポップフォント
+	FNAME_POP,		//ポップフォント
+	F_MAX			//フォントの数
 };	//読み込んだフォントの種類
 
 enum FONT_HANDLE_TYPE
 {
 	HDL_NR,		//こくばんフォントのノーマルサイズのハンドル
 	HDL_MINI,	//ミニサイズのハンドル
-	HDL_RANK	//こくばんフォントのランキング描画サイズのハンドル
+	HDL_RANK,	//こくばんフォントのランキング描画サイズのハンドル
+	HDL_NR_POP	//ノーマルハンドル（ﾎﾟｯﾌﾟ体）
 };
 
 using std::vector;
