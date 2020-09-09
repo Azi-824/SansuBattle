@@ -33,6 +33,7 @@
 
 #define BT_NEXT_IMG_NAME		R"(\Arrow_Right.png)"		//矢印（右）の画像
 #define BT_PREV_IMG_NAME		R"(\Arrow_Left.png)"		//矢印（左）の画像
+#define BT_BACK_IMG_NAME		R"(\back.png)"				//戻るボタンの画像
 
 #define RECT_EXPANSION_VALUE	20	//領域の拡大量
 #define RECT_TOUKA_VALUE		0.8	//領域の透過率

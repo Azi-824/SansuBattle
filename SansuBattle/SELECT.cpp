@@ -56,8 +56,9 @@ Select::Select()
 	for (auto i : mode_img){ mode.push_back(new Button(i)); }		//モード
 	for (auto i : level_img) { level.push_back(new Button(i)); }	//レベル
 
-	next = new Button(new Image(BT_IMG_DIR, BT_NEXT_IMG_NAME));	//次のページへ移動するボタン
-	prev = new Button(new Image(BT_IMG_DIR, BT_PREV_IMG_NAME));	//前のページへ移動するボタン
+	next = new Button(new Image(BT_IMG_DIR, BT_NEXT_IMG_NAME));		//次のページへ移動するボタン
+	prev = new Button(new Image(BT_IMG_DIR, BT_PREV_IMG_NAME));		//前のページへ移動するボタン
+	cancel = new Button(new Image(BT_IMG_DIR, BT_BACK_IMG_NAME));	//戻るボタン
 
 
 }
@@ -87,6 +88,7 @@ Select::~Select()
 
 	delete next;	//nextボタン破棄
 	delete prev;	//prevボタン破棄
+	delete cancel;	//cancelボタン破棄
 
 
 }
@@ -104,6 +106,8 @@ void Select::SetInit()
 	next->SetRect(GAME_WIDTH - next->GetWidth(), GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
 	prev->SetInit();	//初期設定
 	prev->SetRect(GAME_LEFT, GAME_HEIGHT / 2 - next->GetHeight() / 2);	//位置設定
+	cancel->SetInit();	//初期設定
+	cancel->SetRect(GAME_LEFT, GAME_TOP);	//位置設定
 
 	//ボタンをグループに登録
 	mode_group = new Group(mode, BT_MODE_DRAW_X, BT_MODE_DRAW_Y, BT_MODE_INTERVAL_SIDE, BT_MODE_INTERVAL_VERTICAL);
@@ -124,6 +128,15 @@ void Select::Run()
 	{
 		level_group->Draw();	//レベル描画
 		level_group->Clik();	//レベルのクリック処理
+		cancel->Draw();			//キャンセルボタンの描画
+		if (cancel->OnClick())	//キャンセルボタンを押したら
+		{
+			//イベント登録、実行
+			cancel->Event([this]
+				{
+					mode_group->Reset();	//モードの選択リセット
+				});
+		}
 	}
 	else		//モードの選択をしていなければ
 	{

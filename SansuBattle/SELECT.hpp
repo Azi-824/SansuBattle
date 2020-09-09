@@ -33,6 +33,7 @@ private:
 	vector<Image*> level_img;	//ゲームレベル画像
 	Button* next;				//次のページへ移動するボタン
 	Button* prev;				//前のページへ移動するボタン
+	Button* cancel;				//レベル選択から、モード選択へ戻るボタン
 
 	Group* mode_group;			//ゲームモードのグループ
 	Group* level_group;			//ゲームレベルのグループ
