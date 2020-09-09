@@ -40,9 +40,9 @@ void Ranking::Run()
 	back->Draw(GAME_LEFT, GAME_TOP);//背景描画
 
 	//***************** スコアの描画 ********************
-	font.at(HANDLE_RANK)->Chenge();				//フォント変更
+	font.at(HDL_RANK)->Chenge();				//フォント変更
 	for (auto d : data) { d->Draw(GameMode); }	//スコア描画
-	font.at(HANDLE_NR)->Chenge();				//フォント変更
+	font.at(HDL_NR)->Chenge();				//フォント変更
 
 	if (Mouse::OnLeftClick())	//左クリックされたら
 	{

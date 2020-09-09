@@ -18,11 +18,13 @@
 //################ マクロ定義 ファイルパスと名前 ###############
 #define FONT_DIR			R"(.\Font)"				//フォントファイルの場所
 
-#define FONT_FNAME_KOKUBAN	R"(\kokubanB.ttf)"			//フォントの名前
+#define FONT_FNAME_KOKUBAN	R"(\kokubanB.ttf)"			//フォントの名前(黒板)
+#define FONT_FNAME_POP		R"(\HGRPP1002.ttf)"			//フォントの名前(ポップ体)
 //############### マクロ定義 ##################
 
 //*********** フォント名 **************
-#define FONT_NAME_KOKUBAN	"こくばん"					//フォントの正式名称
+#define FONT_NAME_KOKUBAN	"こくばん"					//フォントの正式名称(黒板)
+#define FONT_NAME_POP		"創英角ﾎﾟｯﾌﾟ体"				//フォントの正式名称(ポップ)
 
 //*********** フォントサイズ **************
 #define F_SIZE_NORMAL	128			//通常のフォントサイズ
@@ -40,13 +42,14 @@
 enum LOAD_FONT_NAME
 {
 	FNAME_KOKUBAN,	//こくばんフォント
+	FNAME_POP		//ポップフォント
 };	//読み込んだフォントの種類
 
 enum FONT_HANDLE_TYPE
 {
-	HANDLE_NR,		//こくばんフォントのノーマルサイズのハンドル
-	HANDLE_MINI,	//ミニサイズのハンドル
-	HANDLE_RANK		//こくばんフォントのランキング描画サイズのハンドル
+	HDL_NR,		//こくばんフォントのノーマルサイズのハンドル
+	HDL_MINI,	//ミニサイズのハンドル
+	HDL_RANK	//こくばんフォントのランキング描画サイズのハンドル
 };
 
 using std::vector;

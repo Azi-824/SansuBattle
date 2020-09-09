@@ -74,7 +74,7 @@ Play::~Play()
 void Play::SetInit()
 {
 
-	font.at(HANDLE_NR)->Chenge();	//フォントハンドルをノーマルに変更
+	font.at(HDL_NR)->Chenge();	//フォントハンドルをノーマルに変更
 
 	back->SetInit();	//背景画像初期設定
 	for (auto b : bgm) { b->SetInit(DX_PLAYTYPE_LOOP, VOL_DEF); }	//BGM初期設定
@@ -101,9 +101,9 @@ void Play::Run()
 	player->Draw();								//プレイヤー（HP）描画
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
 
-	font.at(HANDLE_MINI)->Chenge();		//フォントを変更
+	font.at(HDL_MINI)->Chenge();		//フォントを変更
 	quesiton.back()->DrawQuestion();	//問題描画
-	font.at(HANDLE_NR)->Chenge();		//フォントを変更
+	font.at(HDL_NR)->Chenge();		//フォントを変更
 
 	player->DrawInputNum();			//入力中の値を描画
 
