@@ -56,24 +56,18 @@ bool Player::CheckInputKey()
 	keydown->KeyDownUpdate();			//キー入力更新
 	int InputNumBuf = InputNum;			//現在の入力されている値を取得
 	static int Weight = 10;				//桁の重み
+	static int digit = 0;				//桁数
 	int NewInputKey = GetInputKey();	//新たに入力されたキー
 
 	if (INPUT_NUM_0 <= NewInputKey && NewInputKey <= INPUT_NUM_9)	//数値を入力した時
 	{
-		unsigned int check = 0;	//確認用
 
-		//マイナスの値の場合、正の値に変換する
-		InputNumBuf < 0 ? check = InputNumBuf * -1 : check = InputNumBuf;
-
-		check *= Weight;
-		check += NewInputKey;
-
-		if (check < INT_MAX)		//int型の範囲内なら
+		if (digit < INP_MAX_DIGIT)	//最大桁数より少ない場合は
 		{
 			//入力値に桁の重みを付けて計算
 			//負の値の時は、マイナス、正の値の時は、プラスで、計算する
 			InputNumBuf < 0 ? InputNumBuf = (InputNumBuf * Weight) - NewInputKey : InputNumBuf = (InputNumBuf * Weight) + NewInputKey;
-
+			++digit;	//桁数を増加
 		}
 
 	}
@@ -82,12 +76,14 @@ bool Player::CheckInputKey()
 		if (NewInputKey == INPUT_ENTER)	//決定された場合
 		{
 			InputNumBuf = 0;	//初期化
+			digit = 0;			//桁数初期化
 			return true;		//入力終了
 		}
 
 		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
 		{
 			InputNumBuf /= Weight;		//一文字分消す
+			--digit;					//桁数を減らす
 		}
 
 		if (NewInputKey == INPUT_MINUS)	//マイナスキーを押されたら
@@ -96,7 +92,6 @@ bool Player::CheckInputKey()
 		}
 	}
 
-	//InputNum = std::to_string(InputNumBuf);	//入力された数字を設定
 	InputNum = InputNumBuf;		//入力された数字を設定
 
 	return false;

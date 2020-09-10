@@ -14,6 +14,8 @@
 
 #define PLAYER_HP_DRAW_Y		420	//HPの描画開始Y位置
 
+#define INP_MAX_DIGIT		4		//入力される値の最大桁数
+
 //##################### 列挙型 ##########################
 enum INPUT_NUM
 {
