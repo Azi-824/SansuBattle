@@ -14,6 +14,7 @@ Charactor::Charactor()
 	HP_Y = 0;			//HP描画Y位置
 	reverse = false;	//反転描画するか
 	IsArive = true;		//生きているか初期化
+	KillFlg = false;	//キルフラグ
 	HP = HP_INIT_VALUE;	//HP初期化
 
 	hp_img = new Image();	//画像のインスタンス生成
@@ -31,6 +32,7 @@ void Charactor::Init()
 {
 	HP = HP_INIT_VALUE;	//HP初期化
 	IsArive = true;		//生きている
+	KillFlg = false;	//キルフラグリセット
 }
 
 //初期設定
@@ -53,14 +55,14 @@ void Charactor::SendDamege()
 	if (HP <= 0)	//HPが0以下になったら
 	{
 		HP = 0;	//HPは0
-		Kill();	//キャラを殺す
+		IsArive = false;	//生きていない
 	}
 }
 
 //キャラを殺す
 void Charactor::Kill()
 {
-	IsArive = false;
+	KillFlg = true;
 }
 
 //HP取得

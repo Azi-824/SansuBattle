@@ -139,20 +139,10 @@ void Play::Start()
 //戦闘の処理
 void Play::Battle()
 {
-	player->Draw();								//プレイヤー（HP）描画
+	static bool end = false;	//戦闘終了したか
+
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
-
-	font.at(HDL_MINI)->Chenge();		//フォントを変更
-	quesiton.back()->DrawQuestion();	//問題描画
-	font.at(HDL_NR)->Chenge();			//フォントを変更
-
-	player->DrawInputNum();				//入力中の値を描画
-
-	circle->Draw(CIRCLE_X, CIRCLE_Y);	//円の画像描画
-	limit->UpdateLimitTime();			//制限時間の更新
-	font.at(HDL_NR_POP)->Chenge();		//フォント変更
-	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画
-	font.at(HDL_NR)->Chenge();			//フォントを変更
+	player->Draw();								//プレイヤー（HP）描画
 
 	bord->Draw(GAME_LEFT, SCORE_Y);		//黒板の画像を描画
 	RECT rect = { GAME_LEFT,SCORE_Y,GAME_LEFT + bord->GetWidth(), SCORE_Y + bord->GetHeight() };	//黒板の領域を取得
@@ -160,14 +150,63 @@ void Play::Battle()
 	Score::DrawCenter(rect);			//現在のスコア描画
 	font.at(HDL_NR)->Chenge();			//フォント変更
 
-
-	if (IsOperation)	//操作できるとき
+	switch (NowPhase)		//フェーズごとに分岐
 	{
+
+	case PHASE_EFFECT:		//エフェクトフェーズの時
+
+		if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())			//エフェクト終了したら
+		{
+			enemy.at(Enemy::GetNowEnemyNum())->SendDamege();				//敵にダメージを与える
+			player->InpReset();												//入力情報リセット
+			quesiton.push_back(new Question(GameMode, GameLevel));			//次の問題を生成
+			Score::AddScore(GameMode, GameLevel, limit->GetElapsedTime());	//スコア加算
+			if (!enemy.at(Enemy::GetNowEnemyNum())->GetIsArive())			//敵が死んでいるときは
+			{
+				enemy.at(Enemy::GetNowEnemyNum())->Kill();	//敵を殺す
+			}
+			else	//敵が生きているときは
+			{
+				NowPhase = PHASE_OPERATION;	//操作フェーズ
+			}
+			limit->SetTime();												//制限時間の再計測開始
+		}
+
+		if (enemy.at(Enemy::GetNowEnemyNum())->GetFadeEnd())	//フェードアウト終了したら
+		{
+			Enemy::NextEnemy();			//次の敵へ
+			if (Enemy::GetAllEnemyKilled())	//全ての敵を倒したら
+			{
+				end = true;	//バトル終了
+			}
+			else	//倒していなかったら
+			{
+				NowPhase = PHASE_OPERATION;	//操作フェーズへ
+			}
+		}
+
+
+		break;				//エフェクトフェーズの時ここまで
+
+	case PHASE_OPERATION:	//操作フェーズの時
+
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, PHASE_TOUKA_PERCENT * TOUKA_MAX_VALUE);	//透過させる
+		DrawBox(GAME_LEFT, GAME_TOP, GAME_LEFT + GAME_WIDTH, GAME_TOP + GAME_HEIGHT, COLOR_GRAY,true);	//画面全体を薄く灰色にする
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);										//透過をやめる
+
+		player->DrawInputNum();			//入力中の値を描画
+
+		//*************** 問題の描画 *******************
+		font.at(HDL_MINI)->Chenge();		//フォントを変更
+		quesiton.back()->DrawQuestion();	//問題描画
+		font.at(HDL_NR)->Chenge();			//フォントを変更
+
 		if (player->CheckInputKey())	//キー入力が完了したら
 		{
 			if (quesiton.back()->JudgAnser(player->GetAns()))	//プレイヤーの回答が正解だったら
 			{
 				enemy.at(Enemy::GetNowEnemyNum())->SetDamegeFlg(true);		//敵にダメージフラグを立てる
+				NowPhase = PHASE_EFFECT;//エフェクトフェーズに変更
 				IsOperation = false;	//操作不可に
 			}
 			else		//不正解だったら
@@ -178,42 +217,38 @@ void Play::Battle()
 			}
 
 		}
+
+		break;				//操作フェーズの時ここまで
+
+	default:
+		break;
 	}
 
 
-	if (enemy.at(Enemy::GetNowEnemyNum())->GetIsEffectEnd())			//エフェクト終了したら
-	{
-		enemy.at(Enemy::GetNowEnemyNum())->SendDamege();				//敵にダメージを与える
-		player->InpReset();												//入力情報リセット
-		quesiton.push_back(new Question(GameMode, GameLevel));			//次の問題を生成
-		Score::AddScore(GameMode, GameLevel, limit->GetElapsedTime());	//スコア加算
-		IsOperation = true;												//操作可能に
-		limit->SetTime();												//制限時間の再計測開始
-	}
-
-	if (!enemy.at(Enemy::GetNowEnemyNum())->GetIsArive())	//敵が死んでいるときは
-	{
-		IsOperation = false;	//操作不可
-	}
-	else	//敵が生きているときは
-	{
-		IsOperation = true;		//操作可能
-	}
-
+	//************* 制限時間の描画 *******************
+	circle->Draw(CIRCLE_X, CIRCLE_Y);	//円の画像描画
+	limit->UpdateLimitTime();			//制限時間の更新
+	font.at(HDL_NR_POP)->Chenge();		//フォント変更
+	limit->DrawLimitTime(LIMIT_DRAW_X, LIMIT_DRAW_Y);	//制限時間描画
+	font.at(HDL_NR)->Chenge();			//フォントを変更
 
 	if (limit->GetIsLimit())	//制限時間を超えたら
 	{
 		se.at(SE_DAMEGE)->Play();	//ダメージの効果音を再生
-		player->SendDamege();	//プレイヤーにダメージを与える
-		quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を作成
-		limit->SetTime();		//制限時間の再計測開始
+		player->SendDamege();		//プレイヤーにダメージを与える
+		if (!player->GetIsArive())	//プレイヤーが死んだら
+		{
+			end = true;	//バトル終了
+		}
+		else	//死んでいなければ
+		{
+			quesiton.push_back(new Question(GameMode, GameLevel));	//次の問題を作成
+			limit->SetTime();		//制限時間の再計測開始
+		}
 	}
 
-	//****************** キャラが死んだときの処理 ******************************
-	if (!player->GetIsArive() ||	//プレイヤーが死んだ場合
-		Enemy::GetAllEnemyKilled())	//全ての敵を倒した場合	
+	if (end)	//バトルが終了したら
 	{
-		IsOperation = false;	//操作不可に
 		if (FadeOut())	//フェードアウトが終了したら
 		{
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画

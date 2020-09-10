@@ -28,6 +28,7 @@ protected:
 	bool reverse;				//”½“]•`‰æ‚·‚é‚©
 
 	bool IsArive;				//¶‚«‚Ä‚¢‚é‚©
+	bool KillFlg;				//ƒLƒ‹ƒtƒ‰ƒO
 
 public:
 

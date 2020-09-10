@@ -72,6 +72,10 @@ void Enemy::NextEnemy()
 	{
 		++NowEnemyNum;				//次の敵へ
 	}
+	else	//敵の数が最大になったら
+	{
+		AllKill = true;	//全ての敵を倒した
+	}
 }
 
 //現在何体目の敵か取得
@@ -98,7 +102,7 @@ void Enemy::Draw()
 	}
 
 	//敵描画
-	if (IsArive)	//生きていれば
+	if (!KillFlg)	//キルフラグが立っていなければ
 	{
 		img->DrawCenter();		//中央に描画
 		if (dmgFlg)	//ダメージを受けたとき
@@ -106,19 +110,19 @@ void Enemy::Draw()
 			damege->DrawCenter(rect);	//ダメージエフェクト描画
 		}
 	}
-	else			//死んでいれば
+	if (KillFlg)	//キルフラグが立っていれば
 	{
 		img->SetIsFade(true);	//フェードアウト開始
 		img->DrawCenter();		//中央に描画
 
-		if (GetFadeEnd())		//フェードアウト終了したら
-		{
-			if (NowEnemyNum == ENEMY_MAX - 1)	//最後の敵を倒したら
-			{
-				AllKill = true;	//全ての敵を倒した
-			}
-			NextEnemy();		//次の敵へ
-		}
+		//if (GetFadeEnd())		//フェードアウト終了したら
+		//{
+		//	if (NowEnemyNum == ENEMY_MAX - 1)	//最後の敵を倒したら
+		//	{
+		//		AllKill = true;	//全ての敵を倒した
+		//	}
+		//	//NextEnemy();		//次の敵へ
+		//}
 	}
 }
 

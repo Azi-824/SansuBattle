@@ -25,6 +25,8 @@
 #define IMG_CIRCLE_NAME		R"(\circle.png)"	//円の画像の名前
 #define IMG_KOKUBAN_NAME	 R"(\kokuban.png)"	//黒板の画像の名前
 
+#define PHASE_TOUKA_PERCENT	0.8	//操作フェーズでの透過割合
+
 using std::vector;
 
 //############### 列挙型 ##################
