@@ -48,7 +48,8 @@ Play::Play()
 	//時間
 	limit = new Time(LIMIT_TIME);		//制限時間
 
-	IsOperation = true;	//キー操作できる
+	NowPhase = PHASE_OPERATION;	//最初は操作フェーズからスタート
+	IsOperation = true;			//キー操作できる
 
 	IsLoad = true;	//読み込み成功
 
@@ -108,6 +109,36 @@ void Play::Run()
 	bgm.at(GameMode)->Play();			//BGMを流す
 	back->Draw(GAME_LEFT, GAME_TOP);	//背景描画
 
+	Battle();					//戦闘の処理
+
+	if (Mouse::OnLeftClick())	//左クリックされたら
+	{
+		bgm.at(GameMode)->Stop();	//BGMを止める
+		start = false;				//次に備えてstartフラグをリセット
+		NowScene = SCENE_RANKING;	//ランキング画面へ
+	}
+
+}
+
+//シーンが変わるごとに1回だけ行う処理
+void Play::Start()
+{
+	if (!start)	//処理を行っていなければ
+	{
+		Score::Reset();											//スコアリセット
+		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
+		player->Init();											//プレイヤー初期化
+		for (auto e : enemy) { e->Init(); }						//敵初期化
+		Save::Load(&data,GameMode);								//データ読み込み
+		limit->SetTime();										//制限時間の計測開始
+		start = true;											//処理を行った
+
+	}
+}
+
+//戦闘の処理
+void Play::Battle()
+{
 	player->Draw();								//プレイヤー（HP）描画
 	enemy.at(Enemy::GetNowEnemyNum())->Draw();	//敵キャラ描画
 
@@ -188,34 +219,10 @@ void Play::Run()
 			DrawBox(GAME_LEFT, GAME_TOP, GAME_WIDTH, GAME_HEIGHT, COLOR_BLACK, true);	//黒い四角を描画
 			data.push_back(new Data(Score::GetScore()));	//データを追加
 			Save::Sort(&data);					//ソート
-			Save::DataSave(data,GameMode);		//セーブ
+			Save::DataSave(data, GameMode);		//セーブ
 			start = false;						//次に備えてstartフラグをリセット
 			bgm.at(GameMode)->Stop();			//BGMを止める
 			NowScene = SCENE_RANKING;			//ランキング画面へ
 		}
-	}
-
-	if (Mouse::OnLeftClick())	//左クリックされたら
-	{
-		bgm.at(GameMode)->Stop();	//BGMを止める
-		start = false;				//次に備えてstartフラグをリセット
-		NowScene = SCENE_RANKING;	//ランキング画面へ
-	}
-
-}
-
-//シーンが変わるごとに1回だけ行う処理
-void Play::Start()
-{
-	if (!start)	//処理を行っていなければ
-	{
-		Score::Reset();											//スコアリセット
-		quesiton.push_back(new Question(GameMode, GameLevel));	//問題を作成
-		player->Init();											//プレイヤー初期化
-		for (auto e : enemy) { e->Init(); }						//敵初期化
-		Save::Load(&data,GameMode);								//データ読み込み
-		limit->SetTime();										//制限時間の計測開始
-		start = true;											//処理を行った
-
 	}
 }

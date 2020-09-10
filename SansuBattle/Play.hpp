@@ -34,6 +34,12 @@ enum SE_KIND
 	SE_DAMEGE		//ダメージを受けたときの効果音
 };
 
+enum PHASE_KIND
+{
+	PHASE_EFFECT,		//エフェクトフェーズ
+	PHASE_OPERATION		//操作フェーズ
+};
+
 //############### クラス定義 #################
 class Play : public Scene	//Sceneクラスを継承
 {
@@ -48,8 +54,10 @@ private:
 	Image* bord;				//黒板
 
 	bool IsOperation;			//操作できるか
+	int NowPhase;				//現在のフェーズ
 
 	void Start() override;		//シーンが変わるごとに1回だけ行う処理
+	void Battle();				//バトルの処理
 
 public:
 
