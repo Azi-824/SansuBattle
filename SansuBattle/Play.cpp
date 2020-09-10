@@ -194,6 +194,7 @@ void Play::Battle()
 		DrawBox(GAME_LEFT, GAME_TOP, GAME_LEFT + GAME_WIDTH, GAME_TOP + GAME_HEIGHT, COLOR_GRAY,true);	//‰æ–Ê‘S‘Ì‚ð”–‚­ŠDF‚É‚·‚é
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);										//“§‰ß‚ð‚â‚ß‚é
 
+		bord->DrawCenter();				//‰æ–Ê’†‰›‚É•”Â‚Ì‰æ‘œ‚ð•`‰æ
 		player->DrawInputNum();			//“ü—Í’†‚Ì’l‚ð•`‰æ
 
 		//*************** –â‘è‚Ì•`‰æ *******************

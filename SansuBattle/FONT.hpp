@@ -27,7 +27,7 @@
 #define FONT_NAME_POP		"創英角ﾎﾟｯﾌﾟ体"				//フォントの正式名称(ポップ)
 
 //*********** フォントサイズ **************
-#define F_SIZE_NORMAL	128			//通常のフォントサイズ
+#define F_SIZE_NORMAL	114			//通常のフォントサイズ
 #define F_SIZE_TIME		100			//時間表示のフォントサイズ
 #define F_SIZE_MINI		90			//フォントサイズ（ミニ）
 #define F_SIZE_RANKING	54			//ランキング描画の時のフォントサイズ
