@@ -67,7 +67,9 @@ bool Player::CheckInputKey()
 			//入力値に桁の重みを付けて計算
 			//負の値の時は、マイナス、正の値の時は、プラスで、計算する
 			InputNumBuf < 0 ? InputNumBuf = (InputNumBuf * Weight) - NewInputKey : InputNumBuf = (InputNumBuf * Weight) + NewInputKey;
-			++digit;	//桁数を増加
+			
+			digit = std::to_string(InputNumBuf).length();	//桁数を計算
+
 		}
 
 	}
@@ -83,7 +85,7 @@ bool Player::CheckInputKey()
 		if (NewInputKey == INPUT_BACK)	//バックスペースを押されたら
 		{
 			InputNumBuf /= Weight;		//一文字分消す
-			--digit;					//桁数を減らす
+			digit = std::to_string(InputNumBuf).length();	//桁数を計算
 		}
 
 		if (NewInputKey == INPUT_MINUS)	//マイナスキーを押されたら
