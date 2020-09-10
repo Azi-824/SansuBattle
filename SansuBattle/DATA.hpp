@@ -12,7 +12,6 @@
 //#define RANK_INDEX_TEXT	"ランキング"	//表題テキスト
 
 //テキスト関係
-#define TXT_MD				"ゲームモード:"					//ゲームモードのテキスト
 #define TXT_MD_SUM			"たしざん"						//足し算モードのテキスト
 #define TXT_MD_DIF			"ひきざん"						//引き算モードのテキスト
 #define TXT_MD_PRO			"かけざん"						//掛け算モードのテキスト

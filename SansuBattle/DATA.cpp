@@ -75,8 +75,7 @@ void Data::Draw(int mode)
 
 	int height = GetFontSizeToHandle(Font::GetNowHandle());	//高さ取得
 
-	string text_gamemode = TXT_MD;		//ゲームモードのテキスト
-	text_gamemode += TxtTable.at(mode);	//ゲームモード毎のテキストを取得
+	string text_gamemode = TxtTable.at(mode);	//ゲームモード毎のテキストを取得
 
 	DrawStringToHandle(DRAW_DATA_X, DRAW_DATA_Y, text_gamemode.c_str(), COLOR_WHITE, Font::GetNowHandle());		//ランキングタイトル描画
 
