@@ -1,82 +1,277 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Charactor">
-    <Position X="1.75" Y="0.5" Width="1.5" />
+  <Class Name="Animation" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICAAAAABAgCBgAIhAFAAkDAAAAAgAIAAIBAAEAAgAE=</HashCode>
+      <FileName>Animation.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAEAEgAAAAwAIABCAgAAgAAAAAAAAEEIAAA=</HashCode>
+      <FileName>Button.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Charactor" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAkAAAAAA4BAAQAAAggIAAAACRAAAIAA=</HashCode>
       <FileName>Charactor.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Enemy">
-    <Position X="2.75" Y="5.5" Width="1.5" />
+  <Class Name="Data" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QgAAQoAAAAAAEggMCAAAIAAAAAQAgAAAAAACAAgAAAA=</HashCode>
-      <FileName>Enemy.hpp</FileName>
+      <HashCode>AAAAABAAAAUAAogAACgAAAAAAAAAABAAAAgCgQAIAAA=</HashCode>
+      <FileName>Data.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player">
-    <Position X="0.5" Y="5.5" Width="1.5" />
+  <Class Name="Effect" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAgABAAAIAAAAAAABAgAAgAAAAAQAAgBA=</HashCode>
-      <FileName>Player.hpp</FileName>
+      <HashCode>BAAAAICAAAgABgIABAQAAAAAAAAAgAAAIQBAAAAAAQA=</HashCode>
+      <FileName>Effect.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Scene">
-    <Position X="9.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAKAAAEAACAAAAIhgEBAAAQAQAAAwAAAAgASAAAAAAI=</HashCode>
-      <FileName>Scene.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Load">
-    <Position X="5.75" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAgAABAAAAAAAAAggAAAAAAAIAAAAAI=</HashCode>
-      <FileName>Load.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Title">
-    <Position X="7.5" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAEAAAAAAAAAAAABBgAAAAAAAAAAAAAI=</HashCode>
-      <FileName>Title.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Play">
-    <Position X="9.25" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAIAQgCAAEAAECgAABgAAAAAAAAAI=</HashCode>
-      <FileName>Play.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Ranking">
-    <Position X="12.75" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAAABAAAAI=</HashCode>
-      <FileName>Ranking.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="End">
-    <Position X="14.5" Y="5.75" Width="1.5" />
+  <Class Name="End" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAgACAAAAAAAAAAAI=</HashCode>
       <FileName>End.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Select">
-    <Position X="11" Y="5.75" Width="1.5" />
-    <InheritanceLine Type="Scene" FixedToPoint="true">
-      <Path>
-        <Point X="10.25" Y="5.132" />
-        <Point X="10.25" Y="5.45" />
-        <Point X="12.5" Y="5.45" />
-        <Point X="12.5" Y="5.75" />
-      </Path>
-    </InheritanceLine>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAQoAAAAAAEggMCAAAIAAAAAQAgAAAAAACAAgAAAA=</HashCode>
+      <FileName>Enemy.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Font" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAQCAAAAEAAAAAEAAAAAIAAARAAAACAAk=</HashCode>
+      <FileName>Font.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fps" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAgAAAAAAAQiAAEgAAAAAAAAQAgCAAAACAAACQAAA=</HashCode>
+      <FileName>Fps.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Group" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADIAIEAAAAAABgACAAAAAAAIAABQiHAAEgAAgUAMJRA=</HashCode>
+      <FileName>Group.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Image" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwoAABACAogACBABAAMBAQgAAgBIAAABAAEBAAAA=</HashCode>
+      <FileName>Image.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyDown" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAkAAAAAAAAAAAAAAAQIAAAAIAQIAAAAA=</HashCode>
+      <FileName>KeyDown.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Load" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAgAABAAAAAAAAAggAAAAAAAIAAAAAI=</HashCode>
+      <FileName>Load.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mouse" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAACAAAAQAAhAAgAAAIAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Mouse.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Music" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAgAEAAAAABACABABIAIAAAAAAgAIAoBBIAABAABA=</HashCode>
+      <FileName>Music.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Play" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAIAQgCAAEAAECgAABgAAAAAAAAAI=</HashCode>
+      <FileName>Play.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAgABAAAIAAAAAAABAgAAgAAAAAQAAgBA=</HashCode>
+      <FileName>Player.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Question" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAAQAAAAAAAAABARIAABAIAEAAABEAEAIAAADIAAAE=</HashCode>
+      <FileName>Question.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ranking" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAAABAAAAI=</HashCode>
+      <FileName>Ranking.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Save" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAEABAAQAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Save.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAEAACAAAAIhgEBAAAQAQAAAwAAAAgASAAAAAAI=</HashCode>
+      <FileName>Scene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Score" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABggAAAAIAAAAAAAgAUABAABAgAAAAAA=</HashCode>
+      <FileName>Score.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Select" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAABAAAiBAAACAAAAAQAAAAAEAgAAAAABAQAIAQAI=</HashCode>
       <FileName>Select.hpp</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Time" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAFAAAAAAAQAAAAEEAAAAAAIAAAgBAAAAIAAkAAAQA=</HashCode>
+      <FileName>Time.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Title" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAEAAAAAAAAAAAABBgAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Title.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ANIM_LIST" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Animation.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BT_TYPE" Collapsed="true">
+    <Position X="18.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAACA=</HashCode>
+      <FileName>Button.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EFFECT_NAME" Collapsed="true">
+    <Position X="16.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Effect.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LOAD_FONT_NAME" Collapsed="true">
+    <Position X="20" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAgAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Font.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FONT_HANDLE_TYPE" Collapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Font.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BACK_IMAGE" Collapsed="true">
+    <Position X="16.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Image.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EF_SE_NAME" Collapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Music.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SE_KIND" Collapsed="true">
+    <Position X="16.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Play.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PHASE_KIND" Collapsed="true">
+    <Position X="14.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Play.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="INPUT_NUM" Collapsed="true">
+    <Position X="18.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAEAgAEAgAAAAQAARAABAAAAAAAAABKEAAAA=</HashCode>
+      <FileName>Player.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CALC_KIND" Collapsed="true">
+    <Position X="20" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAIAAAAAAAAAAAACAAAAAABAAAAAAgAAA=</HashCode>
+      <FileName>Question.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GAME_SCENE" Collapsed="true">
+    <Position X="14.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgQAAIAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAA=</HashCode>
+      <FileName>Scene.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GAMEMODE_KIND" Collapsed="true">
+    <Position X="16.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QYAAQAAACACAAAgAIAAAAAAAAJQAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Scene.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GAME_LEVEL" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAEAAAAAAAAAACgAAAAAA=</HashCode>
+      <FileName>Scene.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Yu Gothic UI" Size="9" />
 </ClassDiagram>
