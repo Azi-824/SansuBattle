@@ -257,6 +257,7 @@ void Play::Battle()
 			Save::Sort(&data);					//ソート
 			Save::DataSave(data, GameMode);		//セーブ
 			start = false;						//次に備えてstartフラグをリセット
+			end = false;						//エンドフラグリセット
 			bgm.at(GameMode)->Stop();			//BGMを止める
 			NowScene = SCENE_RANKING;			//ランキング画面へ
 		}
