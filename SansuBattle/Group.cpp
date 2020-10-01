@@ -22,10 +22,10 @@ Group::Group(Button* bt,int x, int y, int side,int vertical)
 	NowPage = PAGE_START;	//現在のページ
 	DrawX = 0;				//描画開始X位置
 	DrawY = 0;				//描画開始Y位置
+	S_DrawX = 0;			//描画開始X位置(Init)
+	S_DrawY = 0;			//描画開始Y位置(Init)
 	RowNum = 0;				//描画範囲の中で描画できる列の数
 	LineNum = 0;			//描画範囲の中で描画できる行の数
-	//NowRow = 0;				//現在の列番号
-	//NowLine = 0;			//現在の行番号
 	Interval_Side = 0;		//選択肢の間隔(横)
 	Interval_Vertical = 0;	//選択肢の間隔(縦)
 	SelectNum = -1;			//選択したボタン
@@ -54,10 +54,10 @@ Group::Group(vector<Button*> bt, int x, int y, int side, int vertical)
 	NowPage = PAGE_START;	//現在のページ
 	DrawX = 0;				//描画開始X位置
 	DrawY = 0;				//描画開始Y位置
+	S_DrawX = 0;			//描画開始X位置(Init)
+	S_DrawY = 0;			//描画開始Y位置(Init)
 	RowNum = 0;				//描画範囲の中で描画できる列の数
 	LineNum = 0;			//描画範囲の中で描画できる行の数
-	//NowRow = 0;				//現在の列番号
-	//NowLine = 0;			//現在の行番号
 	Interval_Side = 0;		//選択肢の間隔(横)
 	Interval_Vertical = 0;	//選択肢の間隔(縦)
 	SelectNum = -1;			//選択したボタン
@@ -80,6 +80,8 @@ void Group::SetInit(int x, int y, int side, int vertical)
 {
 	DrawX = x;				//描画開始X位置設定
 	DrawY = y;				//描画開始Y位置設定
+	S_DrawX = x;			//描画開始X位置(Init)
+	S_DrawY = y;			//描画開始Y位置(Init)
 	Interval_Side = side;	//選択肢の間隔(横)を設定
 	Interval_Vertical = vertical;	//選択肢の間隔(縦)を設定
 
@@ -256,4 +258,7 @@ void Group::Reset()
 	IsChoise = false;		//選択したか
 	NowPage = PAGE_START;	//現在のページ
 	SelectNum = -1;			//選択したボタン
+	//描画位置リセット
+	DrawX = S_DrawX;
+	DrawY = S_DrawY;
 }

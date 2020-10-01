@@ -32,10 +32,10 @@ private:
 
 	int DrawX;									//描画開始X位置
 	int DrawY;									//描画開始Y位置
+	int S_DrawX;								//描画開始X位置（最初）
+	int S_DrawY;								//描画開始Y位置（最初）
 	int RowNum;									//描画範囲の中で描画できる列の数
 	int LineNum;								//描画範囲の中で描画できる行の数
-	//int NowRow;									//現在の列番号
-	//int NowLine;								//現在の行番号
 	int Interval_Side;							//選択肢の間隔(横)
 	int Interval_Vertical;						//選択肢の間隔(縦)
 
